@@ -1,19 +1,22 @@
-import "./globals.css";
+import Navbar from "@/components/navbar";
+import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { Inter, Poppins, Roboto } from "next/font/google";
 
-const inter = Inter({ subsets: ["latin"] });
 const poppins = Poppins({
   weight: ["300", "400", "500", "600", "700", "800", "900"],
   subsets: ["latin"],
+  variable: "--font-poppins",
 });
+
 const roboto = Roboto({
   weight: ["300", "400", "500", "700", "900"],
   subsets: ["latin"],
+  variable: "--font-roboto",
 });
 
 export const metadata: Metadata = {
-  title: "ASKCENTA",
+  title: "Askcenta",
   description: "Connect with others, find what you are looking for",
 };
 
@@ -24,7 +27,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${poppins.className} ${roboto.className} bg-[#F7F7F9]`}>
+      <body
+        className={`${poppins.variable} ${roboto.variable} ${roboto.className} bg-[#F7F7F9]`}
+      >
+        <Navbar />
         {children}
       </body>
     </html>
