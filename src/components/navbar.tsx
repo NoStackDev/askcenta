@@ -10,7 +10,7 @@ export default function Navbar({}: Props) {
       <nav className="w-full max-w-7xl flex justify-between items-center m-4 md:my-6 md:mx-[100px] 2xl:mx-auto">
         <Image src={"/images/logo.png"} width={130} height={32} alt="logo" />
 
-        <div className="flex items-center gap-8 md:gap-10">
+        <div className="flex items-center gap-6 md:gap-10">
           <Button className="" variant="nav">
             Login
           </Button>
