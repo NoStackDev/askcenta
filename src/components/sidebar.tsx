@@ -7,7 +7,14 @@ import Link from "next/link";
 
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-import { DiscoverIcon } from "./icons";
+import {
+  AccountIcon,
+  DashboardIcon,
+  DiscoverIcon,
+  MyLocationIcon,
+  SettingsIcon,
+  StarIcon,
+} from "./icons";
 
 type Props = {};
 
@@ -24,7 +31,7 @@ const Sidebar = React.forwardRef<
           <Link href="/" className="border-b border-[#EDECF0]">
             <li
               className={cn(
-                "mb-4 flex items-center gap-8",
+                "mb-4 flex items-center gap-8 mr-10",
                 pathname === "/" && "text-[#6356E5]"
               )}
             >
@@ -32,26 +39,115 @@ const Sidebar = React.forwardRef<
                 height="24px"
                 width="24px"
                 aria-label="discover"
-                svgColor={pathname === "/" ? "#6356E5" : ""}
+                svgColor={pathname === "/" ? "#6356E5" : null}
               />
 
               <span>Discover</span>
             </li>
           </Link>
+
           <Link href="/" className="border-b border-[#EDECF0]">
-            <li className={cn("mb-4")}>Nearby Requests</li>
+            <li
+              className={cn(
+                "mb-4 flex items-center gap-8 mr-10",
+                pathname.split("/")[1] === "nearby_requests" && "text-[#6356E5]"
+              )}
+            >
+              <MyLocationIcon
+                height="24px"
+                width="24px"
+                aria-label="nearby requests"
+                pathColor={
+                  pathname.split("/")[1] === "nearby_requests"
+                    ? "#6356E5"
+                    : null
+                }
+              />
+
+              <span>Nearby Requests</span>
+            </li>
           </Link>
+
           <Link href="/" className="border-b border-[#EDECF0]">
-            <li className={cn("mb-4")}>Custom Requests</li>
+            <li
+              className={cn(
+                "mb-4 flex items-center gap-8 mr-10",
+                pathname.split("/")[1] === "nearby_requests" && "text-[#6356E5]"
+              )}
+            >
+              <DashboardIcon
+                height="24px"
+                width="24px"
+                aria-label="custom requests"
+                pathColor={
+                  pathname.split("/")[1] === "custom_requests"
+                    ? "#6356E5"
+                    : null
+                }
+              />
+
+              <span>Custom Requests</span>
+            </li>
           </Link>
+
           <Link href="/" className="border-b border-[#EDECF0]">
-            <li className={cn("mb-4")}>Saved</li>
+            <li
+              className={cn(
+                "mb-4 flex items-center gap-8 mr-10",
+                pathname.split("/")[1] === "saved" && "text-[#6356E5]"
+              )}
+            >
+              <StarIcon
+                height="24px"
+                width="24px"
+                aria-label="saved requests"
+                pathColor={
+                  pathname.split("/")[1] === "saved" ? "#6356E5" : null
+                }
+              />
+
+              <span>Saved</span>
+            </li>
           </Link>
+
           <Link href="/" className="border-b border-[#EDECF0]">
-            <li className={cn("mb-4")}>Profile</li>
+            <li
+              className={cn(
+                "mb-4 flex items-center gap-8 mr-10",
+                pathname.split("/")[1] === "profile" && "text-[#6356E5]"
+              )}
+            >
+              <AccountIcon
+                height="24px"
+                width="24px"
+                aria-label="profile"
+                pathColor={
+                  pathname.split("/")[1] === "profile" ? "#6356E5" : null
+                }
+              />
+
+              <span>Profile</span>
+            </li>
           </Link>
+
           <Link href="/" className="border-b border-[#EDECF0]">
-            <li className={cn("mb-4")}>Settings</li>
+            <li
+              className={cn(
+                "mb-4 flex items-center gap-8 mr-10",
+                pathname.split("/")[1] === "settings" && "text-[#6356E5]"
+              )}
+            >
+              <SettingsIcon
+                height="24px"
+                width="24px"
+                aria-label="settings"
+                pathColor={
+                  pathname.split("/")[1] === "settings" ? "#6356E5" : null
+                }
+              />
+
+              <span>Settings</span>
+            </li>
           </Link>
         </ul>
       </CardContent>

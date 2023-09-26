@@ -1,7 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import React, { forwardRef } from "react";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { HamburgerIcon, NotificationIcon, SearchIcon } from "./icons";
 
 type Props = {};
 
@@ -9,11 +13,14 @@ const Navbar = React.forwardRef<
   React.ElementRef<"div">,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, forwardRef) => {
+  const showNotification = false;
+
   return (
     <div
       className={cn("flex justify-between items-center bg-white", className)}
       {...props}
       ref={forwardRef}
+      aria-label="nav bar"
     >
       <nav className="w-full max-w-7xl flex justify-between items-center m-4 md:my-6 md:mx-[100px] 2xl:mx-auto">
         <Image src={"/images/logo.png"} width={130} height={32} alt="logo" />
@@ -23,34 +30,29 @@ const Navbar = React.forwardRef<
             Login
           </Button>
 
-          <div className="h-10 w-10 rounded-lg bg-[#F7F7F9] flex">
-            <Image
-              src="/icons/searchIcon.png"
-              width={24}
-              height={24}
-              alt="search"
-              className="m-auto"
-            />
-          </div>
+          <Link
+            href="/"
+            className="h-10 w-10 rounded-lg bg-[#F7F7F9] flex items-center justify-center"
+          >
+            <SearchIcon aria-label="search" />
+          </Link>
 
-          <div className="h-10 w-10 rounded-lg bg-[#F7F7F9] hidden">
-            <Image
-              src="/icons/notificationIcon.png"
-              width={24}
-              height={24}
-              alt="notification"
-              className="m-auto"
-            />
-          </div>
+          <Link
+            href="/"
+            className={cn(
+              "h-10 w-10 rounded-lg bg-[#F7F7F9] hidden",
+              showNotification && "flex items-center justify-center"
+            )}
+          >
+            <NotificationIcon aria-label="notification" />
+          </Link>
 
-          <div className="h-10 w-10 rounded-lg bg-[#E9EEFE] flex">
-            <Image
-              src="/icons/hamburgerMenu.png"
-              width={24}
-              height={24}
-              alt="menu"
-              className="m-auto"
-            />
+          <div
+            className={cn(
+              "h-10 w-10 rounded-lg bg-[#E9EEFE] flex items-center justify-center md:hidden"
+            )}
+          >
+            <HamburgerIcon aria-label="menu" />
           </div>
 
           <Button className="hidden md:flex" variant="request">

@@ -1,24 +1,16 @@
 import React from "react";
 
-interface DiscoverIconProps {
-  width?: string;
-  height?: string;
-  svgColor?: string;
-}
-
-// interface DiscoverIconProps extends React.HTMLAttributes<'svg'>
-
 const DiscoverIcon = React.forwardRef<
   React.ElementRef<"svg">,
   React.HTMLAttributes<"svg"> & {
-    width?: string;
-    height?: string;
-    svgColor?: string;
+    width?: string | null;
+    height?: string | null;
+    svgColor?: string | null;
   }
 >(({ width, height, svgColor }, forwardRef) => {
   return (
     <svg
-      fill={svgColor ? svgColor : "#000000"}
+      fill={svgColor ? svgColor : "#1B1839"}
       width={width ? width : "800px"}
       height={height ? height : "800px"}
       viewBox="0 0 20 20"
