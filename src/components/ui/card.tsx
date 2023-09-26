@@ -9,7 +9,7 @@ const cardVariants = cva("w-fit h-fit", {
     variant: {
       default: "",
       sidebar:
-        "bg-white font-roboto font-medium text-lg text-[#1B1839] rounded-lg py-10 px-4",
+        "bg-white font-roboto font-medium text-lg text-[#1B1839] rounded-lg py-10 pb-32 md:pb-10 px-4",
       request:
         "font-roboto font-medium text-base text-white py-[6px] px-6 bg-primary rounded-[20px]",
     },
