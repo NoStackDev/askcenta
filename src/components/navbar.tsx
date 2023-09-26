@@ -1,12 +1,20 @@
 import Image from "next/image";
-import React from "react";
+import React, { forwardRef } from "react";
 import { Button } from "./ui/button";
+import { cn } from "@/lib/utils";
 
 type Props = {};
 
-export default function Navbar({}: Props) {
+const Navbar = React.forwardRef<
+  React.ElementRef<"div">,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, forwardRef) => {
   return (
-    <div className="flex justify-between items-center bg-white">
+    <div
+      className={cn("flex justify-between items-center bg-white", className)}
+      {...props}
+      ref={forwardRef}
+    >
       <nav className="w-full max-w-7xl flex justify-between items-center m-4 md:my-6 md:mx-[100px] 2xl:mx-auto">
         <Image src={"/images/logo.png"} width={130} height={32} alt="logo" />
 
@@ -52,4 +60,8 @@ export default function Navbar({}: Props) {
       </nav>
     </div>
   );
-}
+});
+
+Navbar.displayName = "Navbar";
+
+export default Navbar;
