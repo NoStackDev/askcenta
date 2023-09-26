@@ -7,7 +7,7 @@ const StarIcon = React.forwardRef<
     height?: string | null;
     pathColor?: string | null;
   }
->(({ width, height, pathColor }, forwardRef) => {
+>(({ width, height, pathColor, ...props }, forwardRef) => {
   return (
     <svg
       fill="none"
@@ -16,6 +16,7 @@ const StarIcon = React.forwardRef<
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
       ref={forwardRef}
+      aria-label={props["aria-label"]}
     >
       <path
         d="M6.57499 20.9615L8.00767 14.7923L3.22119 10.6443L9.53652 10.0962L11.9999 4.27896L14.4634 10.0962L20.7787 10.6443L15.9922 14.7923L17.4249 20.9615L11.9999 17.6884L6.57499 20.9615Z"
