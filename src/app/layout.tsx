@@ -1,5 +1,6 @@
 import Navbar from "@/components/navbar";
 import Sidebar from "@/components/sidebar";
+import { SidebarContextProvider } from "@/context/sidebar_context";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { Inter, Poppins, Roboto } from "next/font/google";
@@ -31,13 +32,15 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} ${roboto.variable} ${roboto.className} bg-[#F7F7F9]`}
       >
-        <Navbar />
+        <SidebarContextProvider>
+          <Navbar />
 
-        <div className="md:flex md:flex-col md:mx-[100px] 2xl:mx-auto">
-          <Sidebar />
+          <div className="md:flex md:flex-row md:gap-16 md:my-10 md:mx-[100px] 2xl:mx-auto">
+            <Sidebar />
 
-          {children}
-        </div>
+            {children}
+          </div>
+        </SidebarContextProvider>
       </body>
     </html>
   );

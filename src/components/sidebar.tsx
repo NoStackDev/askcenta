@@ -6,7 +6,6 @@ import { Card, CardContent } from "./ui/card";
 import Link from "next/link";
 
 import { usePathname } from "next/navigation";
-import Image from "next/image";
 import {
   AccountIcon,
   DashboardIcon,
@@ -15,6 +14,7 @@ import {
   SettingsIcon,
   StarIcon,
 } from "./icons";
+import { useSidebarContext } from "@/context/sidebar_context";
 
 type Props = {};
 
@@ -22,13 +22,26 @@ const Sidebar = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, forwardRef) => {
+  const { showSidebar, setShowSidebar } = useSidebarContext();
   const pathname = usePathname();
 
   return (
-    <Card variant="sidebar" {...props} ref={forwardRef}>
+    <Card
+      variant="sidebar"
+      {...props}
+      ref={forwardRef}
+      className={cn(
+        "absolute -left-[100%] md:relative md:left-0 transition-all ease-in-out duration-200 md:duration-0",
+        showSidebar && "left-0"
+      )}
+    >
       <CardContent>
         <ul className="flex flex-col gap-6 font-roboto font-medium text-lg text-[#1B1839]">
-          <Link href="/" className="border-b border-[#EDECF0]">
+          <Link
+            href="/"
+            className="border-b border-[#EDECF0]"
+            onClick={() => setShowSidebar(false)}
+          >
             <li
               className={cn(
                 "mb-4 flex items-center gap-8 mr-10",
@@ -46,7 +59,11 @@ const Sidebar = React.forwardRef<
             </li>
           </Link>
 
-          <Link href="/" className="border-b border-[#EDECF0]">
+          <Link
+            href="/"
+            className="border-b border-[#EDECF0]"
+            onClick={() => setShowSidebar(false)}
+          >
             <li
               className={cn(
                 "mb-4 flex items-center gap-8 mr-10",
@@ -68,7 +85,11 @@ const Sidebar = React.forwardRef<
             </li>
           </Link>
 
-          <Link href="/" className="border-b border-[#EDECF0]">
+          <Link
+            href="/"
+            className="border-b border-[#EDECF0]"
+            onClick={() => setShowSidebar(false)}
+          >
             <li
               className={cn(
                 "mb-4 flex items-center gap-8 mr-10",
@@ -90,7 +111,11 @@ const Sidebar = React.forwardRef<
             </li>
           </Link>
 
-          <Link href="/" className="border-b border-[#EDECF0]">
+          <Link
+            href="/"
+            className="border-b border-[#EDECF0]"
+            onClick={() => setShowSidebar(false)}
+          >
             <li
               className={cn(
                 "mb-4 flex items-center gap-8 mr-10",
@@ -110,7 +135,11 @@ const Sidebar = React.forwardRef<
             </li>
           </Link>
 
-          <Link href="/" className="border-b border-[#EDECF0]">
+          <Link
+            href="/"
+            className="border-b border-[#EDECF0]"
+            onClick={() => setShowSidebar(false)}
+          >
             <li
               className={cn(
                 "mb-4 flex items-center gap-8 mr-10",
@@ -130,7 +159,11 @@ const Sidebar = React.forwardRef<
             </li>
           </Link>
 
-          <Link href="/" className="border-b border-[#EDECF0]">
+          <Link
+            href="/settings"
+            className="border-b border-[#EDECF0]"
+            onClick={() => setShowSidebar(false)}
+          >
             <li
               className={cn(
                 "mb-4 flex items-center gap-8 mr-10",
