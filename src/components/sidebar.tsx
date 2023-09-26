@@ -32,7 +32,8 @@ const Sidebar = React.forwardRef<
       ref={forwardRef}
       className={cn(
         "absolute -left-[100%] md:relative md:left-0 transition-all ease-in-out duration-200 md:duration-0",
-        showSidebar && "left-0"
+        showSidebar && "left-0",
+        className
       )}
     >
       <CardContent>

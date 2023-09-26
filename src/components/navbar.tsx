@@ -11,7 +11,7 @@ import { useSidebarContext } from "@/context/sidebar_context";
 type Props = {};
 
 const Navbar = React.forwardRef<
-  React.ElementRef<"div">,
+  HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, forwardRef) => {
   const { showSidebar, setShowSidebar } = useSidebarContext();

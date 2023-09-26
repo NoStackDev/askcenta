@@ -29,4 +29,3 @@ const SettingsIcon = React.forwardRef<
 SettingsIcon.displayName = "SettingsIcon";
 
 export default SettingsIcon;
-SettingsIcon;

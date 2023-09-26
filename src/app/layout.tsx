@@ -34,9 +34,10 @@ export default function RootLayout({
       >
         <SidebarContextProvider>
           <Navbar />
+          <Sidebar className="md:hidden" />
 
-          <div className="md:flex md:flex-row md:gap-16 mx-4 md:my-10 md:mx-[100px] 2xl:mx-auto">
-            <Sidebar />
+          <div className="md:flex md:flex-row md:gap-16 my-0 md:my-10 md:mx-[100px] 2xl:mx-auto">
+            <Sidebar className="hidden md:flex"/>
 
             {children}
           </div>

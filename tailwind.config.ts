@@ -12,6 +12,7 @@ const config: Config = {
         primary: "#6356E5",
         card: "#F3F6F6",
         white: "#FFFFFF",
+        black: "#000000",
       },
 
       fontFamily: {

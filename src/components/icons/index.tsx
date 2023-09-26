@@ -7,3 +7,4 @@ export { default as DashboardIcon } from "./dashboard_customize_icon";
 export { default as StarIcon } from "./star_icon";
 export { default as AccountIcon } from "./account_icon";
 export { default as SettingsIcon } from "./settings_icon";
+export { default as PersonIcon } from "./person_icon";
