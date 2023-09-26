@@ -30,4 +30,6 @@ const DiscoverIcon = React.forwardRef<
   );
 });
 
+DiscoverIcon.displayName = "DiscoverIcon";
+
 export default DiscoverIcon;
