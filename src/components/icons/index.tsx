@@ -14,3 +14,4 @@ export { default as ServicePackagesIcon } from "./service_packages_icon";
 export { default as BoxOpenIcon } from "./box_open_icon";
 export { default as ServiceRepairmanIcon } from "./service_repairman_icon";
 export { default as HouseIcon } from "./house_icon";
+export { default as CommentIcon } from "./comment_icon";
