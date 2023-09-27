@@ -24,6 +24,15 @@ const config: Config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+
+      gridTemplateColumns: {
+        "categories-card-cols-3": "repeat(3, 1fr)",
+        "categories-card-cols-6": "repeat(6, 1fr)",
+      },
+
+      boxShadow: {
+        "category-card": "0px 8px 16px -4px rgba(22, 34, 51, 0.08)",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

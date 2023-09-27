@@ -10,7 +10,9 @@ const cardVariants = cva("w-fit h-fit", {
       default: "",
       sidebar:
         "w-full md:w-fit bg-white font-roboto font-medium text-lg text-[#1B1839] rounded-lg py-10 pb-32 md:pb-10 px-4",
-      topbar: "bg-white font-roboto p-4 rounded-lg w-full",
+      card1: "bg-white font-roboto p-4 md:rounded-lg w-full",
+      category:
+        "px-3 pt-4 pb-8 w-full h-[131px] rounded-xl shadow-category-card hover:cursor-pointer hover:shadow-xl hover:scale-105",
       request:
         "font-roboto font-medium text-base text-white py-[6px] px-6 bg-primary rounded-[20px]",
     },
@@ -42,8 +44,7 @@ const cardHeaderVariants = cva("", {
   variants: {
     variant: {
       default: "",
-      request:
-        "font-roboto font-medium text-base text-white py-[6px] px-6 bg-primary rounded-[20px]",
+      header1: "font-poppins font-semibold text-base text-black",
     },
   },
   defaultVariants: {

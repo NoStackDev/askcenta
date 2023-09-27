@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import React from "react";
 
 const HamburgerIcon = React.forwardRef<
@@ -7,7 +8,7 @@ const HamburgerIcon = React.forwardRef<
     height?: string | null;
     pathColor?: string | null;
   }
->(({ width, height, pathColor, ...props }, forwardRef) => {
+>(({ className, width, height, pathColor, ...props }, forwardRef) => {
   return (
     <svg
       fill="none"
@@ -17,6 +18,7 @@ const HamburgerIcon = React.forwardRef<
       xmlns="http://www.w3.org/2000/svg"
       ref={forwardRef}
       aria-label={props["aria-label"]}
+      className={cn("", className)}
     >
       <path
         d="M3.25 17.6364V16.1364H20.75V17.6364H3.25ZM3.25 12.7518V11.2518H20.75V12.7518H3.25ZM3.25 7.86716V6.36719H20.75V7.86716H3.25Z"
