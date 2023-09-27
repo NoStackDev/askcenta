@@ -16,3 +16,5 @@ export { default as ServiceRepairmanIcon } from "./service_repairman_icon";
 export { default as HouseIcon } from "./house_icon";
 export { default as CommentIcon } from "./comment_icon";
 export { default as ScheduleIcon } from "./schedule_icon";
+export { default as LocationOnIcon } from "./location_on_icon";
+export { default as StarFilledIcon } from "./star_filled_icon";

@@ -13,7 +13,8 @@ const cardVariants = cva("w-fit h-fit", {
       card1: "bg-white font-roboto p-4 md:rounded-lg w-full",
       category:
         "px-3 pt-4 pb-8 w-full h-[131px] rounded-xl shadow-category-card hover:cursor-pointer hover:shadow-xl hover:scale-105",
-      request: "font-roboto bg-white rounded-xl",
+      request:
+        "font-roboto bg-white rounded-xl shadow-request-card hover:shadow-xl hover:scale-105",
     },
   },
   defaultVariants: {

@@ -20,7 +20,7 @@ const Navbar = React.forwardRef<
   return (
     <div
       className={cn(
-        "sticky top-0 flex justify-between items-center bg-white",
+        "sticky top-0 flex justify-between items-center bg-white z-10",
         className
       )}
       {...props}
