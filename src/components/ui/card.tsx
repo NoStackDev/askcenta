@@ -93,7 +93,7 @@ const CardTitle = React.forwardRef<HTMLParagraphElement, CardTitleProps>(
   ({ className, variant, ...props }, ref) => (
     <h3
       ref={ref}
-      className={cn(cardHeaderVariants({ variant, className }))}
+      className={cn(cardTitleVariants({ variant, className }))}
       {...props}
     />
   )
