@@ -54,14 +54,14 @@ const Navbar = React.forwardRef<
 
           <div
             className={cn(
-              "h-10 w-10 rounded-lg bg-[#E9EEFE] flex items-center justify-center md:hidden"
+              "h-10 w-10 rounded-lg bg-[#E9EEFE] flex items-center justify-center lg:hidden"
             )}
             onClick={() => setShowSidebar(!showSidebar)}
           >
             <HamburgerIcon aria-label="menu" />
           </div>
 
-          <Button className="hidden md:flex" variant="request">
+          <Button className="hidden lg:flex" variant="request">
             Place a Request
           </Button>
         </div>
