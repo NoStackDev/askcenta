@@ -11,11 +11,14 @@ async function fetchFeed() {
     },
   });
 
+  if (!res.ok) throw new Error("failed to fetch feeds");
+
   return res.json();
 }
 
 export default async function Home() {
-  const feed: FeedsResponse = await fetchFeed();
+  const feedres: Promise<FeedsResponse> = fetchFeed();
+  const feed = await feedres;
 
   return (
     <main className="w-full">
