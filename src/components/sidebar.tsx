@@ -35,7 +35,7 @@ const Sidebar = React.forwardRef<
       {...props}
       ref={forwardRef}
       className={cn(
-        "absolute -left-[100%] lg:relative lg:left-0 transition-all ease-in-out duration-200 lg:duration-0 z-50 lg:z-auto",
+        "fixed -left-[100%] lg:relative lg:left-0 transition-all ease-in-out duration-200 lg:duration-0 z-50 lg:z-auto",
         showSidebar && "left-0",
         className
       )}
