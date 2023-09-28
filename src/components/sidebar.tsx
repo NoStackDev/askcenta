@@ -35,7 +35,7 @@ const Sidebar = React.forwardRef<
       {...props}
       ref={forwardRef}
       className={cn(
-        "fixed -left-[100%] lg:relative lg:left-0 transition-all ease-in-out duration-200 lg:duration-0 z-50 lg:z-auto",
+        "fixed -left-[100%] lg:sticky lg:top-24 lg:left-0 transition-all ease-in-out duration-200 lg:duration-0 z-50 lg:z-auto",
         showSidebar && "left-0",
         className
       )}
@@ -60,7 +60,7 @@ const Sidebar = React.forwardRef<
                 svgColor={pathname === "/" ? "#6356E5" : null}
               />
 
-              <span>Discover</span>
+              <span className="w-max">Discover</span>
             </li>
           </Link>
 
@@ -86,7 +86,7 @@ const Sidebar = React.forwardRef<
                 }
               />
 
-              <span>Nearby Requests</span>
+              <span className="w-max">Nearby Requests</span>
             </li>
           </Link>
 
@@ -112,7 +112,7 @@ const Sidebar = React.forwardRef<
                 }
               />
 
-              <span>Custom Requests</span>
+              <span className="w-max">Custom Requests</span>
             </li>
           </Link>
 
@@ -136,7 +136,7 @@ const Sidebar = React.forwardRef<
                 }
               />
 
-              <span>Saved</span>
+              <span className="w-max">Saved</span>
             </li>
           </Link>
 
@@ -160,7 +160,7 @@ const Sidebar = React.forwardRef<
                 }
               />
 
-              <span>Profile</span>
+              <span className="w-max">Profile</span>
             </li>
           </Link>
 
@@ -184,7 +184,7 @@ const Sidebar = React.forwardRef<
                 }
               />
 
-              <span>Settings</span>
+              <span className="w-max">Settings</span>
             </li>
           </Link>
         </ul>
