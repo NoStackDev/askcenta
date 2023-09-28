@@ -17,6 +17,8 @@ const buttonVariants = cva(
           "font-roboto font-normal text-xs text-[#6356E5] py-[6px] px-4 rounded-xl border border-[#E5E4F0] hover:bg-[#6356E5] hover:text-white transition-all ease-in-out duration-200",
         request_card_outlined:
           "font-roboto font-medium text-sm text-[#6356E5] w-full py-2 rounded-2xl border border-[#E9EEFE] bg-white hover:bg-[#6356E5] hover:text-white transition-all ease-in-out duration-200",
+        place_a_request:
+          "fixed bottom-[18px] right-4 z-30 font-roboto font-semibold text-base text-white bg-primary rounded-3xl shadow-place-a-request px-4 py-[14px]",
       },
     },
     defaultVariants: {

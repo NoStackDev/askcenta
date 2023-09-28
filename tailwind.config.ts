@@ -30,15 +30,16 @@ const config: Config = {
         "categories-card-cols-6": "repeat(6, 1fr)",
         "requests-cards-2": "repeat(2, minmax(0, 1fr))",
       },
-      
+
       gridTemplateRows: {
-        "masonry": "masonry"
+        masonry: "masonry",
       },
 
       boxShadow: {
         "category-card": "0px 8px 16px -4px rgba(22, 34, 51, 0.08)",
         "request-card":
           "0px 16px 24px 0px #16223314, 0px 4px 8px -4px #16223314",
+        "place-a-request": "2px 4px 8px 0px #0000004D",
       },
     },
   },
