@@ -28,6 +28,11 @@ const config: Config = {
       gridTemplateColumns: {
         "categories-card-cols-3": "repeat(3, 1fr)",
         "categories-card-cols-6": "repeat(6, 1fr)",
+        "requests-cards-2": "repeat(2, minmax(0, 1fr))",
+      },
+      
+      gridTemplateRows: {
+        "masonry": "masonry"
       },
 
       boxShadow: {
