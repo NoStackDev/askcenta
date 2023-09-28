@@ -36,3 +36,25 @@ export type RequestType = {
   num_of_views: number;
   num_of_responses: number;
 };
+
+export type RequestDetailType = {
+  success: boolean;
+  request: RequestType;
+  responses: RequestResponsesType[];
+};
+
+export type RequestResponsesType = {
+  created_at: string;
+  description: string;
+  id: number;
+  image_url: string;
+  location: string;
+  price: number;
+  request_url: string;
+  title: string;
+  user_id: number;
+  user: string;
+  visibility: string;
+  whatsapp_num: string;
+  whatsapp_link: string;
+};

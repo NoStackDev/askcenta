@@ -28,7 +28,9 @@ const Navbar = React.forwardRef<
       aria-label="nav bar"
     >
       <nav className="w-full max-w-7xl flex justify-between items-center m-4 md:my-2 md:mx-4 lg:mx-[100px] 2xl:mx-auto">
-        <Image src={"/images/logo.png"} width={130} height={32} alt="logo" />
+        <Link href="/">
+          <Image src={"/images/logo.png"} width={130} height={32} alt="logo" />
+        </Link>
 
         <div className="flex items-center gap-6 md:gap-10">
           <Button className="" variant="nav">
