@@ -16,14 +16,18 @@ import {
 } from "./icons";
 import { useSidebarContext } from "@/context/sidebar_context";
 
-type Props = {};
-
 const Sidebar = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, forwardRef) => {
   const { showSidebar, setShowSidebar } = useSidebarContext();
   const pathname = usePathname();
+
+  React.useEffect(() => {
+    showSidebar
+      ? (document.body.style.overflow = "hidden")
+      : (document.body.style.overflow = "");
+  }, [showSidebar]);
 
   return (
     <Card
