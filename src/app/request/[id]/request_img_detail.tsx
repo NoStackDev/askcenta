@@ -72,10 +72,10 @@ export default async function RequestImgDetail({
           </p>
 
           <div className="flex items-center gap-2 mt-4 md:mt-6 font-roboto font-normal text-base text-black">
-            <span className="font-medium text-sm text-black opacity-60">
+            <span className="opacity-60">
               Request by:
             </span>
-            <span>{requestDetailData.request.user}</span>
+            <span className="font-medium text-sm text-[#6356E5]">{requestDetailData.request.user}</span>
           </div>
         </div>
       </CardContent>
