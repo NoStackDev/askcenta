@@ -9,7 +9,7 @@ const cardVariants = cva("w-fit h-fit", {
     variant: {
       default: "",
       sidebar:
-        "w-full lg:w-fit bg-white font-roboto font-medium text-lg text-[#1B1839] rounded-lg py-10 pb-32 lg:pb-10 px-4",
+        "w-full h-full lg:h-fit lg:w-fit bg-white font-roboto font-medium text-lg text-[#1B1839] rounded-lg py-10 pb-32 lg:pb-10 px-4",
       card1: "bg-white font-roboto p-4 md:rounded-lg w-full",
       category:
         "px-3 pt-4 pb-8 w-full h-[131px] rounded-xl shadow-category-card hover:cursor-pointer hover:shadow-xl hover:scale-105",
