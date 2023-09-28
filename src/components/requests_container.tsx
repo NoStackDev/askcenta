@@ -47,7 +47,7 @@ const RequestsContainer = React.forwardRef<
       <div
         ref={forwardRef}
         className={cn(
-          "mx-4 md:mx-0 mt-6 md:columns-2 gap-6 md:hidden",
+          "mx-4 md:mx-0 mt-6 sm:columns-2 gap-6 md:hidden",
           className
         )}
         {...props}
