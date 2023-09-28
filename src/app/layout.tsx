@@ -1,3 +1,4 @@
+import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import Sidebar from "@/components/sidebar";
 import { SidebarContextProvider } from "@/context/sidebar_context";
@@ -42,6 +43,8 @@ export default function RootLayout({
             {children}
           </div>
         </SidebarContextProvider>
+
+        <Footer />
       </body>
     </html>
   );

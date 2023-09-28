@@ -18,3 +18,6 @@ export { default as CommentIcon } from "./comment_icon";
 export { default as ScheduleIcon } from "./schedule_icon";
 export { default as LocationOnIcon } from "./location_on_icon";
 export { default as StarFilledIcon } from "./star_filled_icon";
+export { default as LinkedinIcon } from "./linkedin_icon";
+export { default as FacebookIcon } from "./facebook_icon";
+export { default as TwitterIcon } from "./twitter_icon";
