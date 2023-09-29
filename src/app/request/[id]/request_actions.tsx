@@ -19,7 +19,7 @@ export default function RequestActions({
       <div className="flex items-center gap-1 hover:cursor-pointer">
         <FlagIcon aria-label="report" />
         <span className="font-roboto font-normal text-sm text-black opacity-80">
-          "Report
+          Report
         </span>
       </div>
 
