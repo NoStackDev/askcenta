@@ -1,27 +1,10 @@
 import Categories from "@/components/categories";
-import RequestsContainer from "@/components/requests_container";
 import Topbar from "@/components/topbar";
-import { FeedsResponse } from "../../types";
 import { Button } from "@/components/ui/button";
 import DiscoverBar from "@/components/discover_bar";
+import { RequestContainer } from "@/components/request";
 
-async function fetchFeed() {
-  const res = await fetch("https://www.askcenta.ng/api/feeds", {
-    method: "OPTIONS",
-    next: {
-      revalidate: 0,
-    },
-  });
-
-  if (!res.ok) throw new Error("failed to fetch feeds");
-
-  return res.json();
-}
-
-export default async function Home() {
-  const feedres: Promise<FeedsResponse> = fetchFeed();
-  const feed = await feedres;
-
+export default function Home() {
   return (
     <main className="w-full">
       <Topbar className="mt-2 md:mt-0" />
@@ -30,7 +13,7 @@ export default async function Home() {
 
       <DiscoverBar />
 
-      <RequestsContainer requests={feed.data} />
+      <RequestContainer />
 
       <Button className="md:hidden" variant="place_a_request">
         Place a Request

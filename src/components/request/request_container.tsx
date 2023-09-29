@@ -1,28 +1,39 @@
-"use client";
-
 import { cn, month, shuffle } from "@/lib/utils";
 import React from "react";
-import { RequestType } from "../../types";
-import { Card, CardContent, CardTitle } from "./ui/card";
+import { FeedsResponse, RequestType } from "../../../types";
+import { Card, CardContent, CardTitle } from "../ui/card";
 import Image from "next/image";
 import {
   CommentIcon,
   LocationOnIcon,
   ScheduleIcon,
   StarFilledIcon,
-} from "./icons";
-import { Button } from "./ui/button";
+} from "../icons";
+import { Button } from "../ui/button";
 import Link from "next/link";
 
-interface RequestsContainerProps extends React.HTMLAttributes<HTMLDivElement> {
-  requests: RequestType[];
+async function fetchFeed() {
+  const res = await fetch("https://www.askcenta.ng/api/feeds", {
+    method: "OPTIONS",
+    next: {
+      revalidate: 0,
+    },
+  });
+
+  if (!res.ok) throw new Error("failed to fetch feeds");
+
+  return res.json();
 }
 
-export default async function RequestsContainer({
+interface RequestContainerProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+export default async function RequestContainer({
   className,
   ...props
-}: RequestsContainerProps) {
-  const shuffledRequests = shuffle(props.requests);
+}: RequestContainerProps) {
+  const feedres: Promise<FeedsResponse> = fetchFeed();
+  const feed = await feedres;
+  const shuffledRequests = shuffle(feed.data);
 
   return (
     <>
@@ -30,7 +41,7 @@ export default async function RequestsContainer({
         className={cn("mx-4 md:mx-0 mt-6 gap-6 sm:hidden", className)}
         {...props}
       >
-        {props.requests.map((request, index) => {
+        {shuffledRequests.map((request) => {
           const date = new Date(request.created_at);
           return (
             <Link href={`/request/${request.id}`} key={request.id}>
