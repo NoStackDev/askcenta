@@ -40,6 +40,8 @@ const config: Config = {
         "request-card":
           "0px 16px 24px 0px #16223314, 0px 4px 8px -4px #16223314",
         "place-a-request": "2px 4px 8px 0px #0000004D",
+        "response-card":
+          "0px 16px 24px 0px rgba(22, 34, 51, 0.08), 0px 4px 8px -4px rgba(22, 34, 51, 0.08)",
       },
     },
   },

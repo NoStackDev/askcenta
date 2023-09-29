@@ -19,12 +19,13 @@ export default function RequestActions({
       <div className="flex items-center gap-1 hover:cursor-pointer">
         <FlagIcon aria-label="report" />
         <span className="font-roboto font-normal text-sm text-black opacity-80">
-          Report
+          "Report
         </span>
       </div>
 
       <div className="flex items-center gap-1 hover:cursor-pointer">
         <StarFilledIcon width="24" height="24" aria-label="save" />
+
         <span className="font-roboto font-normal text-sm text-black opacity-90">
           Save
         </span>
