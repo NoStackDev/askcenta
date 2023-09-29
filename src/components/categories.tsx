@@ -72,7 +72,7 @@ const Categories = React.forwardRef<
           <CardContent>
             <HouseIcon aria-label="accommodation" />
 
-            <span className="block font-roboto font-medium text-sm text-black mt-4 w-8">
+            <span className="block font-roboto font-medium text-sm text-black mt-4 max-w-8">
               Accommoda-tion
             </span>
           </CardContent>

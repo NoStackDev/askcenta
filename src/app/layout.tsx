@@ -1,5 +1,5 @@
 import Footer from "@/components/footer";
-import Navbar from "@/components/navbar";
+import { Navbar } from "@/components/navbar";
 import Sidebar from "@/components/sidebar";
 import { SidebarContextProvider } from "@/context/sidebar_context";
 import "@/styles/globals.css";
