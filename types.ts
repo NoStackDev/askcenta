@@ -58,3 +58,13 @@ export type RequestResponsesType = {
   whatsapp_num: string;
   whatsapp_link: string;
 };
+
+export type CityType = {
+  id: number;
+  city: string;
+  state: string;
+};
+
+export type CitiesResponseType = {
+  data: CityType[];
+};

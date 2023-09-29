@@ -23,3 +23,4 @@ export { default as FacebookIcon } from "./facebook_icon";
 export { default as TwitterIcon } from "./twitter_icon";
 export { default as FlagIcon } from "./flag_icon";
 export { default as Share } from "./share_icon";
+export { default as WhatsappIcon } from "./whatsapp_icon";
