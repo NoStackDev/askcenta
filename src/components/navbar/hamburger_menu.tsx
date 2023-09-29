@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { HamburgerIcon } from "../icons";
 import { cn } from "@/lib/utils";
