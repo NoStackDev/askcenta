@@ -58,7 +58,7 @@ export default async function ResponseCard({
           </div>
         </div>
 
-        <div className="flex items-center justify-between mt-4 px-3">
+        <div className="flex items-center justify-between mt-4 px-3 py-2 border-t border-[#F5F4F4]">
           <div className="flex items-center gap-2">
             {response.image_url && (
               <Avatar>
