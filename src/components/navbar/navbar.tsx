@@ -5,8 +5,8 @@ import React, { forwardRef } from "react";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { HamburgerIcon, NotificationIcon, SearchIcon } from "../icons";
-import { useSidebarContext } from "@/context/sidebar_context";
+import { NotificationIcon, SearchIcon } from "../icons";
+import { HamburgerMenu } from ".";
 
 type Props = {};
 
@@ -14,7 +14,6 @@ const Navbar = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, forwardRef) => {
-  const { showSidebar, setShowSidebar } = useSidebarContext();
   const showNotification = false;
 
   return (
@@ -54,14 +53,7 @@ const Navbar = React.forwardRef<
             <NotificationIcon aria-label="notification" />
           </Link>
 
-          <div
-            className={cn(
-              "h-10 w-10 rounded-lg bg-[#E9EEFE] flex items-center justify-center lg:hidden"
-            )}
-            onClick={() => setShowSidebar(!showSidebar)}
-          >
-            <HamburgerIcon aria-label="menu" />
-          </div>
+          <HamburgerMenu />
 
           <Button className="hidden lg:flex" variant="request">
             Place a Request
