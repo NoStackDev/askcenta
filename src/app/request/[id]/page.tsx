@@ -12,7 +12,7 @@ export default function RequestPage({ params }: Props) {
   const id = params.id;
 
   return (
-    <main>
+    <main className="w-full">
       <RequestImgDetail requestid={id} />
 
       <RespondToRequest className="mt-4 md:mt-6" />
