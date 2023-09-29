@@ -43,6 +43,11 @@ const config: Config = {
         "response-card":
           "0px 16px 24px 0px rgba(22, 34, 51, 0.08), 0px 4px 8px -4px rgba(22, 34, 51, 0.08)",
       },
+
+      screens: {
+        "320screen": "320px",
+        "1104screen": "1104px",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

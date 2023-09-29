@@ -37,7 +37,7 @@ export default async function RequestContainer({
         className={cn("mx-4 md:mx-0 mt-6 gap-6 sm:hidden", className)}
         {...props}
       >
-        {shuffledRequests.map((request) => {
+        {feed.data.map((request) => {
           return (
             <Link href={`/request/${request.id}`} key={request.id}>
               <RequestCard request={request} />
@@ -58,73 +58,7 @@ export default async function RequestContainer({
 
           return (
             <Link href={`/request/${request.id}`} key={request.id}>
-              <Card
-                variant="request"
-                className={cn(
-                  "w-full h-fit break-inside-avoid mb-6",
-                  index % 2 ? "even" : "odd"
-                )}
-                key={request.id}
-              >
-                <CardContent>
-                  {request.image_url && (
-                    <Image
-                      width={358}
-                      height={344}
-                      alt={request.title}
-                      src={`https://${request.image_url}`}
-                      className="rounded-t-lg w-full h-auto"
-                    />
-                  )}
-
-                  <CardTitle
-                    className={cn(
-                      "mb-4 mx-3 text-center font-roboto font-semibold text-lg text-[#18212D]",
-                      !request.image_url && "pt-4"
-                    )}
-                  >
-                    {request.title}
-                  </CardTitle>
-
-                  <hr className="mt-3 mb-5 border-t border-[#EDECF0] border-r-4 bg-none mx-[2px]" />
-
-                  <div className="w-full px-3">
-                    <div className="flex justify-between items-center">
-                      <div className="flex items-center gap-4">
-                        <div className="flex justify-center items-center gap-1">
-                          <CommentIcon />
-                          <span className="font-roboto font-normal text-sm text-black">
-                            {request.num_of_responses}
-                          </span>
-                        </div>
-
-                        <div className="flex justify-center items-center gap-1">
-                          <ScheduleIcon />
-                          <span className="font-roboto font-normal text-xs text-[#5E5D7F]">
-                            {date.getDate()} {month(date.getMonth())}
-                          </span>
-                        </div>
-
-                        <div className="flex justify-center items-center gap-1">
-                          <LocationOnIcon />
-                          <span className="font-roboto font-normal text-xs text-[#5E5D7F]">
-                            {date.getDate()} {month(date.getMonth())}
-                          </span>
-                        </div>
-                      </div>
-
-                      <RequestBookmark />
-                    </div>
-
-                    <Button
-                      variant="request_card_outlined"
-                      className="mt-5 mb-3"
-                    >
-                      Respond to Request
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
+              <RequestCard request={request} />
             </Link>
           );
         })}

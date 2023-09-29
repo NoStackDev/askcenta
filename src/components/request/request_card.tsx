@@ -60,16 +60,16 @@ export default function RequestCard({
               </div>
 
               <div className="flex justify-center items-center gap-1">
-                <ScheduleIcon />
+                <ScheduleIcon aria-label="date"/>
                 <span className="font-roboto font-normal text-xs text-[#5E5D7F]">
                   {date.getDate()} {month(date.getMonth())}
                 </span>
               </div>
 
               <div className="flex justify-center items-center gap-1">
-                <LocationOnIcon />
+                <LocationOnIcon aria-label="locaion" />
                 <span className="font-roboto font-normal text-xs text-[#5E5D7F]">
-                  {date.getDate()} {month(date.getMonth())}
+                  {request.location}
                 </span>
               </div>
             </div>

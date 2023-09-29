@@ -27,7 +27,7 @@ const Categories = React.forwardRef<
         CATEGORIES
       </CardHeader>
 
-      <CardContent className="grid grid-cols-categories-card-cols-3 md:grid-cols-categories-card-cols-6 gap-2 mt-2">
+      <CardContent className="grid max-320screen:grid-cols-1 grid-cols-3 md:grid-cols-6 lg:grid-cols-3 1104screen:grid-cols-6 gap-2 mt-2">
         <Card className="bg-[#5BE7C4]" variant="category">
           <CardContent>
             <PeopleGroupIcon aria-label="social" />
@@ -73,9 +73,16 @@ const Categories = React.forwardRef<
             <HouseIcon aria-label="accommodation" />
 
             <span className="block font-roboto font-medium text-sm text-black mt-4">
-              <span className="hidden min-[440px]:flex">Accommodation</span>
-              <div className="w-fit h-fit min-[440px]:hidden">Accommod-</div>
-              <div className="w-fit h-fit min-[440px]:hidden">ation</div>
+              <span className="break break-words">Accommodation</span>
+              {/* <span className="hidden min-[440px]:flex md:hidden min-[905px]:flex">
+                Accommodation
+              </span>
+              <div className="w-fit h-fit min-[440px]:hidden md:flex min-[905px]:hidden">
+                Accommod-
+              </div>
+              <div className="w-fit h-fit min-[440px]:hidden md:flex min-[905px]:hidden">
+                ation
+              </div> */}
             </span>
           </CardContent>
         </Card>
