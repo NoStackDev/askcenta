@@ -8,8 +8,8 @@ import {
   StarFilledIcon,
 } from "../icons";
 import { cn, month } from "@/lib/utils";
-import { Button } from "../ui/button";
 import { RequestType } from "../../../types";
+import { RespondToRequestBtn } from ".";
 
 interface RequestCardProps extends React.HTMLAttributes<HTMLDivElement> {
   request: RequestType;
@@ -60,7 +60,7 @@ export default function RequestCard({
               </div>
 
               <div className="flex justify-center items-center gap-1">
-                <ScheduleIcon aria-label="date"/>
+                <ScheduleIcon aria-label="date" />
                 <span className="font-roboto font-normal text-xs text-[#5E5D7F]">
                   {date.getDate()} {month(date.getMonth())}
                 </span>
@@ -77,9 +77,7 @@ export default function RequestCard({
             <StarFilledIcon />
           </div>
 
-          <Button variant="request_card_outlined" className="mt-5 mb-3">
-            Respond to Request
-          </Button>
+          <RespondToRequestBtn className="mt-5 mb-3" />
         </div>
       </CardContent>
     </Card>
