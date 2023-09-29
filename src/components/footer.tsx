@@ -15,7 +15,14 @@ const Footer = React.forwardRef<HTMLElement, React.HTMLAttributes<"footer">>(
       >
         <div className="max-w-7xl mx-4 mt-6 lg:mx-[100px] 2xl:mx-auto">
           <div className="flex justify-between items-center">
-            <Image src="/images/logo.png" height={32} width={130} alt="logo" />
+            <Link href="/">
+              <Image
+                src="/images/logo.png"
+                height={32}
+                width={130}
+                alt="logo"
+              />
+            </Link>
 
             <div className="flex justify-between items-center gap-6">
               <LinkedinIcon />
@@ -37,7 +44,9 @@ const Footer = React.forwardRef<HTMLElement, React.HTMLAttributes<"footer">>(
             <div className="font-roboto font-normal text-xs text-[#4D4A4A]">
               © 2023 Askcenta. All Rights Reserved.
             </div>
-            <div className="font-roboto font-normal text-xs text-black underline underline-offset-2">Privacy Policy</div>
+            <div className="font-roboto font-normal text-xs text-black underline underline-offset-2">
+              Privacy Policy
+            </div>
           </div>
         </div>
       </footer>

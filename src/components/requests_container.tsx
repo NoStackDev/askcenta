@@ -235,7 +235,7 @@ export default async function RequestsContainer({
                   <CardTitle
                     className={cn(
                       "mb-4 mx-3 text-center font-roboto font-semibold text-lg text-[#18212D]",
-                      !request.image_url && "pt-4"
+                      !request.image_url && "py-6"
                     )}
                   >
                     {request.title}

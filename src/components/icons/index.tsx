@@ -21,3 +21,5 @@ export { default as StarFilledIcon } from "./star_filled_icon";
 export { default as LinkedinIcon } from "./linkedin_icon";
 export { default as FacebookIcon } from "./facebook_icon";
 export { default as TwitterIcon } from "./twitter_icon";
+export { default as FlagIcon } from "./flag_icon";
+export { default as Share } from "./share_icon";

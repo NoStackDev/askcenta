@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ScheduleIcon } from "@/components/icons";
 import Image from "next/image";
+import RequestActions from "./request_actions";
 
 const fetchRequestDetails = async (requestid: string) => {
   const res = await fetch(`https://www.askcenta.ng/api/requests/${requestid}`, {
@@ -34,7 +35,7 @@ export default async function RequestImgDetail({
 
   return (
     <Card variant="request_detail" className="mt-2 md:mt-0">
-      <CardContent>
+      <CardContent className="bg-white pb-6">
         <h2 className="font-roboto font-bold text-[22px] md:text-[28px] text-[#010E1E] mx-4 py-6 md:mx-6">
           {requestDetailData.request.title}
         </h2>
@@ -44,7 +45,7 @@ export default async function RequestImgDetail({
             {requestDetailData.request.category}
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 opacity-80">
             <ScheduleIcon height="16" width="16" pathColor="#000000" />
 
             <span className="font-roboto font-normal text-xs text-black">
@@ -64,20 +65,35 @@ export default async function RequestImgDetail({
         )}
 
         <div className="mt-6 mx-4 md:mx-6">
-          <h3 className="font-roboto font-medium text-sm text-black opacity-60">
-            Additional Details
-          </h3>
-          <p className="font-roboto font-normal text-base text-black mt-2">
-            {requestDetailData.request.description}
-          </p>
+          {requestDetailData.request.description && (
+            <>
+              <h3 className="font-roboto font-medium text-sm text-black opacity-60">
+                Additional Details
+              </h3>
+              <p className="font-roboto font-normal text-base text-black mt-2">
+                {requestDetailData.request.description}
+              </p>
+            </>
+          )}
 
           <div className="flex items-center gap-2 mt-4 md:mt-6 font-roboto font-normal text-base text-black">
-            <span className="opacity-60">
-              Request by:
+            <span className="opacity-60">Request by:</span>
+            <span className="font-medium text-sm text-[#6356E5]">
+              {requestDetailData.request.user}
             </span>
-            <span className="font-medium text-sm text-[#6356E5]">{requestDetailData.request.user}</span>
+          </div>
+
+          <div className="flex items-center gap-2 mt-4 font-roboto font-normal text-base text-black">
+            <span className="opacity-60">Location:</span>
+            <span className="font-medium text-sm text-black">
+              {requestDetailData.request.location}
+            </span>
           </div>
         </div>
+      </CardContent>
+
+      <CardContent className="bg-white mb-4 md:mb-6">
+        <RequestActions className="px-4 md:px-6 py-6 mt-[1px] md:mt-1" />
       </CardContent>
     </Card>
   );
