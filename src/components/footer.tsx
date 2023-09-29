@@ -9,7 +9,7 @@ const Footer = React.forwardRef<HTMLElement, React.HTMLAttributes<"footer">>(
     return (
       <footer
         className={cn(
-          "flex flex-col w-full bg-[#F1F0F6] border-t border-t-[#CDCAF2]",
+          "flex flex-col bg-[#F1F0F6] border-t border-t-[#CDCAF2]",
           className
         )}
       >
