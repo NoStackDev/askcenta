@@ -18,6 +18,7 @@ const cardVariants = cva("w-fit h-fit", {
       request_detail: "w-full",
       response:
         "w-full h-fit bg-white rounded-xl pt-4 pb-2 break-inside-avoid shadow-response-card hover:shadow-xl",
+      settings: "w-full h-fit px-4 py-6 md:px-6 bg-white md:rounded-lg",
     },
   },
   defaultVariants: {

@@ -13,7 +13,7 @@ const Footer = React.forwardRef<HTMLElement, React.HTMLAttributes<"footer">>(
           className
         )}
       >
-        <div className="max-w-7xl mx-4 mt-6 lg:mx-[100px] 2xl:mx-auto">
+        <div className="2xl:w-full max-w-7xl mx-4 mt-6 lg:mx-[100px] 2xl:mx-auto">
           <div className="flex justify-between items-center">
             <Link href="/">
               <Image
@@ -39,7 +39,7 @@ const Footer = React.forwardRef<HTMLElement, React.HTMLAttributes<"footer">>(
           </div>
         </div>
 
-        <div className="max-w-7xl mx-4 mt-6 lg:mx-[100px] 2xl:mx-auto">
+        <div className="2xl:w-full max-w-7xl mx-4 mt-6 lg:mx-[100px] 2xl:mx-auto">
           <div className="flex justify-between items-center border-t border-t-[#E1DFF4] pt-4 mb-24 lg:mb-10">
             <div className="font-roboto font-normal text-xs text-[#4D4A4A]">
               © 2023 Askcenta. All Rights Reserved.
