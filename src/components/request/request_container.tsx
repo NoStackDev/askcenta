@@ -1,12 +1,8 @@
-import { cn, month, shuffle } from "@/lib/utils";
+import { cn, shuffle } from "@/lib/utils";
 import React from "react";
 import { FeedsResponse } from "../../../types";
-import { Card, CardContent, CardTitle } from "../ui/card";
-import Image from "next/image";
-import { CommentIcon, LocationOnIcon, ScheduleIcon } from "../icons";
-import { Button } from "../ui/button";
 import Link from "next/link";
-import { RequestBookmark, RequestCard } from ".";
+import { RequestCard } from ".";
 
 async function fetchFeed() {
   const res = await fetch("https://www.askcenta.ng/api/feeds", {
