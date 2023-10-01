@@ -74,7 +74,7 @@ export default function RequestCard({
               </div>
             </div>
 
-            <StarFilledIcon />
+            <StarFilledIcon width="22" height="22" />
           </div>
 
           <RespondToRequestBtn className="mt-5 mb-3" />

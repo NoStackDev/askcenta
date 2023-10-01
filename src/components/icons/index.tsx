@@ -28,3 +28,4 @@ export { default as DeleteIcon } from "./delete_icon";
 export { default as EditIcon } from "./edit_icon";
 export { default as LogoutIcon } from "./logout_icon";
 export { default as ChevronRightIcon } from "./chevron_right_icon";
+export { default as KeyboardBackspaceIcon } from "./keyboard_backspace_icon";
