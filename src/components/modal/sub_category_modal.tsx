@@ -45,9 +45,11 @@ export default async function SubCategoryModal({
 
       <DialogContent className="bg-white top-[72px] h-[calc(100vh_-_72px)]">
         <div className="w-full flex flex-col py-4 md:p-8 border-t-2 border-black/5">
-          <DialogClose>
-            <KeyboardBackspaceIcon aria-label="back" className="px-4" />
-          </DialogClose>
+          <div className="px-4 w-fit h-fit">
+            <DialogClose>
+              <KeyboardBackspaceIcon aria-label="back" />
+            </DialogClose>
+          </div>
 
           <div className="uppercase mt-6 px-4 font-poppins font-semibold text-base md:text-xl text-[#4C4B60]">
             {categorygroup}
