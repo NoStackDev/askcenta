@@ -1,14 +1,15 @@
 import React from "react";
 
-import { ChevronRightIcon, KeyboardBackspaceIcon } from "../icons";
+import { ChevronRightIcon, KeyboardBackspaceIcon } from "../../icons";
 import Link from "next/link";
 import {
   Dialog,
   DialogClose,
   DialogContent,
   DialogTrigger,
-} from "../ui/dialog";
-import { SubCategoryResponseType } from "../../../types";
+} from "../../ui/dialog";
+import { SubCategoryResponseType } from "../../../../types";
+import SubCategoryLink from "./sub_category_link";
 
 interface SubCategoryModalProps extends React.HTMLAttributes<typeof Dialog> {
   categorygroup: string;
@@ -55,19 +56,13 @@ export default async function SubCategoryModal({
             {categorygroup}
           </div>
 
-          <div className="mt-2 flex flex-col gap-6">
+          <div className="mt-2 flex flex-col gap-5">
             {subCategoriesData.map((subCategory) => {
               return (
-                <Link
-                  href={`/?category_group_id=${subCategory.id}`}
+                <SubCategoryLink
+                  subcategory={subCategory}
                   key={subCategory.id}
-                  className="w-full px-4 py-1 flex items-center justify-between hover:bg-primary/5 hover:scale-105"
-                >
-                  <span className="block font-roboto font-normal text-base text-black">
-                    {subCategory.name}
-                  </span>
-                  <ChevronRightIcon className="opacity-40" />
-                </Link>
+                />
               );
             })}
           </div>

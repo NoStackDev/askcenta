@@ -4,7 +4,13 @@ import { Button } from "@/components/ui/button";
 import DiscoverBar from "@/components/discover_bar";
 import { RequestContainer } from "@/components/request";
 
-export default function Home() {
+type Props = {
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
+export default function Home({ searchParams }: Props) {
+  console.log(searchParams);
   return (
     <main className="w-full">
       <Topbar className="mt-2 md:mt-0" />
