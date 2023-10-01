@@ -1,29 +1,34 @@
 import React from "react";
-import { Dialog, DialogClose, DialogContent } from "../ui/dialog";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogTrigger,
+} from "../ui/dialog";
 import { KeyboardBackspaceIcon } from "../icons";
 import Link from "next/link";
 
-interface SubCategroyModalProps extends React.HTMLAttributes<typeof Dialog> {
-  categoryid: number;
+interface SubCategoryModalProps extends React.HTMLAttributes<typeof Dialog> {
+  categorygroup: string;
 }
-export default async function SubCategroyModal({
-  categoryid,
+export default async function SubCategoryModal({
+  categorygroup,
   children,
   ...props
-}: SubCategroyModalProps) {
+}: SubCategoryModalProps) {
   return (
     <Dialog {...props}>
-      // trigger
-      {children}
+      <DialogTrigger> {children}</DialogTrigger>
+
       <DialogContent>
         <DialogClose>
           <KeyboardBackspaceIcon aria-label="close" />
         </DialogClose>
 
-        <div>ACCOMMODATION</div>
+        <div className="bg-white h-[300px] w-[300px]">ACCOMMODATION</div>
 
         <div>
-          <Link href={`/category_group_id${categoryid}`}>Hostel</Link>
+          <Link href={`/category_group_id${categorygroup}`}>Hostel</Link>
         </div>
       </DialogContent>
     </Dialog>
