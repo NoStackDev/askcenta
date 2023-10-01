@@ -68,3 +68,13 @@ export type CityType = {
 export type CitiesResponseType = {
   data: CityType[];
 };
+
+export type SubCategoryType = {
+  id: number;
+  name: string;
+  category: string;
+};
+
+export type SubCategoryResponseType = {
+  data: SubCategoryType[];
+};

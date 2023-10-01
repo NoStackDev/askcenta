@@ -10,6 +10,8 @@ import {
   ServiceRepairmanIcon,
 } from "./icons";
 
+import SubCategoryModal from "./modal/sub_category_modal";
+
 type Props = {};
 
 const Categories = React.forwardRef<
@@ -28,53 +30,62 @@ const Categories = React.forwardRef<
       </CardHeader>
 
       <CardContent className="grid max-320screen:grid-cols-1 grid-cols-3 md:grid-cols-6 lg:grid-cols-3 1104screen:grid-cols-6 gap-2 mt-2">
-        <Card className="bg-[#5BE7C4]" variant="category">
-          <CardContent>
-            <PeopleGroupIcon aria-label="social" />
+        <SubCategoryModal categorygroup="social">
+          <Card className="bg-[#5BE7C4]" variant="category">
+            <CardContent>
+              <PeopleGroupIcon aria-label="social" />
 
-            <span className="block font-roboto font-medium text-sm text-black mt-4">
-              Social
-            </span>
-          </CardContent>
-        </Card>
+              <span className="block font-roboto font-medium text-sm text-black mt-4">
+                Social
+              </span>
+            </CardContent>
+          </Card>
+        </SubCategoryModal>
 
-        <Card className="bg-[#4FC1E9]" variant="category">
-          <CardContent>
-            <ServicePackagesIcon aria-label="jobs" />
+        <SubCategoryModal categorygroup="jobs">
+          <Card className="bg-[#4FC1E9]" variant="category">
+            <CardContent>
+              <ServicePackagesIcon aria-label="jobs" />
 
-            <span className="block font-roboto font-medium text-sm text-black mt-4">
-              Jobs
-            </span>
-          </CardContent>
-        </Card>
+              <span className="block font-roboto font-medium text-sm text-black mt-4">
+                Jobs
+              </span>
+            </CardContent>
+          </Card>
+        </SubCategoryModal>
 
-        <Card className="bg-[#EB89B5]" variant="category">
-          <CardContent>
-            <BoxOpenIcon aria-label="products" />
+        <SubCategoryModal categorygroup="products">
+          <Card className="bg-[#EB89B5]" variant="category">
+            <CardContent>
+              <BoxOpenIcon aria-label="products" />
 
-            <span className="block font-roboto font-medium text-sm text-black mt-4">
-              Products
-            </span>
-          </CardContent>
-        </Card>
+              <span className="block font-roboto font-medium text-sm text-black mt-4">
+                Products
+              </span>
+            </CardContent>
+          </Card>
+        </SubCategoryModal>
 
-        <Card className="bg-[#4FC1E9]" variant="category">
-          <CardContent>
-            <ServiceRepairmanIcon aria-label="services" />
+        <SubCategoryModal categorygroup="services">
+          <Card className="bg-[#4FC1E9]" variant="category">
+            <CardContent>
+              <ServiceRepairmanIcon aria-label="services" />
 
-            <span className="block font-roboto font-medium text-sm text-black mt-4">
-              Services
-            </span>
-          </CardContent>
-        </Card>
+              <span className="block font-roboto font-medium text-sm text-black mt-4">
+                Services
+              </span>
+            </CardContent>
+          </Card>
+        </SubCategoryModal>
 
-        <Card className="bg-[#5BE7C4]" variant="category">
-          <CardContent>
-            <HouseIcon aria-label="accommodation" />
+        <SubCategoryModal categorygroup="category">
+          <Card className="bg-[#5BE7C4]" variant="category">
+            <CardContent>
+              <HouseIcon aria-label="accommodation" />
 
-            <span className="block font-roboto font-medium text-sm text-black mt-4">
-              <span className="break break-words">Accommodation</span>
-              {/* <span className="hidden min-[440px]:flex md:hidden min-[905px]:flex">
+              <span className="block font-roboto font-medium text-sm text-black mt-4">
+                <span className="break break-words">Accommodation</span>
+                {/* <span className="hidden min-[440px]:flex md:hidden min-[905px]:flex">
                 Accommodation
               </span>
               <div className="w-fit h-fit min-[440px]:hidden md:flex min-[905px]:hidden">
@@ -83,9 +94,10 @@ const Categories = React.forwardRef<
               <div className="w-fit h-fit min-[440px]:hidden md:flex min-[905px]:hidden">
                 ation
               </div> */}
-            </span>
-          </CardContent>
-        </Card>
+              </span>
+            </CardContent>
+          </Card>
+        </SubCategoryModal>
 
         <Card className="border border-[#6356E5]" variant="category">
           <CardContent className="flex flex-col items-center">
