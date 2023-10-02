@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import React from "react";
 import { SubCategoryType } from "../../../../types";
 import { ChevronRightIcon } from "@/components/icons";
