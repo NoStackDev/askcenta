@@ -17,13 +17,19 @@ async function fetchFeed() {
   return res.json();
 }
 
-interface RequestContainerProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface RequestContainerProps extends React.HTMLAttributes<HTMLDivElement> {
+  searchparams?: { [key: string]: string | string[] | undefined };
+}
 
 export default async function RequestContainer({
   className,
+  searchparams,
   ...props
 }: RequestContainerProps) {
-  const feedres: Promise<FeedsResponse> = fetchFeed();
+  const feedres: Promise<FeedsResponse> =
+    searchparams && Object.keys(searchparams).length > 0
+      ? fetchFeed()
+      : fetchFeed();
   const feed = await feedres;
   const shuffledRequests = shuffle(feed.data);
 

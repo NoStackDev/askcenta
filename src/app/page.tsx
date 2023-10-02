@@ -10,16 +10,16 @@ type Props = {
 };
 
 export default function Home({ searchParams }: Props) {
-  console.log(searchParams);
+  const subCategoryId = searchParams.category_group_id;
   return (
     <main className="w-full">
-      <Topbar className="mt-2 md:mt-0" />
+      <Topbar className="mt-2 md:mt-0" subcategoryid={subCategoryId} />
 
-      <Categories className="mt-2 md:mt-4" />
+      {!subCategoryId && <Categories className="mt-2 md:mt-4" />}
 
-      <DiscoverBar />
+      {!subCategoryId && <DiscoverBar />}
 
-      <RequestContainer />
+      <RequestContainer searchparams={searchParams} />
 
       <Button className="md:hidden" variant="place_a_request">
         Place a Request
