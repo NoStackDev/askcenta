@@ -16,7 +16,7 @@ export default function SubCategoryLink({
 }: SubCategoryLinkProps) {
   return (
     <DialogClose>
-      <Link
+      <a
         href={`/?category_group_id=${subcategory.id}`}
         key={subcategory.id}
         className="w-full px-4 py-1 flex items-center justify-between hover:bg-primary/5 hover:scale-105"
@@ -26,7 +26,7 @@ export default function SubCategoryLink({
           {subcategory.name}
         </span>
         <ChevronRightIcon className="opacity-40" />
-      </Link>
+      </a>
     </DialogClose>
   );
 }

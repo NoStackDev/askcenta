@@ -56,14 +56,17 @@ export default async function TopbarSelect({
           <SelectGroup className="flex flex-col gap-2">
             {category.map((subCategory) => {
               return (
-                <Link
-                  href={`/?category_group_id=${subCategory.id}`}
+                <SelectItem
+                  value={subCategory.id.toString()}
                   key={subCategory.id}
                 >
-                  <SelectItem value={subCategory.id.toString()}>
-                    {subCategory.name.trim()}
-                  </SelectItem>
-                </Link>
+                  <Link
+                    href={`/?category_group_id=${subCategory.id}`}
+                    className="w-fit"
+                  >
+                    <div>{subCategory.name.trim()}</div>
+                  </Link>
+                </SelectItem>
               );
             })}
           </SelectGroup>
