@@ -49,7 +49,9 @@ export default async function TopbarSelect({
 
   return (
     <div className="flex items-center justify-between">
-      <div>{subCategoryData?.category.trim()}</div>
+      <div className="font-poppins font-semibold text-base text-[#4C4B60]">
+        {subCategoryData?.category.trim()}
+      </div>
 
       <Select>
         <SelectTrigger className="group border border-[#D9D9D9] rounded-lg p-3 flex items-center gap-5 font-roboto font-medium text-sm text-[#5E5D7F] min-w-[100px]">
