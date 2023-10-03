@@ -9,11 +9,9 @@ import {
   SelectTriggerIcon,
   SelectValue,
 } from "../ui/select";
-import { cn } from "@/lib/utils";
 import { SubCategoryResponseType } from "../../../types";
-import Link from "next/link";
 import { ChevronRightIcon } from "../icons";
-import { SelectItemIndicator } from "@radix-ui/react-select";
+import TopbarSelectLink from "./topbar_select_link";
 
 async function fetchSubCategories() {
   const res = await fetch("https://www.askcenta.ng/api/categoryGroups", {
@@ -65,12 +63,10 @@ export default async function TopbarSelect({
           <SelectGroup className="flex flex-col items-start gap-2">
             {category.map((subCategory) => {
               return (
-                <SelectItem
-                  value={subCategory.name.trim()}
+                <TopbarSelectLink
+                  subcategory={subCategory}
                   key={subCategory.id}
-                >
-                  <SelectItemText>{subCategory.name.trim()}</SelectItemText>
-                </SelectItem>
+                />
               );
             })}
           </SelectGroup>

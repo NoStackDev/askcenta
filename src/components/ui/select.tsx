@@ -5,7 +5,7 @@ import * as SelectPrimitive from "@radix-ui/react-select";
 
 import { cn } from "@/lib/utils";
 
-const Select = SelectPrimitive.Root;
+// const Select = SelectPrimitive.Root;
 
 const SelectGroup = SelectPrimitive.Group;
 
@@ -16,6 +16,26 @@ const SelectItemText = SelectPrimitive.ItemText;
 const SelectTriggerIcon = SelectPrimitive.Icon;
 
 const SelectItemIndicator = SelectPrimitive.ItemIndicator;
+
+const Select = React.forwardRef<
+  React.ElementRef<typeof SelectPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Root>
+>(({ children, ...props }, ref) => {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <SelectPrimitive.Root
+      open={open}
+      onOpenChange={() => {
+        setTimeout(() => {
+          setOpen(!open);
+        }, 0);
+      }}
+      {...props}
+    >
+      {children}
+    </SelectPrimitive.Root>
+  );
+});
 
 const SelectTrigger = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
