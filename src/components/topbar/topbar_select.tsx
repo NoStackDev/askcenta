@@ -4,12 +4,16 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
+  SelectItemText,
   SelectTrigger,
+  SelectTriggerIcon,
   SelectValue,
 } from "../ui/select";
 import { cn } from "@/lib/utils";
 import { SubCategoryResponseType } from "../../../types";
 import Link from "next/link";
+import { ChevronRightIcon } from "../icons";
+import { SelectItemIndicator } from "@radix-ui/react-select";
 
 async function fetchSubCategories() {
   const res = await fetch("https://www.askcenta.ng/api/categoryGroups", {
@@ -19,7 +23,9 @@ async function fetchSubCategories() {
     },
   });
 
-  if (!res.ok) throw new Error("failed to fetch categories");
+  if (!res.ok) {
+    throw new Error("failed to fetch feed");
+  }
 
   return res.json();
 }
@@ -48,23 +54,23 @@ export default async function TopbarSelect({
       <div>{subCategoryData?.category.trim()}</div>
 
       <Select>
-        <SelectTrigger className="w-fit">
+        <SelectTrigger className="group border border-[#D9D9D9] rounded-lg p-3 flex items-center gap-5 font-roboto font-medium text-sm text-[#5E5D7F] min-w-[100px]">
           <SelectValue placeholder={subCategoryData?.name.trim()} />
+          <SelectTriggerIcon>
+            <ChevronRightIcon className="rotate-90 group-data-[state=open]:rotate-[270deg] transition-transform duration-150 ease-in-out" />
+          </SelectTriggerIcon>
         </SelectTrigger>
 
         <SelectContent className="z-20 bg-white">
           <SelectGroup className="flex flex-col items-start gap-2">
             {category.map((subCategory) => {
               return (
-                <a
-                  href={`/?category_group_id=${subCategory.id}`}
-                  className="w-fit"
+                <SelectItem
+                  value={subCategory.name.trim()}
                   key={subCategory.id}
                 >
-                  <SelectItem value={subCategory.id.toString()}>
-                    <div>{subCategory.name.trim()}</div>
-                  </SelectItem>
-                </a>
+                  <SelectItemText>{subCategory.name.trim()}</SelectItemText>
+                </SelectItem>
               );
             })}
           </SelectGroup>
