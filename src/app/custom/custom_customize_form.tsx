@@ -16,6 +16,7 @@ import React from "react";
 import { CategoryType, CityType, SubCategoryType } from "../../../types";
 import CategoryModal from "@/components/modal/category_modal";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface CustomCustomizeFormProps
   extends React.HTMLAttributes<HTMLButtonElement> {
@@ -45,6 +46,8 @@ export default function CustomCustomizeForm({
     name: string;
   } | null>(null);
   const [selectedCities, setSelectedCities] = React.useState<CityType[]>([]);
+
+  const router = useRouter();
 
   const addCity = () => {
     if (selectedCity) {
@@ -94,8 +97,39 @@ export default function CustomCustomizeForm({
   };
 
   const onSave = () => {
-    console.log(selectedSubcategories);
-    console.log(selectedCities);
+    const subCategoryParams = selectedSubcategories.reduce(
+      (previousValue, currentValue) => {
+        return (previousValue += `${currentValue.id},`);
+      },
+      ""
+    );
+
+    const cityParams = selectedCities.reduce((previousValue, currentValue) => {
+      return (previousValue += `${currentValue.id},`);
+    }, "");
+
+    if (subCategoryParams && cityParams) {
+      router.push(
+        `/custom?category_group_id=${subCategoryParams.slice(
+          0,
+          subCategoryParams.length - 1
+        )}&city_id=${cityParams.slice(0, cityParams.length - 1)}`
+      );
+      return;
+    }
+
+    if (subCategoryParams) {
+      router.push(
+        `/custom?category_group_id=${subCategoryParams.slice(
+          0,
+          subCategoryParams.length - 1
+        )}`
+      );
+    }
+
+    if (cityParams) {
+      router.push(`city_id=${cityParams.slice(0, cityParams.length - 1)}`);
+    }
   };
 
   return (
@@ -124,7 +158,9 @@ export default function CustomCustomizeForm({
                 </h2>
 
                 <DialogClose>
-                  <CloseIcon />
+                  <div>
+                    <CloseIcon />
+                  </div>
                 </DialogClose>
               </div>
 
@@ -252,11 +288,17 @@ export default function CustomCustomizeForm({
           </Card>
         </div>
 
-        <DialogClose>
-          <Button variant="request" className="mt-6 py-4 w-full">
-            Save & Continue
-          </Button>
-        </DialogClose>
+        <div className="px-4 mt-6 mb-6 flex items-center justify-center">
+          <DialogClose>
+            <Button
+              variant="request"
+              className="py-4 w-full md:max-w-[500px]"
+              onClick={onSave}
+            >
+              Save & Continue
+            </Button>
+          </DialogClose>
+        </div>
       </DialogContent>
     </Dialog>
   );
