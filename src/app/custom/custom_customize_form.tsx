@@ -136,7 +136,7 @@ export default function CustomCustomizeForm({
           </Card>
 
           {/* category  */}
-          <Card variant="settings" className="mt-2 h-1/3">
+          <Card variant="settings" className="mt-2">
             <CardContent>
               <h3 className="font-roboto font-medium text-base text-black">
                 Category
@@ -195,7 +195,7 @@ export default function CustomCustomizeForm({
           </Card>
 
           {/* location  */}
-          <Card variant="settings" className="mt-2 h-1/3">
+          <Card variant="settings" className="mt-2">
             <CardContent>
               <h3 className="font-roboto font-medium text-base text-black">
                 Location
