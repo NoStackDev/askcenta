@@ -11,6 +11,7 @@ import {
 } from "./icons";
 
 import SubCategoryModal from "./modal/sub_category_modal";
+import Link from "next/link";
 
 type Props = {};
 
@@ -99,20 +100,22 @@ const Categories = React.forwardRef<
           </Card>
         </SubCategoryModal>
 
-        <Card className="border border-[#6356E5]" variant="category">
-          <CardContent className="flex flex-col items-center">
-            <DashboardIcon
-              width="48"
-              height="48"
-              pathColor="#6356E5"
-              aria-label="custom"
-            />
+        <Link href="/custom">
+          <Card className="border border-[#6356E5]" variant="category">
+            <CardContent className="flex flex-col items-center">
+              <DashboardIcon
+                width="48"
+                height="48"
+                pathColor="#6356E5"
+                aria-label="custom"
+              />
 
-            <span className="block font-roboto font-medium text-sm text-[#6356E5] mt-4">
-              Custom
-            </span>
-          </CardContent>
-        </Card>
+              <span className="block font-roboto font-medium text-sm text-[#6356E5] mt-4">
+                Custom
+              </span>
+            </CardContent>
+          </Card>
+        </Link>
       </CardContent>
     </Card>
   );
