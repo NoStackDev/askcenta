@@ -1,8 +1,9 @@
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import React from "react";
-import { FacebookIcon, LinkedinIcon, TwitterIcon } from "./icons";
+import { FacebookIcon, LinkedinIcon } from "./icons";
 import Link from "next/link";
+import TwitterXIcon from "./icons/twitter_x_icon";
 
 const Footer = React.forwardRef<HTMLElement, React.HTMLAttributes<"footer">>(
   ({ className, ...props }, forwardRef) => {
@@ -27,7 +28,7 @@ const Footer = React.forwardRef<HTMLElement, React.HTMLAttributes<"footer">>(
             <div className="flex justify-between items-center gap-6">
               <LinkedinIcon />
               <FacebookIcon />
-              <TwitterIcon />
+              <TwitterXIcon />
             </div>
           </div>
 

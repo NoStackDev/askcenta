@@ -117,7 +117,7 @@ const Sidebar = React.forwardRef<
           </Link>
 
           <Link
-            href="/"
+            href="/saved"
             className="border-b border-[#EDECF0]"
             onClick={() => setShowSidebar(false)}
           >
@@ -141,7 +141,7 @@ const Sidebar = React.forwardRef<
           </Link>
 
           <Link
-            href="/"
+            href="/profile"
             className="border-b border-[#EDECF0]"
             onClick={() => setShowSidebar(false)}
           >
