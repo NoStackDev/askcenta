@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  ChevronRightIcon,
-  KeyboardBackspaceIcon,
-  LocationOnIcon,
-} from "@/components/icons";
+import { ChevronRightIcon, LocationOnIcon } from "@/components/icons";
 import CloseIcon from "@/components/icons/close_icon";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,10 +10,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import React from "react";
-import { CityType, StateResponseType } from "../../../types";
-import { cn } from "@/lib/utils";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
+import { CityType } from "../../../types";
+import LocationModal from "@/components/modal/location_modal";
 
 type Props = {
   cityid: string | string[] | undefined;
@@ -35,22 +29,10 @@ export default function NearbyLocationForm({
     id: number;
     name: string;
   } | null>(null);
-  const router = useRouter();
 
   const preSelectedLocation = citiesdata.find(
     (city) => city.id === Number(cityid)
   );
-  const selectedStateCities = selectedState
-    ? citiesdata.filter((city) => city.state === selectedState.name)
-    : [];
-
-  const contentDivRef = React.useRef<HTMLDivElement>(null);
-
-  const scrollToTop = () => {
-    if (contentDivRef.current) {
-      contentDivRef.current.scrollTop = 0;
-    }
-  };
 
   return (
     <>
@@ -106,14 +88,17 @@ export default function NearbyLocationForm({
             </div>
 
             <div className="flex flex-col px-4 gap-2">
-              <span className="font-roboto font-medium text-base text-black">
+              <p className="font-roboto font-medium text-base text-black">
                 Your Location
-              </span>
+              </p>
 
-              <Dialog
-                onOpenChange={(open) => {
-                  open && setSelectedState(null);
-                }}
+              <LocationModal
+                citiesdata={citiesdata}
+                statesdata={statesdata}
+                selectedCity={selectedCity}
+                selectedState={selectedState}
+                setSelectedCity={setSelectedCity}
+                setSelectedState={setSelectedState}
               >
                 <DialogTrigger>
                   <Button className="px-4 py-3 flex items-center justify-between bg-[#F7F9FF] border border-[#D9D9D9] rounded-xl font-roboto font-normal text-base text-black opacity-60">
@@ -121,108 +106,10 @@ export default function NearbyLocationForm({
                     <ChevronRightIcon className="rotate-90" />
                   </Button>
                 </DialogTrigger>
-
-                <DialogContent className="md:h-4/5 py-8">
-                  <div
-                    className="h-full relative overflow-y-auto overflow-x-hidden"
-                    ref={contentDivRef}
-                  >
-                    <div className="mb-4 border-b border-[#D9D9D9] sticky top-0 bg-white z-40">
-                      <h2 className="font-poppins font-semibold text-base text-black px-6">
-                        SELECT YOUR LOCATION
-                      </h2>
-
-                      <div className="flex items-center gap-4 px-6 mt-8 mb-4">
-                        {!selectedState && (
-                          <DialogClose>
-                            <Button>
-                              <KeyboardBackspaceIcon aria-label="back" />
-                            </Button>
-                          </DialogClose>
-                        )}
-
-                        {selectedState && (
-                          <Button
-                            onClick={() => {
-                              setSelectedState(null);
-                              scrollToTop();
-                            }}
-                          >
-                            <KeyboardBackspaceIcon aria-label="back" />
-                          </Button>
-                        )}
-
-                        <h3 className="font-roboto font-medium text-base text-black">
-                          {selectedState ? selectedState.name : "States"}
-                        </h3>
-                      </div>
-                    </div>
-
-                    <div className="h-full relative z-30">
-                      <div
-                        className={cn(
-                          "h-fit w-full flex flex-col gap-8 items-start px-6 absolute transition-all animate-dialogFirstContentShow",
-                          selectedState && "hidden"
-                        )}
-                      >
-                        {statesdata.map((state) => {
-                          return (
-                            <Button
-                              key={state.id}
-                              className="w-full py-2 flex items-center justify-between hover:scale-105"
-                              onClick={() => {
-                                setSelectedState(state);
-                                scrollToTop();
-                              }}
-                            >
-                              <span className="font-roboto font-normal text-lg text-black">
-                                {state.name}
-                              </span>
-                              <ChevronRightIcon
-                                aria-label={`${state.name} button`}
-                                className="opacity-40"
-                                width="24"
-                                height="24"
-                              />
-                            </Button>
-                          );
-                        })}
-                      </div>
-
-                      <div
-                        className={cn(
-                          "h-fit w-full flex flex-col gap-8 items-start px-6 absolute left-full transition-all duration-150 ease-in-out",
-                          selectedState && "left-0"
-                        )}
-                      >
-                        {selectedStateCities.map((city) => {
-                          return (
-                            <DialogClose key={city.id}>
-                              <Button
-                                className="w-full py-2 flex items-center justify-between hover:scale-105"
-                                onClick={() => setSelectedCity(city)}
-                              >
-                                <span className="font-roboto font-normal text-lg text-black">
-                                  {city.city}
-                                </span>
-                                <ChevronRightIcon
-                                  aria-label={`${city.city} button`}
-                                  className="opacity-40"
-                                  width="24"
-                                  height="24"
-                                />
-                              </Button>
-                            </DialogClose>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  </div>
-                </DialogContent>
-              </Dialog>
+              </LocationModal>
 
               <DialogClose>
-                <Link
+                <a
                   href={`/nearby?city_id=${
                     selectedCity?.id || preSelectedLocation?.id
                   }`}
@@ -231,7 +118,7 @@ export default function NearbyLocationForm({
                   <Button variant="request" className="mt-6 py-4 w-full">
                     Save & Continue
                   </Button>
-                </Link>
+                </a>
               </DialogClose>
             </div>
           </div>

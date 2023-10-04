@@ -41,9 +41,8 @@ export default async function NearbyLocation({
   ...props
 }: NearbyLocationProps) {
   const citiesRes: Promise<CitiesResponseType> = fetchCities();
-  const citiesData = await (await citiesRes).data;
   const statesRes: Promise<StateResponseType> = fetchStates();
-  const statesData = await (await statesRes).data;
+  const [cities, states] = await Promise.all([citiesRes, statesRes]);
 
   return (
     <Card
@@ -53,8 +52,8 @@ export default async function NearbyLocation({
     >
       <NearbyLocationForm
         cityid={cityid}
-        citiesdata={citiesData}
-        statesdata={statesData}
+        citiesdata={cities.data}
+        statesdata={states.data}
       />
     </Card>
   );

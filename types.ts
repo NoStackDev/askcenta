@@ -76,6 +76,11 @@ export type StateResponseType = {
   }[];
 };
 
+export type CategoryType = {
+  id: string;
+  title: string;
+};
+
 export type SubCategoryType = {
   id: number;
   name: string;

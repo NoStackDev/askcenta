@@ -2,10 +2,10 @@ import React from "react";
 import { Card, CardContent, CardTitle } from "../ui/card";
 import Image from "next/image";
 import {
+  BookmarkFillIcon,
   CommentIcon,
   LocationOnIcon,
   ScheduleIcon,
-  StarFilledIcon,
 } from "../icons";
 import { cn, month } from "@/lib/utils";
 import { RequestType } from "../../../types";
@@ -74,7 +74,7 @@ export default function RequestCard({
               </div>
             </div>
 
-            <StarFilledIcon width="22" height="22" />
+            <BookmarkFillIcon />
           </div>
 
           <RespondToRequestBtn className="mt-5 mb-3" />

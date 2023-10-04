@@ -91,7 +91,7 @@ const Sidebar = React.forwardRef<
           </Link>
 
           <Link
-            href="/"
+            href="/custom"
             className="border-b border-[#EDECF0]"
             onClick={() => setShowSidebar(false)}
           >
