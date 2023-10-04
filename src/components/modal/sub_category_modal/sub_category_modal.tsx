@@ -56,7 +56,7 @@ export default async function SubCategoryModal({
           </div>
         </div>
 
-        <div className="mt-5 mb-3 flex flex-col gap-5">
+        <div className="mt-5 mb-20 flex flex-col gap-5">
           {subCategoriesData.map((subCategory) => {
             return (
               <SubCategoryLink subcategory={subCategory} key={subCategory.id} />
