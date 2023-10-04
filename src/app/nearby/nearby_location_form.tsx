@@ -61,11 +61,9 @@ export default function NearbyLocationForm({
           height="24"
         />
 
-        {(preSelectedLocation || (selectedState && selectedCity)) && (
+        {(preSelectedLocation || selectedCity) && (
           <span className="font-roboto font-normal text-sm text-black">
-            {selectedState && selectedCity
-              ? `${selectedState.name}, ${selectedCity.city}`
-              : preSelectedLocation?.city}
+            {selectedCity ? selectedCity?.city : preSelectedLocation?.city}
           </span>
         )}
       </div>
@@ -228,7 +226,9 @@ export default function NearbyLocationForm({
                   className="mt-6 py-4"
                   onClick={() =>
                     router.push(
-                      `/nearby?${selectedCity?.id || preSelectedLocation?.id}`
+                      `/nearby?city_id=${
+                        selectedCity?.id || preSelectedLocation?.id
+                      }`
                     )
                   }
                 >

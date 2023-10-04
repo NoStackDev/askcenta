@@ -1,6 +1,7 @@
 import React from "react";
 import NearbyTopbar from "./nearby_topbar";
 import NearbyLocation from "./nearby_location";
+import { RequestContainer } from "@/components/request";
 
 type Props = {
   params: { slug: string };
@@ -14,6 +15,7 @@ export default function NearbyPage({ searchParams }: Props) {
     <main className="w-full">
       <NearbyTopbar />
       <NearbyLocation cityid={cityId} className="mt-2 md:mt-4" />
+      <RequestContainer searchparams={searchParams} />
     </main>
   );
 }
