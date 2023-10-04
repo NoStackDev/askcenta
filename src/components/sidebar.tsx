@@ -65,7 +65,7 @@ const Sidebar = React.forwardRef<
           </Link>
 
           <Link
-            href="/"
+            href="/nearby"
             className="border-b border-[#EDECF0]"
             onClick={() => setShowSidebar(false)}
           >

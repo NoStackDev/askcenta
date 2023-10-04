@@ -26,6 +26,7 @@ const config: Config = {
         overlayShow: "overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1)",
         contentShow: "contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1)",
         contentShowMd: "contentShowMd 150ms cubic-bezier(0.16, 1, 0.3, 1)",
+        dialogFirstContentShow: "dialogFirstContentShow 150ms ease-in-out",
       },
 
       gridTemplateColumns: {
@@ -72,6 +73,17 @@ const config: Config = {
             transform: "translate(-50%, -48%) scale(0.96)",
           },
           to: { opacity: "1", transform: "translate(-50%, -50%) scale(1)" },
+        },
+        dialogFirstContentShow: {
+          "0%": {
+            display: "block",
+          },
+          "1%": {
+            left: "-100%",
+          },
+          "100%": {
+            left: "0%",
+          },
         },
       },
     },

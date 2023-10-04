@@ -1,7 +1,6 @@
 import React from "react";
 
 import { ChevronRightIcon, KeyboardBackspaceIcon } from "../../icons";
-import Link from "next/link";
 import {
   Dialog,
   DialogClose,
@@ -42,7 +41,7 @@ export default async function SubCategoryModal({
   );
   return (
     <Dialog>
-      <DialogTrigger asChild>{children}</DialogTrigger>
+      <DialogTrigger>{children}</DialogTrigger>
 
       <DialogContent className="bg-white top-[72px] h-[calc(100vh_-_72px)] md:h-4/5 flex flex-col pb-4 md:pb-8 border-t-2 border-black/5 overflow-y-auto overflow-x-hidden">
         <div className="bg-white w-full py-4 md:pt-8 md:p flex flex-col gap-5 sticky top-0 z-40">
