@@ -148,9 +148,9 @@ export default function CustomCustomizeForm({
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="bg-[#F7F7F9] flex flex-col justify-between">
+      <DialogContent className="bg-[#F7F7F9] flex flex-col justify-between pb-10 overflow-y-auto">
         <div>
-          <Card variant="settings" className="pt-10">
+          <Card variant="settings" className="pt-10 sticky top-0 z-40">
             <CardContent>
               <div className="flex justify-between items-center">
                 <h2 className="font-poppins font-semibold text-base text-black">
@@ -288,7 +288,7 @@ export default function CustomCustomizeForm({
           </Card>
         </div>
 
-        <div className="px-4 mt-6 mb-6 flex items-center justify-center">
+        <div className="px-4">
           <DialogClose>
             <Button
               variant="request"

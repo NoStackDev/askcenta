@@ -2,14 +2,17 @@ import React from "react";
 import CustomTopbar from "./custom_topbar";
 import { RequestContainer } from "@/components/request";
 
-type Props = {};
+type Props = {
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
 
-export default function CustomPage({}: Props) {
+export default function CustomPage({ searchParams }: Props) {
   return (
     <main className="w-full">
       <CustomTopbar className="mt-2 md:mt-0" />
 
-      <RequestContainer />
+      <RequestContainer searchparams={searchParams} />
     </main>
   );
 }
