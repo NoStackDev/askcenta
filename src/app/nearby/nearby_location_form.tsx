@@ -17,6 +17,7 @@ import React from "react";
 import { CityType, StateResponseType } from "../../../types";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 type Props = {
   cityid: string | string[] | undefined;
@@ -98,7 +99,7 @@ export default function NearbyLocationForm({
                   <span className="font-roboto font-medium text-base text-black">
                     {selectedState && selectedCity
                       ? `${selectedState.name}, ${selectedCity.city}`
-                      : preSelectedLocation?.city}
+                      : `${preSelectedLocation?.state}, ${preSelectedLocation?.city}`}
                   </span>
                 )}
               </div>
@@ -221,19 +222,16 @@ export default function NearbyLocationForm({
               </Dialog>
 
               <DialogClose>
-                <Button
-                  variant="request"
-                  className="mt-6 py-4"
-                  onClick={() =>
-                    router.push(
-                      `/nearby?city_id=${
-                        selectedCity?.id || preSelectedLocation?.id
-                      }`
-                    )
-                  }
+                <Link
+                  href={`/nearby?city_id=${
+                    selectedCity?.id || preSelectedLocation?.id
+                  }`}
+                  className=""
                 >
-                  Save & Continue
-                </Button>
+                  <Button variant="request" className="mt-6 py-4 w-full">
+                    Save & Continue
+                  </Button>
+                </Link>
               </DialogClose>
             </div>
           </div>
