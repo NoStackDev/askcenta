@@ -104,6 +104,18 @@ export default function ProfileTabs({ className, ...props }: ProfileTabProps) {
           </Card>
         </div>
       </TabsContent>
+
+      <TabsContent value="q&a">
+        <div className="h-[100px]"></div>
+      </TabsContent>
+
+      <TabsContent value="requests">
+        <div className="h-[100px]"></div>
+      </TabsContent>
+
+      <TabsContent value="responses">
+        <div className="h-[100px]"></div>
+      </TabsContent>
     </Tabs>
   );
 }
