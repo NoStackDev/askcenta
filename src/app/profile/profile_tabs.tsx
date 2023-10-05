@@ -3,10 +3,16 @@ import {
   InstagramCircleIcon,
   WhatsappCircleIcon,
 } from "@/components/icons";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TabsProps } from "@radix-ui/react-tabs";
 import React from "react";
+import ProfileAboutTab from "./profile_about_tab";
+import ProfileQandATab from "./profile_qa_tab";
+import ProfileRequestsTab from "./profile_requests_tab";
+import ProfileResponseTab from "./profile_responses_tab";
+import ProfileResponsesTab from "./profile_responses_tab";
 
 interface ProfileTabProps extends TabsProps {}
 
@@ -40,82 +46,13 @@ export default function ProfileTabs({ className, ...props }: ProfileTabProps) {
         </TabsTrigger>
       </TabsList>
 
-      <TabsContent value="about" className="py-8">
-        <div>
-          <h3 className="ml-4 font-roboto font-medium text-sm text-black">
-            Bio
-          </h3>
-          <Card
-            variant="settings"
-            className="mt-2 font-roboto font-medium text-base text-[#010E1E]"
-          >
-            Lorem ipsum dolor sit amet consectetur. In malesuada fringilla
-            molestie dis sapien posuere porttitor. Varius vitae mauris felis sem
-            turpis turpis eu sed.
-          </Card>
-        </div>
+      <ProfileAboutTab value="about" className="mt-12" />
 
-        <div className="mt-8">
-          <h3 className="ml-4 font-roboto font-medium text-sm text-black">
-            Contact
-          </h3>
-          <Card
-            variant="settings"
-            className="mt-2 font-roboto font-medium text-base text-[#010E1E]"
-          >
-            <div>
-              <h4 className="font-roboto font-normal text-sm text-[#48466D] opacity-80">
-                Business Address
-              </h4>
+      <ProfileQandATab value="q&a" className="mt-12" />
 
-              <p className="mt-2">
-                molestie dis sapien posuere porttitor. Varius vitae mauris felis
-                sem turpis turpis eu sed.
-              </p>
-            </div>
+      <ProfileRequestsTab value="requests" className="" />
 
-            <div className="mt-6 flex gap-3 items-center">
-              <h4 className="font-roboto font-normal text-base text-[#48466D] opacity-60">
-                City:
-              </h4>
-
-              <span className="">08054423423</span>
-            </div>
-
-            <div className="mt-6">
-              <h4 className="font-roboto font-normal text-sm text-[#48466D] opacity-80">
-                Phone Number
-              </h4>
-
-              <p className="mt-2">08054423423</p>
-            </div>
-
-            <div className="mt-6 flex items-center justify-between">
-              <h4 className="font-roboto font-normal text-sm text-[#48466D] opacity-80">
-                My Social Media Links:
-              </h4>
-
-              <div className="flex items-center gap-6">
-                <FacebookCircleIcon />
-                <InstagramCircleIcon />
-                <WhatsappCircleIcon />
-              </div>
-            </div>
-          </Card>
-        </div>
-      </TabsContent>
-
-      <TabsContent value="q&a">
-        <div className="h-[100px]"></div>
-      </TabsContent>
-
-      <TabsContent value="requests">
-        <div className="h-[100px]"></div>
-      </TabsContent>
-
-      <TabsContent value="responses">
-        <div className="h-[100px]"></div>
-      </TabsContent>
+      <ProfileResponsesTab value="responses" className="" />
     </Tabs>
   );
 }
