@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import {
   Select,
@@ -9,41 +11,27 @@ import {
   SelectTriggerIcon,
   SelectValue,
 } from "../ui/select";
-import { SubCategoryResponseType } from "../../../types";
+import { SubCategoryType } from "../../../types";
 import { ChevronRightIcon } from "../icons";
-import TopbarSelectLink from "./topbar_select_link";
-
-async function fetchSubCategories() {
-  const res = await fetch("https://www.askcenta.ng/api/categoryGroups", {
-    method: "OPTIONS",
-    next: {
-      revalidate: 3600 * 6,
-    },
-  });
-
-  if (!res.ok) {
-    throw new Error("failed to fetch feed");
-  }
-
-  return res.json();
-}
+import { useRouter } from "next/navigation";
 
 interface TopbarSelectProps extends React.HTMLAttributes<typeof Select> {
   subcategoryid: string | string[] | undefined;
+  subcategories: SubCategoryType[];
 }
 
-export default async function TopbarSelect({
+export default function TopbarSelect({
   className,
   subcategoryid,
+  subcategories,
   ...props
 }: TopbarSelectProps) {
-  const subCategoriesRes: Promise<SubCategoryResponseType> =
-    fetchSubCategories();
-  const subCategories = await subCategoriesRes;
-  const subCategoryData = subCategories.data.find(
+  const router = useRouter();
+
+  const subCategoryData = subcategories.find(
     (subCategory) => subCategory.id === Number(subcategoryid as string)
   );
-  const category = subCategories.data.filter(
+  const category = subcategories.filter(
     (subCategory) => subCategory.category === subCategoryData?.category
   );
 
@@ -53,7 +41,9 @@ export default async function TopbarSelect({
         {subCategoryData?.category.trim()}
       </div>
 
-      <Select>
+      <Select
+        onValueChange={(value) => router.push(`/?category_group_id=${value}`)}
+      >
         <SelectTrigger className="group border border-[#D9D9D9] rounded-lg p-3 flex items-center gap-5 font-roboto font-medium text-sm text-[#5E5D7F] min-w-[100px]">
           <SelectValue placeholder={subCategoryData?.name.trim()} />
           <SelectTriggerIcon>
@@ -65,10 +55,12 @@ export default async function TopbarSelect({
           <SelectGroup className="flex flex-col items-start gap-2">
             {category.map((subCategory) => {
               return (
-                <TopbarSelectLink
-                  subcategory={subCategory}
+                <SelectItem
+                  value={subCategory.id.toString()}
                   key={subCategory.id}
-                />
+                >
+                  <SelectItemText>{subCategory.name.trim()}</SelectItemText>
+                </SelectItem>
               );
             })}
           </SelectGroup>
