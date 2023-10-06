@@ -59,7 +59,7 @@ export default function NearbyLocationForm({
         </DialogTrigger>
 
         <DialogContent className="md:h-4/5">
-          <div className="flex flex-col justify-between h-full pb-10">
+          <div className="flex flex-col justify-between h-full pb-20">
             <div>
               <div className="flex items-center justify-between px-4 pt-10">
                 <span className="font-poppins font-semibold text-base text-black">
