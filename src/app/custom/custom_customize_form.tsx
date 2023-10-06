@@ -148,7 +148,7 @@ export default function CustomCustomizeForm({
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="bg-[#F7F7F9] flex flex-col justify-between pb-10 overflow-y-auto">
+      <DialogContent className="bg-[#F7F7F9] flex flex-col justify-between pb-20 overflow-y-auto">
         <div>
           <Card variant="settings" className="pt-10 sticky top-0 z-40">
             <CardContent>
