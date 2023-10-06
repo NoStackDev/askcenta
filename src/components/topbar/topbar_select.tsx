@@ -28,6 +28,12 @@ export default function TopbarSelect({
 }: TopbarSelectProps) {
   const router = useRouter();
 
+  const goto = (subCategoryId: string) => {
+    if (window) {
+      window.location.href = `/?category_group_id=${subCategoryId}`;
+    }
+  };
+
   const subCategoryData = subcategories.find(
     (subCategory) => subCategory.id === Number(subcategoryid as string)
   );
@@ -41,9 +47,7 @@ export default function TopbarSelect({
         {subCategoryData?.category.trim()}
       </div>
 
-      <Select
-        onValueChange={(value) => router.push(`/?category_group_id=${value}`)}
-      >
+      <Select onValueChange={(value) => goto(value)}>
         <SelectTrigger className="group border border-[#D9D9D9] rounded-lg p-3 flex items-center gap-5 font-roboto font-medium text-sm text-[#5E5D7F] min-w-[100px]">
           <SelectValue placeholder={subCategoryData?.name.trim()} />
           <SelectTriggerIcon>
