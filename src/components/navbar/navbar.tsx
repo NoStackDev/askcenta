@@ -35,7 +35,7 @@ const Navbar = React.forwardRef<
           </Button>
 
           <Link
-            href="/"
+            href="/search"
             className="h-10 w-10 rounded-lg bg-[#F7F7F9] flex items-center justify-center"
           >
             <SearchIcon aria-label="search" />

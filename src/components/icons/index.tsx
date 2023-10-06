@@ -36,3 +36,4 @@ export { default as KeyboardBackspaceIcon } from "./keyboard_backspace_icon";
 export { default as TuneIcon } from "./tune_icon";
 export { default as InstagramCircleIcon } from "./instagram_circle_icon";
 export { default as AddFillIcon } from "./add_fill_icon";
+export { default as SearchFillIcon } from "./search_fill_icon";
