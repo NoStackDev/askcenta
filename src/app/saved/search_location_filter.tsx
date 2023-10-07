@@ -31,14 +31,19 @@ export default function SearchLocationFilter({
     (city) => city.id === Number(cityid)
   );
 
-  const goto = (modalOpenChange: boolean) => {
+  React.useEffect(() => {
     if (window) {
-      const currentLocationId = window.location.href.split("=")[1];
+      const currentLocationId = window.location.href.split("city_id=")[1];
+      if (
+        currentLocationId === selectedCity?.id.toString() ||
+        currentLocationId === ""
+      )
+        return;
 
-      if (selectedCity?.id.toString() === currentLocationId) return;
-      window.location.href = `/search?city_id=${selectedCity?.id}`;
+      if (selectedCity)
+        window.location.href = `/search?city_id=${selectedCity?.id}`;
     }
-  };
+  }, [selectedCity?.id]);
 
   return (
     <LocationModal
@@ -48,7 +53,6 @@ export default function SearchLocationFilter({
       selectedState={selectedState}
       setSelectedCity={setSelectedCity}
       setSelectedState={setSelectedState}
-      onOpenChange={(value) => goto(value)}
     >
       <DialogTrigger>
         <Button className="flex items-center gap-2 border border-[#DDDBDB] rounded-lg bg-white py-2 px-3 pr-8">
