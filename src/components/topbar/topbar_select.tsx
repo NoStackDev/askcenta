@@ -26,8 +26,6 @@ export default function TopbarSelect({
   subcategories,
   ...props
 }: TopbarSelectProps) {
-  const router = useRouter();
-
   const goto = (subCategoryId: string) => {
     if (window) {
       window.location.href = `/?category_group_id=${subCategoryId}`;

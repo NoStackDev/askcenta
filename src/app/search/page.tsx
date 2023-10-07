@@ -1,16 +1,24 @@
 import { RequestContainer } from "@/components/request";
 import React from "react";
 import Searchbar from "../saved/search_bar";
+import SearchTopbar from "../saved/search_topbar";
 
-type Props = {};
+type Props = {
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
 
-export default function SearchPage({}: Props) {
+export default function SearchPage({ searchParams }: Props) {
+  const cityId = searchParams.city_id;
+
   return (
     <main className="w-full mt-10">
-      <div className="px-4">
+      <div className="px-4 md:px-0">
         <Searchbar />
       </div>
-      <RequestContainer />
+
+      <SearchTopbar cityid={cityId} className="mt-10" />
+      <RequestContainer searchparams={searchParams} />
     </main>
   );
 }

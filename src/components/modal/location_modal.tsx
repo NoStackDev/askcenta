@@ -6,8 +6,9 @@ import { Button } from "../ui/button";
 import { ChevronRightIcon, KeyboardBackspaceIcon } from "../icons";
 import { CityType } from "../../../types";
 import { cn } from "@/lib/utils";
+import { DialogProps } from "@radix-ui/react-dialog";
 
-interface LocationModalProps extends React.HTMLAttributes<HTMLDivElement> {
+interface LocationModalProps extends DialogProps {
   selectedState: {
     id: number;
     name: string;
@@ -25,7 +26,6 @@ interface LocationModalProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export default function LocationModal({
-  className,
   children,
   citiesdata,
   statesdata,
@@ -52,6 +52,7 @@ export default function LocationModal({
       onOpenChange={(open) => {
         open && setSelectedState(null);
       }}
+      {...props}
     >
       {children}
 
@@ -59,7 +60,6 @@ export default function LocationModal({
         <div
           className="h-full relative overflow-y-auto overflow-x-hidden"
           ref={contentDivRef}
-          {...props}
         >
           <div className="mb-4 border-b border-[#D9D9D9] sticky top-0 bg-white z-40">
             <h2 className="font-poppins font-semibold text-base text-black px-6">
