@@ -15,6 +15,8 @@ async function fetchFeed(searchParams?: {
       ""
     );
 
+    // console.log(`https://www.askcenta.ng/api/feeds?${params.slice(0, params.length - 1)}`);
+
     const res = await fetch(
       `https://www.askcenta.ng/api/feeds?${params.slice(0, params.length - 1)}`,
       {

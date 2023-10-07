@@ -1,7 +1,7 @@
 import { RequestContainer } from "@/components/request";
 import React from "react";
-import Searchbar from "../saved/search_bar";
-import SearchTopbar from "../saved/search_topbar";
+import Searchbar from "./search_bar";
+import SearchTopbar from "./search_topbar";
 
 type Props = {
   params: { slug: string };

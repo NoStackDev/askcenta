@@ -16,7 +16,7 @@ export default function Searchbar({ className, ...props }: SearchbarProps) {
       <form className="flex items-center justify-between">
         <input
           type="text"
-          name="search"
+          name="str"
           id=""
           placeholder="Search keywords for requests"
           className="p-1 font-roboto font-normal text-sm text-black opacity-80 placeholder:font-roboto placeholder:font-normal placeholder:text-sm placeholder:text-black placeholder:opacity-60 w-full"

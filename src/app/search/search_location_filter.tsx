@@ -40,8 +40,11 @@ export default function SearchLocationFilter({
       )
         return;
 
-      if (selectedCity)
-        window.location.href = `/search?city_id=${selectedCity?.id}`;
+      if (selectedCity) {
+        const url = new URL(window.location.href);
+        url.searchParams.append("city_id", selectedCity.id.toString());
+        window.location.href = url.href;
+      }
     }
   }, [selectedCity?.id]);
 
