@@ -217,7 +217,7 @@ export default function CustomCustomizeForm({
                 {selectedSubcategories.map((subCategory) => {
                   return (
                     <div
-                      className="bg-[#F3F6F6] rounded-[15px] py-2 px-3 font-roboto font-normal text-sm text-black opacity-70 flex items-center gap-3 w-fit"
+                      className="bg-[#F3F6F6] rounded-[15px] py-2 px-3 font-roboto font-normal text-sm text-black opacity-70 flex items-center gap-3 w-fit hover:cursor-pointer"
                       key={subCategory.id}
                       onClick={() => removeSubCategory(subCategory)}
                     >
@@ -274,7 +274,7 @@ export default function CustomCustomizeForm({
                 {selectedCities.map((city) => {
                   return (
                     <div
-                      className="bg-[#F3F6F6] rounded-[15px] py-2 px-3 font-roboto font-normal text-sm text-black opacity-70 flex items-center gap-3 w-fit"
+                      className="bg-[#F3F6F6] rounded-[15px] py-2 px-3 font-roboto font-normal text-sm text-black opacity-70 flex items-center gap-3 w-fit hover:cursor-pointer"
                       key={city.id}
                       onClick={() => removeCity(city)}
                     >

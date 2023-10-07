@@ -1,15 +1,10 @@
 import React from "react";
 import { Card, CardContent, CardTitle } from "../ui/card";
 import Image from "next/image";
-import {
-  BookmarkFillIcon,
-  CommentIcon,
-  LocationOnIcon,
-  ScheduleIcon,
-} from "../icons";
+import { CommentIcon, LocationOnIcon, ScheduleIcon } from "../icons";
 import { cn, month } from "@/lib/utils";
 import { RequestType } from "../../../types";
-import { RespondToRequestBtn } from ".";
+import { RequestBookmark, RespondToRequestBtn } from ".";
 
 interface RequestCardProps extends React.HTMLAttributes<HTMLDivElement> {
   request: RequestType;
@@ -74,7 +69,7 @@ export default function RequestCard({
               </div>
             </div>
 
-            <BookmarkFillIcon />
+            <RequestBookmark />
           </div>
 
           <RespondToRequestBtn className="mt-5 mb-3" />

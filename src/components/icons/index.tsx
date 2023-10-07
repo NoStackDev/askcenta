@@ -4,6 +4,7 @@ export { default as NotificationIcon } from "./notification_icon";
 export { default as HamburgerIcon } from "./hamburger_icon";
 export { default as MyLocationIcon } from "./my_location_icon";
 export { default as DashboardIcon } from "./dashboard_customize_icon";
+export { default as BookmarkIcon } from "./bookmark_icon";
 export { default as BookmarkFillIcon } from "./bookmark_fill_icon";
 export { default as StarIcon } from "./star_icon";
 export { default as AccountIcon } from "./account_icon";

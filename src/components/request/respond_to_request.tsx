@@ -14,7 +14,7 @@ export default function RespondToRequestBtn({
   return (
     <Button
       variant="request_card_outlined"
-      className={cn("", className)}
+      className={cn("hover:cursor-pointer", className)}
       {...props}
       onClick={(e) => {
         e.preventDefault();
