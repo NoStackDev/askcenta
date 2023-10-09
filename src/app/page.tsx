@@ -2,7 +2,7 @@ import Categories from "@/components/categories";
 import Topbar from "@/components/topbar";
 import { Button } from "@/components/ui/button";
 import DiscoverBar from "@/components/discover_bar";
-import { RequestContainer } from "@/components/request";
+import { RequestContainer, RequestForm } from "@/components/request";
 
 type Props = {
   params: { slug: string };
@@ -21,9 +21,11 @@ export default function Home({ searchParams }: Props) {
 
       <RequestContainer searchparams={searchParams} />
 
-      <Button className="md:hidden" variant="place_a_request">
-        Place a Request
-      </Button>
+      <RequestForm>
+        <Button className="md:hidden" variant="place_a_request">
+          Place a Request
+        </Button>
+      </RequestForm>
     </main>
   );
 }
