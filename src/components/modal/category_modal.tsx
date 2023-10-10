@@ -99,7 +99,7 @@ export default function CategoryModal({
           <div className="h-full relative z-30">
             <div
               className={cn(
-                "h-fit w-full flex flex-col gap-8 items-start px-6 absolute transition-all animate-dialogFirstContentShow",
+                "h-fit w-full flex flex-col gap-8 items-start px-6 pb-20 absolute transition-all animate-dialogFirstContentShow",
                 selectedCategory && "hidden"
               )}
             >
@@ -134,7 +134,7 @@ export default function CategoryModal({
 
             <div
               className={cn(
-                "h-fit w-full flex flex-col gap-8 items-start px-6 absolute left-full transition-all duration-150 ease-in-out",
+                "h-fit w-full flex flex-col gap-8 items-start px-6 pb-20 absolute left-full transition-all duration-150 ease-in-out",
                 selectedCategory && "left-0"
               )}
             >
