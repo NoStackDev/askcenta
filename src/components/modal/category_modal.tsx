@@ -1,13 +1,19 @@
 "use client";
 
 import React from "react";
-import { Dialog, DialogClose, DialogContent } from "../ui/dialog";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogTrigger,
+} from "../ui/dialog";
 import { Button } from "../ui/button";
 import { ChevronRightIcon, KeyboardBackspaceIcon } from "../icons";
-import { CategoryType, CityType, SubCategoryType } from "../../../types";
+import { CategoryType, SubCategoryType } from "../../../types";
 import { cn } from "@/lib/utils";
+import { DialogProps } from "@radix-ui/react-dialog";
 
-interface CategoryModalProps extends React.HTMLAttributes<HTMLDivElement> {
+interface CategoryModalProps extends DialogProps {
   selectedCategory: CategoryType | null;
   setSelectedCategory: React.Dispatch<
     React.SetStateAction<CategoryType | null>
@@ -21,7 +27,6 @@ interface CategoryModalProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export default function CategoryModal({
-  className,
   children,
   subcategoriesdata,
   categoriesdata,
@@ -50,8 +55,9 @@ export default function CategoryModal({
       onOpenChange={(open) => {
         open && setSelectedCategory(null);
       }}
+      {...props}
     >
-      {children}
+      <DialogTrigger>{children}</DialogTrigger>
 
       <DialogContent className="md:h-4/5 py-8">
         <div

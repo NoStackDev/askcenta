@@ -1,7 +1,12 @@
 "use client";
 
 import React from "react";
-import { Dialog, DialogClose, DialogContent } from "../ui/dialog";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogTrigger,
+} from "../ui/dialog";
 import { Button } from "../ui/button";
 import { ChevronRightIcon, KeyboardBackspaceIcon } from "../icons";
 import { CityType } from "../../../types";
@@ -54,7 +59,7 @@ export default function LocationModal({
       }}
       {...props}
     >
-      {children}
+      <DialogTrigger>{children}</DialogTrigger>
 
       <DialogContent className="md:h-4/5 py-8">
         <div

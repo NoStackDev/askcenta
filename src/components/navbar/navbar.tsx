@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { NotificationIcon, SearchIcon } from "../icons";
 import { HamburgerMenu } from ".";
+import { RequestFormWrapper } from "../request";
 
 type Props = {};
 
@@ -53,9 +54,11 @@ const Navbar = React.forwardRef<
 
           <HamburgerMenu />
 
-          <Button className="hidden lg:flex" variant="request">
-            Place a Request
-          </Button>
+          <RequestFormWrapper>
+            <Button className="hidden lg:flex" variant="request">
+              Place a Request
+            </Button>
+          </RequestFormWrapper>
         </div>
       </nav>
     </div>

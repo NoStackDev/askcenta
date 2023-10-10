@@ -1,16 +1,12 @@
-import { KeyboardBackspaceIcon, TuneIcon } from "@/components/icons";
-import { Card } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
-import Link from "next/link";
 import React from "react";
+import { RequestForm } from ".";
+import { cn } from "@/lib/utils";
 import {
   CategoryType,
   CitiesResponseType,
   StateResponseType,
   SubCategoryResponseType,
 } from "../../../types";
-import CustomCustomizeForm from "./custom_customize_form";
-import { Button } from "@/components/ui/button";
 
 async function fetchCities() {
   const res = await fetch("https://www.askcenta.ng/api/cities", {
@@ -64,12 +60,10 @@ async function fetchSubCategories() {
   return res.json();
 }
 
-interface CustomTopbarProps extends React.HTMLAttributes<HTMLDivElement> {}
-
-export default async function CustomTopbar({
+export default async function RequestFormWrapper({
   className,
-  ...props
-}: CustomTopbarProps) {
+  children,
+}: React.HTMLAttributes<typeof RequestForm>) {
   const citiesRes: Promise<CitiesResponseType> = fetchCities();
   const statesRes: Promise<StateResponseType> = fetchStates();
   const categoriesRes: Promise<CategoryType[]> = fetchCategories();
@@ -84,34 +78,14 @@ export default async function CustomTopbar({
   ]);
 
   return (
-    <Card variant="settings" className={cn("", className)} {...props}>
-      <Link href="/">
-        <KeyboardBackspaceIcon />
-      </Link>
-
-      <div className="flex justify-between items-center mt-6">
-        <span className="font-poppins font-semibold text-base text-[#4C4B60]">
-          CUSTOM REQUESTS
-        </span>
-
-        <CustomCustomizeForm
-          citiesdata={cities.data}
-          statesdata={states.data}
-          categoriesdata={categories}
-          subCategoriesdata={subCategories.data}
-        >
-          <Button
-            aria-label="customize requests"
-            className={cn("flex items-center gap-2")}
-          >
-            <TuneIcon />
-
-            <span className="font-roboto font-medium text-base text-[#6356E5]">
-              Customize
-            </span>
-          </Button>
-        </CustomCustomizeForm>
-      </div>
-    </Card>
+    <RequestForm
+      citiesdata={cities.data}
+      statesdata={states.data}
+      categoriesdata={categories}
+      subCategoriesdata={subCategories.data}
+      className={cn("", className)}
+    >
+      {children}
+    </RequestForm>
   );
 }

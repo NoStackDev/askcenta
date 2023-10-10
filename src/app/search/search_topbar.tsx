@@ -1,5 +1,3 @@
-import LocationModal from "@/components/modal/location_modal";
-import { DialogTrigger } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import React from "react";
 import { CitiesResponseType, StateResponseType } from "../../../types";

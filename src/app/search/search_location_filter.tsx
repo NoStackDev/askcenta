@@ -3,7 +3,6 @@
 import LocationModal from "@/components/modal/location_modal";
 import React from "react";
 import { CityType } from "../../../types";
-import { DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { LocationOnIcon } from "@/components/icons";
 
@@ -57,19 +56,17 @@ export default function SearchLocationFilter({
       setSelectedCity={setSelectedCity}
       setSelectedState={setSelectedState}
     >
-      <DialogTrigger>
-        <Button className="flex items-center gap-2 border border-[#DDDBDB] rounded-lg bg-white py-2 px-3 pr-8">
-          <LocationOnIcon height="24" width="24" />
+      <Button className="flex items-center gap-2 border border-[#DDDBDB] rounded-lg bg-white py-2 px-3 pr-8">
+        <LocationOnIcon height="24" width="24" />
 
-          <span className="font-roboto font-medium text-sm text-black">
-            {selectedCity
-              ? selectedCity.city
-              : preSelectedLocation
-              ? preSelectedLocation.city
-              : "Nationwide"}
-          </span>
-        </Button>
-      </DialogTrigger>
+        <span className="font-roboto font-medium text-sm text-black">
+          {selectedCity
+            ? selectedCity.city
+            : preSelectedLocation
+            ? preSelectedLocation.city
+            : "Nationwide"}
+        </span>
+      </Button>
     </LocationModal>
   );
 }

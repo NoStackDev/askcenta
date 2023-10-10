@@ -100,12 +100,10 @@ export default function NearbyLocationForm({
                 setSelectedCity={setSelectedCity}
                 setSelectedState={setSelectedState}
               >
-                <DialogTrigger>
-                  <Button className="px-4 py-3 flex items-center justify-between bg-[#F7F9FF] border border-[#D9D9D9] rounded-xl font-roboto font-normal text-base text-black opacity-60">
-                    Select city
-                    <ChevronRightIcon className="rotate-90" />
-                  </Button>
-                </DialogTrigger>
+                <Button className="px-4 py-3 flex items-center justify-between bg-[#F7F9FF] border border-[#D9D9D9] rounded-xl font-roboto font-normal text-base text-black opacity-60">
+                  Select city
+                  <ChevronRightIcon className="rotate-90" />
+                </Button>
               </LocationModal>
 
               <DialogClose>

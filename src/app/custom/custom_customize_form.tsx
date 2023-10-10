@@ -1,6 +1,5 @@
 "use client";
 
-import { TuneIcon } from "@/components/icons";
 import CloseIcon from "@/components/icons/close_icon";
 import LocationModal from "@/components/modal/location_modal";
 import { Button } from "@/components/ui/button";
@@ -15,18 +14,17 @@ import { cn } from "@/lib/utils";
 import React from "react";
 import { CategoryType, CityType, SubCategoryType } from "../../../types";
 import CategoryModal from "@/components/modal/category_modal";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { DialogProps } from "@radix-ui/react-dialog";
 
-interface CustomCustomizeFormProps
-  extends React.HTMLAttributes<HTMLButtonElement> {
+interface CustomCustomizeFormProps extends DialogProps {
   citiesdata: CityType[];
   statesdata: { id: number; name: string }[];
   categoriesdata: CategoryType[];
   subCategoriesdata: SubCategoryType[];
 }
 export default function CustomCustomizeForm({
-  className,
+  children,
   citiesdata,
   statesdata,
   categoriesdata,
@@ -133,20 +131,8 @@ export default function CustomCustomizeForm({
   };
 
   return (
-    <Dialog>
-      <DialogTrigger>
-        <Button
-          aria-label="customize requests"
-          className={cn("flex items-center gap-2", className)}
-          {...props}
-        >
-          <TuneIcon />
-
-          <span className="font-roboto font-medium text-base text-[#6356E5]">
-            Customize
-          </span>
-        </Button>
-      </DialogTrigger>
+    <Dialog {...props}>
+      <DialogTrigger>{children}</DialogTrigger>
 
       <DialogContent className="bg-[#F7F7F9] flex flex-col justify-between pb-20 overflow-y-auto">
         <div>
@@ -250,16 +236,14 @@ export default function CustomCustomizeForm({
                   setSelectedCity={setSelectedCity}
                   setSelectedState={setSelectedState}
                 >
-                  <DialogTrigger>
-                    <Button
-                      className={cn(
-                        "p-3 font-roboto font-normal text-base text-black justify-start opacity-70 w-full border border-[#D9D9D9] rounded-xl bg-[#F7F9FF] md:max-w-[70%]",
-                        selectedCity && "opacity-80"
-                      )}
-                    >
-                      {selectedCity ? selectedCity.city : "Select City"}
-                    </Button>
-                  </DialogTrigger>
+                  <Button
+                    className={cn(
+                      "p-3 font-roboto font-normal text-base text-black justify-start opacity-70 w-full border border-[#D9D9D9] rounded-xl bg-[#F7F9FF] md:max-w-[70%]",
+                      selectedCity && "opacity-80"
+                    )}
+                  >
+                    {selectedCity ? selectedCity.city : "Select City"}
+                  </Button>
                 </LocationModal>
 
                 <Button
