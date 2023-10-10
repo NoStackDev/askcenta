@@ -14,7 +14,6 @@ import { cn } from "@/lib/utils";
 import React from "react";
 import { CategoryType, CityType, SubCategoryType } from "../../../types";
 import CategoryModal from "@/components/modal/category_modal";
-import { useRouter } from "next/navigation";
 import { DialogProps } from "@radix-ui/react-dialog";
 
 interface CustomCustomizeFormProps extends DialogProps {
@@ -22,6 +21,7 @@ interface CustomCustomizeFormProps extends DialogProps {
   statesdata: { id: number; name: string }[];
   categoriesdata: CategoryType[];
   subCategoriesdata: SubCategoryType[];
+  searchparams: { [key: string]: string | string[] | undefined };
 }
 export default function CustomCustomizeForm({
   children,
@@ -29,6 +29,7 @@ export default function CustomCustomizeForm({
   statesdata,
   categoriesdata,
   subCategoriesdata,
+  searchparams,
   ...props
 }: CustomCustomizeFormProps) {
   const [selectedSubCategory, setSelectedSubCategory] =
@@ -45,7 +46,29 @@ export default function CustomCustomizeForm({
   } | null>(null);
   const [selectedCities, setSelectedCities] = React.useState<CityType[]>([]);
 
-  const router = useRouter();
+  React.useEffect(() => {
+    let preSelectedCities: CityType[] = [];
+    let preSelectedSubCategories: SubCategoryType[] = [];
+    if (searchparams["city_id"]) {
+      (searchparams["city_id"] as string).split(",").forEach((id) => {
+        let foundCity = citiesdata.find((city) => city.id.toString() === id);
+        foundCity ? preSelectedCities.push(foundCity) : null;
+      });
+    }
+    if (searchparams["category_group_id"]) {
+      (searchparams["category_group_id"] as string).split(",").forEach((id) => {
+        let foundSubCategory = subCategoriesdata.find(
+          (subCategory) => subCategory.id.toString() === id
+        );
+        foundSubCategory
+          ? preSelectedSubCategories.push(foundSubCategory)
+          : null;
+      });
+    }
+
+    setSelectedCities([...preSelectedCities]);
+    setSelectedSubcategories([...preSelectedSubCategories]);
+  }, []);
 
   const addCity = () => {
     if (selectedCity) {
@@ -57,6 +80,7 @@ export default function CustomCustomizeForm({
         ? setSelectedCities([...selectedCities, selectedCity])
         : null;
 
+      setSelectedCity(null);
       return;
     }
     return;
@@ -75,6 +99,7 @@ export default function CustomCustomizeForm({
           ])
         : null;
 
+      setSelectedSubCategory(null);
       return;
     }
     return;
@@ -95,39 +120,24 @@ export default function CustomCustomizeForm({
   };
 
   const onSave = () => {
-    const subCategoryParams = selectedSubcategories.reduce(
-      (previousValue, currentValue) => {
-        return (previousValue += `${currentValue.id},`);
-      },
-      ""
-    );
-
-    const cityParams = selectedCities.reduce((previousValue, currentValue) => {
-      return (previousValue += `${currentValue.id},`);
-    }, "");
-
-    if (subCategoryParams && cityParams) {
-      router.push(
-        `/custom?category_group_id=${subCategoryParams.slice(
-          0,
-          subCategoryParams.length - 1
-        )}&city_id=${cityParams.slice(0, cityParams.length - 1)}`
-      );
-      return;
-    }
-
-    if (subCategoryParams) {
-      router.push(
-        `/custom?category_group_id=${subCategoryParams.slice(
-          0,
-          subCategoryParams.length - 1
-        )}`
+    const url = new URL(window.location.href);
+    url.searchParams.delete("city_id");
+    url.searchParams.delete("category_group_id");
+    if (selectedCities.length > 0) {
+      url.searchParams.append(
+        "city_id",
+        selectedCities.map((city) => city.id.toString()).toString()
       );
     }
-
-    if (cityParams) {
-      router.push(`city_id=${cityParams.slice(0, cityParams.length - 1)}`);
+    if (selectedSubcategories.length > 0) {
+      url.searchParams.append(
+        "category_group_id",
+        selectedSubcategories
+          .map((subCategory) => subCategory.id.toString())
+          .toString()
+      );
     }
+    window.location.href = url.href;
   };
 
   return (

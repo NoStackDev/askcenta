@@ -10,7 +10,7 @@ type Props = {
 export default function CustomPage({ searchParams }: Props) {
   return (
     <main className="w-full">
-      <CustomTopbar className="mt-2 md:mt-0" />
+      <CustomTopbar searchparams={searchParams} className="mt-2 md:mt-0" />
 
       <RequestContainer searchparams={searchParams} />
     </main>

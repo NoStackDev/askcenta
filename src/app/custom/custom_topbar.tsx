@@ -64,10 +64,13 @@ async function fetchSubCategories() {
   return res.json();
 }
 
-interface CustomTopbarProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface CustomTopbarProps extends React.HTMLAttributes<HTMLDivElement> {
+  searchparams: { [key: string]: string | string[] | undefined };
+}
 
 export default async function CustomTopbar({
   className,
+  searchparams,
   ...props
 }: CustomTopbarProps) {
   const citiesRes: Promise<CitiesResponseType> = fetchCities();
@@ -99,6 +102,7 @@ export default async function CustomTopbar({
           statesdata={states.data}
           categoriesdata={categories}
           subCategoriesdata={subCategories.data}
+          searchparams={searchparams}
         >
           <Button
             aria-label="customize requests"
