@@ -104,7 +104,7 @@ export default function RequestForm({
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="space-y-8 mt-12 h-full flex flex-col justify-between overflow-y-auto bg-white"
+              className="space-y-8 mt-12 h-full flex flex-col justify-between overflow-y-auto"
             >
               <div>
                 <FormField
