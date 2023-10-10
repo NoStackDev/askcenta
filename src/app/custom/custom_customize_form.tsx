@@ -177,18 +177,16 @@ export default function CustomCustomizeForm({
                   setSelectedSubCategory={setSelectedSubCategory}
                   setSelectedCategory={setSelectedCategory}
                 >
-                  <DialogTrigger>
-                    <Button
-                      className={cn(
-                        "p-3 font-roboto font-normal text-base text-black justify-start opacity-70 w-full border border-[#D9D9D9] rounded-xl bg-[#F7F9FF] md:max-w-[70%]",
-                        selectedSubCategory && "opacity-80"
-                      )}
-                    >
-                      {selectedSubCategory
-                        ? selectedSubCategory.name
-                        : "Select Category"}
-                    </Button>
-                  </DialogTrigger>
+                  <Button
+                    className={cn(
+                      "p-3 font-roboto font-normal text-base text-black justify-start opacity-70 w-full border border-[#D9D9D9] rounded-xl bg-[#F7F9FF] md:max-w-[70%]",
+                      selectedSubCategory && "opacity-80"
+                    )}
+                  >
+                    {selectedSubCategory
+                      ? selectedSubCategory.name
+                      : "Select Category"}
+                  </Button>
                 </CategoryModal>
 
                 <Button
