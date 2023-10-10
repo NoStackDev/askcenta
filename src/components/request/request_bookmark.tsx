@@ -6,7 +6,7 @@ import { Button } from "../ui/button";
 
 type Props = {};
 
-export default function request_bookmark({}: Props) {
+export default function RequestBookmark({}: Props) {
   const [bookmark, setBookmark] = React.useState(false);
 
   return (
