@@ -20,6 +20,7 @@ import RequestFormOne from "./request_form_one";
 import RequestFormTwo from "./request_form_two";
 import { cn } from "@/lib/utils";
 import { KeyboardBackspaceIcon } from "../icons";
+import { DialogContentProps } from "@radix-ui/react-dialog";
 
 const requestFormSchema = z.object({
   title: z
@@ -60,6 +61,8 @@ export default function RequestForm({
   const [image, setImage] = React.useState<File | null>(null);
   const [formStep, setFormStep] = React.useState(0);
 
+  const dialogContentRef = React.useRef<HTMLDivElement>(null);
+
   const form = useForm<z.infer<typeof requestFormSchema>>({
     resolver: zodResolver(requestFormSchema),
     defaultValues: {
@@ -79,15 +82,26 @@ export default function RequestForm({
     setFormStep(formStep - 1);
   }
 
+  function clearForm() {
+    form.setValue("title", "");
+    form.setValue("category", selectedSubCategory?.id.toString() || "");
+    setSelectedSubCategory(null);
+    form.setValue("location", selectedCity?.id.toString() || "");
+    setSelectedCity(null);
+    form.setValue("description", "");
+    setImage(null);
+    setFormStep(0);
+  }
+
   React.useEffect(() => {
     form.setValue("category", selectedSubCategory?.id.toString() || "");
     form.setValue("location", selectedCity?.id.toString() || "");
   }, [selectedSubCategory, selectedCity, image, form]);
 
   return (
-    <Dialog>
+    <Dialog onOpenChange={(open) => !open && clearForm()}>
       <DialogTrigger>{children}</DialogTrigger>
-      <DialogContent>
+      <DialogContent ref={dialogContentRef}>
         <div className="h-full flex flex-col px-4 py-10 pb-20 md:pb-10">
           <div className="flex justify-between items-center">
             <h2 className="font-poppins font-semibold text-base text-[#011B39]">
