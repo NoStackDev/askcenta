@@ -106,7 +106,7 @@ export default function RequestForm({
               onSubmit={form.handleSubmit(onSubmit)}
               className="space-y-8 mt-12 h-full flex flex-col justify-between overflow-y-auto"
             >
-              <div className="relative">
+              <div className="relative overflow-x-clip md:overflow-y-auto h-full">
                 <RequestFormOne
                   form={form}
                   subcategoriesdata={subCategoriesdata}
