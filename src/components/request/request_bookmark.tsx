@@ -18,6 +18,7 @@ export default function RequestBookmark({}: Props) {
         setBookmark(!bookmark);
       }}
       aria-label="bookmark"
+      className="hover:scale-105 hover:shadow-sm"
     >
       {!bookmark ? (
         <BookmarkIcon className="hover:cursor-pointer" />
