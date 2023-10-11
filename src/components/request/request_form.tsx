@@ -88,7 +88,7 @@ export default function RequestForm({
     <Dialog>
       <DialogTrigger>{children}</DialogTrigger>
       <DialogContent>
-        <div className="h-full flex flex-col px-4 py-10 pb-10">
+        <div className="h-full flex flex-col px-4 py-10 pb-20 md:pb-10">
           <div className="flex justify-between items-center">
             <h2 className="font-poppins font-semibold text-base text-[#011B39]">
               PLACE A REQUEST
