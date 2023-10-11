@@ -6,6 +6,7 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 import TopbarSelect from "./topbar_select";
 import { SubCategoryResponseType } from "../../../types";
+import { RequestFormWrapper } from "../request";
 
 async function fetchSubCategories() {
   const res = await fetch("https://www.askcenta.ng/api/categoryGroups", {
@@ -56,7 +57,9 @@ export default async function Topbar({
                 </span>
               </div>
 
-              <Button variant="request_outlined">Post request</Button>
+              <RequestFormWrapper>
+                <Button variant="request_outlined">Post request</Button>
+              </RequestFormWrapper>
             </div>
           </CardContent>
         </Card>
