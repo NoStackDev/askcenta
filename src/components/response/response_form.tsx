@@ -1,76 +1,62 @@
 "use client";
 
 import React from "react";
+import { CityType } from "../../../types";
 import {
   Dialog,
   DialogClose,
   DialogContent,
   DialogTrigger,
 } from "../ui/dialog";
-import CloseIcon from "../icons/close_icon";
 import { Button } from "../ui/button";
-
+import { KeyboardBackspaceIcon } from "../icons";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { Form } from "@/components/ui/form";
-import { CategoryType, CityType, SubCategoryType } from "../../../types";
-import RequestFormOne from "./request_form_one";
-import RequestFormTwo from "./request_form_two";
+import CloseIcon from "../icons/close_icon";
+import ResponseFormOne from "./response_form_one";
 import { cn } from "@/lib/utils";
-import { KeyboardBackspaceIcon } from "../icons";
+import ResponseFormTwo from "./response_form_two";
+
+interface ResponseFormProps extends React.HTMLAttributes<HTMLDivElement> {
+  params: { id: string };
+  citiesdata: CityType[];
+  statesdata: { id: number; name: string }[];
+}
 
 const requestFormSchema = z.object({
   title: z
     .string()
     .min(32, { message: "Description must be at least 32 characters." })
     .max(120, { message: "Description cannot be more than 120 characters" }),
-  category: z.string().min(1, { message: "Please select a category" }),
   location: z.string().min(1, { message: "Please select a location" }),
-  description: z.string(),
+  description: z
+    .string()
+    .max(120, { message: "Description cannot be more than 120 characters" })
+    .optional(),
+  whatsappNum: z.string().length(11, { message: "11 numbers required" }),
+  anonymous: z.boolean(),
 });
 
-interface RequestFormProps extends React.HTMLAttributes<HTMLDivElement> {
-  citiesdata: CityType[];
-  statesdata: { id: number; name: string }[];
-  categoriesdata: CategoryType[];
-  subCategoriesdata: SubCategoryType[];
-}
-
-export default function RequestForm({
+export default function ResponseForm({
   className,
+  children,
   citiesdata,
   statesdata,
-  categoriesdata,
-  subCategoriesdata,
-  children,
-}: RequestFormProps) {
-  const [selectedSubCategory, setSelectedSubCategory] =
-    React.useState<SubCategoryType | null>(null);
-  const [selectedCategory, setSelectedCategory] =
-    React.useState<CategoryType | null>(null);
+  ...props
+}: ResponseFormProps) {
+  const [formStep, setFormStep] = React.useState(0);
   const [selectedCity, setSelectedCity] = React.useState<CityType | null>(null);
   const [selectedState, setSelectedState] = React.useState<{
     id: number;
     name: string;
   } | null>(null);
-  const [image, setImage] = React.useState<File | null>(null);
-  const [formStep, setFormStep] = React.useState(0);
-
-  const form = useForm<z.infer<typeof requestFormSchema>>({
-    resolver: zodResolver(requestFormSchema),
-    defaultValues: {
-      title: "",
-      category: "",
-      location: "",
-      description: "",
-    },
-  });
 
   function onSubmit(values: z.infer<typeof requestFormSchema>) {
     if (formStep === 0) setFormStep(1);
-    console.log({ ...values, image });
+    console.log(values);
   }
 
   function onBackClick() {
@@ -78,29 +64,33 @@ export default function RequestForm({
   }
 
   function clearForm() {
-    form.setValue("title", "");
-    form.setValue("category", selectedSubCategory?.id.toString() || "");
-    setSelectedSubCategory(null);
     form.setValue("location", selectedCity?.id.toString() || "");
     setSelectedCity(null);
-    form.setValue("description", "");
-    setImage(null);
     setFormStep(0);
   }
 
   React.useEffect(() => {
-    form.setValue("category", selectedSubCategory?.id.toString() || "");
     form.setValue("location", selectedCity?.id.toString() || "");
-  }, [selectedSubCategory, selectedCity, image, form]);
+  }, [selectedCity]);
 
+  const form = useForm<z.infer<typeof requestFormSchema>>({
+    resolver: zodResolver(requestFormSchema),
+    defaultValues: {
+      title: "",
+      location: "",
+      description: "",
+      whatsappNum: "",
+      anonymous: false,
+    },
+  });
   return (
-    <Dialog onOpenChange={(open) => !open && clearForm()}>
+    <Dialog>
       <DialogTrigger>{children}</DialogTrigger>
       <DialogContent>
         <div className="h-full flex flex-col px-4 py-10 pb-20 md:pb-10">
           <div className="flex justify-between items-center">
             <h2 className="font-poppins font-semibold text-base text-[#011B39]">
-              PLACE A REQUEST
+              RESPOND TO THIS REQUEST
             </h2>
 
             <DialogClose>
@@ -116,28 +106,13 @@ export default function RequestForm({
               className="space-y-8 mt-12 h-full flex flex-col justify-between overflow-y-auto"
             >
               <div className="relative overflow-x-clip md:overflow-y-auto h-full">
-                <RequestFormOne
-                  form={form}
-                  subcategoriesdata={subCategoriesdata}
-                  categoriesdata={categoriesdata}
-                  selectedsubcategory={selectedSubCategory}
-                  selectedcategory={selectedCategory}
-                  setselectedsubcategory={setSelectedSubCategory}
-                  setselectedcategory={setSelectedCategory}
-                  citiesdata={citiesdata}
-                  statesdata={statesdata}
-                  selectedcity={selectedCity}
-                  selectedstate={selectedState}
-                  setselectedcity={setSelectedCity}
-                  setselectedstate={setSelectedState}
+                <ResponseFormOne
                   className={cn(
                     "h-fit w-full absolute transition-all animate-dialogFirstContentShow",
                     formStep !== 0 && "hidden"
                   )}
                 />
-                <RequestFormTwo
-                  form={form}
-                  setimage={setImage}
+                <ResponseFormTwo
                   className={cn(
                     "h-fit w-full absolute left-full transition-all duration-150 ease-in-out",
                     formStep !== 0 && "left-0"
@@ -165,7 +140,7 @@ export default function RequestForm({
                       type="submit"
                       className="rounded-[24px] bg-[#6356E5] font-roboto font-medium text-base text-white py-3 px-12"
                     >
-                      Post Request
+                      Post Response
                     </Button>
                   </div>
                 )}
