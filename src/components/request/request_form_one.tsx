@@ -89,7 +89,7 @@ export default function RequestFormOne({
               <textarea
                 placeholder="You can start with... “I want”, “Who can”, “I need”, “I am looking for” etc."
                 {...field}
-                className="w-full p-4 bg-[#F7F9FF] border border-[#D9D9D9] rounded-2xl font-roboto font-normal text-lg opacity-80 text-black placeholder:font-roboto placeholder:font-normal placeholder:text-lg placeholder:opacity-50 placeholder:text-black"
+                className="mt-2 w-full p-4 bg-[#F7F9FF] border border-[#D9D9D9] rounded-2xl font-roboto font-normal text-lg opacity-80 text-black placeholder:font-roboto placeholder:font-normal placeholder:text-lg placeholder:opacity-50 placeholder:text-black"
                 rows={4}
               />
             </FormControl>
@@ -128,7 +128,7 @@ export default function RequestFormOne({
             >
               <Button
                 className={cn(
-                  "p-3 font-roboto font-normal text-base text-black justify-start opacity-70 w-full border border-[#D9D9D9] rounded-xl bg-[#F7F9FF]",
+                  "mt-2 p-3 font-roboto font-normal text-base text-black justify-start opacity-70 w-full border border-[#D9D9D9] rounded-xl bg-[#F7F9FF]",
                   selectedsubcategory && "opacity-80"
                 )}
               >
@@ -172,7 +172,7 @@ export default function RequestFormOne({
             >
               <Button
                 className={cn(
-                  "p-3 font-roboto font-normal text-base text-black justify-start opacity-70 w-full border border-[#D9D9D9] rounded-xl bg-[#F7F9FF]",
+                  "mt-2 p-3 font-roboto font-normal text-base text-black justify-start opacity-70 w-full border border-[#D9D9D9] rounded-xl bg-[#F7F9FF]",
                   selectedcity && "opacity-80"
                 )}
               >

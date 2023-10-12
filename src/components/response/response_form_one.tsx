@@ -1,8 +1,109 @@
 import React from "react";
-import { FormField } from "../ui/form";
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../ui/form";
+import { UseFormReturn } from "react-hook-form";
+import { cn } from "@/lib/utils";
+import { Button } from "../ui/button";
 
-interface ResponseFormOneProps extends React.HTMLAttributes<typeof FormField> {}
+const responsePresets = [
+  "I have It",
+  "I am interested",
+  "I can do it",
+  "I can assist",
+  "I have something similar",
+  "I have a suggestion",
+];
 
-export default function ResponseFormOne({ className }: ResponseFormOneProps) {
-  return <div>response_form_one</div>;
+interface ResponseFormOneProps extends React.HTMLAttributes<typeof FormField> {
+  form: UseFormReturn<
+    {
+      title: string;
+      location: string;
+      // whatsappNum: string;
+      // anonymous: boolean;
+      description?: string | undefined;
+    },
+    any,
+    undefined
+  >;
+  setselectedresponse: React.Dispatch<React.SetStateAction<string | null>>;
+}
+
+export default function ResponseFormOne({
+  className,
+  form,
+  setselectedresponse,
+  ...props
+}: ResponseFormOneProps) {
+  return (
+    <div className={cn("", className)}>
+      <FormField
+        control={form.control}
+        name="title"
+        render={({ field }) => (
+          <FormItem>
+            <div className="flex justify-between items-center">
+              <FormLabel className="font-roboto font-medium text-base text-black">
+                Select Your Response
+              </FormLabel>
+            </div>
+
+            <FormMessage />
+            <FormControl>
+              <input type="text" {...field} name="title" className="hidden" />
+            </FormControl>
+
+            <div className="mt-4 w-full flex flex-col gap-3">
+              {responsePresets.map((responsePreset) => {
+                return (
+                  <Button
+                    className="w-full border border-[#D9D9D9] rounded-[20px] bg-[#F7F9FF] px-4 py-2"
+                    key={responsePreset}
+                    onClick={() => setselectedresponse(responsePreset)}
+                  >
+                    <div className="w-full text-left font-roboto font-medium text-base text-black">
+                      {responsePreset}
+                    </div>
+                  </Button>
+                );
+              })}
+            </div>
+          </FormItem>
+        )}
+      />
+
+      {/* description  */}
+      <FormField
+        control={form.control}
+        name="description"
+        render={({ field }) => (
+          <FormItem className="mt-8 pb-5">
+            <div className="flex justify-between items-center">
+              <FormLabel className="font-roboto font-medium text-base text-black">
+                Add Comment{" "}
+                <span className="font-roboto font-normal text-base text-black opacity-70">
+                  (Optional)
+                </span>
+              </FormLabel>
+            </div>
+
+            <FormMessage />
+            <FormControl>
+              <textarea
+                placeholder="Write here..."
+                {...field}
+                className="w-full mt-2 p-4 bg-[#F7F9FF] border border-[#D9D9D9] rounded-2xl font-roboto font-normal text-lg opacity-80 text-black placeholder:font-roboto placeholder:font-normal placeholder:text-lg placeholder:opacity-50 placeholder:text-black"
+                rows={4}
+              />
+            </FormControl>
+          </FormItem>
+        )}
+      />
+    </div>
+  );
 }

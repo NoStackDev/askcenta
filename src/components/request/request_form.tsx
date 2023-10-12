@@ -25,7 +25,7 @@ const requestFormSchema = z.object({
   title: z
     .string()
     .min(32, { message: "Description must be at least 32 characters." })
-    .max(120, { message: "Description cannot be more than 120 characters" }),
+    .max(140, { message: "Description cannot be more than 140 characters" }),
   category: z.string().min(1, { message: "Please select a category" }),
   location: z.string().min(1, { message: "Please select a location" }),
   description: z.string(),
@@ -91,7 +91,7 @@ export default function RequestForm({
   React.useEffect(() => {
     form.setValue("category", selectedSubCategory?.id.toString() || "");
     form.setValue("location", selectedCity?.id.toString() || "");
-  }, [selectedSubCategory, selectedCity, image, form]);
+  }, [selectedSubCategory, selectedCity]);
 
   return (
     <Dialog onOpenChange={(open) => !open && clearForm()}>

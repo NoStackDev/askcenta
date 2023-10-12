@@ -26,18 +26,15 @@ interface ResponseFormProps extends React.HTMLAttributes<HTMLDivElement> {
   statesdata: { id: number; name: string }[];
 }
 
-const requestFormSchema = z.object({
-  title: z
-    .string()
-    .min(32, { message: "Description must be at least 32 characters." })
-    .max(120, { message: "Description cannot be more than 120 characters" }),
+const responseFormSchema = z.object({
+  title: z.string().min(1, { message: "Please select a response" }),
   location: z.string().min(1, { message: "Please select a location" }),
   description: z
     .string()
     .max(120, { message: "Description cannot be more than 120 characters" })
     .optional(),
-  whatsappNum: z.string().length(11, { message: "11 numbers required" }),
-  anonymous: z.boolean(),
+  // whatsappNum: z.string().length(11, { message: "11 numbers required" }),
+  // anonymous: z.boolean(),
 });
 
 export default function ResponseForm({
@@ -53,8 +50,11 @@ export default function ResponseForm({
     id: number;
     name: string;
   } | null>(null);
+  const [selectedResponse, setSelectedResponse] = React.useState<string | null>(
+    null
+  );
 
-  function onSubmit(values: z.infer<typeof requestFormSchema>) {
+  function onSubmit(values: z.infer<typeof responseFormSchema>) {
     if (formStep === 0) setFormStep(1);
     console.log(values);
   }
@@ -64,27 +64,32 @@ export default function ResponseForm({
   }
 
   function clearForm() {
-    form.setValue("location", selectedCity?.id.toString() || "");
+    // form.setValue("location", selectedCity?.id.toString() || "");
+    form.setValue("title", "");
+    form.setValue("description", "");
     setSelectedCity(null);
+    setSelectedResponse(null);
     setFormStep(0);
   }
 
   React.useEffect(() => {
     form.setValue("location", selectedCity?.id.toString() || "");
-  }, [selectedCity]);
+    form.setValue("title", selectedResponse || "");
+  }, [selectedCity, selectedResponse]);
 
-  const form = useForm<z.infer<typeof requestFormSchema>>({
-    resolver: zodResolver(requestFormSchema),
+  const form = useForm<z.infer<typeof responseFormSchema>>({
+    resolver: zodResolver(responseFormSchema),
     defaultValues: {
       title: "",
       location: "",
       description: "",
-      whatsappNum: "",
-      anonymous: false,
+      // whatsappNum: "",
+      // anonymous: false,
     },
   });
+
   return (
-    <Dialog>
+    <Dialog onOpenChange={(open) => !open && clearForm()}>
       <DialogTrigger>{children}</DialogTrigger>
       <DialogContent>
         <div className="h-full flex flex-col px-4 py-10 pb-20 md:pb-10">
@@ -103,16 +108,25 @@ export default function ResponseForm({
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="space-y-8 mt-12 h-full flex flex-col justify-between overflow-y-auto"
+              className="mt-8 h-full flex flex-col justify-between overflow-y-auto"
             >
-              <div className="relative overflow-x-clip md:overflow-y-auto h-full">
+              <div className="relative overflow-x-clip overflow-y-auto h-full">
                 <ResponseFormOne
+                  form={form}
+                  setselectedresponse={setSelectedResponse}
                   className={cn(
                     "h-fit w-full absolute transition-all animate-dialogFirstContentShow",
                     formStep !== 0 && "hidden"
                   )}
                 />
                 <ResponseFormTwo
+                  form={form}
+                  citiesdata={citiesdata}
+                  statesdata={statesdata}
+                  selectedcity={selectedCity}
+                  selectedstate={selectedState}
+                  setselectedcity={setSelectedCity}
+                  setselectedstate={setSelectedState}
                   className={cn(
                     "h-fit w-full absolute left-full transition-all duration-150 ease-in-out",
                     formStep !== 0 && "left-0"
@@ -120,7 +134,7 @@ export default function ResponseForm({
                 />
               </div>
 
-              <div className="w-full flex items-center justify-center">
+              <div className="w-full flex items-center justify-center pt-4">
                 {formStep === 0 && (
                   <Button
                     type="submit"
@@ -131,7 +145,7 @@ export default function ResponseForm({
                 )}
 
                 {formStep > 0 && (
-                  <div className="w-full flex items-center justify-between">
+                  <div className="w-full flex items-center justify-between pt-4">
                     <Button onClick={onBackClick}>
                       <KeyboardBackspaceIcon width="24" height="24" />
                     </Button>
