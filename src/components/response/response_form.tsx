@@ -165,7 +165,7 @@ export default function ResponseForm({
                       type="submit"
                       className="rounded-[24px] bg-[#6356E5] font-roboto font-medium text-base text-white py-3 px-12"
                     >
-                      Post Response
+                      Send Response
                     </Button>
                   </div>
                 )}
