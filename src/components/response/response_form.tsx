@@ -55,8 +55,8 @@ export default function ResponseForm({
   );
 
   function onSubmit(values: z.infer<typeof responseFormSchema>) {
-    if (formStep === 0) setFormStep(1);
-    console.log(values);
+    if (formStep === 0) setFormStep(formStep + 1);
+    console.log("on submit: ", values);
   }
 
   function onBackClick() {
@@ -64,7 +64,7 @@ export default function ResponseForm({
   }
 
   function clearForm() {
-    // form.setValue("location", selectedCity?.id.toString() || "");
+    form.setValue("location", selectedCity?.id.toString() || "");
     form.setValue("title", "");
     form.setValue("description", "");
     setSelectedCity(null);
@@ -73,7 +73,12 @@ export default function ResponseForm({
   }
 
   React.useEffect(() => {
+    form.unregister("location");
+  }, []);
+
+  React.useEffect(() => {
     form.setValue("location", selectedCity?.id.toString() || "");
+    form.clearErrors("location");
     form.setValue("title", selectedResponse || "");
   }, [selectedCity, selectedResponse]);
 
@@ -113,6 +118,7 @@ export default function ResponseForm({
               <div className="relative overflow-x-clip overflow-y-auto h-full">
                 <ResponseFormOne
                   form={form}
+                  selectedresponse={selectedResponse}
                   setselectedresponse={setSelectedResponse}
                   className={cn(
                     "h-fit w-full absolute transition-all animate-dialogFirstContentShow",
@@ -139,6 +145,13 @@ export default function ResponseForm({
                   <Button
                     type="submit"
                     className="w-full rounded-[24px] bg-[#6356E5] font-roboto font-medium text-base text-white py-3 max-w-[358px]"
+                    onClick={() => {
+                      setTimeout(() => {
+                        !form.control._formState.errors["title"] &&
+                          setFormStep(formStep + 1);
+                        form.clearErrors("location");
+                      }, 0);
+                    }}
                   >
                     Next
                   </Button>

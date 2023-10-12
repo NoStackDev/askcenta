@@ -31,12 +31,14 @@ interface ResponseFormOneProps extends React.HTMLAttributes<typeof FormField> {
     any,
     undefined
   >;
+  selectedresponse: string | null;
   setselectedresponse: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 export default function ResponseFormOne({
   className,
   form,
+  selectedresponse,
   setselectedresponse,
   ...props
 }: ResponseFormOneProps) {
@@ -62,11 +64,19 @@ export default function ResponseFormOne({
               {responsePresets.map((responsePreset) => {
                 return (
                   <Button
-                    className="w-full border border-[#D9D9D9] rounded-[20px] bg-[#F7F9FF] px-4 py-2"
+                    className={cn(
+                      "w-full border border-[#D9D9D9] rounded-[20px] bg-[#F7F9FF] px-4 py-2",
+                      selectedresponse === responsePreset && "bg-[#4FC1E9]"
+                    )}
                     key={responsePreset}
                     onClick={() => setselectedresponse(responsePreset)}
                   >
-                    <div className="w-full text-left font-roboto font-medium text-base text-black">
+                    <div
+                      className={cn(
+                        "w-full text-left font-roboto font-medium text-base text-black",
+                        selectedresponse === responsePreset && "text-white"
+                      )}
+                    >
                       {responsePreset}
                     </div>
                   </Button>
