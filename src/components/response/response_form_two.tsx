@@ -11,14 +11,14 @@ import LocationModal from "../modal/location_modal";
 import { Button } from "../ui/button";
 import { CityType } from "../../../types";
 import { cn } from "@/lib/utils";
+import { RadioGroup, RadioGroupItem } from "../ui/radio";
 
 interface ResponseFormTwoProps extends React.HTMLAttributes<typeof FormField> {
   form: UseFormReturn<
     {
       title: string;
       location: string;
-      // whatsappNum: string;
-      // anonymous: boolean;
+      anonymous: "true" | "false";
       description?: string | undefined;
     },
     any,
@@ -91,6 +91,44 @@ export default function ResponseFormTwo({
                 {selectedcity ? selectedcity.city : "Select City"}
               </Button>
             </LocationModal>
+          </FormItem>
+        )}
+      />
+
+      {/* anonymous  */}
+      <FormField
+        control={form.control}
+        name="anonymous"
+        render={({ field }) => (
+          <FormItem className="mt-10">
+            <FormLabel className="font-roboto font-medium text-base text-black">
+              Who can see this response?
+            </FormLabel>
+            <FormControl className="mt-4 flex flex-col gap-4">
+              <RadioGroup
+                onValueChange={field.onChange}
+                defaultValue={field.value}
+                className=""
+              >
+                <FormItem className="flex items-center gap-3">
+                  <FormControl>
+                    <RadioGroupItem value="false" />
+                  </FormControl>
+                  <FormLabel className="font-roboto font-normal text-base text-black">
+                    Everyone
+                  </FormLabel>
+                </FormItem>
+                <FormItem className="flex items-center gap-3">
+                  <FormControl>
+                    <RadioGroupItem value="true" />
+                  </FormControl>
+                  <FormLabel className="font-roboto font-normal text-base text-black">
+                    Only the owner of the request
+                  </FormLabel>
+                </FormItem>
+              </RadioGroup>
+            </FormControl>
+            <FormMessage />
           </FormItem>
         )}
       />

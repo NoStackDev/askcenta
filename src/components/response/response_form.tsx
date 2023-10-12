@@ -33,8 +33,7 @@ const responseFormSchema = z.object({
     .string()
     .max(120, { message: "Description cannot be more than 120 characters" })
     .optional(),
-  // whatsappNum: z.string().length(11, { message: "11 numbers required" }),
-  // anonymous: z.boolean(),
+  anonymous: z.enum(["true", "false"]),
 });
 
 export default function ResponseForm({
@@ -88,8 +87,7 @@ export default function ResponseForm({
       title: "",
       location: "",
       description: "",
-      // whatsappNum: "",
-      // anonymous: false,
+      anonymous: "false",
     },
   });
 

@@ -24,8 +24,7 @@ interface ResponseFormOneProps extends React.HTMLAttributes<typeof FormField> {
     {
       title: string;
       location: string;
-      // whatsappNum: string;
-      // anonymous: boolean;
+      anonymous: "true" | "false";
       description?: string | undefined;
     },
     any,
