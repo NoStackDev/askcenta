@@ -5,6 +5,7 @@ import { CommentIcon, LocationOnIcon, ScheduleIcon } from "../icons";
 import { cn, month } from "@/lib/utils";
 import { RequestType } from "../../../types";
 import { RequestBookmark, RespondToRequestBtn } from ".";
+import { ResponseFormWrapper } from "../response";
 
 interface RequestCardProps extends React.HTMLAttributes<HTMLDivElement> {
   request: RequestType;
@@ -72,7 +73,9 @@ export default function RequestCard({
             <RequestBookmark />
           </div>
 
+          {/* <ResponseFormWrapper params={{ id: request.id.toString() }}> */}
           <RespondToRequestBtn className="mt-5 mb-3" />
+          {/* </ResponseFormWrapper> */}
         </div>
       </CardContent>
     </Card>

@@ -2,7 +2,7 @@ import { cn, month } from "@/lib/utils";
 import React from "react";
 import { RequestDetailType } from "../../../../types";
 import { Card, CardContent } from "@/components/ui/card";
-import { ScheduleIcon } from "@/components/icons";
+import { ScheduleIcon, VisibilityFillIcon } from "@/components/icons";
 import Image from "next/image";
 import RequestActions from "./request_actions";
 
@@ -44,12 +44,21 @@ export default async function RequestImgDetail({
             {requestDetailData.request.category}
           </div>
 
-          <div className="flex items-center gap-2 opacity-80">
-            <ScheduleIcon height="16" width="16" pathColor="#000000" />
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 opacity-80">
+              <ScheduleIcon height="16" width="16" pathColor="#000000" />
 
-            <span className="font-roboto font-normal text-xs text-black">
-              {date.getDate()} {month(date.getMonth())}
-            </span>
+              <span className="font-roboto font-normal text-xs text-black">
+                {date.getDate()} {month(date.getMonth())}
+              </span>
+            </div>
+            <div className="flex items-center gap-2 opacity-80">
+              <VisibilityFillIcon height="16" width="16" pathColor="#000000" />
+
+              <span className="font-roboto font-normal text-xs text-black">
+                {requestDetailData.request.num_of_views} views
+              </span>
+            </div>
           </div>
         </div>
 
