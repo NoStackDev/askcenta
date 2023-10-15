@@ -3,14 +3,22 @@ import Topbar from "@/components/topbar";
 import { Button } from "@/components/ui/button";
 import DiscoverBar from "@/components/discover_bar";
 import { RequestContainer, RequestFormWrapper } from "@/components/request";
+import { FeedsResponse } from "../../types";
+import { fetchFeed } from "@/api/feeds";
 
 type Props = {
   params: { slug: string };
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
-export default function Home({ searchParams }: Props) {
+export default async function Home({ searchParams }: Props) {
+  const feedres: Promise<FeedsResponse> =
+    searchParams && Object.keys(searchParams).length > 0
+      ? fetchFeed(searchParams)
+      : fetchFeed();
+  const feed = await feedres;
   const subCategoryId = searchParams.category_group_id;
+
   return (
     <main className="w-full">
       <Topbar className="mt-2 md:mt-0" subcategoryid={subCategoryId} />
@@ -19,7 +27,7 @@ export default function Home({ searchParams }: Props) {
 
       {!subCategoryId && <DiscoverBar />}
 
-      <RequestContainer searchparams={searchParams} />
+      <RequestContainer requests={feed.data} />
 
       <RequestFormWrapper>
         <Button className="md:hidden" variant="place_a_request">
