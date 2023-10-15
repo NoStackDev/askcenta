@@ -91,7 +91,7 @@ export default function RequestForm({
   React.useEffect(() => {
     form.setValue("category", selectedSubCategory?.id.toString() || "");
     form.setValue("location", selectedCity?.id.toString() || "");
-  }, [selectedSubCategory, selectedCity]);
+  }, [selectedSubCategory, selectedCity, form]);
 
   return (
     <Dialog onOpenChange={(open) => !open && clearForm()}>
