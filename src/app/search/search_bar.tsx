@@ -10,7 +10,6 @@ interface SearchbarProps extends CardProps {}
 
 export default function Searchbar({ className, ...props }: SearchbarProps) {
   const onSubmit = () => {
-    e.preventDefault();
     const searchStr: HTMLInputElement | null = document.getElementById(
       "searchStr"
     ) as HTMLInputElement | null;
