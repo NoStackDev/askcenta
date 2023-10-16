@@ -74,7 +74,10 @@ export default function RequestCard({
           </div>
 
           {/* <ResponseFormWrapper params={{ id: request.id.toString() }}> */}
-          <RespondToRequestBtn className="mt-5 mb-3" />
+          <RespondToRequestBtn
+            className="mt-5 mb-3"
+            params={{ id: request.id.toString() }}
+          />
           {/* </ResponseFormWrapper> */}
         </div>
       </CardContent>
