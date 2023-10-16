@@ -26,3 +26,5 @@ export default async function NearbyPage({ searchParams }: Props) {
     </main>
   );
 }
+
+export const runtime = "edge";
