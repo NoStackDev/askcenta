@@ -24,3 +24,5 @@ export default async function SavedRequestPage({}: Props) {
     </main>
   );
 }
+
+export const runtime = "edge";

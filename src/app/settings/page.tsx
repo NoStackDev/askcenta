@@ -108,3 +108,5 @@ export default function Page({}: Props) {
     </main>
   );
 }
+
+export const runtime = "edge";
