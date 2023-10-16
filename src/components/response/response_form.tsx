@@ -53,6 +53,26 @@ export default function ResponseForm({
     null
   );
 
+  const form = useForm<z.infer<typeof responseFormSchema>>({
+    resolver: zodResolver(responseFormSchema),
+    defaultValues: {
+      title: "",
+      location: "",
+      description: "",
+      anonymous: "false",
+    },
+  });
+
+  React.useEffect(() => {
+    form.unregister("location");
+  }, []);
+
+  React.useEffect(() => {
+    form.setValue("location", selectedCity?.id.toString() || "");
+    form.clearErrors("location");
+    form.setValue("title", selectedResponse || "");
+  }, [selectedCity, selectedResponse]);
+
   function onSubmit(values: z.infer<typeof responseFormSchema>) {
     if (formStep === 0) setFormStep(formStep + 1);
     console.log("on submit: ", values);
@@ -70,26 +90,6 @@ export default function ResponseForm({
     setSelectedResponse(null);
     setFormStep(0);
   }
-
-  React.useEffect(() => {
-    form.unregister("location");
-  }, []);
-
-  React.useEffect(() => {
-    form.setValue("location", selectedCity?.id.toString() || "");
-    form.clearErrors("location");
-    form.setValue("title", selectedResponse || "");
-  }, [selectedCity, selectedResponse]);
-
-  const form = useForm<z.infer<typeof responseFormSchema>>({
-    resolver: zodResolver(responseFormSchema),
-    defaultValues: {
-      title: "",
-      location: "",
-      description: "",
-      anonymous: "false",
-    },
-  });
 
   return (
     <Dialog onOpenChange={(open) => !open && clearForm()}>
