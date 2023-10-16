@@ -13,3 +13,5 @@ export default function ProfilePage({}: Props) {
     </main>
   );
 }
+
+export const runtime = "edge";
