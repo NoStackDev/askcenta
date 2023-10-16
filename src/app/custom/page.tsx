@@ -24,3 +24,5 @@ export default async function CustomPage({ searchParams }: Props) {
     </main>
   );
 }
+
+export const runtime = "edge";
