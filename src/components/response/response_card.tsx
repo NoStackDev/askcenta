@@ -4,19 +4,7 @@ import { LocationIcon, WhatsappIcon } from "../icons";
 import { CitiesResponseType, RequestResponsesType } from "../../../types";
 import { cn, month } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-
-const fetchCities = async () => {
-  const res = await fetch(`https://www.askcenta.ng/api/cities`, {
-    method: "OPTIONS",
-    next: {
-      revalidate: 3600 * 24,
-    },
-  });
-
-  if (!res.ok) throw new Error(`failed to fetch cities`);
-
-  return res.json();
-};
+import { fetchCities } from "@/api/location";
 
 interface ResponseCardProps extends React.HTMLAttributes<HTMLDivElement> {
   response: RequestResponsesType;

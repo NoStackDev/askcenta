@@ -11,58 +11,8 @@ import {
 } from "../../../types";
 import CustomCustomizeForm from "./custom_customize_form";
 import { Button } from "@/components/ui/button";
-
-async function fetchCities() {
-  const res = await fetch("https://www.askcenta.ng/api/cities", {
-    method: "OPTIONS",
-    next: {
-      revalidate: 3600 * 6,
-    },
-  });
-
-  if (!res.ok) throw new Error("failed to fetch cities");
-
-  return res.json();
-}
-
-async function fetchStates() {
-  const res = await fetch("https://askcenta.ng/api/states", {
-    method: "OPTIONS",
-    next: {
-      revalidate: 3600 * 6,
-    },
-  });
-
-  if (!res.ok) throw new Error("failed to fetch states");
-
-  return res.json();
-}
-
-async function fetchCategories() {
-  const res = await fetch("https://askcenta.ng/api/categories", {
-    method: "OPTIONS",
-    next: {
-      revalidate: 3600 * 6,
-    },
-  });
-
-  if (!res.ok) throw new Error("failed to fetch categories");
-
-  return res.json();
-}
-
-async function fetchSubCategories() {
-  const res = await fetch("https://askcenta.ng/api/categoryGroups", {
-    method: "OPTIONS",
-    next: {
-      revalidate: 3600 * 6,
-    },
-  });
-
-  if (!res.ok) throw new Error("failed to fetch categories");
-
-  return res.json();
-}
+import { fetchCities, fetchStates } from "@/api/location";
+import { fetchCategories, fetchSubCategories } from "@/api/category";
 
 interface CustomTopbarProps extends React.HTMLAttributes<HTMLDivElement> {
   searchparams: { [key: string]: string | string[] | undefined };
