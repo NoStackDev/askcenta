@@ -13,7 +13,6 @@ import {
 } from "../ui/select";
 import { SubCategoryType } from "../../../types";
 import { ChevronRightIcon } from "../icons";
-import { useRouter } from "next/navigation";
 
 interface TopbarSelectProps extends React.HTMLAttributes<typeof Select> {
   subcategoryid: string | string[] | undefined;

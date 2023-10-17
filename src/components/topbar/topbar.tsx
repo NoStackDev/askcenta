@@ -7,21 +7,8 @@ import Link from "next/link";
 import TopbarSelect from "./topbar_select";
 import { SubCategoryResponseType } from "../../../types";
 import { RequestFormWrapper } from "../request";
-
-async function fetchSubCategories() {
-  const res = await fetch("https://www.askcenta.ng/api/categoryGroups", {
-    method: "OPTIONS",
-    next: {
-      revalidate: 3600 * 6,
-    },
-  });
-
-  if (!res.ok) {
-    throw new Error("failed to fetch feed");
-  }
-
-  return res.json();
-}
+import DiscoverTopbarRequestBtn from "./discover_topbar_request_btn";
+import { fetchSubCategories } from "@/api/category";
 
 interface TopbarProps extends React.HTMLAttributes<HTMLDivElement> {
   subcategoryid: string | string[] | undefined;
@@ -57,9 +44,7 @@ export default async function Topbar({
                 </span>
               </div>
 
-              <RequestFormWrapper>
-                <Button variant="request_outlined">Post request</Button>
-              </RequestFormWrapper>
+              <DiscoverTopbarRequestBtn />
             </div>
           </CardContent>
         </Card>
