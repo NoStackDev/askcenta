@@ -11,7 +11,9 @@ export default function RespondToRequestBtn({
   className,
   ...props
 }: RespondToRequestBtnProps) {
-  function onClick() {
+  function onClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    e.preventDefault();
+    e.stopPropagation();
     const triggerBtn = document.getElementById("response_form_modal_trigger");
     if (triggerBtn) {
       triggerBtn.click();
@@ -23,11 +25,7 @@ export default function RespondToRequestBtn({
       variant="request_card_outlined"
       className={cn("hover:cursor-pointer", className)}
       {...props}
-      onClick={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        onClick();
-      }}
+      onClick={(e) => onClick(e)}
     >
       Respond to Request
     </Button>
