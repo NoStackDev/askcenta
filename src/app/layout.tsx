@@ -46,10 +46,10 @@ export default function RootLayout({
           </div>
         </SidebarContextProvider>
         <RequestFormWrapper>
-          <button>llll</button>
+          <button id="request_form_modal_trigger" className="hidden"></button>
         </RequestFormWrapper>
         <ResponseFormWrapper params={{ id: "2" }}>
-          <button id="response_form_modal_trigger"></button>
+          <button id="response_form_modal_trigger" className="hidden"></button>
         </ResponseFormWrapper>
 
         <Footer />
