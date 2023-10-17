@@ -11,6 +11,13 @@ export default function RespondToRequestBtn({
   className,
   ...props
 }: RespondToRequestBtnProps) {
+  function onClick() {
+    const triggerBtn = document.getElementById("response_form_modal_trigger");
+    if (triggerBtn) {
+      triggerBtn.click();
+    }
+  }
+
   return (
     <Button
       variant="request_card_outlined"
@@ -19,6 +26,7 @@ export default function RespondToRequestBtn({
       onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();
+        onClick();
       }}
     >
       Respond to Request

@@ -1,5 +1,7 @@
 import Footer from "@/components/footer";
 import { Navbar } from "@/components/navbar";
+import { RequestFormWrapper } from "@/components/request";
+import { ResponseFormWrapper } from "@/components/response";
 import Sidebar from "@/components/sidebar";
 import { SidebarContextProvider } from "@/context/sidebar_context";
 import "@/styles/globals.css";
@@ -43,6 +45,12 @@ export default function RootLayout({
             {children}
           </div>
         </SidebarContextProvider>
+        <RequestFormWrapper>
+          <button>llll</button>
+        </RequestFormWrapper>
+        <ResponseFormWrapper params={{ id: "2" }}>
+          <button id="response_form_modal_trigger"></button>
+        </ResponseFormWrapper>
 
         <Footer />
       </body>
