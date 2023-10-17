@@ -9,11 +9,12 @@ import {
 } from "../../../types";
 import { fetchCities, fetchStates } from "@/api/location";
 import { fetchCategories, fetchSubCategories } from "@/api/category";
+import { DialogProps } from "@radix-ui/react-dialog";
 
 export default async function RequestFormWrapper({
   className,
   children,
-}: React.HTMLAttributes<typeof RequestForm>) {
+}: React.HTMLAttributes<DialogProps>) {
   const citiesRes: Promise<CitiesResponseType> = fetchCities();
   const statesRes: Promise<StateResponseType> = fetchStates();
   const categoriesRes: Promise<CategoryType[]> = fetchCategories();
