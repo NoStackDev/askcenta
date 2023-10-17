@@ -3,6 +3,7 @@ import Topbar from "@/components/topbar";
 import { Button } from "@/components/ui/button";
 import DiscoverBar from "@/components/discover_bar";
 import { RequestContainer, RequestFormWrapper } from "@/components/request";
+import DiscoverPlaceRequestBtn from "@/components/request/discover_place_request_btn";
 
 type Props = {
   params: { slug: string };
@@ -21,11 +22,7 @@ export default function Home({ searchParams }: Props) {
 
       <RequestContainer searchparams={searchParams} />
 
-      <RequestFormWrapper>
-        <Button className="md:hidden" variant="place_a_request">
-          Place a Request
-        </Button>
-      </RequestFormWrapper>
+      <DiscoverPlaceRequestBtn />
     </main>
   );
 }
