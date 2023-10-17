@@ -41,6 +41,7 @@ export default function SearchLocationFilter({
 
       if (selectedCity) {
         const url = new URL(window.location.href);
+        url.searchParams.delete("city_id");
         url.searchParams.append("city_id", selectedCity.id.toString());
         window.location.href = url.href;
       }
