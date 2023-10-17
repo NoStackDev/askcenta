@@ -19,7 +19,13 @@ export async function fetchFeed(searchParams?: {
       }
     );
 
-    if (!res.ok) throw new Error("failed to fetch feeds");
+    if (!res.ok)
+      throw new Error(
+        `failed to fetch feeds from https://www.askcenta.ng/api/feeds?${params.slice(
+          0,
+          params.length - 1
+        )}}`
+      );
 
     return res.json();
   }
@@ -31,7 +37,10 @@ export async function fetchFeed(searchParams?: {
     },
   });
 
-  if (!res.ok) throw new Error("failed to fetch feeds");
+  if (!res.ok)
+    throw new Error(
+      "failed to fetch feeds from https://www.askcenta.ng/api/feeds"
+    );
 
   return res.json();
 }

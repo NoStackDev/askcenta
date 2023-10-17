@@ -6,7 +6,10 @@ export async function fetchCategories() {
     },
   });
 
-  if (!res.ok) throw new Error("failed to fetch categories");
+  if (!res.ok)
+    throw new Error(
+      "failed to fetch categories from https://askcenta.ng/api/categories"
+    );
 
   return res.json();
 }
@@ -19,7 +22,10 @@ export async function fetchSubCategories() {
     },
   });
 
-  if (!res.ok) throw new Error("failed to fetch categories");
+  if (!res.ok)
+    throw new Error(
+      "failed to fetch categories from https://askcenta.ng/api/categoryGroups"
+    );
 
   return res.json();
 }

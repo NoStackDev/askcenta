@@ -6,7 +6,10 @@ export async function fetchCities() {
     },
   });
 
-  if (!res.ok) throw new Error("failed to fetch cities");
+  if (!res.ok)
+    throw new Error(
+      "failed to fetch cities from https://www.askcenta.ng/api/cities"
+    );
 
   return res.json();
 }
@@ -19,7 +22,10 @@ export async function fetchStates() {
     },
   });
 
-  if (!res.ok) throw new Error("failed to fetch states");
+  if (!res.ok)
+    throw new Error(
+      "failed to fetch states from https://askcenta.ng/api/states"
+    );
 
   return res.json();
 }
