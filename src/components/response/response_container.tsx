@@ -2,34 +2,7 @@ import { cn, shuffle } from "@/lib/utils";
 import React from "react";
 import { RequestDetailType } from "../../../types";
 import { ResponseCard } from ".";
-
-const fetchRequestDetails = async (requestid: string) => {
-  const res = await fetch(`https://www.askcenta.ng/api/requests/${requestid}`, {
-    method: "OPTIONS",
-    next: {
-      revalidate: 0,
-    },
-  });
-
-  if (!res.ok)
-    throw new Error(`failed to fetch request id ${requestid} details`);
-
-  return res.json();
-};
-
-const fetchUserResponses = async (requestid: string) => {
-  const res = await fetch(`https://www.askcenta.ng/api/requests/${requestid}`, {
-    method: "OPTIONS",
-    next: {
-      revalidate: 0,
-    },
-  });
-
-  if (!res.ok)
-    throw new Error(`failed to fetch request id ${requestid} details`);
-
-  return res.json();
-};
+import { fetchRequestDetails } from "@/api/request";
 
 interface ResponseProps extends React.HTMLAttributes<HTMLDivElement> {
   requestid?: string;

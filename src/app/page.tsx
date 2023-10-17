@@ -1,8 +1,7 @@
 import Categories from "@/components/categories";
 import Topbar from "@/components/topbar";
-import { Button } from "@/components/ui/button";
 import DiscoverBar from "@/components/discover_bar";
-import { RequestContainer, RequestFormWrapper } from "@/components/request";
+import { RequestContainer } from "@/components/request";
 import DiscoverPlaceRequestBtn from "@/components/request/discover_place_request_btn";
 
 type Props = {

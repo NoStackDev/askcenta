@@ -5,20 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ScheduleIcon, VisibilityFillIcon } from "@/components/icons";
 import Image from "next/image";
 import RequestActions from "./request_actions";
-
-const fetchRequestDetails = async (requestid: string) => {
-  const res = await fetch(`https://www.askcenta.ng/api/requests/${requestid}`, {
-    method: "OPTIONS",
-    next: {
-      revalidate: 0,
-    },
-  });
-
-  if (!res.ok)
-    throw new Error(`failed to fetch request id ${requestid} details`);
-
-  return res.json();
-};
+import { fetchRequestDetails } from "@/api/request";
 
 interface RequestImgDetailProps extends React.HTMLAttributes<HTMLDivElement> {
   requestid: string;
