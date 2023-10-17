@@ -8,7 +8,23 @@ import TopbarSelect from "./topbar_select";
 import { SubCategoryResponseType } from "../../../types";
 import { RequestFormWrapper } from "../request";
 import DiscoverTopbarRequestBtn from "./discover_topbar_request_btn";
-import { fetchSubCategories } from "@/helpers/category";
+// import { fetchSubCategories } from "@/helpers/category";
+
+async function fetchSubCategories() {
+  const res = await fetch("https://askcenta.ng/api/categoryGroups", {
+    method: "OPTIONS",
+    next: {
+      revalidate: 3600 * 6,
+    },
+  });
+
+  if (!res.ok)
+    throw new Error(
+      "failed to fetch categories from https://askcenta.ng/api/categoryGroups"
+    );
+
+  return res.json();
+}
 
 interface TopbarProps extends React.HTMLAttributes<HTMLDivElement> {
   subcategoryid: string | string[] | undefined;

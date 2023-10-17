@@ -4,7 +4,23 @@ import { LocationIcon, WhatsappIcon } from "../icons";
 import { CitiesResponseType, RequestResponsesType } from "../../../types";
 import { cn, month } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { fetchCities } from "@/helpers/location";
+// import { fetchCities } from "@/helpers/location";
+
+export async function fetchCities() {
+  const res = await fetch("https://www.askcenta.ng/api/cities", {
+    method: "OPTIONS",
+    next: {
+      revalidate: 3600 * 6,
+    },
+  });
+
+  if (!res.ok)
+    throw new Error(
+      "failed to fetch cities from https://www.askcenta.ng/api/cities"
+    );
+
+  return res.json();
+}
 
 interface ResponseCardProps extends React.HTMLAttributes<HTMLDivElement> {
   response: RequestResponsesType;
