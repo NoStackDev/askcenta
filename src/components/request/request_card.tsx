@@ -73,9 +73,9 @@ export default function RequestCard({
             <RequestBookmark />
           </div>
 
-          <ResponseFormWrapper params={{ id: request.id.toString() }}>
-            <RespondToRequestBtn className="mt-5 mb-3" />
-          </ResponseFormWrapper>
+          {/* <ResponseFormWrapper params={{ id: request.id.toString() }}> */}
+          <RespondToRequestBtn className="mt-5 mb-3" />
+          {/* </ResponseFormWrapper> */}
         </div>
       </CardContent>
     </Card>

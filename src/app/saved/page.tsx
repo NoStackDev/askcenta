@@ -1,15 +1,10 @@
 import { RequestContainer } from "@/components/request";
 import { Card, CardContent } from "@/components/ui/card";
 import React from "react";
-import { FeedsResponse } from "../../../types";
-import { fetchFeed } from "@/api/feeds";
 
 type Props = {};
 
-export default async function SavedRequestPage({}: Props) {
-  const feedres: Promise<FeedsResponse> = fetchFeed();
-  const feed = await feedres;
-
+export default function SavedRequestPage({}: Props) {
   return (
     <main className="w-full">
       <Card variant="settings" className="mt-2 md:mt-0">
@@ -20,9 +15,7 @@ export default async function SavedRequestPage({}: Props) {
         </CardContent>
       </Card>
 
-      <RequestContainer requests={feed.data} />
+      <RequestContainer />
     </main>
   );
 }
-
-export const runtime = "edge";

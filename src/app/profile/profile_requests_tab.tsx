@@ -6,18 +6,13 @@ import { TabsContent } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import { TabsContentProps } from "@radix-ui/react-tabs";
 import React from "react";
-import { FeedsResponse } from "../../../types";
-import { fetchFeed } from "@/api/feeds";
 
 interface ProfileRequestsTab extends TabsContentProps {}
 
-export default async function ProfileRequestsTab({
+export default function ProfileRequestsTab({
   className,
   ...props
 }: TabsContentProps) {
-  const feedres: Promise<FeedsResponse> = fetchFeed();
-  const feed = await feedres;
-
   return (
     <TabsContent className={cn("flex flex-col gap-4", className)} {...props}>
       <div className="px-4 md:px-0">
@@ -36,7 +31,7 @@ export default async function ProfileRequestsTab({
         </Card>
       </div>
 
-      <RequestContainer requests={feed.data} />
+      <RequestContainer />
     </TabsContent>
   );
 }

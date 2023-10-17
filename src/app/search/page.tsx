@@ -2,20 +2,13 @@ import { RequestContainer } from "@/components/request";
 import React from "react";
 import Searchbar from "./search_bar";
 import SearchTopbar from "./search_topbar";
-import { fetchFeed } from "@/api/feeds";
-import { FeedsResponse } from "../../../types";
 
 type Props = {
   params: { slug: string };
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
-export default async function SearchPage({ searchParams }: Props) {
-  const feedres: Promise<FeedsResponse> =
-    searchParams && Object.keys(searchParams).length > 0
-      ? fetchFeed(searchParams)
-      : fetchFeed();
-  const feed = await feedres;
+export default function SearchPage({ searchParams }: Props) {
   const cityId = searchParams.city_id;
 
   return (
@@ -25,9 +18,7 @@ export default async function SearchPage({ searchParams }: Props) {
       </div>
 
       <SearchTopbar cityid={cityId} className="mt-10" />
-      <RequestContainer requests={feed.data} />
+      <RequestContainer searchparams={searchParams} />
     </main>
   );
 }
-
-export const runtime = "edge";

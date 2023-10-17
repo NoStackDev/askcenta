@@ -5,33 +5,15 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { NotificationIcon, SearchIcon } from "../icons";
 import { HamburgerMenu } from ".";
-import { RequestForm } from "../request";
-import {
-  CategoryType,
-  CitiesResponseType,
-  StateResponseType,
-  SubCategoryResponseType,
-} from "../../../types";
-import { fetchCategories, fetchSubCategories } from "@/api/categories";
-import { fetchCities, fetchStates } from "@/api/location";
+import { RequestFormWrapper } from "../request";
 
-interface NavbarProps extends React.HTMLAttributes<HTMLDivElement> {}
+type Props = {};
 
-export default async function Navbar({ className, ...props }: NavbarProps) {
+const Navbar = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, forwardRef) => {
   const showNotification = false;
-
-  const citiesRes: Promise<CitiesResponseType> = fetchCities();
-  const statesRes: Promise<StateResponseType> = fetchStates();
-  const categoriesRes: Promise<CategoryType[]> = fetchCategories();
-  const subCategoriesRes: Promise<SubCategoryResponseType> =
-    fetchSubCategories();
-
-  const [cities, states, categories, subCategories] = await Promise.all([
-    citiesRes,
-    statesRes,
-    categoriesRes,
-    subCategoriesRes,
-  ]);
 
   return (
     <div
@@ -40,6 +22,7 @@ export default async function Navbar({ className, ...props }: NavbarProps) {
         className
       )}
       {...props}
+      ref={forwardRef}
       aria-label="nav bar"
     >
       <nav className="w-full max-w-7xl flex justify-between items-center m-4 md:my-2 md:mx-4 lg:mx-[100px] 2xl:mx-auto">
@@ -71,18 +54,17 @@ export default async function Navbar({ className, ...props }: NavbarProps) {
 
           <HamburgerMenu />
 
-          <RequestForm
-            citiesdata={cities.data}
-            statesdata={states.data}
-            categoriesdata={categories}
-            subCategoriesdata={subCategories.data}
-          >
+          <RequestFormWrapper>
             <Button className="hidden lg:flex" variant="request">
               Place a Request
             </Button>
-          </RequestForm>
+          </RequestFormWrapper>
         </div>
       </nav>
     </div>
   );
-}
+});
+
+Navbar.displayName = "Navbar";
+
+export default Navbar;
