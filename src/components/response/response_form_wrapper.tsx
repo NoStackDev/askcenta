@@ -40,22 +40,23 @@ interface ResponseFormWrapperProps
   params: { id: string };
 }
 
-export default async function ResponseFormWrapper({
+export default function ResponseFormWrapper({
   className,
   children,
   params,
 }: ResponseFormWrapperProps) {
-  const citiesRes: Promise<CitiesResponseType> = fetchCities();
-  const statesRes: Promise<StateResponseType> = fetchStates();
+  // const citiesRes: Promise<CitiesResponseType> = fetchCities();
+  // const statesRes: Promise<StateResponseType> = fetchStates();
 
-  const [cities, states] = await Promise.all([citiesRes, statesRes]);
+  // const [cities, states] = await Promise.all([citiesRes, statesRes]);
   return (
-    <ResponseForm
-      params={params}
-      citiesdata={cities.data}
-      statesdata={states.data}
-    >
-      {children}
-    </ResponseForm>
+    // <ResponseForm
+    //   params={params}
+    //   citiesdata={cities.data}
+    //   statesdata={states.data}
+    // >
+    //   {children}
+    // </ResponseForm>
+    <div>lllll</div>
   );
 }

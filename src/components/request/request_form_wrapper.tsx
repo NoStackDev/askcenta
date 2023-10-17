@@ -74,32 +74,33 @@ async function fetchStates() {
   return res.json();
 }
 
-export default async function RequestFormWrapper({
+export default  function RequestFormWrapper({
   className,
   children,
 }: React.HTMLAttributes<typeof RequestForm>) {
-  const citiesRes: Promise<CitiesResponseType> = fetchCities();
-  const statesRes: Promise<StateResponseType> = fetchStates();
-  const categoriesRes: Promise<CategoryType[]> = fetchCategories();
-  const subCategoriesRes: Promise<SubCategoryResponseType> =
-    fetchSubCategories();
+  // const citiesRes: Promise<CitiesResponseType> = fetchCities();
+  // const statesRes: Promise<StateResponseType> = fetchStates();
+  // const categoriesRes: Promise<CategoryType[]> = fetchCategories();
+  // const subCategoriesRes: Promise<SubCategoryResponseType> =
+  //   fetchSubCategories();
 
-  const [cities, states, categories, subCategories] = await Promise.all([
-    citiesRes,
-    statesRes,
-    categoriesRes,
-    subCategoriesRes,
-  ]);
+  // const [cities, states, categories, subCategories] = await Promise.all([
+  //   citiesRes,
+  //   statesRes,
+  //   categoriesRes,
+  //   subCategoriesRes,
+  // ]);
 
   return (
-    <RequestForm
-      citiesdata={cities.data}
-      statesdata={states.data}
-      categoriesdata={categories}
-      subCategoriesdata={subCategories.data}
-      className={cn("", className)}
-    >
-      {children}
-    </RequestForm>
+    // <RequestForm
+    //   citiesdata={cities.data}
+    //   statesdata={states.data}
+    //   categoriesdata={categories}
+    //   subCategoriesdata={subCategories.data}
+    //   className={cn("", className)}
+    // >
+    //   {children}
+    // </RequestForm>
+    <div>lllll</div>
   );
 }
