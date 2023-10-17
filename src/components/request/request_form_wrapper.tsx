@@ -7,8 +7,8 @@ import {
   StateResponseType,
   SubCategoryResponseType,
 } from "../../../types";
-import { fetchCities, fetchStates } from "@/api/location";
-import { fetchCategories, fetchSubCategories } from "@/api/category";
+import { fetchCities, fetchStates } from "@/helpers/location";
+import { fetchCategories, fetchSubCategories } from "@/helpers/category";
 
 export default async function RequestFormWrapper({
   className,

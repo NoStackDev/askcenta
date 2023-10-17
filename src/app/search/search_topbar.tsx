@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import React from "react";
 import { CitiesResponseType, StateResponseType } from "../../../types";
 import SearchLocationFilter from "./search_location_filter";
-import { fetchCities, fetchStates } from "@/api/location";
+import { fetchCities, fetchStates } from "@/helpers/location";
 
 interface SearchTopbarProps extends React.HTMLAttributes<HTMLDivElement> {
   cityid: string | string[] | undefined;

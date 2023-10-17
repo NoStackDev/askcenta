@@ -3,7 +3,7 @@ import React from "react";
 import { FeedsResponse } from "../../../types";
 import Link from "next/link";
 import { RequestCard } from ".";
-import { fetchFeed } from "@/api/feeds";
+import { fetchFeed } from "@/helpers/feeds";
 
 interface RequestContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   searchparams?: { [key: string]: string | string[] | undefined };

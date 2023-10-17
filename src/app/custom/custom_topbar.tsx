@@ -11,8 +11,8 @@ import {
 } from "../../../types";
 import CustomCustomizeForm from "./custom_customize_form";
 import { Button } from "@/components/ui/button";
-import { fetchCities, fetchStates } from "@/api/location";
-import { fetchCategories, fetchSubCategories } from "@/api/category";
+import { fetchCities, fetchStates } from "@/helpers/location";
+import { fetchCategories, fetchSubCategories } from "@/helpers/category";
 
 interface CustomTopbarProps extends React.HTMLAttributes<HTMLDivElement> {
   searchparams: { [key: string]: string | string[] | undefined };

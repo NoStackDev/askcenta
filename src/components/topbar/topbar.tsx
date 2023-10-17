@@ -8,7 +8,7 @@ import TopbarSelect from "./topbar_select";
 import { SubCategoryResponseType } from "../../../types";
 import { RequestFormWrapper } from "../request";
 import DiscoverTopbarRequestBtn from "./discover_topbar_request_btn";
-import { fetchSubCategories } from "@/api/category";
+import { fetchSubCategories } from "@/helpers/category";
 
 interface TopbarProps extends React.HTMLAttributes<HTMLDivElement> {
   subcategoryid: string | string[] | undefined;

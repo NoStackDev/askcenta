@@ -1,7 +1,7 @@
 import React from "react";
 import { CitiesResponseType, StateResponseType } from "../../../types";
 import ResponseForm from "./response_form";
-import { fetchCities, fetchStates } from "@/api/location";
+import { fetchCities, fetchStates } from "@/helpers/location";
 
 interface ResponseFormWrapperProps
   extends React.HTMLAttributes<typeof ResponseForm> {

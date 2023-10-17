@@ -4,7 +4,7 @@ import { CitiesResponseType, StateResponseType } from "../../../types";
 import NearbyLocationForm from "./nearby_location_form";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { fetchCities, fetchStates } from "@/api/location";
+import { fetchCities, fetchStates } from "@/helpers/location";
 
 interface NearbyLocationProps extends React.HTMLAttributes<HTMLDivElement> {
   cityid: string | string[] | undefined;
