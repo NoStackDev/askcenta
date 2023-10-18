@@ -28,7 +28,7 @@ const config: Config = {
         contentShowMd: "contentShowMd 150ms cubic-bezier(0.16, 1, 0.3, 1)",
         dialogFirstContentShow: "dialogFirstContentShow 200ms ease-in-out",
         dialogHide: "dialogHide 200ms ease-in-out",
-        dialogHideMd: "dialogHideMd 2000ms ease-in-out",
+        dialogHideMd: "dialogHideMd 200ms ease-in-out",
         sidebarOverlayShow: "sidebarOverlayShow 200ms ease-in-out",
       },
 
