@@ -7,7 +7,7 @@ const DiscoverBar = React.forwardRef<
 >(() => {
   return (
     <div className="flex justify-between items-center mt-[60px] mx-4 md:mx-0">
-      <h2 className="font-poppins font-semibold text-[20px] text-[#011B39]">
+      <h2 className="font-poppins font-semibold text-[20px] text-[#011B39] uppercase">
         Discover
       </h2>
 

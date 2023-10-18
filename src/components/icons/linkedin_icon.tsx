@@ -3,55 +3,44 @@ import React from "react";
 
 const LinkedinIcon = React.forwardRef<
   React.ElementRef<"svg">,
-  React.HTMLAttributes<"svg"> & {
+  React.HTMLAttributes<HTMLOrSVGElement> & {
     width?: string | null;
     height?: string | null;
     pathColor?: string | null;
-    pathColor1?: string | null;
-    pathColor2?: string | null;
-    circleFill?: string | null;
+    clipPathColor?: string | null;
   }
 >(
   (
-    {
-      className,
-      width,
-      height,
-      pathColor,
-      pathColor1,
-      pathColor2,
-      circleFill,
-      ...props
-    },
+    { className, width, height, pathColor, clipPathColor, ...props },
     forwardRef
   ) => {
     return (
       <svg
-        width={width ? width : "24"}
+        width={height ? height : "24"}
         height={height ? height : "24"}
-        viewBox="0 0 24 24"
+        viewBox={`0 0 ${width ? width : 24} ${height ? height : 24}`}
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className={className}
+        className={cn("", className)}
+        {...props}
       >
-        <circle
-          cx="12"
-          cy="12"
-          r="12"
-          fill={circleFill ? circleFill : "white"}
-        />
-        <path
-          d="M6.57733 17.6471H9.04462V9.65959H6.57733V17.6471Z"
-          fill={pathColor ? pathColor : "black"}
-        />
-        <path
-          d="M6.35303 7.10959C6.35303 7.89709 6.98854 8.53459 7.81097 8.53459C8.59602 8.53459 9.23153 7.89709 9.23153 7.10959C9.23153 6.32209 8.59602 5.64709 7.81097 5.64709C6.98854 5.64709 6.35303 6.32209 6.35303 7.10959Z"
-          fill={pathColor1 ? pathColor1 : "black"}
-        />
-        <path
-          d="M15.8484 17.6471H18.353V13.2596C18.353 11.1221 17.867 9.43459 15.3624 9.43459C14.1661 9.43459 13.3437 10.1096 13.0072 10.7471H12.9699V9.65959H10.6147V17.6471H13.082V13.7096C13.082 12.6596 13.2689 11.6471 14.5773 11.6471C15.8484 11.6471 15.8484 12.8471 15.8484 13.7471V17.6471Z"
-          fill={pathColor2 ? pathColor2 : "black"}
-        />
+        <g clipPath="url(#clip0_668_400)">
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M24 12C24 18.6274 18.6274 24 12 24C5.37258 24 0 18.6274 0 12C0 5.37258 5.37258 0 12 0C18.6274 0 24 5.37258 24 12ZM5.23125 19H8.13375V9.65292H5.23125V19ZM5 6.68097C5 7.60912 5.75281 8.37789 6.68094 8.37789C7.60875 8.37789 8.36188 7.60912 8.36188 6.68097C8.36188 6.23515 8.18478 5.80759 7.86954 5.49235C7.5543 5.1771 7.12675 5 6.68094 5C6.23513 5 5.80757 5.1771 5.49234 5.49235C5.1771 5.80759 5 6.23515 5 6.68097ZM16.1006 19H19V13.8655C19 11.353 18.46 9.41854 15.5225 9.41854C14.1103 9.41854 13.1637 10.1936 12.7762 10.9279H12.7356V9.65292H9.95188V19H12.8512V14.3718C12.8512 13.153 13.0825 11.9748 14.5916 11.9748C16.0788 11.9748 16.1006 13.3655 16.1006 14.4499V19Z"
+            fill={pathColor ? pathColor : "#687076"}
+          />
+        </g>
+        <defs>
+          <clipPath id="clip0_668_400">
+            <rect
+              width={height ? height : "24"}
+              height={height ? height : "24"}
+              fill={clipPathColor ? clipPathColor : "white"}
+            />
+          </clipPath>
+        </defs>
       </svg>
     );
   }

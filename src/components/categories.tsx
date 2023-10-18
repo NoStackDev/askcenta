@@ -80,7 +80,7 @@ const Categories = React.forwardRef<
         </SubCategoryModal>
 
         <SubCategoryModal categorygroup="accomodation ">
-          <Card className="bg-[#5BE7C4]" variant="category">
+          <Card className="bg-[#DA77D0]" variant="category">
             <CardContent>
               <HouseIcon aria-label="accommodation" />
 

@@ -33,7 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${poppins.variable} ${roboto.variable} ${roboto.className} bg-[#F7F7F9]`}
+        className={`${poppins.variable} ${roboto.variable} ${roboto.className} bg-[#F4F3FC]`}
       >
         <SidebarContextProvider>
           <Navbar />
