@@ -23,9 +23,9 @@ const config: Config = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        overlayShow: "overlayShow 200ms cubic-bezier(0.16, 1, 0.3, 1)",
-        contentShow: "contentShow 200ms cubic-bezier(0.16, 1, 0.3, 1)",
-        contentShowMd: "contentShowMd 150ms cubic-bezier(0.16, 1, 0.3, 1)",
+        overlayShow: "overlayShow 200ms ease-in-out",
+        contentShow: "contentShow 200ms ease-in-out",
+        contentShowMd: "contentShowMd 150ms ease-in-out",
         dialogFirstContentShow: "dialogFirstContentShow 200ms ease-in-out",
         dialogHide: "dialogHide 200ms ease-in-out",
         dialogHideMd: "dialogHideMd 200ms ease-in-out",
