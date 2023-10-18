@@ -34,7 +34,7 @@ const Sidebar = React.forwardRef<
       <Card
         variant="sidebar"
         {...props}
-        ref={forwardRef}transition-all ease-in-out duration-200
+        ref={forwardRef}
         className={cn(
           "fixed -bottom-[100%] lg:sticky lg:top-24 rounded-none md:rounded-lg transition-all ease-in-out duration-150 lg:duration-0 z-50 lg:z-auto",
           showSidebar && "bottom-[calc(100vh_-_630px)]",
