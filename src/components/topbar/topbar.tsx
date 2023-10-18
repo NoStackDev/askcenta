@@ -12,6 +12,7 @@ import TopbarRequestInput from "./topbar_request_input";
 interface TopbarProps extends React.HTMLAttributes<HTMLDivElement> {
   subcategoryid: string | string[] | undefined;
 }
+
 export default async function Topbar({
   className,
   subcategoryid,
