@@ -15,7 +15,7 @@ export default function RequestPage({ params }: Props) {
     <main className="w-full">
       <RequestImgDetail requestid={id} />
 
-      <ResponseFormWrapper params={params}>
+      <ResponseFormWrapper requestid={id}>
         <RespondToRequest className="mt-4 md:mt-6" />
       </ResponseFormWrapper>
 
