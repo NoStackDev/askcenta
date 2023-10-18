@@ -30,6 +30,10 @@ const config: Config = {
         dialogHide: "dialogHide 200ms ease-in-out",
         dialogHideMd: "dialogHideMd 200ms ease-in-out",
         sidebarOverlayShow: "sidebarOverlayShow 200ms ease-in-out",
+        "hamburger-up-rotate": "hamburger-up-rotate 200ms ease-out both",
+        "hamburger-down-rotate": "hamburger-down-rotate 200ms ease-out both",
+        "hamburger-stroke-hide":
+          "hamburger-stroke-hide 200ms ease-out forwards",
       },
 
       gridTemplateColumns: {
@@ -119,6 +123,61 @@ const config: Config = {
             transform: "translate(-50%, -50%) scale(1)",
           },
           to: { opacity: "0", transform: "translate(-50%, -48%) scale(0.5)" },
+        },
+
+        "hamburger-up-rotate": {
+          "0%": {
+            "transform-box": "fill-box",
+            "transform-origin": "center",
+            "animation-timing-function":
+              "cubic-bezier(0.16, -0.88, 0.97, 0.53)",
+            transform: "translateY(0px)",
+          },
+
+          "30%": {
+            "transform-box": "fill-box",
+            "transform-origin": "center",
+            "animation-timing-function": "cubic-bezier(0.34, 1.56, 0.64, 1)",
+            transform: "translateY(-10px)",
+          },
+          "100%": {
+            "transform-box": "fill-box",
+            "transform-origin": "center",
+            transform: "translateY(-10px) rotate(45deg) scale(0.9)",
+          },
+        },
+
+        "hamburger-down-rotate": {
+          "0%": {
+            "transform-box": "fill-box",
+            "transform-origin": "center",
+            "animation-timing-function":
+              "cubic-bezier(0.16, -0.88, 0.97, 0.53)",
+            transform: "translateY(0px)",
+          },
+          "30%": {
+            "transform-box": "fill-box",
+            "transform-origin": "center",
+            "animation-timing-function": "cubic-bezier(0.34, 1.56, 0.64, 1)",
+            transform: "translateY(10px)",
+          },
+          "100%": {
+            "transform-box": "fill-box",
+            "transform-origin": "center",
+            transform: "translateY(10px) rotate(-45deg) scale(0.9)",
+          },
+        },
+
+        "hamburger-stroke-hide": {
+          "29%": {
+            opacity: "1",
+          },
+          "30%": {
+            opacity: "0",
+          },
+          "100%": {
+            opacity: "0",
+          },
         },
       },
     },

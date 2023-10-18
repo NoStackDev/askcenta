@@ -22,7 +22,7 @@ export default function HamburgerMenu({
       onClick={() => setShowSidebar(!showSidebar)}
       {...props}
     >
-      <HamburgerIcon aria-label="menu" />
+      <HamburgerIcon aria-label="menu" isopen={showSidebar} />
     </div>
   );
 }

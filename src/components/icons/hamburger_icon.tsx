@@ -6,24 +6,44 @@ const HamburgerIcon = React.forwardRef<
   React.HTMLAttributes<"svg"> & {
     width?: string | null;
     height?: string | null;
-    pathColor?: string | null;
+    strokeColor?: string | null;
+    isopen: boolean;
   }
->(({ className, width, height, pathColor, ...props }, forwardRef) => {
+>(({ className, width, height, strokeColor, isopen, ...props }, forwardRef) => {
   return (
     <svg
       fill="none"
-      width={width ? width : "24"}
-      height={height ? height : "24"}
-      viewBox="0 0 24 24"
+      width={width ? width : "60"}
+      height={height ? height : "40"}
+      viewBox={`0 0 ${width ? width : "60"} ${height ? height : "40"}`}
       xmlns="http://www.w3.org/2000/svg"
       ref={forwardRef}
       aria-label={props["aria-label"]}
-      className={cn("", className)}
+      className={cn("relative px-2", className)}
     >
-      <path
-        d="M3.25 17.6364V16.1364H20.75V17.6364H3.25ZM3.25 12.7518V11.2518H20.75V12.7518H3.25ZM3.25 7.86716V6.36719H20.75V7.86716H3.25Z"
-        fill={pathColor ? pathColor : "#9696A0"}
-      />
+      <g
+        stroke={strokeColor ? strokeColor : "#000318"}
+        strokeWidth="4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="h-full w-full"
+      >
+        <path
+          className={cn("data-[open=true]:animate-hamburger-down-rotate")}
+          data-open={isopen}
+          d="M10,10 L50,10 Z"
+        ></path>
+        <path
+          className={cn("my-1 data-[open=true]:animate-hamburger-stroke-hide")}
+          data-open={isopen}
+          d="M10,20 L50,20 Z"
+        ></path>
+        <path
+          className={cn("data-[open=true]:animate-hamburger-up-rotate")}
+          data-open={isopen}
+          d="M10,30 L50,30 Z"
+        ></path>
+      </g>
     </svg>
   );
 });
