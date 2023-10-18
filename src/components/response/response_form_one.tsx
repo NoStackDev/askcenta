@@ -72,7 +72,7 @@ export default function ResponseFormOne({
                   >
                     <div
                       className={cn(
-                        "w-full text-left font-roboto font-medium text-base text-black",
+                        "w-full text-center font-roboto font-medium text-base text-black",
                         selectedresponse === responsePreset && "text-white"
                       )}
                     >
