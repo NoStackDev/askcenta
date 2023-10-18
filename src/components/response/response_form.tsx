@@ -22,7 +22,7 @@ import ResponseFormTwo from "./response_form_two";
 import { DialogProps } from "@radix-ui/react-dialog";
 
 interface ResponseFormProps extends React.HTMLAttributes<DialogProps> {
-  params: { id: string };
+  requestid: string;
   citiesdata: CityType[];
   statesdata: { id: number; name: string }[];
 }
@@ -42,6 +42,7 @@ export default function ResponseForm({
   children,
   citiesdata,
   statesdata,
+  requestid,
   ...props
 }: ResponseFormProps) {
   const [formStep, setFormStep] = React.useState(0);

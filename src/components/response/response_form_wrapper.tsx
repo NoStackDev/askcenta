@@ -6,13 +6,13 @@ import { ResponseForm } from ".";
 import { cn } from "@/lib/utils";
 
 interface ResponseFormWrapperProps extends React.HTMLAttributes<DialogProps> {
-  params: { id: string };
+  requestid: string;
 }
 
 export default async function ResponseFormWrapper({
   className,
   children,
-  params,
+  requestid,
   ...props
 }: ResponseFormWrapperProps) {
   const citiesRes: Promise<CitiesResponseType> = fetchCities();
@@ -21,7 +21,7 @@ export default async function ResponseFormWrapper({
   const [cities, states] = await Promise.all([citiesRes, statesRes]);
   return (
     <ResponseForm
-      params={params}
+      requestid={requestid}
       citiesdata={cities.data}
       statesdata={states.data}
       className={cn("", className)}

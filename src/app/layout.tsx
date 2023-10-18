@@ -48,9 +48,9 @@ export default function RootLayout({
         <RequestFormWrapper>
           <button id="request_form_modal_trigger" className="hidden"></button>
         </RequestFormWrapper>
-        {/* <ResponseFormWrapper params={{ id: "2" }}>
+        <ResponseFormWrapper requestid={"2"}>
           <button id="response_form_modal_trigger" className="hidden"></button>
-        </ResponseFormWrapper> */}
+        </ResponseFormWrapper>
 
         <Footer />
       </body>
