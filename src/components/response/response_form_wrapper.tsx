@@ -13,6 +13,7 @@ export default async function ResponseFormWrapper({
   className,
   children,
   params,
+  ...props
 }: ResponseFormWrapperProps) {
   const citiesRes: Promise<CitiesResponseType> = fetchCities();
   const statesRes: Promise<StateResponseType> = fetchStates();
@@ -24,6 +25,7 @@ export default async function ResponseFormWrapper({
       citiesdata={cities.data}
       statesdata={states.data}
       className={cn("", className)}
+      {...props}
     >
       {children}
     </ResponseForm>

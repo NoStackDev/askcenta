@@ -14,6 +14,7 @@ import { DialogProps } from "@radix-ui/react-dialog";
 export default async function RequestFormWrapper({
   className,
   children,
+  ...props
 }: React.HTMLAttributes<DialogProps>) {
   const citiesRes: Promise<CitiesResponseType> = fetchCities();
   const statesRes: Promise<StateResponseType> = fetchStates();
@@ -35,6 +36,7 @@ export default async function RequestFormWrapper({
       categoriesdata={categories}
       subCategoriesdata={subCategories.data}
       className={cn("", className)}
+      {...props}
     >
       {children}
     </RequestForm>

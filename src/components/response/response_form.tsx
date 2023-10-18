@@ -19,8 +19,9 @@ import CloseIcon from "../icons/close_icon";
 import ResponseFormOne from "./response_form_one";
 import { cn } from "@/lib/utils";
 import ResponseFormTwo from "./response_form_two";
+import { DialogProps } from "@radix-ui/react-dialog";
 
-interface ResponseFormProps extends React.HTMLAttributes<HTMLDivElement> {
+interface ResponseFormProps extends React.HTMLAttributes<DialogProps> {
   params: { id: string };
   citiesdata: CityType[];
   statesdata: { id: number; name: string }[];

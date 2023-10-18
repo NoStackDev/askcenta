@@ -20,6 +20,7 @@ import RequestFormOne from "./request_form_one";
 import RequestFormTwo from "./request_form_two";
 import { cn } from "@/lib/utils";
 import { KeyboardBackspaceIcon } from "../icons";
+import { DialogProps } from "@radix-ui/react-dialog";
 
 const requestFormSchema = z.object({
   title: z
@@ -31,7 +32,7 @@ const requestFormSchema = z.object({
   description: z.string(),
 });
 
-interface RequestFormProps extends React.HTMLAttributes<HTMLDivElement> {
+interface RequestFormProps extends React.HTMLAttributes<DialogProps> {
   citiesdata: CityType[];
   statesdata: { id: number; name: string }[];
   categoriesdata: CategoryType[];
