@@ -7,6 +7,7 @@ import TopbarSelect from "./topbar_select";
 import { SubCategoryResponseType } from "../../../types";
 import DiscoverTopbarRequestBtn from "./discover_topbar_request_btn";
 import { fetchSubCategories } from "@/api/category";
+import TopbarRequestInput from "./topbar_request_input";
 
 interface TopbarProps extends React.HTMLAttributes<HTMLDivElement> {
   subcategoryid: string | string[] | undefined;
@@ -26,11 +27,11 @@ export default async function Topbar({
         <Card className={cn("", className)} {...props} variant="card1">
           <CardContent className="flex flex-col gap-5">
             <div className="w-full bg-[#F2F4F8] h-12 rounded-3xl flex items-center px-3 gap-2">
-              <PersonIcon className="" />
+              <Link href="/profile">
+                <PersonIcon className="" />
+              </Link>
 
-              <div className="font-roboto font-medium text-base opacity-60 text-black">
-                What do you need?
-              </div>
+              <TopbarRequestInput className="w-full" />
             </div>
 
             <div className="flex justify-between items-center">

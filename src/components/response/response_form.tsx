@@ -142,7 +142,7 @@ export default function ResponseForm({
                 {formStep === 0 && (
                   <Button
                     type="submit"
-                    className="w-full rounded-[24px] bg-[#6356E5] font-roboto font-medium text-base text-white py-3 max-w-[358px]"
+                    className="w-full rounded-[24px] bg-request-gradient font-roboto font-medium text-base text-white py-3 max-w-[358px]"
                     onClick={() => {
                       setTimeout(() => {
                         !form.control._formState.errors["title"] &&
@@ -163,7 +163,7 @@ export default function ResponseForm({
 
                     <Button
                       type="submit"
-                      className="rounded-[24px] bg-[#6356E5] font-roboto font-medium text-base text-white py-3 px-12"
+                      className="rounded-[24px] bg-request-gradient font-roboto font-medium text-base text-white py-3 px-12"
                     >
                       Send Response
                     </Button>

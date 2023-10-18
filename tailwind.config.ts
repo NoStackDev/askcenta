@@ -29,6 +29,7 @@ const config: Config = {
         dialogFirstContentShow: "dialogFirstContentShow 150ms ease-in-out",
         dialogHide: "dialogHide 150ms ease-in-out",
         dialogHideMd: "dialogHideMd 150ms ease-in-out",
+        sidebarOverlayShow: "sidebarOverlayShow 200ms ease-in-out",
       },
 
       gridTemplateColumns: {
@@ -50,6 +51,11 @@ const config: Config = {
           "0px 16px 24px 0px rgba(22, 34, 51, 0.08), 0px 4px 8px -4px rgba(22, 34, 51, 0.08)",
       },
 
+      backgroundImage: {
+        "request-gradient":
+          "linear-gradient(84.35deg, #6356E5 -10.98%, #4FC1E9 118.31%)",
+      },
+
       screens: {
         "320screen": "320px",
         "1104screen": "1104px",
@@ -61,12 +67,21 @@ const config: Config = {
           to: { opacity: "1" },
         },
 
-        contentShow: {
+        sidebarOverlayShow: {
           from: {
-            transform: "translateX(-100%)",
+            bottom: "-100%",
           },
           to: {
-            transform: "translateX(0)",
+            bottom: "-72px",
+          },
+        },
+
+        contentShow: {
+          from: {
+            transform: "translateY(100%)",
+          },
+          to: {
+            transform: "translateY(0)",
           },
         },
         contentShowMd: {
@@ -76,6 +91,7 @@ const config: Config = {
           },
           to: { opacity: "1", transform: "translate(-50%, -50%) scale(1)" },
         },
+
         dialogFirstContentShow: {
           "0%": {
             display: "block",
@@ -87,14 +103,16 @@ const config: Config = {
             left: "0%",
           },
         },
+
         dialogHide: {
-          "0%": {
-            postion: "relative",
+          from: {
+            transform: "translateY(0%)",
           },
-          "100%": {
-            "margin-left": "-100%",
+          to: {
+            transform: "translateY(100%)",
           },
         },
+
         dialogHideMd: {
           from: {
             opacity: "1",
