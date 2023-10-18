@@ -1,11 +1,11 @@
 import React from "react";
 import { CitiesResponseType, StateResponseType } from "../../../types";
-import ResponseForm from "./response_form";
 import { fetchCities, fetchStates } from "@/api/location";
 import { DialogProps } from "@radix-ui/react-dialog";
+import { ResponseForm } from ".";
+import { cn } from "@/lib/utils";
 
-interface ResponseFormWrapperProps
-  extends React.HTMLAttributes<DialogProps> {
+interface ResponseFormWrapperProps extends React.HTMLAttributes<DialogProps> {
   params: { id: string };
 }
 
@@ -23,6 +23,7 @@ export default async function ResponseFormWrapper({
       params={params}
       citiesdata={cities.data}
       statesdata={states.data}
+      className={cn("", className)}
     >
       {children}
     </ResponseForm>

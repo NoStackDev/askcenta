@@ -35,7 +35,7 @@ export default function RequestCard({
 
         <CardTitle
           className={cn(
-            "mb-4 mx-3 text-center font-roboto font-semibold text-lg text-[#18212D]",
+            "mb-4 mx-3 pt-[14px] text-center font-roboto font-semibold text-lg text-[#18212D]",
             !request.image_url && "py-6"
           )}
         >

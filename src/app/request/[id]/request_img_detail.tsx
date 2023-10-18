@@ -2,10 +2,16 @@ import { cn, month } from "@/lib/utils";
 import React from "react";
 import { RequestDetailType } from "../../../../types";
 import { Card, CardContent } from "@/components/ui/card";
-import { ScheduleIcon, VisibilityFillIcon } from "@/components/icons";
+import {
+  LocationOnIcon,
+  PersonFillIcon,
+  ScheduleIcon,
+  VisibilityFillIcon,
+} from "@/components/icons";
 import Image from "next/image";
 import RequestActions from "./request_actions";
 import { fetchRequestDetails } from "@/api/request";
+import Link from "next/link";
 
 interface RequestImgDetailProps extends React.HTMLAttributes<HTMLDivElement> {
   requestid: string;
@@ -70,18 +76,41 @@ export default async function RequestImgDetail({
               </p>
             </>
           )}
+        </div>
 
-          <div className="flex items-center gap-2 mt-4 md:mt-6 font-roboto font-normal text-base text-black">
-            <span className="opacity-60">Request by:</span>
-            <span className="font-medium text-sm text-[#6356E5]">
-              {requestDetailData.request.user}
-            </span>
+        <div className="p-4 mt-4 md:mt-6 bg-[#E8F3F7] flex flex-col gap-3">
+          <span className="font-roboto font-normal text-sm text-black opacity-60">
+            Request posted by:
+          </span>
+
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2 font-roboto font-normal text-base text-black">
+              <Link
+                href={`/profile`}
+                className="border border-[#9B91FD] bg-white p-[3.2px] rounded-full"
+              >
+                <PersonFillIcon height="19.2" width="19.2" />
+              </Link>
+
+              <span className="font-medium text-sm text-[#6356E5]">
+                {requestDetailData.request.user}
+              </span>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <LocationOnIcon height="20" width="20" />
+              <span className="font-roboto font-normal text-sm text-black">
+                {requestDetailData.request.location}
+              </span>
+            </div>
           </div>
 
-          <div className="flex items-center gap-2 mt-4 font-roboto font-normal text-base text-black">
-            <span className="opacity-60">Location:</span>
-            <span className="font-medium text-sm text-black">
-              {requestDetailData.request.location}
+          <div className="mt-4 flex gap-1 items-center">
+            <span className="font-roboto font-normal text-xs text-black opacity-60">
+              People also interested:
+            </span>
+            <span className="font-roboto font-semibold text-xs text-black">
+              0
             </span>
           </div>
         </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { BookmarkFillIcon, BookmarkIcon } from "../icons";
+import { BookmarkFillIcon, BookmarkIcon, StarFilledIcon } from "../icons";
 import { Button } from "../ui/button";
 
 type Props = {};
@@ -21,9 +21,9 @@ export default function RequestBookmark({}: Props) {
       className="hover:scale-105 hover:shadow-sm"
     >
       {!bookmark ? (
-        <BookmarkIcon className="hover:cursor-pointer" />
+        <StarFilledIcon className="hover:cursor-pointer" />
       ) : (
-        <BookmarkFillIcon className="hover:cursor-pointer" />
+        <StarFilledIcon className="hover:cursor-pointer" />
       )}
     </Button>
   );
