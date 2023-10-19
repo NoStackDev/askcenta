@@ -32,6 +32,7 @@ const responseFormSchema = z.object({
   location: z.string().min(1, { message: "Please select a location" }),
   description: z
     .string()
+    .min(20, { message: "Description cannot be less than 20 charactrs" })
     .max(120, { message: "Description cannot be more than 120 characters" })
     .optional(),
   anonymous: z.enum(["true", "false"]),

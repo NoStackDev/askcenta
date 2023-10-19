@@ -6,6 +6,7 @@ import { TabsContent } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import { TabsContentProps } from "@radix-ui/react-tabs";
 import React from "react";
+import ProfilePlaceRequest from "./profile_place_request";
 
 interface ProfileRequestsTab extends TabsContentProps {}
 
@@ -21,13 +22,7 @@ export default function ProfileRequestsTab({
             What are you looking for?
           </div>
 
-          <Button className="flex gap-[6px] justify-center items-center">
-            <span className="font-roboto font-semibold text-lg text-black">
-              Place a Request
-            </span>
-
-            <AddFillIcon />
-          </Button>
+          <ProfilePlaceRequest />
         </Card>
       </div>
 

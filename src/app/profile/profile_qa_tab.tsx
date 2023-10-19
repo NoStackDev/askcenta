@@ -5,6 +5,7 @@ import { TabsContent } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import { TabsContentProps } from "@radix-ui/react-tabs";
 import React from "react";
+import AnswerQandAModal from "./profile_answer_qanda_modal";
 
 interface ProfileQandATabProps extends TabsContentProps {}
 
@@ -25,9 +26,11 @@ export default function ProfileQandATab({
           </p>
         </div>
 
-        <Button className="bg-[#F0EEFF] w-fit rounded-2xl py-2 px-6 mt-4 ml-8 font-roboto font-medium text-sm text-[#6356E5]">
-          Answer
-        </Button>
+        <AnswerQandAModal>
+          <Button className="bg-[#F0EEFF] w-fit rounded-2xl py-2 px-6 mt-4 ml-8 font-roboto font-medium text-sm text-[#6356E5]">
+            Answer
+          </Button>
+        </AnswerQandAModal>
       </Card>
 
       <Card variant="settings" className="flex flex-col gap-2">
