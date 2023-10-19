@@ -25,7 +25,7 @@ import { DialogProps } from "@radix-ui/react-dialog";
 const requestFormSchema = z.object({
   title: z
     .string()
-    .min(32, { message: "Description must be at least 32 characters." })
+    .min(20, { message: "Description must be at least 20 characters." })
     .max(140, { message: "Description cannot be more than 140 characters" }),
   category: z.string().min(1, { message: "Please select a category" }),
   location: z.string().min(1, { message: "Please select a location" }),

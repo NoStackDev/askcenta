@@ -80,7 +80,7 @@ export default function RequestFormOne({
               </FormLabel>
 
               <span className="font-roboto font-normal text-xs text-black opacity-60">
-                120 char max
+                140 char max
               </span>
             </div>
 
