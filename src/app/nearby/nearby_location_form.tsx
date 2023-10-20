@@ -1,7 +1,10 @@
 "use client";
 
-import { ChevronRightIcon, LocationOnIcon } from "@/components/icons";
-import CloseIcon from "@/components/icons/close_icon";
+import {
+  ChevronRightIcon,
+  LocationOnIcon,
+  CloseIcon,
+} from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,

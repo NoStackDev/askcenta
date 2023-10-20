@@ -7,7 +7,6 @@ import {
   DialogContent,
   DialogTrigger,
 } from "../ui/dialog";
-import CloseIcon from "../icons/close_icon";
 import { Button } from "../ui/button";
 
 import * as z from "zod";
@@ -19,7 +18,7 @@ import { CategoryType, CityType, SubCategoryType } from "../../../types";
 import RequestFormOne from "./request_form_one";
 import RequestFormTwo from "./request_form_two";
 import { cn } from "@/lib/utils";
-import { KeyboardBackspaceIcon } from "../icons";
+import { KeyboardBackspaceIcon, CloseIcon } from "../icons";
 import { DialogProps } from "@radix-ui/react-dialog";
 
 const requestFormSchema = z.object({

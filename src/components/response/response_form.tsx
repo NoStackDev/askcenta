@@ -9,13 +9,12 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import { Button } from "../ui/button";
-import { KeyboardBackspaceIcon } from "../icons";
+import { KeyboardBackspaceIcon, CloseIcon } from "../icons";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { Form } from "@/components/ui/form";
-import CloseIcon from "../icons/close_icon";
 import ResponseFormOne from "./response_form_one";
 import { cn } from "@/lib/utils";
 import ResponseFormTwo from "./response_form_two";
@@ -30,11 +29,10 @@ interface ResponseFormProps extends React.HTMLAttributes<DialogProps> {
 const responseFormSchema = z.object({
   title: z.string().min(1, { message: "Please select a response" }),
   location: z.string().min(1, { message: "Please select a location" }),
-  description: z
-    .string()
-    .min(20, { message: "Description cannot be less than 20 charactrs" })
-    .max(120, { message: "Description cannot be more than 120 characters" })
-    .optional(),
+  description: z.string(),
+  // .min(20, { message: "Description cannot be less than 20 charactrs" })
+  // .max(120, { message: "Description cannot be more than 120 characters" })
+  // .optional(),
   anonymous: z.enum(["true", "false"]),
 });
 

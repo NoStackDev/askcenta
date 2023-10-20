@@ -1,6 +1,6 @@
 "use client";
 
-import CloseIcon from "@/components/icons/close_icon";
+import { CloseIcon } from "@/components/icons";
 import LocationModal from "@/components/modal/location_modal";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";

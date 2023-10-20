@@ -1,7 +1,6 @@
 "use client";
 
-import { SearchFillIcon } from "@/components/icons";
-import CloseIcon from "@/components/icons/close_icon";
+import { SearchFillIcon, CloseIcon } from "@/components/icons";
 import { Card, CardProps } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import React from "react";

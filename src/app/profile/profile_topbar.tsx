@@ -2,6 +2,7 @@ import { EditIcon, PersonFillIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 import React from "react";
 
 interface ProfilePageProps extends React.HTMLAttributes<HTMLDivElement> {}
@@ -53,12 +54,14 @@ export default function ProfileTopbar({
             </div>
           </div>
 
-          <Button className="flex items-center gap-2 mt-7 md:mt-0">
-            <EditIcon height="24" width="24" />
-            <span className="font-roboto font-medium text-sm text-black">
-              Edit Profile
-            </span>
-          </Button>
+          <Link href="/profile/edit" className="h-fit w-fit mt-7 md:mt-0">
+            <Button className="flex items-center gap-2">
+              <EditIcon height="24" width="24" />
+              <span className="font-roboto font-medium text-sm text-black">
+                Edit Profile
+              </span>
+            </Button>
+          </Link>
         </div>
       </CardContent>
     </Card>

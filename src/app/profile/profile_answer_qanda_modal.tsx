@@ -9,7 +9,7 @@ import {
   DialogTrigger,
 } from "../../components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import CloseIcon from "@/components/icons/close_icon";
+import { CloseIcon } from "@/components/icons";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
