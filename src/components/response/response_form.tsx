@@ -29,7 +29,7 @@ interface ResponseFormProps extends React.HTMLAttributes<DialogProps> {
 const responseFormSchema = z.object({
   title: z.string().min(1, { message: "Please select a response" }),
   location: z.string().min(1, { message: "Please select a location" }),
-  description: z.string(),
+  description: z.string().optional(),
   // .min(20, { message: "Description cannot be less than 20 charactrs" })
   // .max(120, { message: "Description cannot be more than 120 characters" })
   // .optional(),
