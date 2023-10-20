@@ -93,7 +93,7 @@ export default function RequestFormTwo({
 
         <Button
           className={cn(
-            "border border-[#D9D9D9] bg-[#F1F1F2] rounded-xl p-9 w-[154px] h-[154px]",
+            "border border-[#D9D9D9] bg-[#F1F1F2] rounded-xl p-9 w-[154px] h-[154px] overflow-clip",
             imagePreview && "p-0"
           )}
           onClick={() => {
