@@ -44,7 +44,7 @@ const Navbar = React.forwardRef<
           </Link>
 
           <Link
-            href="/"
+            href="/notification"
             className={cn(
               "h-10 w-10 rounded-lg bg-[#F7F7F9] hidden",
               showNotification && "flex items-center justify-center"

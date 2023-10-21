@@ -41,3 +41,7 @@ export { default as SearchFillIcon } from "./search_fill_icon";
 export { default as AddPhotoFillIcon } from "./add_photo_fill_icon";
 export { default as VisibilityFillIcon } from "./visibility_fill_icon";
 export { default as CloseIcon } from "./close_icon";
+export { default as MessageIcon } from "./message_icon";
+export { default as SpeakerSymbolIcon } from "./speaker_symbol_icon";
+export { default as QuestionIcon } from "./question_icon";
+export { default as SolventIcon } from "./solvent_icon";
