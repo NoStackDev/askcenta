@@ -91,7 +91,7 @@ export default function CategoryModal({
               )}
 
               <h3 className="font-roboto font-medium text-base text-black">
-                {selectedCategory ? selectedCategory.title : "States"}
+                {selectedCategory ? selectedCategory.title : "Categories"}
               </h3>
             </div>
           </div>
