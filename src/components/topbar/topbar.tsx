@@ -8,6 +8,7 @@ import { SubCategoryResponseType } from "../../../types";
 import DiscoverTopbarRequestBtn from "./discover_topbar_request_btn";
 import { fetchSubCategories } from "@/api/category";
 import TopbarRequestInput from "./topbar_request_input";
+import { Button } from "../ui/button";
 
 interface TopbarProps extends React.HTMLAttributes<HTMLDivElement> {
   subcategoryid: string | string[] | undefined;
@@ -44,7 +45,15 @@ export default async function Topbar({
                 </span>
               </div>
 
-              <DiscoverTopbarRequestBtn />
+              {/* <DiscoverTopbarRequestBtn /> */}
+              <Link href="/nearby">
+                <Button
+                  className={cn("", className)}
+                  variant="request_outlined"
+                >
+                  Nearby requests
+                </Button>
+              </Link>
             </div>
           </CardContent>
         </Card>
