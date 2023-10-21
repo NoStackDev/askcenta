@@ -16,11 +16,11 @@ export default async function ResponseFormWrapper({
   ...props
 }: ResponseFormWrapperProps) {
   const citiesRes: Promise<CitiesResponseType> = fetchCities();
-  const cities = await citiesRes;
+  // const cities = await citiesRes;
   const statesRes: Promise<StateResponseType> = fetchStates();
-  const states = await statesRes;
+  // const states = await statesRes;
 
-  // const [cities, states] = await Promise.all([citiesRes, statesRes]);
+  const [cities, states] = await Promise.all([citiesRes, statesRes]);
   return (
     <ResponseForm
       requestid={requestid}

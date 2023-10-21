@@ -17,21 +17,21 @@ export default async function RequestFormWrapper({
   ...props
 }: React.HTMLAttributes<DialogProps>) {
   const citiesRes: Promise<CitiesResponseType> = fetchCities();
-  const cities = await citiesRes;
+  // const cities = await citiesRes;
   const statesRes: Promise<StateResponseType> = fetchStates();
-  const states = await statesRes;
+  // const states = await statesRes;
   const categoriesRes: Promise<CategoryType[]> = fetchCategories();
-  const categories = await categoriesRes;
+  // const categories = await categoriesRes;
   const subCategoriesRes: Promise<SubCategoryResponseType> =
     fetchSubCategories();
-  const subCategories = await subCategoriesRes;
+  // const subCategories = await subCategoriesRes;
 
-  // const [cities, states, categories, subCategories] = await Promise.all([
-  //   citiesRes,
-  //   statesRes,
-  //   categoriesRes,
-  //   subCategoriesRes,
-  // ]);
+  const [cities, states, categories, subCategories] = await Promise.all([
+    citiesRes,
+    statesRes,
+    categoriesRes,
+    subCategoriesRes,
+  ]);
 
   return (
     <RequestForm
