@@ -4,11 +4,10 @@ import {
 } from "@/components/icons";
 import Image from "next/image";
 import React from "react";
-import LoginForm from "./login_form";
 
 type Props = {};
 
-export default function LoginPage({}: Props) {
+export default function SignupPage({}: Props) {
   return (
     <main className="bg-[#FFFFFF] h-screen w-full md:grid md:grid-cols-[6fr_4fr]">
       <div className="hidden md:flex md:flex-col bg-[#4FC1E9] h-full justify-center">
@@ -31,8 +30,6 @@ export default function LoginPage({}: Props) {
 
           <LoginPageIllustrationOne />
         </div>
-
-        <LoginForm />
       </div>
     </main>
   );

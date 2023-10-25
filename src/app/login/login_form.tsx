@@ -23,7 +23,7 @@ const loginFormSchema = z.object({
     .length(10, { message: "Phone number can only be 10 digits" }),
   password: z
     .string({ required_error: "Password is required" })
-    .min(6, { message: "Password must a be atleast 6 characters" }),
+    .min(6, { message: "Password must be atleast 6 characters" }),
 });
 
 type Props = {};
@@ -57,7 +57,7 @@ export default function LoginForm({
   }
 
   return (
-    <div className={cn("px-5", className)} {...props}>
+    <div className={cn("px-5 md:px-[75px] pb-8", className)} {...props}>
       <h1 className="font-poppins font-bold text-2xl text-black">Login</h1>
       <p className="font-roboto font-normal text-base text-black opacity-60 mt-4">
         Welcome Back! please login to continue
@@ -131,7 +131,7 @@ export default function LoginForm({
 
           <Button
             type="submit"
-            className="rounded-[24px] bg-request-gradient font-roboto font-medium text-base text-white py-3 px-12 mt-8"
+            className="rounded-[24px] bg-request-gradient font-roboto font-medium text-base text-white py-3 px-12 mt-8 md:mt-14"
           >
             Login
           </Button>

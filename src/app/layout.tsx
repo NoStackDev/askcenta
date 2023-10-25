@@ -4,9 +4,11 @@ import { RequestFormWrapper } from "@/components/request";
 import { ResponseFormWrapper } from "@/components/response";
 import Sidebar from "@/components/sidebar";
 import { SidebarContextProvider } from "@/context/sidebar_context";
+import { cn } from "@/lib/utils";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { Inter, Poppins, Roboto } from "next/font/google";
+import { headers } from "next/headers";
 
 const poppins = Poppins({
   weight: ["300", "400", "500", "600", "700", "800", "900"],
@@ -30,6 +32,10 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const headersList = headers();
+  const pathname = headersList.get("x-pathname");
+  const showNavbar = !Boolean(pathname);
+
   return (
     <html lang="en">
       <body
@@ -39,8 +45,13 @@ export default function RootLayout({
           <Navbar />
           <Sidebar className="lg:hidden" />
 
-          <div className="lg:flex lg:flex-row lg:gap-16 my-0 md:my-10 md:mx-4 lg:mx-[100px] 2xl:mx-auto max-w-7xl">
-            <Sidebar className="hidden lg:flex" />
+          <div
+            className={cn(
+              showNavbar &&
+                "lg:flex lg:flex-row lg:gap-16 my-0 md:my-10 md:mx-4 lg:mx-[100px] 2xl:mx-auto max-w-7xl"
+            )}
+          >
+            {showNavbar && <Sidebar className="hidden lg:flex" />}
 
             {children}
           </div>
