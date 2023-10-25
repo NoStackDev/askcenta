@@ -45,3 +45,4 @@ export { default as MessageIcon } from "./message_icon";
 export { default as SpeakerSymbolIcon } from "./speaker_symbol_icon";
 export { default as QuestionIcon } from "./question_icon";
 export { default as SolventIcon } from "./solvent_icon";
+export { default as LoginPageIllustrationOne } from "./login_page_illustration_one";
