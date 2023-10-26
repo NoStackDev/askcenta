@@ -48,3 +48,4 @@ export { default as SolventIcon } from "./solvent_icon";
 export { default as LoginPageIllustrationOne } from "./login_page_illustration_one";
 export { default as LoginPageIllustrationTwo } from "./login_page_illustration_two";
 export { default as FlagFillIcon } from "./flag_fill_icon";
+export { default as WarningFillIcon } from "./warning_fill_icon";

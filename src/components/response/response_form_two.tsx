@@ -12,6 +12,7 @@ import { Button } from "../ui/button";
 import { CityType } from "../../../types";
 import { cn } from "@/lib/utils";
 import { RadioGroup, RadioGroupItem } from "../ui/radio";
+import { WarningFillIcon } from "../icons";
 
 interface ResponseFormTwoProps extends React.HTMLAttributes<typeof FormField> {
   form: UseFormReturn<
@@ -132,6 +133,21 @@ export default function ResponseFormTwo({
           </FormItem>
         )}
       />
+
+      <div className="flex flex-col mt-8">
+        <div className="flex items-center gap-3">
+          <WarningFillIcon />
+          <span className="font-roboto font-normal text-sm text-black">
+            NOTICE
+          </span>
+        </div>
+
+        <p className="mt-3 font-roboto font-normal text-xs text-black">
+          By responding, users that are interested in your offer will have
+          permission to contact you on your{" "}
+          <span className="text-[#05A0D7]">WhatsApp Messenger</span>.
+        </p>
+      </div>
     </div>
   );
 }
