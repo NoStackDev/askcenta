@@ -17,7 +17,10 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-const loginFormSchema = z.object({
+const signupFormSchema = z.object({
+  username: z
+    .string({ required_error: "Whatsapp number is required" })
+    .min(6, { message: "Username needs to be atleast 6 characters" }),
   whatsappNum: z
     .string({ required_error: "Whatsapp number is required" })
     .length(10, { message: "Phone number can only be 10 digits" }),
@@ -28,19 +31,20 @@ const loginFormSchema = z.object({
 
 type Props = {};
 
-export default function LoginForm({
+export default function SignupForm({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
-  const form = useForm<z.infer<typeof loginFormSchema>>({
-    resolver: zodResolver(loginFormSchema),
+  const form = useForm<z.infer<typeof signupFormSchema>>({
+    resolver: zodResolver(signupFormSchema),
     defaultValues: {
+      username: "",
       whatsappNum: "",
       password: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof loginFormSchema>) {
+  function onSubmit(values: z.infer<typeof signupFormSchema>) {
     console.log(values);
   }
 
@@ -58,9 +62,9 @@ export default function LoginForm({
 
   return (
     <div className={cn("px-5 md:px-[75px] pb-8", className)} {...props}>
-      <h1 className="font-poppins font-bold text-2xl text-black">Login</h1>
+      <h1 className="font-poppins font-bold text-2xl text-black">Sign up</h1>
       <p className="font-roboto font-normal text-base text-black opacity-60 mt-4">
-        Welcome Back! please login to continue
+        Please sign up to continue
       </p>
 
       <Form {...form}>
@@ -68,12 +72,36 @@ export default function LoginForm({
           onSubmit={form.handleSubmit(onSubmit)}
           className="mt-10 h-full flex flex-col justify-between overflow-y-auto"
         >
+          {/* username  */}
+          <FormField
+            control={form.control}
+            name="username"
+            render={({ field }) => (
+              <FormItem className="">
+                <div className="flex justify-between items-center">
+                  <FormLabel className="font-roboto font-medium text-sm text-black">
+                    Username
+                  </FormLabel>
+                </div>
+
+                <FormMessage />
+                <FormControl className="mt-2">
+                  <input
+                    placeholder="Enter your names"
+                    {...field}
+                    className="pl-2 w-full font-roboto font-normal text-base border border-[#D9D9D9] rounded-xl h-12 bg-[#F7F9FF] text-black placeholder:font-roboto placeholder:font-normal placeholder:text-base placeholder:opacity-60 placeholder:text-black"
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+
           {/* whatsapp number  */}
           <FormField
             control={form.control}
             name="whatsappNum"
             render={({ field }) => (
-              <FormItem className="">
+              <FormItem className="mt-8">
                 <div className="flex justify-between items-center">
                   <FormLabel className="font-roboto font-medium text-sm text-black">
                     WhatsApp Number
@@ -133,27 +161,18 @@ export default function LoginForm({
             type="submit"
             className="rounded-[24px] bg-request-gradient font-roboto font-medium text-base text-white py-3 px-12 mt-8 md:mt-14"
           >
-            Login
+            Sign Up
           </Button>
-
-          <div className="flex items-center justify-center mt-10">
-            <Link
-              href="/login"
-              className="font-roboto font-medium text-base text-black"
-            >
-              Forgot Password?
-            </Link>
-          </div>
 
           <div className="flex items-center justify-center mt-10 gap-2">
             <span className="font-roboto font-normal text-base text-black opacity-80">
-              Don’t have an account?
+              Already have an account?
             </span>
             <Link
-              href="/signup"
+              href="/login"
               className="font-roboto font-semibold text-base text-[#6356E5]"
             >
-              Sign up
+              Login
             </Link>
           </div>
         </form>

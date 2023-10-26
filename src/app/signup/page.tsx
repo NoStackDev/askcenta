@@ -4,6 +4,9 @@ import {
 } from "@/components/icons";
 import Image from "next/image";
 import React from "react";
+import SignupForm from "./signup_form";
+import PhoneVerficationForm from "./phone_verification_form";
+import SignupSuccessForm from "./signup_success";
 
 type Props = {};
 
@@ -30,6 +33,10 @@ export default function SignupPage({}: Props) {
 
           <LoginPageIllustrationOne />
         </div>
+
+        <SignupForm />
+        {/* <PhoneVerficationForm /> */}
+        {/* <SignupSuccessForm /> */}
       </div>
     </main>
   );
