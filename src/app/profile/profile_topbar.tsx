@@ -1,13 +1,18 @@
-import { EditIcon, PersonFillIcon } from "@/components/icons";
+import { EditIcon, FlagFillIcon, PersonFillIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import React from "react";
+import ProfileReportUserModal from "./profile_report_user";
 
-interface ProfilePageProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface ProfilePageProps extends React.HTMLAttributes<HTMLDivElement> {
+  otheruser?: boolean;
+}
+
 export default function ProfileTopbar({
   className,
+  otheruser,
   ...props
 }: ProfilePageProps) {
   return (
@@ -54,14 +59,27 @@ export default function ProfileTopbar({
             </div>
           </div>
 
-          <Link href="/profile/edit" className="h-fit w-fit mt-7 md:mt-0">
-            <Button className="flex items-center gap-2">
-              <EditIcon height="24" width="24" />
-              <span className="font-roboto font-medium text-sm text-black">
-                Edit Profile
-              </span>
-            </Button>
-          </Link>
+          {!otheruser && (
+            <Link href="/profile/edit" className="h-fit w-fit mt-7 md:mt-0">
+              <Button className="flex items-center gap-2">
+                <EditIcon height="24" width="24" />
+                <span className="font-roboto font-medium text-sm text-black">
+                  Edit Profile
+                </span>
+              </Button>
+            </Link>
+          )}
+
+          {otheruser && (
+            <ProfileReportUserModal>
+              <Button className="flex items-center gap-2 mt-7 md:mt-0">
+                <FlagFillIcon />
+                <span className="font-roboto font-medium text-sm text-black">
+                  Report
+                </span>
+              </Button>
+            </ProfileReportUserModal>
+          )}
         </div>
       </CardContent>
     </Card>
