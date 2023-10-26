@@ -29,7 +29,7 @@ export default function RequestCard({
             height={344}
             alt={request.title}
             src={`https://${request.image_url}`}
-            className="rounded-t-lg w-full h-auto"
+            className="rounded-t-lg w-full h-auto max-h-[392px]"
           />
         )}
 

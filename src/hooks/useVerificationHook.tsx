@@ -25,7 +25,7 @@ export default function useVerificationHook(verificationCodeLength: number) {
     if (finalCode.length === verificationCodeLength) {
       setVerificationCode(finalCode);
     } else setVerificationCode(null);
-  }, [inputStates]);
+  }, [inputStates, verificationCode]);
 
   for (let i = 0; i < verificationCodeLength; i++) {
     const [inputValue, setInputValue] = React.useState("");
