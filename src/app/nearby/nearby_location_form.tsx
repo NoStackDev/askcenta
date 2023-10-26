@@ -62,7 +62,7 @@ export default function NearbyLocationForm({
         </DialogTrigger>
 
         <DialogContent className="md:h-4/5">
-          <div className="flex flex-col justify-between h-full pb-20">
+          <div className="flex flex-col h-full pb-20">
             <div>
               <div className="flex items-center justify-between px-4 pt-10">
                 <span className="font-poppins font-semibold text-base text-black">
@@ -90,24 +90,26 @@ export default function NearbyLocationForm({
               </div>
             </div>
 
-            <div className="flex flex-col px-4 gap-2">
-              <p className="font-roboto font-medium text-base text-black">
-                Your Location
-              </p>
+            <div className="flex flex-col justify-between px-4 gap-2 h-full mt-10">
+              <div className="w-full">
+                <p className="font-roboto font-medium text-base text-black">
+                  Your Location
+                </p>
 
-              <LocationModal
-                citiesdata={citiesdata}
-                statesdata={statesdata}
-                selectedCity={selectedCity}
-                selectedState={selectedState}
-                setSelectedCity={setSelectedCity}
-                setSelectedState={setSelectedState}
-              >
-                <Button className="px-4 py-3 flex items-center justify-between bg-[#F7F9FF] border border-[#D9D9D9] rounded-xl font-roboto font-normal text-base text-black opacity-60">
-                  Select city
-                  <ChevronRightIcon className="rotate-90" />
-                </Button>
-              </LocationModal>
+                <LocationModal
+                  citiesdata={citiesdata}
+                  statesdata={statesdata}
+                  selectedCity={selectedCity}
+                  selectedState={selectedState}
+                  setSelectedCity={setSelectedCity}
+                  setSelectedState={setSelectedState}
+                >
+                  <Button className="px-4 py-3 w-full flex items-center justify-between bg-[#F7F9FF] border border-[#D9D9D9] rounded-xl font-roboto font-normal text-base text-black opacity-60">
+                    Select city
+                    <ChevronRightIcon className="rotate-90" />
+                  </Button>
+                </LocationModal>
+              </div>
 
               <DialogClose>
                 <a
