@@ -7,10 +7,20 @@ export default function useVerificationHook(verificationCodeLength: number) {
     null
   );
 
+  const [inputValue, setInputValue] = React.useState("");
+  const [inputValue1, setInputValue1] = React.useState("");
+  const [inputValue2, setInputValue2] = React.useState("");
+  const [inputValue3, setInputValue3] = React.useState("");
+
   let inputStates: {
     inputValue: string;
     setInputValue: React.Dispatch<React.SetStateAction<string>>;
   }[] = [];
+
+  inputStates.push({ inputValue, setInputValue });
+  inputStates.push({ inputValue: inputValue1, setInputValue: setInputValue1 });
+  inputStates.push({ inputValue: inputValue2, setInputValue: setInputValue2 });
+  inputStates.push({ inputValue: inputValue3, setInputValue: setInputValue3 });
 
   const verificationInputClassName = "verification_input";
 
@@ -25,12 +35,12 @@ export default function useVerificationHook(verificationCodeLength: number) {
     if (finalCode.length === verificationCodeLength) {
       setVerificationCode(finalCode);
     } else setVerificationCode(null);
-  }, [inputStates, verificationCode]);
+  }, [inputStates, verificationCodeLength]);
 
-  for (let i = 0; i < verificationCodeLength; i++) {
-    const [inputValue, setInputValue] = React.useState("");
-    inputStates.push({ inputValue, setInputValue });
-  }
+  // for (let i = 0; i < verificationCodeLength; i++) {
+  //   const [inputValue, setInputValue] = React.useState("");
+  //   inputStates.push({ inputValue, setInputValue });
+  // }
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
