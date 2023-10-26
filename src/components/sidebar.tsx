@@ -73,8 +73,7 @@ const Sidebar = React.forwardRef<
               <li
                 className={cn(
                   "mb-4 flex items-center gap-8 mr-10",
-                  pathname.split("/")[1] === "nearby_requests" &&
-                    "text-[#6356E5]"
+                  pathname.split("/")[1] === "nearby" && "text-[#6356E5]"
                 )}
               >
                 <MyLocationIcon
@@ -82,9 +81,7 @@ const Sidebar = React.forwardRef<
                   width="24px"
                   aria-label="nearby requests"
                   pathColor={
-                    pathname.split("/")[1] === "nearby_requests"
-                      ? "#6356E5"
-                      : null
+                    pathname.split("/")[1] === "nearby" ? "#6356E5" : null
                   }
                 />
 
@@ -100,8 +97,7 @@ const Sidebar = React.forwardRef<
               <li
                 className={cn(
                   "mb-4 flex items-center gap-8 mr-10",
-                  pathname.split("/")[1] === "nearby_requests" &&
-                    "text-[#6356E5]"
+                  pathname.split("/")[1] === "custom" && "text-[#6356E5]"
                 )}
               >
                 <DashboardIcon
@@ -109,9 +105,7 @@ const Sidebar = React.forwardRef<
                   width="24px"
                   aria-label="custom requests"
                   pathColor={
-                    pathname.split("/")[1] === "custom_requests"
-                      ? "#6356E5"
-                      : null
+                    pathname.split("/")[1] === "custom" ? "#6356E5" : null
                   }
                 />
 
