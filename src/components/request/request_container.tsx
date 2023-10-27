@@ -4,7 +4,8 @@ import { FeedsResponse } from "../../../types";
 import Link from "next/link";
 import { RequestCard } from ".";
 import { fetchFeed } from "@/api/feeds";
-import { Notebook_icon } from "../icons";
+import { Notebook_icon, SearchIllustration } from "../icons";
+import { headers } from "next/headers";
 
 interface RequestContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   searchparams?: { [key: string]: string | string[] | undefined };
@@ -15,6 +16,8 @@ export default async function RequestContainer({
   searchparams,
   ...props
 }: RequestContainerProps) {
+  const headersList = headers();
+  const pathname = headersList.get("x-pathname");
   const feedres: Promise<FeedsResponse> =
     searchparams && Object.keys(searchparams).length > 0
       ? fetchFeed(searchparams)
@@ -26,7 +29,6 @@ export default async function RequestContainer({
     <>
       {feed.data.length > 0 && (
         <>
-          {" "}
           <div
             className={cn("mx-4 md:mx-0 mt-6 gap-6 sm:hidden", className)}
             {...props}
@@ -60,10 +62,25 @@ export default async function RequestContainer({
       )}
 
       {feed.data.length === 0 && (
-        <div className="h-full min-h-[400px] w-full flex flex-col items-center justify-center">
-          <Notebook_icon />
+        <div className="h-full min-h-[300px] w-full flex flex-col items-center justify-center">
+          {/* no requests illustration for 'discover' 'nearby' 'custom' 'saved' pages  */}
+          {(pathname === "/" ||
+            pathname === "/nearby" ||
+            pathname === "/custom" ||
+            pathname === "/saved" ||
+            pathname?.split("/")[1] === "profile") && <Notebook_icon />}
+
+          {/* no requests illustration for 'search' page */}
+          {pathname === "/search" && <SearchIllustration />}
+
           <p className="mt-6 font-poppins font-medium text-base text-black">
-            Oops! No Request
+            {(pathname === "/" ||
+              pathname === "/nearby" ||
+              pathname === "/custom" ||
+              pathname === "/saved" ||
+              pathname?.split("/")[1] === "profile") &&
+              "Oops! No Request"}
+            {pathname === "/search" && "No Result Found"}
           </p>
         </div>
       )}

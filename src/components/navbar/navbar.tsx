@@ -14,7 +14,7 @@ const Navbar = React.forwardRef<
 >(({ className, ...props }, forwardRef) => {
   const headersList = headers();
   const pathname = headersList.get("x-pathname");
-  const showNavbar = !Boolean(pathname);
+  const showNavbar = !Boolean(pathname === "/login" || pathname === "/signup");
 
   const showNotification = false;
 

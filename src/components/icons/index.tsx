@@ -50,3 +50,4 @@ export { default as LoginPageIllustrationTwo } from "./login_page_illustration_t
 export { default as FlagFillIcon } from "./flag_fill_icon";
 export { default as WarningFillIcon } from "./warning_fill_icon";
 export { default as Notebook_icon } from "./notebook_icon";
+export { default as SearchIllustration } from "./search_illustration";

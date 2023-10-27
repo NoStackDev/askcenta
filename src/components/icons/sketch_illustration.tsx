@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import React from "react";
 
-const Notebook_icon = React.forwardRef<
+const SketchIllustration = React.forwardRef<
   React.ElementRef<"svg">,
   React.HTMLAttributes<"svg"> & {
     width?: string | null;
@@ -20,14 +20,14 @@ const Notebook_icon = React.forwardRef<
       aria-label={props["aria-label"]}
       className={cn("", className)}
     >
-      <g clipPath="url(#clip0_457_120)">
+      <g clipPath="url(#clip0_457_428)">
         <path
           fillRule="evenodd"
           clipRule="evenodd"
           d="M60 120C93.1371 120 120 93.1371 120 60C120 26.8629 93.1371 0 60 0C45.133 0 39.4818 17.8318 29 26.7868C16.1188 37.7917 0 41.7299 0 60C0 93.1371 26.8629 120 60 120Z"
           fill="#EEF0F6"
         />
-        <g filter="url(#filter0_f_457_120)">
+        <g filter="url(#filter0_f_457_428)">
           <path
             d="M96 39H44C42.3431 39 41 40.1485 41 41.5652V95.4348C41 96.8515 42.3431 98 44 98H96C97.6569 98 99 96.8515 99 95.4348V41.5652C99 40.1485 97.6569 39 96 39Z"
             fill="white"
@@ -38,19 +38,19 @@ const Notebook_icon = React.forwardRef<
           />
         </g>
         <path
-          d="M36 41C36 36.5817 39.5817 33 44 33H82C86.4183 33 90 36.5817 90 41V84C90 88.4183 86.4183 92 82 92H44C39.5817 92 36 88.4183 36 84V41Z"
+          d="M35 40C35 35.5817 38.5817 32 43 32H81C85.4183 32 89 35.5817 89 40V83C89 87.4183 85.4183 91 81 91H43C38.5817 91 35 87.4183 35 83V40Z"
           fill="white"
         />
         <path
           fillRule="evenodd"
           clipRule="evenodd"
-          d="M47 35C47 31.134 50.134 28 54 28H72C75.866 28 79 31.134 79 35V40C79 41.6569 77.6569 43 76 43C74.3431 43 73 41.6569 73 40V35C73 34.4477 72.5523 34 72 34H54C53.4477 34 53 34.4477 53 35V40C53 41.6569 51.6569 43 50 43C48.3431 43 47 41.6569 47 40V35Z"
+          d="M93.7861 43.8177C94.9913 44.9546 95.0467 46.8533 93.9098 48.0585L68.1823 75.333C67.0454 76.5382 65.1467 76.5936 63.9415 75.4567C62.7362 74.3198 62.6808 72.4211 63.8177 71.2159L89.5452 43.9415C90.6821 42.7362 92.5808 42.6808 93.7861 43.8177Z"
           fill="#676C93"
         />
       </g>
       <defs>
         <filter
-          id="filter0_f_457_120"
+          id="filter0_f_457_428"
           x="24.5"
           y="22.5"
           width="91"
@@ -67,10 +67,10 @@ const Notebook_icon = React.forwardRef<
           />
           <feGaussianBlur
             stdDeviation="8.25"
-            result="effect1_foregroundBlur_457_120"
+            result="effect1_foregroundBlur_457_428"
           />
         </filter>
-        <clipPath id="clip0_457_120">
+        <clipPath id="clip0_457_428">
           <rect width="120" height="120" fill="white" />
         </clipPath>
       </defs>
@@ -78,6 +78,6 @@ const Notebook_icon = React.forwardRef<
   );
 });
 
-Notebook_icon.displayName = "Notebook_icon";
+SketchIllustration.displayName = "SketchIllustration";
 
-export default Notebook_icon;
+export default SketchIllustration;

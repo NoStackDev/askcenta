@@ -10,7 +10,9 @@ const Footer = React.forwardRef<HTMLElement, React.HTMLAttributes<"footer">>(
   ({ className, ...props }, forwardRef) => {
     const headersList = headers();
     const pathname = headersList.get("x-pathname");
-    const showFooter = !Boolean(pathname);
+    const showFooter = !Boolean(
+      pathname === "/login" || pathname === "/signup"
+    );
 
     return (
       <>

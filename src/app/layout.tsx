@@ -34,7 +34,7 @@ export default function RootLayout({
 }) {
   const headersList = headers();
   const pathname = headersList.get("x-pathname");
-  const showNavbar = !Boolean(pathname);
+  const showNavbar = !Boolean(pathname === "/login" || pathname === "/signup");
 
   return (
     <html lang="en">

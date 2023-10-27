@@ -16,6 +16,6 @@ export function middleware(request: Request) {
   });
 }
 
-export const config = {
-  matcher: ["/login", "/signup"],
-};
+// export const config = {
+//   matcher: ["/*"],
+// };
