@@ -139,7 +139,7 @@ export default function ContactUsForm({
         </p>
       </div>
 
-      <div className="mt-6 flex flex-col items-center pb-6">
+      <div className="mt-6 flex flex-col items-center pb-10">
         <p className="font-roboto font-medium text-sm text-black">
           Email:{" "}
           <span className="font-normal text-base opacity-70">
