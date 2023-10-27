@@ -21,13 +21,15 @@ export default function LoginPage({}: Props) {
 
       <div className="overflow-y-auto">
         <div className="flex justify-between items-start">
-          <Image
-            src="/images/logo2.png"
-            height={32}
-            width={142}
-            alt="askcenta"
-            className="ml-5 md:ml-[75px] mt-8"
-          />
+          <a href="/" className="w-fit h-fit ml-5 md:ml-[75px] mt-8">
+            <Image
+              src="/images/logo2.png"
+              height={32}
+              width={142}
+              alt="askcenta"
+              className=""
+            />
+          </a>
 
           <LoginPageIllustrationOne />
         </div>
