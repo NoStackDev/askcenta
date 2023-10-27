@@ -31,7 +31,7 @@ export default function ProfileTabs({
           value="q&a"
           className="py-4 font-roboto font-semibold text-sm text-black opacity-60 data-[state=active]:text-[#6356E5] data-[state=active]:opacity-100 border-b-[2px] border-[#D9D9D9] data-[state=active]:border-b-[2px] data-[state=active]:border-[#6356E5]"
         >
-          Q&A (1)
+          Q&A (0)
         </TabsTrigger>
         {!otheruser && (
           <TabsTrigger
