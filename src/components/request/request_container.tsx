@@ -4,6 +4,7 @@ import { FeedsResponse } from "../../../types";
 import Link from "next/link";
 import { RequestCard } from ".";
 import { fetchFeed } from "@/api/feeds";
+import { Notebook_icon } from "../icons";
 
 interface RequestContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   searchparams?: { [key: string]: string | string[] | undefined };
@@ -23,36 +24,49 @@ export default async function RequestContainer({
 
   return (
     <>
-      <div
-        className={cn("mx-4 md:mx-0 mt-6 gap-6 sm:hidden", className)}
-        {...props}
-      >
-        {feed.data.map((request) => {
-          return (
-            <Link href={`/request/${request.id}`} key={request.id}>
-              <RequestCard request={request} />
-            </Link>
-          );
-        })}
-      </div>
+      {feed.data.length > 0 && (
+        <>
+          {" "}
+          <div
+            className={cn("mx-4 md:mx-0 mt-6 gap-6 sm:hidden", className)}
+            {...props}
+          >
+            {feed.data.map((request) => {
+              return (
+                <Link href={`/request/${request.id}`} key={request.id}>
+                  <RequestCard request={request} />
+                </Link>
+              );
+            })}
+          </div>
+          <div
+            className={cn(
+              "mx-4 md:mx-0 mt-6 sm:columns-2 gap-6 hidden sm:block",
+              className
+            )}
+            {...props}
+          >
+            {shuffledRequests.map((request, index) => {
+              const date = new Date(request.created_at);
 
-      <div
-        className={cn(
-          "mx-4 md:mx-0 mt-6 sm:columns-2 gap-6 hidden sm:block",
-          className
-        )}
-        {...props}
-      >
-        {shuffledRequests.map((request, index) => {
-          const date = new Date(request.created_at);
+              return (
+                <Link href={`/request/${request.id}`} key={request.id}>
+                  <RequestCard request={request} />
+                </Link>
+              );
+            })}
+          </div>
+        </>
+      )}
 
-          return (
-            <Link href={`/request/${request.id}`} key={request.id}>
-              <RequestCard request={request} />
-            </Link>
-          );
-        })}
-      </div>
+      {feed.data.length === 0 && (
+        <div className="h-full min-h-[400px] w-full flex flex-col items-center justify-center">
+          <Notebook_icon />
+          <p className="mt-6 font-poppins font-medium text-base text-black">
+            Oops! No Request
+          </p>
+        </div>
+      )}
     </>
   );
 }
