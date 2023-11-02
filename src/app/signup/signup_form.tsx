@@ -1,5 +1,6 @@
 "use client";
 
+import { registerUser } from "@/api/user";
 import VisibilityOffFillIcon from "@/components/icons/visibility_off_fill_icon";
 import { Button } from "@/components/ui/button";
 import {
@@ -20,7 +21,7 @@ import { z } from "zod";
 const signupFormSchema = z.object({
   username: z
     .string({ required_error: "Whatsapp number is required" })
-    .min(6, { message: "Username needs to be atleast 6 characters" }),
+    .min(4, { message: "Username needs to be atleast 4 characters" }),
   whatsappNum: z
     .string({ required_error: "Whatsapp number is required" })
     .length(10, { message: "Phone number can only be 10 digits" }),
@@ -45,7 +46,10 @@ export default function SignupForm({
   });
 
   function onSubmit(values: z.infer<typeof signupFormSchema>) {
-    console.log(values);
+    (async () => {
+      const registeredUser = await registerUser({ ...values });
+      console.log(registeredUser);
+    })();
   }
 
   function togglePasswordVisibility() {

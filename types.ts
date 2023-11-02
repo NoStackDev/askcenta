@@ -90,3 +90,16 @@ export type SubCategoryType = {
 export type SubCategoryResponseType = {
   data: SubCategoryType[];
 };
+
+export type UserRegisterResponseType = {
+  Message: string;
+  data: {
+    name: string;
+    whatsapp_num: string;
+    role: string;
+    is_verified: boolean;
+    updated_at: Date;
+    created_at: Date;
+    id: number;
+  };
+};
