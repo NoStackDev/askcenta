@@ -2,6 +2,7 @@
 
 import { registerUser } from "@/api/user";
 import VisibilityOffFillIcon from "@/components/icons/visibility_off_fill_icon";
+import LoadingSpinner from "@/components/load_spinner";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -11,6 +12,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { useUserAuthContext } from "@/context/use_auth_context";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
@@ -36,6 +38,7 @@ export default function SignupForm({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
+  const { authState, setAuthState } = useUserAuthContext();
   const form = useForm<z.infer<typeof signupFormSchema>>({
     resolver: zodResolver(signupFormSchema),
     defaultValues: {
@@ -47,8 +50,10 @@ export default function SignupForm({
 
   function onSubmit(values: z.infer<typeof signupFormSchema>) {
     (async () => {
+      setAuthState("loading");
       const registeredUser = await registerUser({ ...values });
       console.log(registeredUser);
+      setAuthState(null);
     })();
   }
 
@@ -163,9 +168,18 @@ export default function SignupForm({
 
           <Button
             type="submit"
-            className="rounded-[24px] bg-request-gradient font-roboto font-medium text-base text-white py-3 px-12 mt-8 md:mt-14"
+            className={cn(
+              "rounded-[24px] bg-request-gradient font-roboto font-medium text-base text-white py-3 px-12 mt-8 md:mt-14"
+            )}
           >
-            Sign Up
+            {authState === "loading" ? (
+              <div className="flex items-start justify-center gap-3">
+                <LoadingSpinner />
+                <span>Signing up</span>
+              </div>
+            ) : (
+              "Sign Up"
+            )}
           </Button>
 
           <div className="flex items-center justify-center mt-10 gap-2">
