@@ -98,8 +98,13 @@ export type UserRegisterResponseType = {
     whatsapp_num: string;
     role: string;
     is_verified: boolean;
-    updated_at: Date;
-    created_at: Date;
+    updated_at: string;
+    created_at: string;
     id: number;
   };
+};
+
+export type ResendOtpType = {
+  success: boolean;
+  message: string;
 };

@@ -51,7 +51,8 @@ const Sidebar = React.forwardRef<
               <li
                 className={cn(
                   "mb-4 flex items-center gap-8 mr-10",
-                  pathname === "/" && "text-[#6356E5]"
+                  pathname === "/" ||
+                    (pathname === "/search" && "text-[#6356E5]")
                 )}
               >
                 <DiscoverIcon

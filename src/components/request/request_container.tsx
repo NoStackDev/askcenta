@@ -62,7 +62,7 @@ export default async function RequestContainer({
       )}
 
       {feed.data.length === 0 && (
-        <div className="h-full min-h-[300px] w-full flex flex-col items-center justify-center">
+        <div className="w-full py-12 md:py-24 flex flex-col items-center justify-center">
           {/* no requests illustration for 'discover' 'nearby' 'custom' 'saved' pages  */}
           {(pathname === "/" ||
             pathname === "/nearby" ||

@@ -3,9 +3,28 @@
 import React from "react";
 
 type UserAuthContextType = {
-  authState: "loading" | "login" | "signup" | "onboarding" | null;
+  authState:
+    | "login in"
+    | "signing up"
+    | "verifying"
+    | "onboarding"
+    | "login"
+    | "signup"
+    | "verify"
+    | "onboard"
+    | null;
   setAuthState: React.Dispatch<
-    React.SetStateAction<"loading" | "login" | "signup" | "onboarding" | null>
+    React.SetStateAction<
+      | "login in"
+      | "signing up"
+      | "verifying"
+      | "onboarding"
+      | "login"
+      | "signup"
+      | "verify"
+      | "onboard"
+      | null
+    >
   >;
 };
 
@@ -22,7 +41,15 @@ export const UserAuthContextProvider = ({
   children,
 }: UserAuthContextProviderI) => {
   const [authState, setAuthState] = React.useState<
-    "loading" | "login" | "signup" | "onboarding" | null
+    | "login in"
+    | "signing up"
+    | "verifying"
+    | "onboarding"
+    | "login"
+    | "signup"
+    | "verify"
+    | "onboard"
+    | null
   >(null);
 
   return (
