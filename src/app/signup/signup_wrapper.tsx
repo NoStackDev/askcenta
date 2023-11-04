@@ -126,6 +126,7 @@ export default function SignUpWrapper({ className, ...props }: Props) {
           setAuthState("onboard");
         }
       } catch (err) {
+        console.log(err);
         setAuthState("verify");
       }
     })();

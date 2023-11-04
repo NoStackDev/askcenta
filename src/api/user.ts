@@ -29,8 +29,7 @@ export async function registerUser({
   });
 
   if (!res.ok) {
-    console.log(await res.json());
-    throw new Error(`failed to register user`);
+    throw new Error(`failed to register user`, { cause: await res.json() });
   }
 
   return res.json();
@@ -74,8 +73,7 @@ export async function verifyUserNumber({
   });
 
   if (!res.ok) {
-    console.log(await res.json());
-    throw new Error(`failed verification`);
+    throw new Error(`failed verification`, { cause: await res.json() });
   }
 
   return res.json();
@@ -110,8 +108,7 @@ export async function resendOtp(whatsappNum: string) {
   });
 
   if (!res.ok) {
-    console.log(await res.json());
-    throw new Error(`otp resend failed`);
+    throw new Error(`otp resend failed`, { cause: await res.json() });
   }
 
   return res.json();
