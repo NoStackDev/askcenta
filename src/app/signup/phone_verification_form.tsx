@@ -104,7 +104,7 @@ export default function PhoneVerficationForm({
                   className="hidden pl-2 w-full font-roboto font-normal text-base border border-[#D9D9D9] rounded-xl h-12 bg-[#F7F9FF] text-black placeholder:font-roboto placeholder:font-normal placeholder:text-base placeholder:opacity-60 placeholder:text-black"
                 />
               </FormControl>
-              <div className="grid grid-cols-6 first:rounded-l-xl last:rounded-r-xl">
+              <div className="grid grid-cols-4 first:rounded-l-xl last:rounded-r-xl">
                 {inputStates.map((state, index) => {
                   return (
                     <input

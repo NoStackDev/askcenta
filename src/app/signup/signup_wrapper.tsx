@@ -29,7 +29,7 @@ const signupFormSchema = z.object({
 const phoneVerificationFormSchema = z.object({
   verificationCode: z
     .string()
-    .length(6, { message: "Verification code incorrect" }),
+    .length(4, { message: "Verification code is 4 digits" }),
 });
 
 const successFormSchema = z.object({
