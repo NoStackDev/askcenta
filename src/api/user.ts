@@ -17,7 +17,7 @@ export async function registerUser({
   data.append("whatsapp_num", "234" + whatsappNum);
   data.append("password", password);
 
-  const res = await fetch(`http://askcenta.ng/api/register`, {
+  const res = await fetch(`https://askcenta.ng/api/register`, {
     method: "POST",
     headers: headers,
     body: data,
@@ -66,7 +66,7 @@ export async function verifyUserNumber({
   data.append("whatsapp_num", "234" + whatsappNum);
   data.append("otp_code", otpCode);
 
-  const res = await fetch(`http://askcenta.ng/api/verifyOtp`, {
+  const res = await fetch(`https://askcenta.ng/api/verifyOtp`, {
     method: "POST",
     headers: headers,
     body: data,
@@ -101,7 +101,7 @@ export async function resendOtp(whatsappNum: string) {
   const data = new FormData();
   data.append("whatsapp_num", whatsappNum);
 
-  const res = await fetch(`http://askcenta.ng/api/resendOtp`, {
+  const res = await fetch(`https://askcenta.ng/api/resendOtp`, {
     method: "POST",
     headers: headers,
     body: data,
