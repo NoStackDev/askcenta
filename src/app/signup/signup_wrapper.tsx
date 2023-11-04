@@ -102,8 +102,14 @@ export default function SignUpWrapper({ className, ...props }: Props) {
           setAuthState("verify");
           console.log("registered user: ", registeredUser);
         }
-      } catch (err) {
+      } catch (err: any) {
         console.log(err);
+        console.log(err.cause);
+        err.cause.errors.whatsapp_num &&
+          signupForm.setError("whatsappNum", {
+            message: err.cause.errors.whatsapp_num[0],
+          });
+        setAuthState("signup");
       }
     })();
   }
