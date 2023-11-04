@@ -55,7 +55,7 @@ export default function SignUpWrapper({ className, ...props }: Props) {
   });
 
   React.useEffect(() => {
-    setAuthState("signup");
+    setAuthState("onboard");
   }, []);
 
   const verificationForm = useForm<z.infer<typeof phoneVerificationFormSchema>>(
@@ -150,7 +150,7 @@ export default function SignUpWrapper({ className, ...props }: Props) {
 
   return (
     <div className="relative overflow-x-clip">
-      <Form {...signupForm}>
+      {/* <Form {...signupForm}>
         <form
           onSubmit={signupForm.handleSubmit(onSignupSubmit)}
           className={cn(
@@ -196,7 +196,7 @@ export default function SignUpWrapper({ className, ...props }: Props) {
         >
           <SignupSuccessForm onboardForm={onboardForm} />
         </form>
-      </Form>
+      </Form> */}
 
       {/* <Form {...verificationForm}>
         <form
@@ -214,6 +214,21 @@ export default function SignUpWrapper({ className, ...props }: Props) {
           />
         </form>
       </Form> */}
+
+      <Form {...onboardForm}>
+        <form
+          onSubmit={onboardForm.handleSubmit(onBoardSubmit)}
+          className={cn(
+            "px-5 md:px-[75px] pb-8 w-full absolute left-full transition-all duration-150 ease-in-out",
+            (authState === "onboard" || authState === "onboarding") && "left-0",
+            (authState === "signup" || authState === "signing up") && "hidden",
+            className
+          )}
+          {...props}
+        >
+          <SignupSuccessForm onboardForm={onboardForm} />
+        </form>
+      </Form>
     </div>
   );
 }
