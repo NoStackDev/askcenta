@@ -11,8 +11,8 @@ export default function useVerificationHook(verificationCodeLength: number) {
   const [inputValue1, setInputValue1] = React.useState("");
   const [inputValue2, setInputValue2] = React.useState("");
   const [inputValue3, setInputValue3] = React.useState("");
-  const [inputValue4, setInputValue4] = React.useState("");
-  const [inputValue5, setInputValue5] = React.useState("");
+  // const [inputValue4, setInputValue4] = React.useState("");
+  // const [inputValue5, setInputValue5] = React.useState("");
 
   let inputStates: {
     inputValue: string;
@@ -23,8 +23,8 @@ export default function useVerificationHook(verificationCodeLength: number) {
   inputStates.push({ inputValue: inputValue1, setInputValue: setInputValue1 });
   inputStates.push({ inputValue: inputValue2, setInputValue: setInputValue2 });
   inputStates.push({ inputValue: inputValue3, setInputValue: setInputValue3 });
-  inputStates.push({ inputValue: inputValue4, setInputValue: setInputValue4 });
-  inputStates.push({ inputValue: inputValue5, setInputValue: setInputValue5 });
+  // inputStates.push({ inputValue: inputValue4, setInputValue: setInputValue4 });
+  // inputStates.push({ inputValue: inputValue5, setInputValue: setInputValue5 });
 
   const verificationInputClassName = "verification_input";
 

@@ -56,7 +56,7 @@ export default function PhoneVerficationForm({
     inputStates,
     verificationInputClassName,
     handleChange: onInputChange,
-  } = useVerificationHook(6);
+  } = useVerificationHook(4);
 
   React.useEffect(() => {
     setPrevAuthState(authState);
@@ -67,7 +67,7 @@ export default function PhoneVerficationForm({
   }, [authState]);
 
   React.useEffect(() => {
-    if (verificationCode?.length === 6) {
+    if (verificationCode?.length === 4) {
       verificationForm.setValue("verificationCode", verificationCode);
     }
   }, [verificationCode]);
@@ -117,7 +117,7 @@ export default function PhoneVerficationForm({
                         "font-roboto font-normal text-base border border-[#D9D9D9] h-12 bg-[#F7F9FF] text-black text-center w-full placeholder:font-roboto placeholder:font-bold placeholder:text-base placeholder:text-black placeholder:text-center",
                         verificationInputClassName,
                         index === 0 && "rounded-l-xl",
-                        index === 5 && "rounded-r-xl"
+                        index === 3 && "rounded-r-xl"
                       )}
                     />
                   );
