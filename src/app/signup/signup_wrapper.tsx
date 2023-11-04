@@ -150,7 +150,7 @@ export default function SignUpWrapper({ className, ...props }: Props) {
 
   return (
     <div className="relative overflow-x-clip">
-      {/* <Form {...signupForm}>
+      <Form {...signupForm}>
         <form
           onSubmit={signupForm.handleSubmit(onSignupSubmit)}
           className={cn(
@@ -196,7 +196,7 @@ export default function SignUpWrapper({ className, ...props }: Props) {
         >
           <SignupSuccessForm onboardForm={onboardForm} />
         </form>
-      </Form> */}
+      </Form>
 
       {/* <Form {...verificationForm}>
         <form
@@ -215,7 +215,7 @@ export default function SignUpWrapper({ className, ...props }: Props) {
         </form>
       </Form> */}
 
-      <Form {...onboardForm}>
+      {/* <Form {...onboardForm}>
         <form
           onSubmit={onboardForm.handleSubmit(onBoardSubmit)}
           className={cn(
@@ -228,7 +228,7 @@ export default function SignUpWrapper({ className, ...props }: Props) {
         >
           <SignupSuccessForm onboardForm={onboardForm} />
         </form>
-      </Form>
+      </Form> */}
     </div>
   );
 }
