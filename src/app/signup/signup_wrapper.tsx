@@ -131,8 +131,12 @@ export default function SignUpWrapper({ className, ...props }: Props) {
         if (verifiedUser) {
           setAuthState("onboard");
         }
-      } catch (err) {
+      } catch (err: any) {
         console.log(err);
+        err.cause.errors.otp_code &&
+          verificationForm.setError("verificationCode", {
+            message: err.cause.errors.otp_code[0],
+          });
         setAuthState("verify");
       }
     })();
