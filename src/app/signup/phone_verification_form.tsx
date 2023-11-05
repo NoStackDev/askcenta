@@ -40,7 +40,7 @@ export default function PhoneVerficationForm({
   const { countDownState, setCountDownState, countDownValues } =
     useCountdown(300000);
   const [prevAuthState, setPrevAuthState] = React.useState<
-    | "login in"
+    | "logging in"
     | "signing up"
     | "verifying"
     | "onboarding"
