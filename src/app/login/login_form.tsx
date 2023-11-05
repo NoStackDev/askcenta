@@ -1,6 +1,8 @@
 "use client";
 
+import { loginUser } from "@/api/user";
 import VisibilityOffFillIcon from "@/components/icons/visibility_off_fill_icon";
+import LoadingSpinner from "@/components/load_spinner";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -10,6 +12,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { useUserAuthContext } from "@/context/use_auth_context";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
@@ -32,6 +35,7 @@ export default function LoginForm({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
+  const { authState, setAuthState } = useUserAuthContext();
   const form = useForm<z.infer<typeof loginFormSchema>>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
@@ -40,8 +44,37 @@ export default function LoginForm({
     },
   });
 
-  function onSubmit(values: z.infer<typeof loginFormSchema>) {
-    console.log(values);
+  React.useEffect(() => {
+    setAuthState("login");
+  }, []);
+
+  async function onSubmit(values: z.infer<typeof loginFormSchema>) {
+    if (authState === "logging in") return;
+    setAuthState("logging in");
+
+    try {
+      const res = await loginUser({
+        whatsappNum: values.whatsappNum,
+        password: values.password,
+      });
+      if (res) {
+        window.location.href = "/";
+      }
+    } catch (err: any) {
+      console.log(err);
+      console.log(err.cause);
+      err.cause.errors?.whatsapp_num
+        ? form.setError("whatsappNum", {
+            message: err.cause.errors.whatsapp_num,
+          })
+        : form.setError("whatsappNum", {
+            message: "invalid number or password",
+          });
+      form.setError("password", {
+        message: "invalid number or password",
+      });
+      setAuthState("login");
+    }
   }
 
   function togglePasswordVisibility() {
@@ -133,7 +166,14 @@ export default function LoginForm({
             type="submit"
             className="rounded-[24px] bg-request-gradient font-roboto font-medium text-base text-white py-3 px-12 mt-8 md:mt-14"
           >
-            Login
+            {authState === "logging in" ? (
+              <div className="flex items-start justify-center gap-3">
+                <LoadingSpinner />
+                <span>Logging in</span>
+              </div>
+            ) : (
+              "Login"
+            )}
           </Button>
 
           <div className="flex items-center justify-center mt-10">

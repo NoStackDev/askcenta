@@ -4,7 +4,7 @@ import React from "react";
 
 type UserAuthContextType = {
   authState:
-    | "login in"
+    | "logging in"
     | "signing up"
     | "verifying"
     | "onboarding"
@@ -15,7 +15,7 @@ type UserAuthContextType = {
     | null;
   setAuthState: React.Dispatch<
     React.SetStateAction<
-      | "login in"
+      | "logging in"
       | "signing up"
       | "verifying"
       | "onboarding"
@@ -41,7 +41,7 @@ export const UserAuthContextProvider = ({
   children,
 }: UserAuthContextProviderI) => {
   const [authState, setAuthState] = React.useState<
-    | "login in"
+    | "logging in"
     | "signing up"
     | "verifying"
     | "onboarding"

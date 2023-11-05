@@ -21,11 +21,6 @@ export async function registerUser({
     method: "POST",
     headers: headers,
     body: data,
-    // body: JSON.stringify({
-    //   name: username,
-    //   whatsapp_num: whatsappNum,
-    //   password: password,
-    // }),
   });
 
   if (!res.ok) {
@@ -33,23 +28,6 @@ export async function registerUser({
   }
 
   return res.json();
-
-  // const res = {
-  //   Message: "Sent",
-  //   data: {
-  //     name: "Amara",
-  //     whatsapp_num: "8112233444",
-  //     role: "Regular",
-  //     is_verified: false,
-  //     updated_at: "2023-11-02T17:07:42.000000Z",
-  //     created_at: "2023-11-02T17:07:42.000000Z",
-  //     id: 3,
-  //   },
-  // };
-
-  // return new Promise<UserRegisterResponseType>((resolve) =>
-  //   setTimeout(() => resolve(res), 3000)
-  // );
 }
 
 export async function verifyUserNumber({
@@ -77,21 +55,6 @@ export async function verifyUserNumber({
   }
 
   return res.json();
-
-  // const res = {
-  //   Message: "verified",
-  //   data: {
-  //     name: "Amara",
-  //     whatsapp_num: "8112233444",
-  //     role: "Regular",
-  //     is_verified: true,
-  //     updated_at: "2023-11-02T17:07:42.000000Z",
-  //     created_at: "2023-11-02T17:07:42.000000Z",
-  //     id: 3,
-  //   },
-  // };
-
-  // return new Promise((resolve) => setTimeout(() => resolve(res), 3000));
 }
 
 export async function resendOtp(whatsappNum: string) {
@@ -109,6 +72,33 @@ export async function resendOtp(whatsappNum: string) {
 
   if (!res.ok) {
     throw new Error(`otp resend failed`, { cause: await res.json() });
+  }
+
+  return res.json();
+}
+
+export async function loginUser({
+  whatsappNum,
+  password,
+}: {
+  whatsappNum: string;
+  password: string;
+}) {
+  const headers = new Headers();
+  headers.append("Accept", "application/json");
+
+  const data = new FormData();
+  data.append("whatsapp_num", "234" + whatsappNum);
+  data.append("password", password);
+
+  const res = await fetch(`https://askcenta.ng/api/login`, {
+    method: "POST",
+    headers: headers,
+    body: data,
+  });
+
+  if (!res.ok) {
+    throw new Error(`failed to login user`, { cause: await res.json() });
   }
 
   return res.json();
