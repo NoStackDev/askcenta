@@ -98,7 +98,7 @@ export default function SignUpWrapper({ className, ...props }: Props) {
         const registeredUserRes: Promise<UserRegisterResponseType> =
           registerUser({ ...values });
         const registeredUser = await registeredUserRes;
-        if (registeredUser.Message === "Sent") {
+        if (registeredUser) {
           setAuthState("verify");
           console.log("registered user: ", registeredUser);
         }
