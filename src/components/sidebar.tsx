@@ -36,8 +36,8 @@ const Sidebar = React.forwardRef<
         {...props}
         ref={forwardRef}
         className={cn(
-          "fixed -bottom-[100%] lg:sticky lg:top-24 rounded-none md:rounded-lg transition-all ease-in-out duration-150 lg:duration-0 z-50 lg:z-auto",
-          showSidebar && "bottom-[calc(100%_-_630px)]",
+          "fixed -bottom-[100%] opacity-0 md:opacity-100 lg:sticky lg:top-24 rounded-none md:rounded-lg transition-all ease-in-out duration-150 lg:duration-0 z-50 lg:z-auto",
+          showSidebar && "opacity-100 bottom-[calc(100%_-_630px)]",
           className
         )}
       >
