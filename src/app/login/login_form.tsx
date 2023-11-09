@@ -185,13 +185,13 @@ export default function LoginForm({
             </Link>
           </div>
 
-          <div className="flex items-center justify-center mt-10 gap-2">
+          <div className="mt-10 text-center">
             <span className="font-roboto font-normal text-base text-black opacity-80">
               Don’t have an account?
             </span>
             <Link
               href="/signup"
-              className="font-roboto font-semibold text-base text-[#6356E5]"
+              className="font-roboto font-semibold text-base text-[#6356E5] ml-2"
             >
               Sign up
             </Link>
