@@ -19,6 +19,7 @@ import Link from "next/link";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { loginUserAction } from "../actions";
 
 const loginFormSchema = z.object({
   whatsappNum: z
@@ -28,6 +29,8 @@ const loginFormSchema = z.object({
     .string({ required_error: "Password is required" })
     .min(6, { message: "Password must be atleast 6 characters" }),
 });
+
+export type LoginFormFields = z.infer<typeof loginFormSchema>;
 
 type Props = {};
 
@@ -53,26 +56,26 @@ export default function LoginForm({
     setAuthState("logging in");
 
     try {
-      const res = await loginUser({
+      const res = await loginUserAction({
         whatsappNum: values.whatsappNum,
         password: values.password,
       });
-      if (res) {
-        window.location.href = "/";
-      }
+
+      if (res.isError) {
+        console.log(res);
+        res.error === "Invalid" &&
+          form.setError("whatsappNum", {
+            message: "Invalid number or password",
+          });
+        res.error === "Invalid" &&
+          form.setError("password", {
+            message: "Invalid number or password",
+          });
+        setAuthState("login");
+      } 
     } catch (err: any) {
       console.log(err);
-      console.log(err.cause);
-      err.cause.errors?.whatsapp_num
-        ? form.setError("whatsappNum", {
-            message: err.cause.errors.whatsapp_num,
-          })
-        : form.setError("whatsappNum", {
-            message: "invalid number or password",
-          });
-      form.setError("password", {
-        message: "invalid number or password",
-      });
+      // form.setError("whatsappNum", { message: "failed to login" });
       setAuthState("login");
     }
   }

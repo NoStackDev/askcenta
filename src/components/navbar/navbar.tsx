@@ -6,17 +6,16 @@ import Link from "next/link";
 import { NotificationIcon, SearchIcon } from "../icons";
 import { HamburgerMenu } from ".";
 import NavbarPlaceRequestBtn from "./navbar_place_request_btn";
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 
 const Navbar = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, forwardRef) => {
+  const cookie = cookies();
   const headersList = headers();
   const pathname = headersList.get("x-pathname");
   const showNavbar = !Boolean(pathname === "/login" || pathname === "/signup");
-
-  const showNotification = false;
 
   return (
     <>
@@ -41,11 +40,13 @@ const Navbar = React.forwardRef<
             </Link>
 
             <div className="flex items-center gap-6 md:gap-10">
-              <a href="/login">
-                <Button className="" variant="nav">
-                  Login
-                </Button>
-              </a>
+              {!cookie.get("Authorization") && (
+                <a href="/login">
+                  <Button className="" variant="nav">
+                    Login
+                  </Button>
+                </a>
+              )}
 
               <Link
                 href="/search"
@@ -54,15 +55,16 @@ const Navbar = React.forwardRef<
                 <SearchIcon aria-label="search" />
               </Link>
 
-              <Link
-                href="/notification"
-                className={cn(
-                  "h-10 w-10 rounded-lg bg-[#F7F7F9] hidden",
-                  showNotification && "flex items-center justify-center"
-                )}
-              >
-                <NotificationIcon aria-label="notification" />
-              </Link>
+              {cookie.get("Authorization") && (
+                <Link
+                  href="/notification"
+                  className={cn(
+                    "h-10 w-10 rounded-lg bg-[#F7F7F9] flex items-center justify-center"
+                  )}
+                >
+                  <NotificationIcon aria-label="notification" />
+                </Link>
+              )}
 
               <HamburgerMenu />
 
