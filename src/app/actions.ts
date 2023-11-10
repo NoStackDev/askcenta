@@ -1,7 +1,7 @@
 "use server";
 
 import { LoginFormFields } from "./login/login_form";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 export async function loginUserAction(data: LoginFormFields) {
@@ -20,6 +20,7 @@ export async function loginUserAction(data: LoginFormFields) {
 
   if (!_res.ok) {
     const errors = await _res.json();
+    console.log(`failed to login user ${data.whatsappNum}`, { ...errors });
     return { isError: true, errorMessage: `failed to login user`, ...errors };
   }
 
@@ -35,8 +36,21 @@ export async function loginUserAction(data: LoginFormFields) {
 
 export async function logoutUserAction() {
   const cookie = cookies();
-  console.log(cookie.get("Authorization"));
+  const headers = new Headers();
+  headers.append("Accept", "application/json");
+  headers.append("Authorization", cookie.get("Authorization")?.value || "");
+
+  const _res = await fetch(`https://askcenta.ng/api/logout`, {
+    method: "POST",
+    headers: headers,
+  });
+
+  if (!_res.ok) {
+    const errors = await _res.json();
+    console.log(`failed to logout user`, { ...errors });
+    return { isError: true, errorMessage: `failed to login user`, ...errors };
+  }
+
   cookie.delete("Authorization");
-  console.log("deleted: ", cookie.get("Authorization"));
   redirect("/");
 }
