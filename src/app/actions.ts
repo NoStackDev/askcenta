@@ -32,3 +32,11 @@ export async function loginUserAction(data: LoginFormFields) {
   });
   redirect("/");
 }
+
+export async function logoutUserAction() {
+  const cookie = cookies();
+  console.log(cookie.get("Authorization"));
+  cookie.delete("Authorization");
+  console.log("deleted: ", cookie.get("Authorization"));
+  redirect("/");
+}

@@ -16,6 +16,7 @@ const Navbar = React.forwardRef<
   const headersList = headers();
   const pathname = headersList.get("x-pathname");
   const showNavbar = !Boolean(pathname === "/login" || pathname === "/signup");
+  const authorization = Boolean(cookie.get("Authorization")?.value);
 
   return (
     <>
@@ -40,7 +41,7 @@ const Navbar = React.forwardRef<
             </Link>
 
             <div className="flex items-center gap-6 md:gap-10">
-              {!cookie.get("Authorization") && (
+              {!authorization && (
                 <a href="/login">
                   <Button className="" variant="nav">
                     Login
@@ -55,7 +56,7 @@ const Navbar = React.forwardRef<
                 <SearchIcon aria-label="search" />
               </Link>
 
-              {cookie.get("Authorization") && (
+              {authorization && (
                 <Link
                   href="/notification"
                   className={cn(
