@@ -1,15 +1,7 @@
-import Footer from "@/components/footer";
-import { Navbar } from "@/components/navbar";
-import { RequestFormWrapper } from "@/components/request";
-import { ResponseFormWrapper } from "@/components/response";
-import Sidebar from "@/components/sidebar";
-import { SidebarContextProvider } from "@/context/sidebar_context";
 import { UserAuthContextProvider } from "@/context/use_auth_context";
-import { cn } from "@/lib/utils";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
-import { Inter, Poppins, Roboto } from "next/font/google";
-import { headers } from "next/headers";
+import { Poppins, Roboto } from "next/font/google";
 
 const poppins = Poppins({
   weight: ["300", "400", "500", "600", "700", "800", "900"],
@@ -28,15 +20,19 @@ export const metadata: Metadata = {
   description: "Connect with others, find what you are looking for",
 };
 
-export default function RootLayout({
+import Footer from "@/components/footer";
+import { Navbar } from "@/components/navbar";
+import { RequestFormWrapper } from "@/components/request";
+import { ResponseFormWrapper } from "@/components/response";
+import Sidebar from "@/components/sidebar";
+import { SidebarContextProvider } from "@/context/sidebar_context";
+import { cn } from "@/lib/utils";
+
+export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const headersList = headers();
-  const pathname = headersList.get("x-pathname");
-  const showNavbar = !Boolean(pathname === "/login" || pathname === "/signup");
-
   return (
     <html lang="en">
       <body
@@ -49,15 +45,15 @@ export default function RootLayout({
 
             <div
               className={cn(
-                showNavbar &&
-                  "lg:flex lg:flex-row lg:gap-16 my-0 md:my-10 md:mx-4 lg:mx-[100px] 2xl:mx-auto max-w-7xl"
+                "lg:flex lg:flex-row lg:gap-16 my-0 md:my-10 md:mx-4 lg:mx-[100px] 2xl:mx-auto max-w-7xl"
               )}
             >
-              {showNavbar && <Sidebar className="hidden lg:flex" />}
+              <Sidebar className="hidden lg:flex" />
 
               {children}
             </div>
           </SidebarContextProvider>
+
           <RequestFormWrapper>
             <button id="request_form_modal_trigger" className="hidden"></button>
           </RequestFormWrapper>

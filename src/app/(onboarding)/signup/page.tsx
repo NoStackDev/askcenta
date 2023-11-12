@@ -4,9 +4,6 @@ import {
 } from "@/components/icons";
 import Image from "next/image";
 import React from "react";
-import SignupForm from "./signup_form";
-import PhoneVerficationForm from "./phone_verification_form";
-import SignupSuccessForm from "./signup_success";
 import SignUpWrapper from "./signup_wrapper";
 
 type Props = {};

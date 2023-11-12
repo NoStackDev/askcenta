@@ -8,7 +8,7 @@ import {
   CitiesResponseType,
   StateResponseType,
   SubCategoryResponseType,
-} from "../../../types";
+} from "../../../../types";
 import CustomCustomizeForm from "./custom_customize_form";
 import { Button } from "@/components/ui/button";
 import { fetchCities, fetchStates } from "@/api/location";
