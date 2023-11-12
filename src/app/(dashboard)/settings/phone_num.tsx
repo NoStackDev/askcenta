@@ -1,11 +1,11 @@
-import { getUserDetails } from "@/api/user";
+import { getUserDetailsAction } from "@/app/actions";
 import { cn } from "@/lib/utils";
 import React from "react";
 
 interface PhoneNumProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export default async function PhoneNum({ className, ...props }: PhoneNumProps) {
-  const settings = await getUserDetails();
+  const settings = await getUserDetailsAction();
   return (
     <div
       className={cn(

@@ -76,3 +76,23 @@ export async function logoutUserAction() {
   cookie.delete("userId");
   return redirect("/");
 }
+
+export async function getUserDetailsAction() {
+  const cookie = cookies();
+
+  const headers = new Headers();
+  headers.append("Accept", "application/json");
+  headers.append("Authorization", cookie.get("Authorization")?.value || "");
+
+  const res = await fetch(`https://askcenta.ng/api/user`, {
+    method: "OPTIONS",
+    headers: headers,
+  });
+
+  if (!res.ok) {
+    throw new Error("failed to fetch settings", { cause: await res.json() });
+  }
+
+  const resPromise: Promise<UserDetailsType> = res.json();
+  return resPromise;
+}
