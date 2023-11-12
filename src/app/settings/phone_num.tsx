@@ -1,9 +1,11 @@
+import { getUserDetails } from "@/api/user";
 import { cn } from "@/lib/utils";
 import React from "react";
 
 interface PhoneNumProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-export default function PhoneNum({ className, ...props }: PhoneNumProps) {
+export default async function PhoneNum({ className, ...props }: PhoneNumProps) {
+  const settings = await getUserDetails();
   return (
     <div
       className={cn(
@@ -12,7 +14,7 @@ export default function PhoneNum({ className, ...props }: PhoneNumProps) {
       )}
       {...props}
     >
-      +2348011112222
+      +{settings.data.whatsapp_num}
     </div>
   );
 }

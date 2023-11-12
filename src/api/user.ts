@@ -1,4 +1,5 @@
-import { UserRegisterResponseType } from "../../types";
+import { cookies } from "next/headers";
+import { UserDetailsType, UserRegisterResponseType } from "../../types";
 
 export async function registerUser({
   username,
@@ -77,29 +78,22 @@ export async function resendOtp(whatsappNum: string) {
   return res.json();
 }
 
-export async function loginUser({
-  whatsappNum,
-  password,
-}: {
-  whatsappNum: string;
-  password: string;
-}) {
+export async function getUserDetails() {
+  const cookie = cookies();
+
   const headers = new Headers();
   headers.append("Accept", "application/json");
+  headers.append("Authorization", cookie.get("Authorization")?.value || "");
 
-  const data = new FormData();
-  data.append("whatsapp_num", "234" + whatsappNum);
-  data.append("password", password);
-
-  const res = await fetch(`https://askcenta.ng/api/login`, {
-    method: "POST",
+  const res = await fetch(`https://askcenta.ng/api/user`, {
+    method: "OPTIONS",
     headers: headers,
-    body: data,
   });
 
   if (!res.ok) {
-    throw new Error(`failed to login user`, { cause: await res.json() });
+    throw new Error("failed to fetch settings", { cause: await res.json() });
   }
 
-  return res.json();
+  const resPromise: Promise<UserDetailsType> = res.json();
+  return resPromise;
 }
