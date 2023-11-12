@@ -11,7 +11,7 @@ import Image from "next/image";
 import RequestActions from "./request_actions";
 import { fetchRequestDetails } from "@/api/request";
 import Link from "next/link";
-import { RequestDetailType } from "../@/types";
+import { RequestDetailType } from "@/types";
 
 interface RequestImgDetailProps extends React.HTMLAttributes<HTMLDivElement> {
   requestid: string;
