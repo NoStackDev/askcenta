@@ -1,6 +1,5 @@
 import { cn, month } from "@/lib/utils";
 import React from "react";
-import { RequestDetailType } from "../../../../../types";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   LocationOnIcon,
@@ -12,6 +11,7 @@ import Image from "next/image";
 import RequestActions from "./request_actions";
 import { fetchRequestDetails } from "@/api/request";
 import Link from "next/link";
+import { RequestDetailType } from "../../../../../types";
 
 interface RequestImgDetailProps extends React.HTMLAttributes<HTMLDivElement> {
   requestid: string;

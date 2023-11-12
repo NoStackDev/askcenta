@@ -13,8 +13,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import React from "react";
-import { CityType } from "../../../../types";
 import LocationModal from "@/components/modal/location_modal";
+import { CityType } from "../../../../types";
 
 type Props = {
   cityid: string | string[] | undefined;
