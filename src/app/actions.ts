@@ -1,9 +1,9 @@
 "use server";
 
-import { LoginFormFields } from "./login/login_form";
-import { cookies, headers } from "next/headers";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { UserDetailsType } from "../../types";
+import { LoginFormFields } from "./(onboarding)/login/login_form";
 
 export async function loginUserAction(data: LoginFormFields) {
   const headers = new Headers();
@@ -52,7 +52,7 @@ export async function loginUserAction(data: LoginFormFields) {
     maxAge: 60 * 60 * 24 * 7,
   });
 
-  redirect("/");
+  return redirect("/");
 }
 
 export async function logoutUserAction() {
@@ -74,5 +74,5 @@ export async function logoutUserAction() {
 
   cookie.delete("Authorization");
   cookie.delete("userId");
-  redirect("/");
+  return redirect("/");
 }
