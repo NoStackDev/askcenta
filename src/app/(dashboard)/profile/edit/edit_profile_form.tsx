@@ -25,7 +25,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { LocationModal } from "@/components/modal";
 import TwitterXIcon from "@/components/icons/twitter_x_icon";
-import { CityType } from "../../../../../types";
+import { CityType } from "../@/types";
 
 const editProfileFormSchema = z.object({
   username: z

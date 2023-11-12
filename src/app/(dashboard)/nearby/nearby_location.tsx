@@ -1,5 +1,5 @@
 import React from "react";
-import { CitiesResponseType, StateResponseType } from "../../../../types";
+import { CitiesResponseType, StateResponseType } from "@/types";
 
 import NearbyLocationForm from "./nearby_location_form";
 import { Card } from "@/components/ui/card";

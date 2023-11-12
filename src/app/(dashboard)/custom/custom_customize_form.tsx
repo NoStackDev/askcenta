@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 import React from "react";
 import CategoryModal from "@/components/modal/category_modal";
 import { DialogProps } from "@radix-ui/react-dialog";
-import { CategoryType, CityType, SubCategoryType } from "../../../../types";
+import { CategoryType, CityType, SubCategoryType } from "@/types";
 
 interface CustomCustomizeFormProps extends DialogProps {
   citiesdata: CityType[];

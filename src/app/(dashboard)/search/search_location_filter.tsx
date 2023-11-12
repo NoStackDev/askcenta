@@ -2,7 +2,7 @@
 
 import LocationModal from "@/components/modal/location_modal";
 import React from "react";
-import { CityType } from "../../../../types";
+import { CityType } from "@/types";
 import { Button } from "@/components/ui/button";
 import { LocationOnIcon } from "@/components/icons";
 

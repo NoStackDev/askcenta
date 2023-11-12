@@ -1,6 +1,6 @@
 import React from "react";
 import EditProfileForm from "./edit_profile_form";
-import { CitiesResponseType, StateResponseType } from "../../../../types";
+import { CitiesResponseType, StateResponseType } from "@/types";
 import { fetchCities, fetchStates } from "@/api/location";
 
 type Props = {};

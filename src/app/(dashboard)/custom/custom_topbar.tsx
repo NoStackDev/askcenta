@@ -12,7 +12,7 @@ import {
   CitiesResponseType,
   StateResponseType,
   SubCategoryResponseType,
-} from "../../../../types";
+} from "@/types";
 
 interface CustomTopbarProps extends React.HTMLAttributes<HTMLDivElement> {
   searchparams: { [key: string]: string | string[] | undefined };
