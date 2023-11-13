@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { UserDetailsType } from "../../types";
+import { UserDetailsType } from "@/types";
 import { LoginFormFields } from "./(onboarding)/login/login_form";
 
 export async function loginUserAction(data: LoginFormFields) {
