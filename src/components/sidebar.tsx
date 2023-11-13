@@ -51,19 +51,15 @@ const Sidebar = React.forwardRef<
               <li
                 className={cn(
                   "mb-4 flex items-center gap-8 mr-10",
-                  (pathname === "/" || pathname === "/search") &&
-                    "text-[#6356E5]"
+                  pathname === "/" ||
+                    (pathname === "/search" && "text-[#6356E5]")
                 )}
               >
                 <DiscoverIcon
                   height="24px"
                   width="24px"
                   aria-label="discover"
-                  svgColor={
-                    pathname === "/" || pathname === "/search"
-                      ? "#6356E5"
-                      : null
-                  }
+                  svgColor={pathname === "/" ? "#6356E5" : null}
                 />
 
                 <span className="w-max">Discover</span>

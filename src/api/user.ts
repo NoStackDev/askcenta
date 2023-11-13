@@ -1,4 +1,4 @@
-import { UserDetailsType, UserRegisterResponseType } from "../../types";
+import { UserRegisterResponseType } from "../../types";
 
 export async function registerUser({
   username,
@@ -77,4 +77,29 @@ export async function resendOtp(whatsappNum: string) {
   return res.json();
 }
 
+export async function loginUser({
+  whatsappNum,
+  password,
+}: {
+  whatsappNum: string;
+  password: string;
+}) {
+  const headers = new Headers();
+  headers.append("Accept", "application/json");
 
+  const data = new FormData();
+  data.append("whatsapp_num", "234" + whatsappNum);
+  data.append("password", password);
+
+  const res = await fetch(`https://askcenta.ng/api/login`, {
+    method: "POST",
+    headers: headers,
+    body: data,
+  });
+
+  if (!res.ok) {
+    throw new Error(`failed to login user`, { cause: await res.json() });
+  }
+
+  return res.json();
+}

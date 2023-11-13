@@ -1,96 +1,15 @@
-import { Analytics } from "@vercel/analytics/react";
+import Footer from "@/components/footer";
+import { Navbar } from "@/components/navbar";
+import { RequestFormWrapper } from "@/components/request";
+import { ResponseFormWrapper } from "@/components/response";
+import Sidebar from "@/components/sidebar";
+import { SidebarContextProvider } from "@/context/sidebar_context";
 import { UserAuthContextProvider } from "@/context/use_auth_context";
+import { cn } from "@/lib/utils";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
-import { Poppins, Roboto } from "next/font/google";
-// import localFont from "next/font/local";
-
-// const poppins = localFont({
-//   src: [
-//     {
-//       path:"../../public/fonts/Poppins/Poppins-Thin.ttf",
-//       weight: "100",
-//       style: "normal",
-//     },
-//     {
-//       path:"../../public/fonts/Poppins/Poppins-ExtraLight.ttf",
-//       weight: "200",
-//       style: "normal",
-//     },
-//     {
-//       path:"../../public/fonts/Poppins/Poppins-Light.ttf",
-//       weight: "300",
-//       style: "normal",
-//     },
-//     {
-//       path:"../../public/fonts/Poppins/Poppins-Regular.ttf",
-//       weight: "400",
-//       style: "normal",
-//     },
-//     {
-//       path:"../../public/fonts/Poppins/Poppins-Medium.ttf",
-//       weight: "500",
-//       style: "normal",
-//     },
-//     {
-//       path:"../../public/fonts/Poppins/Poppins-SemiBold.ttf",
-//       weight: "600",
-//       style: "normal",
-//     },
-//     {
-//       path:"../../public/fonts/Poppins/Poppins-Bold.ttf",
-//       weight: "700",
-//       style: "normal",
-//     },
-//     {
-//       path:"../../public/fonts/Poppins/Poppins-ExtraBold.ttf",
-//       weight: "800",
-//       style: "normal",
-//     },
-//     {
-//       path:"../../public/fonts/Poppins/Poppins-Black.ttf",
-//       weight: "900",
-//       style: "normal",
-//     },
-//   ],
-//   variable: "--font-poppins",
-// });
-
-// const roboto = localFont({
-//   src: [
-//     {
-//       path:"../../public/fonts/Roboto/Roboto-Thin.ttf",
-//       weight: "100",
-//       style: "normal",
-//     },
-//     {
-//       path:"../../public/fonts/Roboto/Roboto-Light.ttf",
-//       weight: "300",
-//       style: "normal",
-//     },
-//     {
-//       path:"../../public/fonts/Roboto/Roboto-Regular.ttf",
-//       weight: "400",
-//       style: "normal",
-//     },
-//     {
-//       path:"../../public/fonts/Roboto/Roboto-Medium.ttf",
-//       weight: "500",
-//       style: "normal",
-//     },
-//     {
-//       path:"../../public/fonts/Roboto/Roboto-Bold.ttf",
-//       weight: "700",
-//       style: "normal",
-//     },
-//     {
-//       path:"../../public/fonts/Roboto/Roboto-Black.ttf",
-//       weight: "900",
-//       style: "normal",
-//     },
-//   ],
-//   variable: "--font-roboto",
-// });
+import { Inter, Poppins, Roboto } from "next/font/google";
+import { headers } from "next/headers";
 
 const poppins = Poppins({
   weight: ["300", "400", "500", "600", "700", "800", "900"],
@@ -114,13 +33,43 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const headersList = headers();
+  const pathname = headersList.get("x-pathname");
+  const showNavbar = !Boolean(pathname === "/login" || pathname === "/signup");
+
   return (
     <html lang="en">
       <body
         className={`${poppins.variable} ${roboto.variable} ${roboto.className} bg-[#F4F3FC]`}
       >
-        <UserAuthContextProvider>{children}</UserAuthContextProvider>
-        <Analytics />
+        <UserAuthContextProvider>
+          <SidebarContextProvider>
+            <Navbar />
+            <Sidebar className="lg:hidden" />
+
+            <div
+              className={cn(
+                showNavbar &&
+                  "lg:flex lg:flex-row lg:gap-16 my-0 md:my-10 md:mx-4 lg:mx-[100px] 2xl:mx-auto max-w-7xl"
+              )}
+            >
+              {showNavbar && <Sidebar className="hidden lg:flex" />}
+
+              {children}
+            </div>
+          </SidebarContextProvider>
+          <RequestFormWrapper>
+            <button id="request_form_modal_trigger" className="hidden"></button>
+          </RequestFormWrapper>
+          <ResponseFormWrapper requestid={"2"}>
+            <button
+              id="response_form_modal_trigger"
+              className="hidden"
+            ></button>
+          </ResponseFormWrapper>
+        </UserAuthContextProvider>
+
+        <Footer />
       </body>
     </html>
   );
