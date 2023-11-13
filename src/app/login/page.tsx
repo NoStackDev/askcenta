@@ -4,7 +4,7 @@ import {
 } from "@/components/icons";
 import Image from "next/image";
 import React from "react";
-import LoginForm from "../login_form";
+import LoginForm from "./login_form";
 
 type Props = {};
 
