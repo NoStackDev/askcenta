@@ -1,6 +1,6 @@
 "use server";
 
-import { LoginFormFields } from "./login/login_form";
+import { LoginFormFields } from "./(onboarding)/login_form";
 import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 
