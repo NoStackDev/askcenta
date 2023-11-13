@@ -112,24 +112,3 @@ export type ResendOtpType = {
   success: boolean;
   message: string;
 };
-
-export type UserDetailsType = {
-  data: {
-    id: number;
-    name: string;
-    email: string | null;
-    role: "Regular" | "Admin";
-    image_url: string | null;
-    about: string | null;
-    location: "";
-    business_addr: string | null;
-    facebook_link: string | null;
-    instagram_link: string | null;
-    whatsapp_num: string;
-    can_answer_question: boolean;
-    can_ask_question: boolean;
-    // request_made: [];
-    // requests_responded: [];
-    // question_answer: [];
-  };
-};

@@ -7,9 +7,9 @@ type Props = {};
 export default function ProfilePage({}: Props) {
   return (
     <main className="w-full">
-      {/* <ProfileTopbar /> */}
+      <ProfileTopbar />
 
-      {/* <ProfileTabs className="mt-4" /> */}
+      <ProfileTabs className="mt-4" />
     </main>
   );
 }

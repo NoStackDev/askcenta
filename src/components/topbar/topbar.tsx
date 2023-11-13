@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { KeyboardBackspaceIcon, LocationIcon, PersonIcon } from "../icons";
 import Link from "next/link";
 import TopbarSelect from "./topbar_select";
-import { SubCategoryResponseType } from "@/types";
+import { SubCategoryResponseType } from "../../../types";
 import DiscoverTopbarRequestBtn from "./discover_topbar_request_btn";
 import { fetchSubCategories } from "@/api/category";
 import TopbarRequestInput from "./topbar_request_input";

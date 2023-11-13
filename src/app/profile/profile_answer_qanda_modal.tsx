@@ -7,7 +7,7 @@ import {
   DialogClose,
   DialogContent,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "../../components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { CloseIcon } from "@/components/icons";
 import { z } from "zod";

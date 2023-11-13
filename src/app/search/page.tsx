@@ -14,11 +14,11 @@ export default function SearchPage({ searchParams }: Props) {
   return (
     <main className="w-full mt-10">
       <div className="px-4 md:px-0">
-        {/* <Searchbar /> */}
+        <Searchbar />
       </div>
 
-      {/* <SearchTopbar cityid={cityId} className="mt-10" /> */}
-      {/* <RequestContainer searchparams={searchParams} /> */}
+      <SearchTopbar cityid={cityId} className="mt-10" />
+      <RequestContainer searchparams={searchParams} />
     </main>
   );
 }

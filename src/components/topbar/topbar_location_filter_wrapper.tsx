@@ -1,5 +1,5 @@
 import React from "react";
-import { CitiesResponseType, StateResponseType } from "@/types";
+import { CitiesResponseType, StateResponseType } from "../../../types";
 import { fetchCities, fetchStates } from "@/api/location";
 import TopbarLocationFilter from "./topbar_location_filter";
 

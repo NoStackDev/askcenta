@@ -8,7 +8,7 @@ import {
 } from "../ui/form";
 import { UseFormReturn } from "react-hook-form";
 import CategoryModal from "../modal/category_modal";
-import { CategoryType, CityType, SubCategoryType } from "@/types";
+import { CategoryType, CityType, SubCategoryType } from "../../../types";
 import LocationModal from "../modal/location_modal";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";

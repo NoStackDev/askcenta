@@ -9,7 +9,7 @@ import {
 import { UseFormReturn } from "react-hook-form";
 import LocationModal from "../modal/location_modal";
 import { Button } from "../ui/button";
-import { CityType } from "@/types";
+import { CityType } from "../../../types";
 import { cn } from "@/lib/utils";
 import { RadioGroup, RadioGroupItem } from "../ui/radio";
 import { WarningFillIcon } from "../icons";

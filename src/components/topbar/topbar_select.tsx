@@ -11,7 +11,7 @@ import {
   SelectTriggerIcon,
   SelectValue,
 } from "../ui/select";
-import { SubCategoryType } from "@/types";
+import { SubCategoryType } from "../../../types";
 import { ChevronRightIcon } from "../icons";
 
 interface TopbarSelectProps extends React.HTMLAttributes<typeof Select> {

@@ -9,7 +9,7 @@ import {
 } from "../ui/dialog";
 import { Button } from "../ui/button";
 import { ChevronRightIcon, KeyboardBackspaceIcon } from "../icons";
-import { CategoryType, SubCategoryType } from "@/types";
+import { CategoryType, SubCategoryType } from "../../../types";
 import { cn } from "@/lib/utils";
 import { DialogProps } from "@radix-ui/react-dialog";
 

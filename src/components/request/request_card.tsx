@@ -3,7 +3,7 @@ import { Card, CardContent, CardTitle } from "../ui/card";
 import Image from "next/image";
 import { CommentIcon, LocationOnIcon, ScheduleIcon } from "../icons";
 import { cn, month } from "@/lib/utils";
-import { RequestType } from "@/types";
+import { RequestType } from "../../../types";
 import { RequestBookmark, RespondToRequestBtn } from ".";
 
 interface RequestCardProps extends React.HTMLAttributes<HTMLDivElement> {

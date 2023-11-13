@@ -1,6 +1,6 @@
 import { cn, month } from "@/lib/utils";
 import React from "react";
-import { RequestDetailType } from "@/types";
+import { RequestDetailType } from "../../../../types";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   LocationOnIcon,

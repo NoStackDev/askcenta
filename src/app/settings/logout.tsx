@@ -4,7 +4,7 @@ import { LogoutIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import React from "react";
-import { logoutUserAction } from "@/actions";
+import { logoutUserAction } from "../actions";
 import LoadingSpinner from "@/components/load_spinner";
 
 interface LogoutBtnProps extends React.HTMLAttributes<HTMLButtonElement> {}

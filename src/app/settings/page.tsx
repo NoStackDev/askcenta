@@ -17,7 +17,7 @@ type Props = {};
 export default function Page({}: Props) {
   return (
     <main className="w-full mt-2 md:mt-0">
-      {/* <Card variant="settings">
+      <Card variant="settings">
         <CardHeader className="font-poppins font-semibold text-base text-black">
           SETTINGS
         </CardHeader>
@@ -104,7 +104,7 @@ export default function Page({}: Props) {
             FAQ
           </Link>
         </CardContent>
-      </Card> */}
+      </Card>
     </main>
   );
 }

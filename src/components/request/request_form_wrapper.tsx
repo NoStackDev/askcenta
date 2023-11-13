@@ -6,7 +6,7 @@ import {
   CitiesResponseType,
   StateResponseType,
   SubCategoryResponseType,
-} from "@/types";
+} from "../../../types";
 import { fetchCities, fetchStates } from "@/api/location";
 import { fetchCategories, fetchSubCategories } from "@/api/category";
 import { DialogProps } from "@radix-ui/react-dialog";
