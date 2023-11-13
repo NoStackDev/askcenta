@@ -1,6 +1,6 @@
 "use client";
 
-import { loginUser } from "@/api/user";
+import { loginUserAction } from "@/app/actions";
 import VisibilityOffFillIcon from "@/components/icons/visibility_off_fill_icon";
 import LoadingSpinner from "@/components/load_spinner";
 import { Button } from "@/components/ui/button";
@@ -19,7 +19,6 @@ import Link from "next/link";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { loginUserAction } from "@/actions";
 
 const loginFormSchema = z.object({
   whatsappNum: z
