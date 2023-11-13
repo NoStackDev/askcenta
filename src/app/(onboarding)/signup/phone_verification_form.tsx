@@ -14,7 +14,6 @@ import { useUserAuthContext } from "@/context/use_auth_context";
 import useCountdown from "@/hooks/useCountDown";
 import useVerificationHook from "@/hooks/useVerificationHook";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
 import React from "react";
 import { UseFormReturn } from "react-hook-form";
 import { ResendOtpType } from "@/types";
