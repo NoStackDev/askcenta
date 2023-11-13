@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react";
 import Footer from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 import { RequestFormWrapper } from "@/components/request";
@@ -70,6 +71,8 @@ export default function RootLayout({
         </UserAuthContextProvider>
 
         <Footer />
+
+        <Analytics />
       </body>
     </html>
   );

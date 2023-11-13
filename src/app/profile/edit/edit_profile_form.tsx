@@ -23,7 +23,7 @@ import Link from "next/link";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { CityType } from "../../../../types";
+import { CityType } from "@/types";
 import { LocationModal } from "@/components/modal";
 import TwitterXIcon from "@/components/icons/twitter_x_icon";
 

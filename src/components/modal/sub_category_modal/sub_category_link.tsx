@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { SubCategoryType } from "../../../../types";
+import { SubCategoryType } from "@/types";
 import { ChevronRightIcon } from "@/components/icons";
 import { DialogClose } from "@/components/ui/dialog";
 

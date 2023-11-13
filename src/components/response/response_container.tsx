@@ -1,6 +1,6 @@
 import { cn, shuffle } from "@/lib/utils";
 import React from "react";
-import { RequestDetailType } from "../../../types";
+import { RequestDetailType } from "@/types";
 import { ResponseCard } from ".";
 import { fetchRequestDetails } from "@/api/request";
 

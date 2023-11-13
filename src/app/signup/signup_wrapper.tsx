@@ -11,7 +11,7 @@ import SignupForm from "./signup_form";
 import { useUserAuthContext } from "@/context/use_auth_context";
 import { registerUser, verifyUserNumber } from "@/api/user";
 import PhoneVerficationForm from "./phone_verification_form";
-import { UserRegisterResponseType } from "../../../types";
+import { UserRegisterResponseType } from "@/types";
 import SignupSuccessForm from "./signup_success";
 
 const signupFormSchema = z.object({

@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import React from "react";
-import { CategoryType, CityType, SubCategoryType } from "../../../types";
+import { CategoryType, CityType, SubCategoryType } from "@/types";
 import CategoryModal from "@/components/modal/category_modal";
 import { DialogProps } from "@radix-ui/react-dialog";
 

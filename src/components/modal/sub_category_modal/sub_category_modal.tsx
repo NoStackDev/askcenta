@@ -7,7 +7,7 @@ import {
   DialogContent,
   DialogTrigger,
 } from "../../ui/dialog";
-import { SubCategoryResponseType } from "../../../../types";
+import { SubCategoryResponseType } from "@/types";
 import SubCategoryLink from "./sub_category_link";
 
 interface SubCategoryModalProps extends React.HTMLAttributes<typeof Dialog> {

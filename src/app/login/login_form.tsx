@@ -19,7 +19,7 @@ import Link from "next/link";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { loginUserAction } from "../actions";
+import { loginUserAction } from "@/actions";
 
 const loginFormSchema = z.object({
   whatsappNum: z
@@ -72,7 +72,7 @@ export default function LoginForm({
             message: "Invalid number or password",
           });
         setAuthState("login");
-      } 
+      }
     } catch (err: any) {
       console.log(err);
       // form.setError("whatsappNum", { message: "failed to login" });

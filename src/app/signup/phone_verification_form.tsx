@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import React from "react";
 import { UseFormReturn } from "react-hook-form";
-import { ResendOtpType } from "../../../types";
+import { ResendOtpType } from "@/types";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   verificationForm: UseFormReturn<

@@ -1,5 +1,5 @@
 import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
-import { MiddlewareFactory } from "../../types";
+import { MiddlewareFactory } from "@/types";
 
 // export function requestHeaders(request: Request) {
 //   const url = new URL(request.url);

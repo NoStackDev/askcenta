@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { CityType } from "../../../types";
+import { CityType } from "@/types";
 import {
   Dialog,
   DialogClose,

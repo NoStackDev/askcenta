@@ -1,4 +1,4 @@
-import { UserRegisterResponseType } from "../../types";
+import { UserRegisterResponseType } from "@/types";
 
 export async function registerUser({
   username,
