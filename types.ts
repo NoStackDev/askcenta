@@ -128,8 +128,8 @@ export type UserDetailsType = {
     whatsapp_num: string;
     can_answer_question: boolean;
     can_ask_question: boolean;
-    // request_made: [];
-    // requests_responded: [];
+    request_made: [];
+    requests_responded: [];
     // question_answer: [];
   };
 };

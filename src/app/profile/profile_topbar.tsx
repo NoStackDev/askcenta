@@ -5,16 +5,19 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import React from "react";
 import ProfileReportUserModal from "./profile_report_user";
+import { getUserDetailsAction } from "@/actions";
 
 interface ProfilePageProps extends React.HTMLAttributes<HTMLDivElement> {
   otheruser?: boolean;
 }
 
-export default function ProfileTopbar({
+export default async function ProfileTopbar({
   className,
   otheruser,
   ...props
 }: ProfilePageProps) {
+  const userDetails = await getUserDetailsAction();
+
   return (
     <Card
       className={cn("mt-2 md:mt-0", className)}
@@ -34,13 +37,13 @@ export default function ProfileTopbar({
 
             <div>
               <h2 className="font-poppins font-medium text-xl text-[#070331]">
-                Username
+                {userDetails.data.name}
               </h2>
 
               <div className="mt-1 flex items-center gap-4">
                 <div className="flex items-center gap-1">
                   <span className="font-roboto font-medium text-sm text-black">
-                    20
+                    {userDetails.data.request_made.length}
                   </span>
                   <span className="font-roboto font-normal text-sm text-black opacity-60">
                     Requests
@@ -49,7 +52,7 @@ export default function ProfileTopbar({
 
                 <div className="flex items-center gap-1">
                   <span className="font-roboto font-medium text-sm text-black">
-                    20
+                    {userDetails.data.requests_responded.length}
                   </span>
                   <span className="font-roboto font-normal text-sm text-black opacity-60">
                     Responses

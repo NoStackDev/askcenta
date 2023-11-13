@@ -1,3 +1,4 @@
+import { getUserDetailsAction } from "@/app/actions";
 import {
   FacebookCircleIcon,
   InstagramCircleIcon,
@@ -11,10 +12,11 @@ import React from "react";
 
 interface ProfileAboutTabProps extends TabsContentProps {}
 
-export default function ProfileAboutTab({
+export default async function ProfileAboutTab({
   className,
   ...props
 }: ProfileAboutTabProps) {
+  const userDetails = await getUserDetailsAction();
   return (
     <TabsContent className={cn("pb-8", className)} {...props}>
       <div>
@@ -23,9 +25,15 @@ export default function ProfileAboutTab({
           variant="settings"
           className="mt-2 font-roboto font-medium text-base text-[#010E1E]"
         >
-          Lorem ipsum dolor sit amet consectetur. In malesuada fringilla
-          molestie dis sapien posuere porttitor. Varius vitae mauris felis sem
-          turpis turpis eu sed.
+          {userDetails.data.about &&
+            userDetails.data.about?.length > 0 &&
+            userDetails.data.about}
+          {(userDetails.data.about && userDetails.data.about?.length < 1) ||
+            (!userDetails.data.about && (
+              <div className="mb-10 font-roboto font-medium text-base text-[#010E1E] opacity-60">
+                No info
+              </div>
+            ))}
         </Card>
       </div>
 
@@ -43,8 +51,14 @@ export default function ProfileAboutTab({
             </h4>
 
             <p className="mt-2">
-              molestie dis sapien posuere porttitor. Varius vitae mauris felis
-              sem turpis turpis eu sed.
+              {userDetails.data.business_addr &&
+                userDetails.data.business_addr.length > 0 &&
+                userDetails.data.business_addr}
+              {(userDetails.data.business_addr &&
+                userDetails.data.business_addr?.length < 1) ||
+                (!userDetails.data.business_addr && (
+                  <span className="mb-10 text-[#010E1E] opacity-60">N/A</span>
+                ))}
             </p>
           </div>
 
@@ -52,8 +66,12 @@ export default function ProfileAboutTab({
             <h4 className="font-roboto font-normal text-base text-[#48466D] opacity-60">
               City:
             </h4>
-
-            <span className="">08054423423</span>
+            {userDetails.data.location.length > 0 && (
+              <span className="">{userDetails.data.location}</span>
+            )}
+            {userDetails.data.location.length < 1 && (
+              <span className="text-[#010E1E] opacity-60">N/A</span>
+            )}
           </div>
 
           <div className="mt-6">
@@ -61,7 +79,7 @@ export default function ProfileAboutTab({
               Phone Number
             </h4>
 
-            <p className="mt-2">08054423423</p>
+            <p className="mt-2">{userDetails.data.whatsapp_num}</p>
           </div>
 
           <div className="mt-6 flex items-center justify-between">
