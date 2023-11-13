@@ -4,7 +4,7 @@ import React from "react";
 import { LocationOnIcon } from "../icons";
 import LocationModal from "../modal/location_modal";
 import { Button } from "../ui/button";
-import { CityType } from "../../../types";
+import { CityType } from "@/types";
 import { Card } from "../ui/card";
 import { cn } from "@/lib/utils";
 

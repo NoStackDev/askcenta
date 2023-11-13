@@ -14,7 +14,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { Form } from "@/components/ui/form";
-import { CategoryType, CityType, SubCategoryType } from "../../../types";
+import { CategoryType, CityType, SubCategoryType } from "@/types";
 import RequestFormOne from "./request_form_one";
 import RequestFormTwo from "./request_form_two";
 import { cn } from "@/lib/utils";
