@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react";
 import { UserAuthContextProvider } from "@/context/use_auth_context";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
@@ -119,6 +120,7 @@ export default function RootLayout({
         className={`${poppins.variable} ${roboto.variable} ${roboto.className} bg-[#F4F3FC]`}
       >
         <UserAuthContextProvider>{children}</UserAuthContextProvider>
+        <Analytics />
       </body>
     </html>
   );
