@@ -5,6 +5,7 @@ import { CommentIcon, LocationOnIcon, ScheduleIcon } from "../icons";
 import { cn, month } from "@/lib/utils";
 import { RequestType } from "@/types";
 import { RequestBookmark, RespondToRequestBtn } from ".";
+import { cookies } from "next/headers";
 
 interface RequestCardProps extends React.HTMLAttributes<HTMLDivElement> {
   request: RequestType;
@@ -15,6 +16,8 @@ export default function RequestCard({
   request,
   ...props
 }: RequestCardProps) {
+  const cookie = cookies();
+  const userId = cookie.get("userId")?.value;
   const date = new Date(request.created_at);
 
   return (
@@ -45,7 +48,12 @@ export default function RequestCard({
         <hr className="mt-3 mb-5 border-t border-[#EDECF0] border-r-4 bg-none mx-[2px]" />
 
         <div className="w-full px-3">
-          <div className="flex justify-between items-center">
+          <div
+            className={cn(
+              "flex justify-between items-center",
+              userId === request.user_id.toString() && "pb-3"
+            )}
+          >
             <div className="flex items-center gap-4">
               <div className="flex justify-center items-center gap-1">
                 <CommentIcon />
@@ -69,10 +77,14 @@ export default function RequestCard({
               </div>
             </div>
 
-            <RequestBookmark />
+            {(!userId || userId !== request.user_id.toString()) && (
+              <RequestBookmark />
+            )}
           </div>
 
-          <RespondToRequestBtn className="mt-5 mb-3" />
+          {(!userId || userId !== request.user_id.toString()) && (
+            <RespondToRequestBtn className="mt-5 mb-3" />
+          )}
         </div>
       </CardContent>
     </Card>
