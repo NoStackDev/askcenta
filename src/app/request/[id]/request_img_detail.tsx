@@ -31,7 +31,7 @@ export default async function RequestImgDetail({
 
   return (
     <Card variant="request_detail" className="mt-2 md:mt-0">
-      <CardContent className="bg-white pb-6">
+      <CardContent className="bg-white">
         <h2 className="font-roboto font-bold text-[22px] md:text-[28px] text-[#010E1E] mx-4 py-6 md:mx-6">
           {requestDetailData.request.title}
         </h2>
@@ -120,7 +120,7 @@ export default async function RequestImgDetail({
         </div>
       </CardContent>
 
-      <CardContent className="bg-white mb-4 md:mb-6">
+      <CardContent className="bg-white mb-4 md:mb-6 border-b border-[#CDCDD1]">
         {(!userId ||
           userId !== requestDetailData.request.user_id.toString()) && (
           <RequestActions className="px-4 md:px-6 py-6 mt-[1px] md:mt-1" />
