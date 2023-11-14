@@ -101,6 +101,7 @@ export default function RequestFormTwo({
               imageInputRef.current.click();
             }
           }}
+          type="button"
         >
           {!imagePreview && <AddPhotoFillIcon />}
           {imagePreview && (

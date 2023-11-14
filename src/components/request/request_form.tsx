@@ -22,6 +22,7 @@ import { KeyboardBackspaceIcon, CloseIcon } from "../icons";
 import { DialogProps } from "@radix-ui/react-dialog";
 import { placeRequestAction } from "@/actions";
 import LoadingSpinner from "../load_spinner";
+import { redirect } from "next/navigation";
 
 const requestFormSchema = z.object({
   title: z
@@ -72,10 +73,11 @@ export default function RequestForm({
   });
 
   async function onSubmit(values: z.infer<typeof requestFormSchema>) {
-    if (formStep === 0) {
-      setFormStep(1);
+    if (formStep < 1) {
+      setFormStep(formStep + 1);
       return;
     }
+
     setIsPosting(true);
     const formdata = new FormData();
     formdata.append("title", values.title);
@@ -96,6 +98,12 @@ export default function RequestForm({
 
       console.log(res);
       setIsPosting(false);
+      const triggerBtn = document.getElementById("request_form_modal_trigger");
+      if (triggerBtn) {
+        triggerBtn.click();
+      }
+
+      window.location.href = "/";
     } catch (err) {
       console.log(err);
       setIsPosting(false);
