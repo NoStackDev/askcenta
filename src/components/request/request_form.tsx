@@ -20,6 +20,8 @@ import RequestFormTwo from "./request_form_two";
 import { cn } from "@/lib/utils";
 import { KeyboardBackspaceIcon, CloseIcon } from "../icons";
 import { DialogProps } from "@radix-ui/react-dialog";
+import { placeRequestAction } from "@/actions";
+import LoadingSpinner from "../load_spinner";
 
 const requestFormSchema = z.object({
   title: z
@@ -57,6 +59,7 @@ export default function RequestForm({
   } | null>(null);
   const [image, setImage] = React.useState<File | null>(null);
   const [formStep, setFormStep] = React.useState(0);
+  const [isPosting, setIsPosting] = React.useState(false);
 
   const form = useForm<z.infer<typeof requestFormSchema>>({
     resolver: zodResolver(requestFormSchema),
@@ -68,9 +71,35 @@ export default function RequestForm({
     },
   });
 
-  function onSubmit(values: z.infer<typeof requestFormSchema>) {
-    if (formStep === 0) setFormStep(1);
-    console.log({ ...values, image });
+  async function onSubmit(values: z.infer<typeof requestFormSchema>) {
+    if (formStep === 0) {
+      setFormStep(1);
+      return;
+    }
+    setIsPosting(true);
+    const formdata = new FormData();
+    formdata.append("title", values.title);
+    formdata.append("category_group_id", values.category);
+    formdata.append("location_id", values.location);
+    formdata.append("description", values.description);
+    image && formdata.append("image", image, values.title);
+
+    try {
+      const res = await placeRequestAction(formdata);
+
+      if (res.isError) {
+        res.errors.title &&
+          form.setError("title", { message: res.errors.title[0] });
+        setIsPosting(false);
+        return;
+      }
+
+      console.log(res);
+      setIsPosting(false);
+    } catch (err) {
+      console.log(err);
+      setIsPosting(false);
+    }
   }
 
   function onBackClick() {
@@ -113,9 +142,9 @@ export default function RequestForm({
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="space-y-8 mt-12 h-full flex flex-col justify-between overflow-y-auto"
+              className="space-y-8 mt-12 h-full flex flex-col justify-between"
             >
-              <div className="relative overflow-x-clip md:overflow-y-auto h-full">
+              <div className="relative overflow-x-clip overflow-y-auto h-full">
                 <RequestFormOne
                   form={form}
                   subcategoriesdata={subCategoriesdata}
@@ -145,7 +174,7 @@ export default function RequestForm({
                 />
               </div>
 
-              <div className="w-full flex items-center justify-center">
+              <div className="w-full flex items-center justify-center z-3">
                 {formStep === 0 && (
                   <Button
                     type="submit"
@@ -163,9 +192,11 @@ export default function RequestForm({
 
                     <Button
                       type="submit"
-                      className="rounded-[24px] bg-request-gradient font-roboto font-medium text-base text-white py-3 px-12"
+                      className="rounded-[24px] bg-request-gradient font-roboto font-medium text-base text-white py-3 px-12 flex items-center gap-2"
                     >
-                      Post Request
+                      {isPosting && <LoadingSpinner />}
+                      {isPosting && "Posting Request"}
+                      {!isPosting && "Post Request"}
                     </Button>
                   </div>
                 )}

@@ -43,7 +43,7 @@ export default function RequestFormTwo({
 
     if (e.target.files) {
       setImagePreview(URL.createObjectURL(e.target.files[0]));
-      //   setimage(e.target.files[0]);
+      setimage(e.target.files[0]);
       console.log(e.target.files[0]);
     }
   };

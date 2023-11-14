@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { UserDetailsType } from "@/types";
 import { LoginFormFields } from "./login/login_form";
+import { title } from "process";
 
 export async function loginUserAction(data: LoginFormFields) {
   const headers = new Headers();
@@ -95,4 +96,34 @@ export async function getUserDetailsAction() {
 
   const resPromise: Promise<UserDetailsType> = res.json();
   return resPromise;
+}
+
+export async function placeRequestAction(formdata: FormData) {
+  const cookie = cookies();
+  const headers = new Headers();
+  headers.append("Authorization", cookie.get("Authorization")?.value || "");
+  headers.append("Accept", "application/json");
+  const userId = cookie.get("userId")?.value;
+  formdata.append("user_id", userId || "");
+
+  const _res = await fetch(`https://askcenta.ng/api/requests`, {
+    method: "POST",
+    headers: headers,
+    body: formdata,
+  });
+
+  if (!_res.ok) {
+    const errors = await _res.json();
+
+    console.log(`failed to post user ${userId} request`, {
+      ...errors,
+    });
+    return {
+      isError: true,
+      errorMessage: `failed to post user ${userId} request`,
+      ...errors,
+    };
+  }
+
+  return await _res.json();
 }
