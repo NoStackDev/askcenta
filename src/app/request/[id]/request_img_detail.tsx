@@ -12,6 +12,8 @@ import Image from "next/image";
 import RequestActions from "./request_actions";
 import { fetchRequestDetails } from "@/api/request";
 import Link from "next/link";
+import { cookies } from "next/headers";
+import RequestActionsUser from "./request_actions_user";
 
 interface RequestImgDetailProps extends React.HTMLAttributes<HTMLDivElement> {
   requestid: string;
@@ -20,6 +22,8 @@ interface RequestImgDetailProps extends React.HTMLAttributes<HTMLDivElement> {
 export default async function RequestImgDetail({
   requestid,
 }: RequestImgDetailProps) {
+  const cookie = cookies();
+  const userId = cookie.get("userId")?.value;
   const requestDetail: Promise<RequestDetailType> =
     fetchRequestDetails(requestid);
   const requestDetailData = await requestDetail;
@@ -117,7 +121,13 @@ export default async function RequestImgDetail({
       </CardContent>
 
       <CardContent className="bg-white mb-4 md:mb-6">
-        <RequestActions className="px-4 md:px-6 py-6 mt-[1px] md:mt-1" />
+        {(!userId ||
+          userId !== requestDetailData.request.user_id.toString()) && (
+          <RequestActions className="px-4 md:px-6 py-6 mt-[1px] md:mt-1" />
+        )}
+        {userId && userId === requestDetailData.request.user_id.toString() && (
+          <RequestActionsUser className="px-4 md:px-6 py-6 mt-[1px] md:mt-1" />
+        )}
       </CardContent>
     </Card>
   );
