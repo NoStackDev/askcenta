@@ -23,8 +23,7 @@ export default function RequestDeleteBtn({ requestid }: { requestid: number }) {
       console.log(res);
 
       window.location.href = "/";
-      const timeoutId = setTimeout(() => setIsDeleting(false), 3000);
-      clearTimeout(timeoutId);
+      setIsDeleting(false);
     } catch (err) {
       console.log(err);
       setIsDeleting(false);

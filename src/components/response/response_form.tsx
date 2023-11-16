@@ -85,8 +85,7 @@ export default function ResponseForm({
       console.log(res);
 
       window.location.reload();
-      const timeoutId = setTimeout(() => setIsPosting(false), 3000);
-      clearTimeout(timeoutId);
+      setIsPosting(false);
     } catch (err) {
       console.log(err);
       setIsPosting(false);

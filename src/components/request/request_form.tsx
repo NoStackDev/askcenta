@@ -140,8 +140,7 @@ export default function RequestForm({
       console.log(res);
 
       prevRequestData ? window.location.reload() : (window.location.href = "/");
-      const timeoutId = setTimeout(() => setIsPosting(false), 3000);
-      clearTimeout(timeoutId);
+      setIsPosting(false);
     } catch (err) {
       console.log(err);
       setIsPosting(false);
