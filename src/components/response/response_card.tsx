@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardContent } from "../ui/card";
-import { LocationIcon, WhatsappIcon } from "../icons";
+import { LocationIcon, PersonIcon, WhatsappIcon } from "../icons";
 import { CitiesResponseType, RequestResponsesType } from "@/types";
 import { cn, month } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
@@ -62,7 +62,7 @@ export default async function ResponseCard({
               <Avatar>
                 <AvatarImage alt={`${response.user} profile`} />
                 <AvatarFallback className="bg-[#D9D9D9]">
-                  {response.user}
+                  <PersonIcon />
                 </AvatarFallback>
               </Avatar>
             )}
