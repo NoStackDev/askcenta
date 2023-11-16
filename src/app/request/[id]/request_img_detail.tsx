@@ -10,23 +10,19 @@ import {
 } from "@/components/icons";
 import Image from "next/image";
 import RequestActions from "./request_actions";
-import { fetchRequestDetails } from "@/api/request";
 import Link from "next/link";
 import { cookies } from "next/headers";
 import RequestActionsUser from "./request_actions_user";
 
 interface RequestImgDetailProps extends React.HTMLAttributes<HTMLDivElement> {
-  requestid: string;
+  requestDetailData: RequestDetailType;
 }
 
-export default async function RequestImgDetail({
-  requestid,
+export default function RequestImgDetail({
+  requestDetailData,
 }: RequestImgDetailProps) {
   const cookie = cookies();
   const userId = cookie.get("userId")?.value;
-  const requestDetail: Promise<RequestDetailType> =
-    fetchRequestDetails(requestid);
-  const requestDetailData = await requestDetail;
   const date = new Date(requestDetailData.request.created_at);
 
   return (
@@ -123,12 +119,15 @@ export default async function RequestImgDetail({
       <CardContent className="bg-white mb-4 md:mb-6 border-b border-[#CDCDD1]">
         {(!userId ||
           userId !== requestDetailData.request.user_id.toString()) && (
-          <RequestActions requestid={requestid} className="px-4 md:px-6 py-6 mt-[1px] md:mt-1" />
+          <RequestActions
+            requestDetailData={requestDetailData}
+            className="px-4 md:px-6 py-6 mt-[1px] md:mt-1"
+          />
         )}
         {userId && userId === requestDetailData.request.user_id.toString() && (
           <RequestActionsUser
             className="px-4 md:px-6 py-6 mt-[1px] md:mt-1"
-            request={requestDetailData}
+            requestDetailData={requestDetailData}
           />
         )}
       </CardContent>

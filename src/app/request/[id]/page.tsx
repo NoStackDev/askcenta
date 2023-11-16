@@ -17,10 +17,9 @@ export default async function RequestPage({ params }: Props) {
   const id = params.id;
   const requestDetail: Promise<RequestDetailType> = fetchRequestDetails(id);
   const requestDetailData = await requestDetail;
-
   return (
     <main className="w-full">
-      <RequestImgDetail requestid={id} />
+      <RequestImgDetail requestDetailData={requestDetailData} />
 
       {(!userId || userId !== requestDetailData.request.user_id.toString()) && (
         <ResponseFormWrapper requestid={id}>

@@ -9,12 +9,12 @@ import React from "react";
 import RequestDeleteBtn from "./request_delete_btn";
 
 interface RequestActionsProps extends React.HTMLAttributes<HTMLDivElement> {
-  request: RequestDetailType;
+  requestDetailData: RequestDetailType;
 }
 
 export default function RequestActionsUser({
   className,
-  request,
+  requestDetailData,
   ...props
 }: RequestActionsProps) {
   return (
@@ -22,9 +22,9 @@ export default function RequestActionsUser({
       className={cn("flex justify-between items-center", className)}
       {...props}
     >
-      <RequestDeleteBtn requestid={request.request.id} />
+      <RequestDeleteBtn requestid={requestDetailData.request.id} />
 
-      <RequestFormWrapper prevRequestData={request}>
+      <RequestFormWrapper prevRequestData={requestDetailData}>
         <Button className="flex items-center gap-1 hover:cursor-pointer">
           <EditIcon width="24" height="24" aria-label="edit" />
 

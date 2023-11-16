@@ -5,16 +5,16 @@ import { FlagIcon, StarFilledIcon, StarIcon } from "@/components/icons";
 import ShareIcon from "@/components/icons/share_icon";
 import Share from "@/components/share";
 import { cn } from "@/lib/utils";
-import { RequestType } from "@/types";
+import { RequestDetailType, RequestType } from "@/types";
 import React from "react";
 
 interface RequestActionsProps extends React.HTMLAttributes<HTMLDivElement> {
-  requestid: string;
+  requestDetailData: RequestDetailType;
 }
 
 export default function RequestActions({
   className,
-  requestid,
+  requestDetailData,
   ...props
 }: RequestActionsProps) {
   const [isBookmarked, setIsBookmarked] = React.useState(false);
@@ -25,10 +25,10 @@ export default function RequestActions({
         const res: Promise<{ data: RequestType[] }> =
           await fetchBookmarksAction();
         (await res).data.find((ele) => {
-          if (ele.id.toString() === requestid) {
+          if (ele.id.toString() === requestDetailData.request.id.toString()) {
             setIsBookmarked(true);
           }
-          return ele.id.toString() === requestid;
+          return ele.id.toString() === requestDetailData.request.id.toString();
         });
       } catch (err) {
         console.log(err);
@@ -39,7 +39,9 @@ export default function RequestActions({
   async function onSaveClick() {
     setIsBookmarked(!isBookmarked);
     try {
-      const res = await bookmarkRequestAction(requestid);
+      const res = await bookmarkRequestAction(
+        requestDetailData.request.id.toString()
+      );
       console.log(res);
     } catch (err) {
       setIsBookmarked(!isBookmarked);
@@ -73,7 +75,7 @@ export default function RequestActions({
         </span>
       </div>
 
-      <Share>
+      <Share text={requestDetailData.request.title}>
         <div className="flex items-center gap-1 hover:cursor-pointer">
           <ShareIcon aria-label="share" />
           <span className="font-roboto font-normal text-sm text-black opacity-90">
