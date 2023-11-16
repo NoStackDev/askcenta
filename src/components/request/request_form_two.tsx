@@ -24,12 +24,14 @@ interface RequestFormTwoProps extends React.HTMLAttributes<typeof FormField> {
     undefined
   >;
   setimage: React.Dispatch<React.SetStateAction<File | null>>;
+  imageUrl?: string | null;
 }
 
 export default function RequestFormTwo({
   className,
   form,
   setimage,
+  imageUrl,
   ...props
 }: RequestFormTwoProps) {
   const [imagePreview, setImagePreview] = React.useState<string | null>(null);
@@ -42,6 +44,7 @@ export default function RequestFormTwo({
     }
 
     if (e.target.files) {
+      console.log("image file: ", e.target.files[0]);
       setImagePreview(URL.createObjectURL(e.target.files[0]));
       setimage(e.target.files[0]);
       console.log(e.target.files[0]);
@@ -94,7 +97,8 @@ export default function RequestFormTwo({
         <Button
           className={cn(
             "border border-[#D9D9D9] bg-[#F1F1F2] rounded-xl p-9 w-[154px] h-[154px] overflow-clip",
-            imagePreview && "p-0"
+            imagePreview && "p-0",
+            imageUrl && "p-0"
           )}
           onClick={() => {
             if (imageInputRef.current) {
@@ -103,7 +107,16 @@ export default function RequestFormTwo({
           }}
           type="button"
         >
-          {!imagePreview && <AddPhotoFillIcon />}
+          {!imagePreview && imageUrl && (
+            <Image
+              width={154}
+              height={154}
+              src={"https://" + imageUrl}
+              alt={form.getValues()["title"]}
+              className="w-full h-auto bg-cover bg-center"
+            />
+          )}
+          {!imagePreview && !imageUrl && <AddPhotoFillIcon />}
           {imagePreview && (
             <Image
               width={154}

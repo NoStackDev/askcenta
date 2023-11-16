@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import {
   CategoryType,
   CitiesResponseType,
+  RequestDetailType,
   StateResponseType,
   SubCategoryResponseType,
 } from "@/types";
@@ -11,11 +12,16 @@ import { fetchCities, fetchStates } from "@/api/location";
 import { fetchCategories, fetchSubCategories } from "@/api/category";
 import { DialogProps } from "@radix-ui/react-dialog";
 
+interface RequestFormWrapperProps extends React.HTMLAttributes<DialogProps> {
+  prevRequestData?: RequestDetailType;
+}
+
 export default async function RequestFormWrapper({
   className,
   children,
+  prevRequestData,
   ...props
-}: React.HTMLAttributes<DialogProps>) {
+}: RequestFormWrapperProps) {
   const citiesRes: Promise<CitiesResponseType> = fetchCities();
   // const cities = await citiesRes;
   const statesRes: Promise<StateResponseType> = fetchStates();
@@ -39,6 +45,7 @@ export default async function RequestFormWrapper({
       statesdata={states.data}
       categoriesdata={categories}
       subCategoriesdata={subCategories.data}
+      prevRequestData={prevRequestData}
       className={cn("", className)}
       {...props}
     >

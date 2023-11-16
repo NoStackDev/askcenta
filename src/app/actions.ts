@@ -127,3 +127,39 @@ export async function placeRequestAction(formdata: FormData) {
 
   return await _res.json();
 }
+
+export async function updateRequestAction(
+  requestId: number,
+  formdata: FormData
+) {
+  const cookie = cookies();
+  const headers = new Headers();
+  headers.append("Authorization", cookie.get("Authorization")?.value || "");
+  headers.append("Accept", "application/json");
+  const userId = cookie.get("userId")?.value;
+  formdata.append("user_id", userId || "");
+
+  const _res = await fetch(`https://askcenta.ng/api/requests/${requestId}`, {
+    method: "POST",
+    headers: headers,
+    body: formdata,
+  });
+
+  if (!_res.ok) {
+    const errors = await _res.json();
+
+    console.log(
+      `failed to update user ${userId} request with request id${requestId}`,
+      {
+        ...errors,
+      }
+    );
+    return {
+      isError: true,
+      errorMessage: `failed to update user ${userId} request with request id${requestId}`,
+      ...errors,
+    };
+  }
+
+  return await _res.json();
+}

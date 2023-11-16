@@ -126,7 +126,10 @@ export default async function RequestImgDetail({
           <RequestActions className="px-4 md:px-6 py-6 mt-[1px] md:mt-1" />
         )}
         {userId && userId === requestDetailData.request.user_id.toString() && (
-          <RequestActionsUser className="px-4 md:px-6 py-6 mt-[1px] md:mt-1" />
+          <RequestActionsUser
+            className="px-4 md:px-6 py-6 mt-[1px] md:mt-1"
+            request={requestDetailData}
+          />
         )}
       </CardContent>
     </Card>

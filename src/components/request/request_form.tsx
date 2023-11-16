@@ -14,15 +14,21 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { Form } from "@/components/ui/form";
-import { CategoryType, CityType, SubCategoryType } from "@/types";
+import {
+  CategoryType,
+  CityType,
+  RequestDetailType,
+  SubCategoryType,
+} from "@/types";
 import RequestFormOne from "./request_form_one";
 import RequestFormTwo from "./request_form_two";
 import { cn } from "@/lib/utils";
 import { KeyboardBackspaceIcon, CloseIcon } from "../icons";
 import { DialogProps } from "@radix-ui/react-dialog";
-import { placeRequestAction } from "@/actions";
+import { placeRequestAction, updateRequestAction } from "@/actions";
 import LoadingSpinner from "../load_spinner";
-import { redirect } from "next/navigation";
+import { fetchCities } from "@/api/location";
+import { fetchSubCategories } from "@/api/category";
 
 const requestFormSchema = z.object({
   title: z
@@ -39,6 +45,7 @@ interface RequestFormProps extends React.HTMLAttributes<DialogProps> {
   statesdata: { id: number; name: string }[];
   categoriesdata: CategoryType[];
   subCategoriesdata: SubCategoryType[];
+  prevRequestData?: RequestDetailType;
 }
 
 export default function RequestForm({
@@ -47,6 +54,7 @@ export default function RequestForm({
   statesdata,
   categoriesdata,
   subCategoriesdata,
+  prevRequestData,
   children,
 }: RequestFormProps) {
   const [selectedSubCategory, setSelectedSubCategory] =
@@ -72,6 +80,36 @@ export default function RequestForm({
     },
   });
 
+  React.useEffect(() => {
+    async function handleCity() {
+      const _citiesData: Promise<{ data: CityType[] }> = fetchCities();
+      setSelectedCity(
+        (await _citiesData).data.find(
+          (city) => city.city === prevRequestData?.request.location
+        ) || null
+      );
+    }
+
+    async function handleSubCategory() {
+      const _subCategoryData: Promise<{ data: SubCategoryType[] }> =
+        fetchSubCategories();
+      setSelectedSubCategory(
+        (await _subCategoryData).data.find(
+          (subCategory) =>
+            subCategory.name === prevRequestData?.request.category
+        ) || null
+      );
+    }
+
+    if (prevRequestData) {
+      form.setValue("title", prevRequestData.request.title);
+      form.setValue("description", prevRequestData.request.description || "");
+
+      handleCity();
+      handleSubCategory();
+    }
+  }, []);
+
   async function onSubmit(values: z.infer<typeof requestFormSchema>) {
     if (formStep < 1) {
       setFormStep(formStep + 1);
@@ -79,6 +117,7 @@ export default function RequestForm({
     }
 
     setIsPosting(true);
+
     const formdata = new FormData();
     formdata.append("title", values.title);
     formdata.append("category_group_id", values.category);
@@ -87,7 +126,9 @@ export default function RequestForm({
     image && formdata.append("image", image, values.title);
 
     try {
-      const res = await placeRequestAction(formdata);
+      const res = prevRequestData
+        ? await updateRequestAction(prevRequestData.request.id, formdata)
+        : await placeRequestAction(formdata);
 
       if (res.isError) {
         res.errors.title &&
@@ -97,13 +138,10 @@ export default function RequestForm({
       }
 
       console.log(res);
-      setIsPosting(false);
-      const triggerBtn = document.getElementById("request_form_modal_trigger");
-      if (triggerBtn) {
-        triggerBtn.click();
-      }
 
-      window.location.href = "/";
+      prevRequestData ? window.location.reload() : (window.location.href = "/");
+      const timeoutId = setTimeout(() => setIsPosting(false), 3000);
+      clearTimeout(timeoutId);
     } catch (err) {
       console.log(err);
       setIsPosting(false);
@@ -115,14 +153,16 @@ export default function RequestForm({
   }
 
   function clearForm() {
-    form.setValue("title", "");
-    form.setValue("category", selectedSubCategory?.id.toString() || "");
-    setSelectedSubCategory(null);
-    form.setValue("location", selectedCity?.id.toString() || "");
-    setSelectedCity(null);
-    form.setValue("description", "");
-    setImage(null);
-    setFormStep(0);
+    if (!prevRequestData) {
+      form.setValue("title", "");
+      form.setValue("category", selectedSubCategory?.id.toString() || "");
+      setSelectedSubCategory(null);
+      form.setValue("location", selectedCity?.id.toString() || "");
+      setSelectedCity(null);
+      form.setValue("description", "");
+      setImage(null);
+      setFormStep(0);
+    }
   }
 
   React.useEffect(() => {
@@ -174,6 +214,7 @@ export default function RequestForm({
                 />
                 <RequestFormTwo
                   form={form}
+                  imageUrl={prevRequestData?.request.image_url}
                   setimage={setImage}
                   className={cn(
                     "h-fit w-full absolute left-full transition-all duration-150 ease-in-out",
@@ -203,8 +244,10 @@ export default function RequestForm({
                       className="rounded-[24px] bg-request-gradient font-roboto font-medium text-base text-white py-3 px-12 flex items-center gap-2"
                     >
                       {isPosting && <LoadingSpinner />}
-                      {isPosting && "Posting Request"}
-                      {!isPosting && "Post Request"}
+                      {isPosting && !prevRequestData && "Posting Request"}
+                      {!isPosting && !prevRequestData && "Post Request"}
+                      {isPosting && prevRequestData && "Updating Request"}
+                      {!isPosting && prevRequestData && "Update Request"}
                     </Button>
                   </div>
                 )}
