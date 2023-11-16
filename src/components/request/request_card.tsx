@@ -6,6 +6,7 @@ import { cn, month } from "@/lib/utils";
 import { RequestType } from "@/types";
 import { RequestBookmark, RespondToRequestBtn } from ".";
 import { cookies } from "next/headers";
+import { ResponseFormWrapper } from "../response";
 
 interface RequestCardProps extends React.HTMLAttributes<HTMLDivElement> {
   request: RequestType;
@@ -83,7 +84,9 @@ export default function RequestCard({
           </div>
 
           {(!userId || userId !== request.user_id.toString()) && (
-            <RespondToRequestBtn className="mt-5 mb-3" />
+            <ResponseFormWrapper requestid={request.id.toString()}>
+              <RespondToRequestBtn className="mt-5 mb-3" />
+            </ResponseFormWrapper>
           )}
         </div>
       </CardContent>
