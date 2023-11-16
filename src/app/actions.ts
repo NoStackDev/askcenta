@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { UserDetailsType } from "@/types";
+import { RequestDetailType, RequestType, UserDetailsType } from "@/types";
 import { LoginFormFields } from "./login/login_form";
 import { title } from "process";
 
@@ -192,6 +192,74 @@ export async function deleteRequestAction(requestId: number) {
       errorMessage: `failed to delete user ${userId} request with request id${requestId}`,
       ...errors,
     };
+  }
+
+  return await _res.json();
+}
+
+export async function bookmarkRequestAction(requestId: string) {
+  const cookie = cookies();
+  const headers = new Headers();
+  headers.append("Authorization", cookie.get("Authorization")?.value || "");
+  headers.append("Accept", "application/json");
+  const userId = cookie.get("userId")?.value;
+
+  const data = new FormData();
+  data.append("user_id", userId || "");
+  data.append("req_id", requestId.toString());
+
+  const _res = await fetch(`https://askcenta.ng/api/bookmarks`, {
+    method: "POST",
+    headers: headers,
+    body: data,
+  });
+
+  if (!_res.ok) {
+    const errors = await _res.json();
+
+    console.log(
+      `failed to delete user ${userId} request with request id${requestId}`,
+      {
+        ...errors,
+      }
+    );
+    throw new Error("bookmarking failed", {
+      cause: {
+        isError: true,
+        errorMessage: `failed to delete user ${userId} request with request id${requestId}`,
+        ...errors,
+      },
+    });
+  }
+
+  return await _res.json();
+}
+
+export async function fetchBookmarksAction() {
+  const cookie = cookies();
+  const headers = new Headers();
+  headers.append("Authorization", cookie.get("Authorization")?.value || "");
+  headers.append("Accept", "application/json");
+  const userId = cookie.get("userId")?.value;
+
+  const _res = await fetch(`https://askcenta.ng/api/bookmarks`, {
+    method: "OPTIONS",
+    headers: headers,
+  });
+
+  if (!_res.ok) {
+    const errors = await _res.json();
+
+    console.log(`failed to fetch user ${userId} bookmarks}`, {
+      ...errors,
+    });
+    throw new Error("bookmarking failed", {
+      cause: {
+        isError: true,
+        errorMessage: `failed to fetch user ${userId} bookmarks}`,
+        ...errors,
+      },
+    });
   }
 
   return await _res.json();
