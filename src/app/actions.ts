@@ -32,6 +32,7 @@ export async function loginUserAction(data: LoginFormFields) {
   cookie.set("Authorization", `Bearer ${resJson.token}`, {
     httpOnly: true,
     maxAge: 60 * 60 * 24 * 7,
+    sameSite: true,
   });
 
   headers.append("Authorization", `Bearer ${resJson.token}`);
@@ -51,6 +52,7 @@ export async function loginUserAction(data: LoginFormFields) {
   cookie.set("userId", resUserDetailsJson.data.id.toString(), {
     httpOnly: true,
     maxAge: 60 * 60 * 24 * 7,
+    sameSite: true,
   });
 
   return redirect("/");
@@ -157,6 +159,71 @@ export async function updateRequestAction(
     return {
       isError: true,
       errorMessage: `failed to update user ${userId} request with request id${requestId}`,
+      ...errors,
+    };
+  }
+
+  return await _res.json();
+}
+
+export async function deleteRequestAction(requestId: number) {
+  const cookie = cookies();
+  const headers = new Headers();
+  headers.append("Authorization", cookie.get("Authorization")?.value || "");
+  headers.append("Accept", "application/json");
+  const userId = cookie.get("userId")?.value;
+
+  const _res = await fetch(`https://askcenta.ng/api/requests/${requestId}`, {
+    method: "DELETE",
+    headers: headers,
+  });
+
+  if (!_res.ok) {
+    const errors = await _res.json();
+
+    console.log(
+      `failed to delete user ${userId} request with request id${requestId}`,
+      {
+        ...errors,
+      }
+    );
+    return {
+      isError: true,
+      errorMessage: `failed to delete user ${userId} request with request id${requestId}`,
+      ...errors,
+    };
+  }
+
+  return await _res.json();
+}
+
+export async function postResponseAction(formdata: FormData) {
+  const cookie = cookies();
+  const headers = new Headers();
+  headers.append("Authorization", cookie.get("Authorization")?.value || "");
+  headers.append("Accept", "application/json");
+  const userId = cookie.get("userId")?.value;
+  formdata.append("user_id", userId || "");
+
+  const userDetails = await getUserDetailsAction();
+  console.log(userDetails);
+  formdata.append("whatsapp_num", userDetails.data.whatsapp_num);
+
+  const _res = await fetch(`https://askcenta.ng/api/responses`, {
+    method: "POST",
+    headers: headers,
+    body: formdata,
+  });
+
+  if (!_res.ok) {
+    const errors = await _res.json();
+
+    console.log(`failed to post user ${userId} response`, {
+      ...errors,
+    });
+    return {
+      isError: true,
+      errorMessage: `failed to post user ${userId} response`,
       ...errors,
     };
   }

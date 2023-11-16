@@ -33,8 +33,8 @@ import { fetchSubCategories } from "@/api/category";
 const requestFormSchema = z.object({
   title: z
     .string()
-    .min(20, { message: "Description must be at least 20 characters." })
-    .max(140, { message: "Description cannot be more than 140 characters" }),
+    .min(8, { message: "Title must be at least 8 characters." })
+    .max(140, { message: "Title cannot be more than 140 characters" }),
   category: z.string().min(1, { message: "Please select a category" }),
   location: z.string().min(1, { message: "Please select a location" }),
   description: z.string(),

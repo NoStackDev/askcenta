@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { CityType } from "@/types";
+import { CityType, UserDetailsType } from "@/types";
 import {
   Dialog,
   DialogClose,
@@ -19,6 +19,8 @@ import ResponseFormOne from "./response_form_one";
 import { cn } from "@/lib/utils";
 import ResponseFormTwo from "./response_form_two";
 import { DialogProps } from "@radix-ui/react-dialog";
+import { getUserDetailsAction, postResponseAction } from "@/actions";
+import LoadingSpinner from "../load_spinner";
 
 interface ResponseFormProps extends React.HTMLAttributes<DialogProps> {
   requestid: string;
@@ -33,7 +35,7 @@ const responseFormSchema = z.object({
   // .min(20, { message: "Description cannot be less than 20 charactrs" })
   // .max(120, { message: "Description cannot be more than 120 characters" })
   // .optional(),
-  anonymous: z.enum(["true", "false"]),
+  visibility: z.enum(["public", "private"]),
 });
 
 export default function ResponseForm({
@@ -53,10 +55,42 @@ export default function ResponseForm({
   const [selectedResponse, setSelectedResponse] = React.useState<string | null>(
     null
   );
+  const [isPosting, setIsPosting] = React.useState(false);
 
-  function onSubmit(values: z.infer<typeof responseFormSchema>) {
-    if (formStep === 0) setFormStep(formStep + 1);
-    console.log("on submit: ", values);
+  async function onSubmit(values: z.infer<typeof responseFormSchema>) {
+    if (isPosting) return;
+
+    if (formStep === 0) {
+      setFormStep(formStep + 1);
+      return;
+    }
+
+    setIsPosting(true);
+    const formdata = new FormData();
+    formdata.append("title", values.title);
+    formdata.append("visibility", values.visibility);
+    formdata.append("location_id", values.location);
+    formdata.append("req_id", requestid);
+
+    try {
+      const res = await postResponseAction(formdata);
+
+      if (res.isError) {
+        res.errors.title &&
+          form.setError("title", { message: res.errors.title[0] });
+        setIsPosting(false);
+        return;
+      }
+
+      console.log(res);
+
+      window.location.reload();
+      const timeoutId = setTimeout(() => setIsPosting(false), 3000);
+      clearTimeout(timeoutId);
+    } catch (err) {
+      console.log(err);
+      setIsPosting(false);
+    }
   }
 
   function onBackClick() {
@@ -88,7 +122,7 @@ export default function ResponseForm({
       title: "",
       location: "",
       description: "",
-      anonymous: "false",
+      visibility: "public",
     },
   });
 
@@ -166,7 +200,9 @@ export default function ResponseForm({
                       type="submit"
                       className="rounded-[24px] bg-request-gradient font-roboto font-medium text-base text-white py-3 px-12"
                     >
-                      Send Response
+                      {isPosting && <LoadingSpinner />}
+                      {isPosting && "Sending Response"}
+                      {!isPosting && "Send Response"}
                     </Button>
                   </div>
                 )}

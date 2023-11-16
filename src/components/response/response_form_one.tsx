@@ -24,7 +24,7 @@ interface ResponseFormOneProps extends React.HTMLAttributes<typeof FormField> {
     {
       title: string;
       location: string;
-      anonymous: "true" | "false";
+      visibility: "public" | "private";
       description?: string | undefined;
     },
     any,

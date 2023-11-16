@@ -2,6 +2,7 @@
 
 import { FlagIcon, StarFilledIcon } from "@/components/icons";
 import ShareIcon from "@/components/icons/share_icon";
+import Share from "@/components/share";
 import { cn } from "@/lib/utils";
 import React from "react";
 
@@ -31,12 +32,14 @@ export default function RequestActions({
         </span>
       </div>
 
-      <div className="flex items-center gap-1 hover:cursor-pointer">
-        <ShareIcon aria-label="share" />
-        <span className="font-roboto font-normal text-sm text-black opacity-90">
-          Share
-        </span>
-      </div>
+      <Share>
+        <div className="flex items-center gap-1 hover:cursor-pointer">
+          <ShareIcon aria-label="share" />
+          <span className="font-roboto font-normal text-sm text-black opacity-90">
+            Share
+          </span>
+        </div>
+      </Share>
     </div>
   );
 }

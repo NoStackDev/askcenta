@@ -19,7 +19,7 @@ interface ResponseFormTwoProps extends React.HTMLAttributes<typeof FormField> {
     {
       title: string;
       location: string;
-      anonymous: "true" | "false";
+      visibility: "public" | "private";
       description?: string | undefined;
     },
     any,
@@ -96,10 +96,10 @@ export default function ResponseFormTwo({
         )}
       />
 
-      {/* anonymous  */}
+      {/* visibility  */}
       <FormField
         control={form.control}
-        name="anonymous"
+        name="visibility"
         render={({ field }) => (
           <FormItem className="mt-10">
             <FormLabel className="font-roboto font-medium text-base text-black">
@@ -113,7 +113,7 @@ export default function ResponseFormTwo({
               >
                 <FormItem className="flex items-center gap-3">
                   <FormControl>
-                    <RadioGroupItem value="false" />
+                    <RadioGroupItem value="public" />
                   </FormControl>
                   <FormLabel className="font-roboto font-normal text-base text-black">
                     Everyone
@@ -121,7 +121,7 @@ export default function ResponseFormTwo({
                 </FormItem>
                 <FormItem className="flex items-center gap-3">
                   <FormControl>
-                    <RadioGroupItem value="true" />
+                    <RadioGroupItem value="private" />
                   </FormControl>
                   <FormLabel className="font-roboto font-normal text-base text-black">
                     Only the owner of the request

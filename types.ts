@@ -133,3 +133,40 @@ export type UserDetailsType = {
     // question_answer: [];
   };
 };
+
+export interface ShareData {
+  text?: string;
+  title?: string;
+  url?: string;
+}
+
+export interface RWebShareProps {
+  children: any;
+  closeText?: string;
+  data: ShareData;
+  sites?: string[];
+  onClick?: () => void;
+  disableNative?: boolean;
+}
+
+export interface SocialIconsProps {
+  onClose: () => void;
+  closeText?: string;
+  sites: string[];
+  data: Required<ShareData>;
+  onClick?: () => void;
+}
+
+export interface IconProps {
+  onClose: () => void;
+  name: string;
+  data: Required<ShareData>;
+  onClick: () => void;
+}
+
+export interface IconItem {
+  path: JSX.Element;
+  // e;
+  color: string;
+  viewBox?: string;
+}
