@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { UserDetailsType } from "@/types";
+import { FeedsResponse, UserDetailsType } from "@/types";
 import { LoginFormFields } from "./login/login_form";
 
 // Unauthenticated
@@ -234,6 +234,28 @@ export async function bookmarkRequestAction(requestId: string) {
   }
 
   return await _res.json();
+}
+
+export async function getAllRequestsByUser() {
+  const cookie = cookies();
+
+  const headers = new Headers();
+  headers.append("Accept", "application/json");
+  headers.append("Authorization", cookie.get("Authorization")?.value || "");
+
+  const res = await fetch(`http://askcenta.ng/api/requests`, {
+    method: "OPTIONS",
+    headers: headers,
+  });
+
+  if (!res.ok) {
+    throw new Error("failed to fetch user requests", {
+      cause: await res.json(),
+    });
+  }
+
+  const resPromise: Promise<FeedsResponse> = res.json();
+  return resPromise;
 }
 
 export async function fetchBookmarksAction() {

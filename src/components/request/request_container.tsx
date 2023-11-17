@@ -6,10 +6,25 @@ import { RequestCard } from ".";
 import { fetchFeed } from "@/api/feeds";
 import { Notebook_icon, SearchIllustration } from "../icons";
 import { cookies, headers } from "next/headers";
-import { fetchBookmarksAction } from "@/actions";
+import { fetchBookmarksAction, getAllRequestsByUser } from "@/actions";
 
 interface RequestContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   searchparams?: { [key: string]: string | string[] | undefined };
+}
+
+async function getfeed(searchparams?: {
+  [key: string]: string | string[] | undefined;
+}) {
+  const feedres: Promise<FeedsResponse> =
+    searchparams && Object.keys(searchparams).length > 0
+      ? fetchFeed(searchparams)
+      : fetchFeed();
+  return await feedres;
+}
+
+async function getUserRequests() {
+  const feedres: Promise<FeedsResponse> = getAllRequestsByUser();
+  return await feedres;
 }
 
 export default async function RequestContainer({
@@ -20,11 +35,10 @@ export default async function RequestContainer({
   const cookie = cookies();
   const headersList = headers();
   const pathname = headersList.get("x-pathname");
-  const feedres: Promise<FeedsResponse> =
-    searchparams && Object.keys(searchparams).length > 0
-      ? fetchFeed(searchparams)
-      : fetchFeed();
-  const feed = await feedres;
+  const feed =
+    pathname?.split("/")[1] === "profile"
+      ? await getUserRequests()
+      : await getfeed();
   let shuffledRequests = shuffle(feed.data);
   const userIsAuthorized = cookie.get("Authorization")?.value || null;
 
