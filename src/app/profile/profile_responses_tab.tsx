@@ -1,4 +1,4 @@
-import { RequestContainer } from "@/components/request";
+import { ResponseContainer } from "@/components/response";
 import { TabsContent } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import { TabsContentProps } from "@radix-ui/react-tabs";
@@ -15,7 +15,7 @@ export default function ProfileResponsesTab({
 }: ProfileResponsesTabProps) {
   return (
     <TabsContent className={cn("", className)} {...props}>
-      <RequestContainer />
+      <ResponseContainer />
     </TabsContent>
   );
 }

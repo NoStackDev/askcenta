@@ -6,13 +6,14 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function shuffle<T>(requests: T[]) {
-  if (requests.length < 1) return requests;
+export function shuffle<T>(data: T[], dataType?: "response") {
+  if (dataType && dataType === "response") return data;
+  if (data.length < 1) return data;
 
   let top: T[] = [];
   let bottom: T[] = [];
 
-  requests.forEach((ele, index) => {
+  data.forEach((ele, index) => {
     index % 2 ? bottom.push(ele) : top.push(ele);
   });
 

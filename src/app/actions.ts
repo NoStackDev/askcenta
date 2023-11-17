@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { FeedsResponse, UserDetailsType } from "@/types";
+import { FeedsResponse, RequestResponsesType, UserDetailsType } from "@/types";
 import { LoginFormFields } from "./login/login_form";
 
 // Unauthenticated
@@ -320,4 +320,26 @@ export async function postResponseAction(formdata: FormData) {
   }
 
   return await _res.json();
+}
+
+export async function getAllResponsesByUser() {
+  const cookie = cookies();
+
+  const headers = new Headers();
+  headers.append("Accept", "application/json");
+  headers.append("Authorization", cookie.get("Authorization")?.value || "");
+
+  const res = await fetch(`http://askcenta.ng/api/responses`, {
+    method: "OPTIONS",
+    headers: headers,
+  });
+
+  if (!res.ok) {
+    throw new Error("failed to fetch user responses", {
+      cause: await res.json(),
+    });
+  }
+
+  const resPromise: Promise<{ data: RequestResponsesType[] }> = res.json();
+  return resPromise;
 }

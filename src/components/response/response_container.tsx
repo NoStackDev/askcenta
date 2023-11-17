@@ -1,31 +1,48 @@
 import { cn, shuffle } from "@/lib/utils";
 import React from "react";
-import { RequestDetailType } from "@/types";
+import { RequestDetailType, RequestResponsesType } from "@/types";
 import { ResponseCard } from ".";
 import { fetchRequestDetails } from "@/api/request";
+import { getAllResponsesByUser } from "@/actions";
 
 interface ResponseProps extends React.HTMLAttributes<HTMLDivElement> {
   requestid?: string;
   isprofilepage?: boolean;
 }
 
+async function getRequestDetail(requestid: string) {
+  const requestDetail: Promise<RequestDetailType> =
+    fetchRequestDetails(requestid);
+
+  return await requestDetail;
+}
+
+async function getUserResponses() {
+  const userResponses = getAllResponsesByUser();
+
+  return await userResponses;
+}
+
 export default async function ResponseContainer({
   className,
   ...props
 }: ResponseProps) {
-  const requestDetail: Promise<RequestDetailType> | null = props.requestid
-    ? fetchRequestDetails(props.requestid)
-    : null;
-  const requestDetailData = requestDetail
-    ? await requestDetail
-    : { responses: [] };
-  const responsesShuffled = shuffle(requestDetailData.responses);
+  const responseRes = props.requestid
+    ? await getRequestDetail(props.requestid)
+    : await getUserResponses();
+  const responsesShuffled = shuffle(
+    props.requestid
+      ? (responseRes as RequestDetailType).responses.reverse()
+      : (responseRes as { data: RequestResponsesType[] }).data.reverse()
+  );
 
   return (
     <div className={cn("mx-4 md:mx-0 mb-16", className)} {...props}>
-      <h2 className="font-poppins font-semibold text-base text-black">
-        RESPONSES ({requestDetailData?.responses.length})
-      </h2>
+      {props.requestid && (
+        <h2 className="font-poppins font-semibold text-base text-black">
+          RESPONSES ({(responseRes as RequestDetailType)?.responses.length})
+        </h2>
+      )}
 
       <div
         className={cn(
