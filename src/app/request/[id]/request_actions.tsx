@@ -42,7 +42,6 @@ export default function RequestActions({
       const res = await bookmarkRequestAction(
         requestDetailData.request.id.toString()
       );
-      console.log(res);
     } catch (err) {
       setIsBookmarked(!isBookmarked);
       console.log(err);

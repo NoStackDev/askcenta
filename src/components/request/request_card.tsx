@@ -9,17 +9,17 @@ import { cookies } from "next/headers";
 import { ResponseFormWrapper } from "../response";
 
 interface RequestCardProps extends React.HTMLAttributes<HTMLDivElement> {
-  request: RequestType;
+  requestData: RequestType;
 }
 
 export default function RequestCard({
   className,
-  request,
+  requestData,
   ...props
 }: RequestCardProps) {
   const cookie = cookies();
   const userId = cookie.get("userId")?.value;
-  const date = new Date(request.created_at);
+  const date = new Date(requestData.created_at);
 
   return (
     <Card
@@ -27,12 +27,12 @@ export default function RequestCard({
       className={cn("w-full h-fit break-inside-avoid mb-6", className)}
     >
       <CardContent>
-        {request.image_url && (
+        {requestData.image_url && (
           <Image
             width={358}
             height={344}
-            alt={request.title}
-            src={`https://${request.image_url}`}
+            alt={requestData.title}
+            src={`https://${requestData.image_url}`}
             className="rounded-t-lg w-full h-auto max-h-[392px]"
           />
         )}
@@ -40,10 +40,10 @@ export default function RequestCard({
         <CardTitle
           className={cn(
             "mb-4 mx-3 pt-[14px] text-center font-roboto font-semibold text-lg text-[#18212D]",
-            !request.image_url && "py-6"
+            !requestData.image_url && "py-6"
           )}
         >
-          {request.title}
+          {requestData.title}
         </CardTitle>
 
         <hr className="mt-3 mb-5 border-t border-[#EDECF0] border-r-4 bg-none mx-[2px]" />
@@ -52,14 +52,14 @@ export default function RequestCard({
           <div
             className={cn(
               "flex justify-between items-center",
-              userId === request.user_id.toString() && "pb-6"
+              userId === requestData.user_id.toString() && "pb-6"
             )}
           >
             <div className="flex items-center gap-4">
               <div className="flex justify-center items-center gap-1">
                 <CommentIcon />
                 <span className="font-roboto font-normal text-sm text-black">
-                  {request.num_of_responses}
+                  {requestData.num_of_responses}
                 </span>
               </div>
 
@@ -73,18 +73,18 @@ export default function RequestCard({
               <div className="flex justify-center items-center gap-1">
                 <LocationOnIcon aria-label="locaion" />
                 <span className="font-roboto font-normal text-xs text-[#5E5D7F]">
-                  {request.location}
+                  {requestData.location}
                 </span>
               </div>
             </div>
 
-            {(!userId || userId !== request.user_id.toString()) && (
-              <RequestBookmark />
+            {(!userId || userId !== requestData.user_id.toString()) && (
+              <RequestBookmark requestData={requestData} />
             )}
           </div>
 
-          {(!userId || userId !== request.user_id.toString()) && (
-            <ResponseFormWrapper requestid={request.id.toString()}>
+          {(!userId || userId !== requestData.user_id.toString()) && (
+            <ResponseFormWrapper requestid={requestData.id.toString()}>
               <RespondToRequestBtn className="mt-5 mb-3" />
             </ResponseFormWrapper>
           )}

@@ -2,9 +2,10 @@
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { RequestDetailType, RequestType, UserDetailsType } from "@/types";
+import { UserDetailsType } from "@/types";
 import { LoginFormFields } from "./login/login_form";
-import { title } from "process";
+
+// Unauthenticated
 
 export async function loginUserAction(data: LoginFormFields) {
   const headers = new Headers();

@@ -29,7 +29,19 @@ export default async function ResponseContainer({
 
       <div
         className={cn(
-          "sm:columns-2 gap-6",
+          "flex flex-col gap-6 sm:hidden",
+          props.requestid && "mt-4",
+          props.isprofilepage && "mt-8"
+        )}
+      >
+        {responsesShuffled.map((response) => {
+          return <ResponseCard response={response} key={response.id} />;
+        })}
+      </div>
+
+      <div
+        className={cn(
+          "hidden sm:block sm:columns-2 gap-6",
           props.requestid && "mt-4",
           props.isprofilepage && "mt-8"
         )}

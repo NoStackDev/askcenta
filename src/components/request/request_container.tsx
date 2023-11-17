@@ -1,11 +1,12 @@
 import { cn, shuffle } from "@/lib/utils";
 import React from "react";
-import { FeedsResponse } from "@/types";
+import { FeedsResponse, RequestType } from "@/types";
 import Link from "next/link";
 import { RequestCard } from ".";
 import { fetchFeed } from "@/api/feeds";
 import { Notebook_icon, SearchIllustration } from "../icons";
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
+import { fetchBookmarksAction } from "@/actions";
 
 interface RequestContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   searchparams?: { [key: string]: string | string[] | undefined };
@@ -16,6 +17,7 @@ export default async function RequestContainer({
   searchparams,
   ...props
 }: RequestContainerProps) {
+  const cookie = cookies();
   const headersList = headers();
   const pathname = headersList.get("x-pathname");
   const feedres: Promise<FeedsResponse> =
@@ -23,7 +25,26 @@ export default async function RequestContainer({
       ? fetchFeed(searchparams)
       : fetchFeed();
   const feed = await feedres;
-  const shuffledRequests = shuffle(feed.data);
+  let shuffledRequests = shuffle(feed.data);
+  const userIsAuthorized = cookie.get("Authorization")?.value || null;
+
+  if (userIsAuthorized) {
+    try {
+      const userBookmarkRes: Promise<{ data: RequestType[] }> =
+        fetchBookmarksAction();
+      const userBookmarkJson = await userBookmarkRes;
+      shuffledRequests = shuffledRequests.map((req) => {
+        const foundBookmark = userBookmarkJson.data.find(
+          (ele) => req.id === ele.id
+        );
+
+        if (foundBookmark) return foundBookmark;
+        return req;
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <>
@@ -36,7 +57,7 @@ export default async function RequestContainer({
             {feed.data.map((request) => {
               return (
                 <Link href={`/request/${request.id}`} key={request.id}>
-                  <RequestCard request={request} />
+                  <RequestCard requestData={request} />
                 </Link>
               );
             })}
@@ -53,7 +74,7 @@ export default async function RequestContainer({
 
               return (
                 <Link href={`/request/${request.id}`} key={request.id}>
-                  <RequestCard request={request} />
+                  <RequestCard requestData={request} />
                 </Link>
               );
             })}
