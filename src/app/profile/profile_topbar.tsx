@@ -6,6 +6,7 @@ import Link from "next/link";
 import React from "react";
 import ProfileReportUserModal from "./profile_report_user";
 import { getUserDetailsAction } from "@/actions";
+import Image from "next/image";
 
 interface ProfilePageProps extends React.HTMLAttributes<HTMLDivElement> {
   otheruser?: boolean;
@@ -27,12 +28,27 @@ export default async function ProfileTopbar({
       <CardContent>
         <div className="flex items-start md:items-center justify-between">
           <div className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-[10px]">
-            <Button className="rounded-full border border-[#9B91FD] w-fit p-2">
-              <PersonFillIcon
-                width="57.6"
-                height="57.6"
-                aria-label="user profile picture"
-              />
+            <Button
+              className={cn(
+                "rounded-full border border-[#9B91FD] w-fit p-2",
+                userDetails.data.image_url && "p-0"
+              )}
+            >
+              {userDetails.data.image_url ? (
+                <Image
+                  width={78}
+                  height={78}
+                  src={"https://" + userDetails.data.image_url}
+                  alt="profile"
+                  className="h-full w-auto"
+                />
+              ) : (
+                <PersonFillIcon
+                  width="57.6"
+                  height="57.6"
+                  aria-label="user profile picture"
+                />
+              )}
             </Button>
 
             <div>
