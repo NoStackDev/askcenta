@@ -101,6 +101,30 @@ export async function getUserDetailsAction() {
   return resPromise;
 }
 
+export async function updateUserDetailsAction(data: FormData) {
+  const cookie = cookies();
+  const userId = cookie.get("userId")?.value;
+
+  const headers = new Headers();
+  headers.append("Accept", "application/json");
+  headers.append("Authorization", cookie.get("Authorization")?.value || "");
+
+  const res = await fetch(`https://askcenta.ng/api/update`, {
+    method: "POST",
+    headers: headers,
+    body: data,
+  });
+
+  if (!res.ok) {
+    throw new Error(`failed to update user ${userId}`, {
+      cause: await res.json(),
+    });
+  }
+
+  const resPromise: Promise<UserDetailsType> = res.json();
+  return resPromise;
+}
+
 export async function placeRequestAction(formdata: FormData) {
   const cookie = cookies();
   const headers = new Headers();

@@ -23,34 +23,37 @@ import Link from "next/link";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { CityType } from "@/types";
+import { CityType, UserDetailsType } from "@/types";
 import { LocationModal } from "@/components/modal";
 import TwitterXIcon from "@/components/icons/twitter_x_icon";
+import { updateUserDetailsAction } from "@/actions";
+import LoadingSpinner from "@/components/load_spinner";
 
 const editProfileFormSchema = z.object({
-  username: z
+  name: z
     .string()
-    .min(5, { message: "Username must be at least 5 characters." }),
+    .min(3, { message: "Username must be at least 3 characters." }),
   // .max(32, { message: "Username cannot be more than 32 characters" }),
-  bio: z
+  about: z
     .string()
     .max(300, { message: "Bio cannot be more than 300 characters" })
     .optional(),
   businessPhoneNum: z
     .string()
-    .length(11, { message: "Phone number must be 11 numbers." }),
+    // .length(11, { message: "Phone number must be 11 numbers." })
+    .optional(),
   // .startsWith("0", { message: "Phone number must start with 08 or 09" }),
-  businessAddress: z.string().optional(),
+  business_addr: z.string().optional(),
   location: z.string().min(1, { message: "Please select a location" }),
-  facebookLink: z
+  facebook_link: z
     .string()
     // .min(1, { message: "Please input a valid facebook link" })
     .optional(),
-  instagramLink: z
+  instagram_link: z
     .string()
     // .min(1, { message: "Please input a valid instagram link" })
     .optional(),
-  twitterLink: z
+  twitter_link: z
     .string()
     // .min(1, { message: "Please input a valid twitter link" })
     .optional(),
@@ -59,16 +62,55 @@ const editProfileFormSchema = z.object({
 type Props = {
   citiesdata: CityType[];
   statesdata: { id: number; name: string }[];
+  userDetails: UserDetailsType;
 };
 
-export default function EditProfileForm({ citiesdata, statesdata }: Props) {
+export default function EditProfileForm({
+  citiesdata,
+  statesdata,
+  userDetails,
+}: Props) {
   const [selectedCity, setSelectedCity] = React.useState<CityType | null>(null);
   const [selectedState, setSelectedState] = React.useState<{
     id: number;
     name: string;
   } | null>(null);
+  const [image, setImage] = React.useState<File | null>(null);
   const [imagePreview, setImagePreview] = React.useState<string | null>(null);
   const imageInputRef = React.useRef<HTMLInputElement>(null);
+  const [saving, setSaving] = React.useState(false);
+
+  React.useEffect(() => {
+    async function handleCity() {
+      setSelectedCity(
+        citiesdata.find((city) => city.city === userDetails.data.location) ||
+          null
+      );
+    }
+
+    userDetails.data.location.length > 0 && handleCity();
+
+    form.setValue("name", userDetails.data.name);
+    if (userDetails.data.about) {
+      form.setValue("about", userDetails.data.about);
+    }
+    if (userDetails.data.business_addr) {
+      form.setValue("business_addr", userDetails.data.business_addr);
+    }
+    if (userDetails.data.facebook_link) {
+      form.setValue("facebook_link", userDetails.data.facebook_link);
+    }
+    if (userDetails.data.instagram_link) {
+      form.setValue("instagram_link", userDetails.data.instagram_link);
+    }
+  }, []);
+
+  React.useEffect(() => {
+    if (selectedCity) {
+      form.clearErrors("location");
+      form.setValue("location", selectedCity.id.toString());
+    }
+  }, [selectedCity]);
 
   const onChangePicture = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -78,7 +120,7 @@ export default function EditProfileForm({ citiesdata, statesdata }: Props) {
 
     if (e.target.files) {
       setImagePreview(URL.createObjectURL(e.target.files[0]));
-      //   setimage(e.target.files[0]);
+      setImage(e.target.files[0]);
       console.log(e.target.files[0]);
     }
   };
@@ -86,19 +128,43 @@ export default function EditProfileForm({ citiesdata, statesdata }: Props) {
   const form = useForm<z.infer<typeof editProfileFormSchema>>({
     resolver: zodResolver(editProfileFormSchema),
     defaultValues: {
-      username: "",
-      bio: "",
+      name: "",
+      about: "",
       businessPhoneNum: "",
-      businessAddress: "",
+      business_addr: "",
       location: "",
-      facebookLink: "",
-      instagramLink: "",
-      twitterLink: "",
+      facebook_link: "",
+      instagram_link: "",
+      twitter_link: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof editProfileFormSchema>) {
-    console.log("on submit: ", values);
+  async function onSubmit(values: z.infer<typeof editProfileFormSchema>) {
+    setSaving(true);
+
+    const formdata = new FormData();
+    // formdata.append("profile_img", values.username);
+    formdata.append("whatsapp_num", userDetails.data.whatsapp_num);
+    values.about && formdata.append("about", values.about);
+    values.business_addr &&
+      formdata.append("business_addr", values.business_addr);
+    formdata.append("location_id", values.location);
+    values.facebook_link &&
+      formdata.append("facebook_link", values.facebook_link);
+    values.instagram_link &&
+      formdata.append("instagram_link", values.instagram_link);
+    image && formdata.append("profile_img", image, values.name);
+
+    try {
+      const res = await updateUserDetailsAction(formdata);
+
+      console.log(res);
+      setSaving(false);
+    } catch (err) {
+      console.log(err);
+
+      setSaving(false);
+    }
   }
 
   return (
@@ -116,7 +182,9 @@ export default function EditProfileForm({ citiesdata, statesdata }: Props) {
             </h2>
 
             <Button className="rounded-2xl bg-[#EFEEF8] px-3 py-2 font-roboto font-medium text-sm text-[#6356E5]">
-              Save Changes
+              {saving && <LoadingSpinner />}
+              {saving && "Saving Changes"}
+              {!saving && "Save Changes"}
             </Button>
           </div>
         </Card>
@@ -156,7 +224,7 @@ export default function EditProfileForm({ citiesdata, statesdata }: Props) {
                   height={72}
                   src={imagePreview}
                   alt="profile"
-                  className="w-[72px] h-auto bg-cover bg-center"
+                  className="h-full w-auto"
                 />
               )}
             </Button>
@@ -167,7 +235,7 @@ export default function EditProfileForm({ citiesdata, statesdata }: Props) {
           {/* name  */}
           <FormField
             control={form.control}
-            name="username"
+            name="name"
             render={({ field }) => (
               <FormItem>
                 <div className="flex justify-between items-center">
@@ -179,6 +247,7 @@ export default function EditProfileForm({ citiesdata, statesdata }: Props) {
                 <FormMessage />
                 <FormControl>
                   <input
+                    disabled
                     placeholder="User Name"
                     {...field}
                     className="mt-2 w-full p-3 bg-[#F7F9FF] border border-[#D9D9D9] rounded-xl font-roboto font-normal text-base text-black placeholder:font-roboto placeholder:font-normal placeholder:text-base placeholder:text-black"
@@ -191,7 +260,7 @@ export default function EditProfileForm({ citiesdata, statesdata }: Props) {
           {/* bio  */}
           <FormField
             control={form.control}
-            name="bio"
+            name="about"
             render={({ field }) => (
               <FormItem className="mt-6">
                 <div className="flex justify-between items-center">
@@ -250,7 +319,7 @@ export default function EditProfileForm({ citiesdata, statesdata }: Props) {
           {/* business address  */}
           <FormField
             control={form.control}
-            name="businessAddress"
+            name="business_addr"
             render={({ field }) => (
               <FormItem className="mt-6">
                 <div className="flex justify-between items-center">
@@ -324,7 +393,7 @@ export default function EditProfileForm({ citiesdata, statesdata }: Props) {
           {/* facebook link  */}
           <FormField
             control={form.control}
-            name="facebookLink"
+            name="facebook_link"
             render={({ field }) => (
               <FormItem className="mt-6">
                 <FormMessage />
@@ -345,7 +414,7 @@ export default function EditProfileForm({ citiesdata, statesdata }: Props) {
           {/* instagram link  */}
           <FormField
             control={form.control}
-            name="instagramLink"
+            name="instagram_link"
             render={({ field }) => (
               <FormItem className="mt-6">
                 <FormMessage />
@@ -366,7 +435,7 @@ export default function EditProfileForm({ citiesdata, statesdata }: Props) {
           {/* twitter link  */}
           <FormField
             control={form.control}
-            name="twitterLink"
+            name="twitter_link"
             render={({ field }) => (
               <FormItem className="mt-6">
                 <FormMessage />
