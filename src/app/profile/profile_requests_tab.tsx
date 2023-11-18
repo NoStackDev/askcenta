@@ -24,7 +24,7 @@ export default function ProfileRequestsTab({
         </Card>
       </div>
 
-      <RequestContainer />
+      <RequestContainer pagetype="profile" requesttype="request" />
     </TabsContent>
   );
 }

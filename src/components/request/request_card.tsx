@@ -20,7 +20,6 @@ export default function RequestCard({
   const cookie = cookies();
   const userId = cookie.get("userId")?.value;
   const date = new Date(requestData.created_at);
-
   return (
     <Card
       variant="request"
