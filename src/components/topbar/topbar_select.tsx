@@ -41,7 +41,7 @@ export default function TopbarSelect({
 
   return (
     <div className="flex items-center justify-between">
-      <div className="font-poppins font-semibold text-base text-[#4C4B60] uppercase">
+      <div className="font-poppins font-semibold text-base text-black uppercase">
         {subCategoryData?.category.trim()}
       </div>
 
@@ -54,14 +54,14 @@ export default function TopbarSelect({
         </SelectTrigger>
 
         <SelectContent className="z-20 bg-white">
-          <SelectGroup className="flex flex-col items-start gap-2">
+          <SelectGroup className="flex flex-col items-start gap-2 w-fit">
             {category.map((subCategory) => {
               return (
                 <SelectItem
                   value={subCategory.id.toString()}
                   key={subCategory.id}
                 >
-                  <SelectItemText>{subCategory.name.trim()}</SelectItemText>
+                  <SelectItemText className="ml-0">{subCategory.name.trim()}</SelectItemText>
                 </SelectItem>
               );
             })}
