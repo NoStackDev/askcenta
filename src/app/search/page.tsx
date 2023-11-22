@@ -12,8 +12,8 @@ export default function SearchPage({ searchParams }: Props) {
   const cityId = searchParams.city_id;
 
   return (
-    <main className="w-full mt-10">
-      <div className="px-4 md:px-0">
+    <main className="w-full">
+      <div className="px-4 pt-10 md:px-0 md:pt-0 bg-index-category-bg bg-[length:100%_70px] md:bg-none bg-no-repeat">
         <Searchbar />
       </div>
 

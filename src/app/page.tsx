@@ -22,7 +22,7 @@ export default function Home({ searchParams }: Props) {
         <TopbarLocationFilterWrapper className="mt-2 md:mt-4" cityid={cityId} />
       )}
 
-      {!subCategoryId && <Categories className="mt-2 md:mt-4" />}
+      {!subCategoryId && <Categories className="mt-6" />}
 
       {!subCategoryId && <DiscoverBar />}
 

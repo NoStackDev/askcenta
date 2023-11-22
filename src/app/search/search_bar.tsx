@@ -31,11 +31,39 @@ export default function Searchbar({ className, ...props }: SearchbarProps) {
           id="searchStr"
           placeholder="Search keywords for requests"
           className="p-1 font-roboto font-normal text-sm text-black opacity-80 placeholder:font-roboto placeholder:font-normal placeholder:text-sm placeholder:text-black placeholder:opacity-60 w-full"
+          onChange={(e) => {
+            const searchStrClear = document.getElementById("searchStrClear");
+            if (e.target.value.trim().length > 0 && searchStrClear) {
+              searchStrClear.dataset.show = "true";
+            }
+            if (e.target.value.trim().length <= 0 && searchStrClear) {
+              searchStrClear.dataset.show = "false";
+            }
+          }}
         />
 
         <div className="flex items-center gap-3">
-          <CloseIcon width="16" height="16" className="opacity-40" />
-          <SearchFillIcon />
+          <button
+            type="button"
+            data-show="false"
+            id="searchStrClear"
+            className="data-[show='false']:opacity-0 hover:cursor-pointer"
+            onClick={() => {
+              const inputEle = document.getElementById("searchStr");
+              if (
+                inputEle &&
+                (inputEle as HTMLInputElement).value.trim().length > 0
+              ) {
+                (inputEle as HTMLInputElement).value = "";
+              }
+            }}
+          >
+            <CloseIcon width="16" height="16" className="opacity-40" />
+          </button>
+
+          <button className="hover:cursor-pointer">
+            <SearchFillIcon />
+          </button>
         </div>
       </form>
     </Card>

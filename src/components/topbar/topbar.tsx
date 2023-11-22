@@ -28,7 +28,7 @@ export default async function Topbar({
       {!subcategoryid && (
         <Card
           className={cn(
-            "bg-index-topbar-bg bg-no-repeat bg-cover px-2 pb-4",
+            "bg-index-topbar-bg bg-no-repeat bg-cover px-2 md:px-8 pb-4 md:pb-6 md:rounded-[20px]",
             className
           )}
           {...props}
@@ -37,8 +37,8 @@ export default async function Topbar({
           <p className="font-poppins font-extrabold text-xl text-center text-white leading-[36px] tracking-[0.02em] mt-6">
             Immediate Offers For Your Every Requests
           </p>
-          <CardContent className="flex flex-col gap-5 bg-white rounded-3xl py-4 px-3 mt-8">
-            <div className="w-full bg-[#F2F4F8] h-12 rounded-3xl flex items-center px-3 gap-2">
+          <CardContent className="flex flex-col gap-5 bg-white rounded-3xl md:rounded-lg py-4 px-3 mt-8">
+            <div className="w-full bg-[#F2F4F8] h-12 rounded-3xl md:rounded-lg flex items-center px-3 gap-2">
               <Link href="/profile">
                 <PersonIcon className="" />
               </Link>
@@ -70,7 +70,7 @@ export default async function Topbar({
       )}
 
       {subcategoryid && (
-        <Card variant="card1" className="bg-index-category-bg">
+        <Card variant="card1" className="max-md:bg-index-category-bg md:bg-white">
           <Link href="/" className="flex w-fit h-fit">
             <KeyboardBackspaceIcon aria-label="back" />
           </Link>
