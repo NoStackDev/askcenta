@@ -25,7 +25,7 @@ export default function SignupPage({}: Props) {
       <div className="h-screen overflow-y-auto">
         <div className="grid place-content-center w-full">
           <Image
-            src="/images/logo.svg"
+            src="/images/name.svg"
             height={32}
             width={142}
             alt="askcenta"

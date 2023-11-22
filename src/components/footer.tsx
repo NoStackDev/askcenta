@@ -25,11 +25,11 @@ const Footer = React.forwardRef<HTMLElement, React.HTMLAttributes<"footer">>(
           >
             <div className="2xl:w-full max-w-7xl mx-4 mt-6 lg:mx-[100px] 2xl:mx-auto">
               <div className="flex justify-between items-center">
-                <Link href="/">
+                <Link href="/" className="border-none">
                   <Image
-                    src="/images/logo.png"
+                    src="/images/logo.svg"
                     height={32}
-                    width={130}
+                    width={32}
                     alt="logo"
                   />
                 </Link>

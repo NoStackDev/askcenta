@@ -24,7 +24,7 @@ export default function LoginPage({}: Props) {
         <div className="grid place-content-center w-full">
           <Link href="/" className="w-fit h-fit mt-8">
             <Image
-              src="/images/logo.svg"
+              src="/images/name.svg"
               height={32}
               width={142}
               alt="askcenta"

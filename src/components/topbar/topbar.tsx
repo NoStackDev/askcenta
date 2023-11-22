@@ -26,8 +26,15 @@ export default async function Topbar({
   return (
     <>
       {!subcategoryid && (
-        <Card className={cn("", className)} {...props} variant="card1">
-          <CardContent className="flex flex-col gap-5">
+        <Card
+          className={cn("bg-index-topbar-bg bg-no-repeat bg-cover", className)}
+          {...props}
+          variant="card1"
+        >
+          <p className="font-poppins font-extrabold text-xl text-center text-white leading-[36px] tracking-[0.02em] mt-6">
+            Immediate Offers For Your Every Requests
+          </p>
+          <CardContent className="flex flex-col gap-5 bg-white rounded-3xl py-4 px-3 mt-8">
             <div className="w-full bg-[#F2F4F8] h-12 rounded-3xl flex items-center px-3 gap-2">
               <Link href="/profile">
                 <PersonIcon className="" />

@@ -33,7 +33,7 @@ const Navbar = React.forwardRef<
           <nav className="w-full max-w-7xl flex justify-between items-center m-4 md:my-2 md:mx-4 lg:mx-[100px] 2xl:mx-auto">
             <Link href="/">
               <Image
-                src={"/images/logo.png"}
+                src={"/images/name.svg"}
                 width={130}
                 height={32}
                 alt="logo"

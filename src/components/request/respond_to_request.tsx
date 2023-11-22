@@ -17,10 +17,12 @@ export default function RespondToRequestBtn({
   }
 
   return (
-  
     <Button
       variant="request_card_outlined"
-      className={cn("hover:cursor-pointer", className)}
+      className={cn(
+        "hover:cursor-pointer font-roboto font-normal text-sm",
+        className
+      )}
       {...props}
       onClick={(e) => onClick(e)}
     >
