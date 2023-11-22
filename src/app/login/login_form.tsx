@@ -103,7 +103,7 @@ export default function LoginForm({
           onSubmit={form.handleSubmit(onSubmit)}
           className="mt-10 h-full flex flex-col justify-between overflow-y-auto"
         >
-          {/* whatsapp number  */}
+          {/* Email  */}
           <FormField
             control={form.control}
             name="email"
