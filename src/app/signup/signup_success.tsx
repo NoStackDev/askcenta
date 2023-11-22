@@ -17,7 +17,7 @@ import { UseFormReturn } from "react-hook-form";
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   onboardForm: UseFormReturn<
     {
-      email?: string | undefined;
+      whatsapp_num?: string | undefined;
     },
     any,
     undefined
@@ -32,7 +32,7 @@ export default function SignupSuccessForm({
   const { authState } = useUserAuthContext();
   return (
     <>
-      <h1 className="font-poppins font-bold text-xl text-[#49BB8F]">
+      <h1 className="mt-14 font-poppins font-bold text-xl text-[#49BB8F]">
         Sign up
         <span className="mt-2 block text-[28px]">SUCCESSFUL!</span>
       </h1>
@@ -41,26 +41,31 @@ export default function SignupSuccessForm({
         requests that might interest you.
       </p>
       <div className="mt-10 h-full flex flex-col justify-between overflow-y-auto">
-        {/* email  */}
+        {/* Whatsapp Number  */}
         <FormField
           control={onboardForm.control}
-          name="email"
+          name="whatsapp_num"
           render={({ field }) => (
             <FormItem className="">
               <div className="flex justify-between items-center">
                 <FormLabel className="font-roboto font-medium text-sm text-black">
-                  Email
+                  WhatsApp Number
                 </FormLabel>
               </div>
 
               <FormMessage />
 
               <FormControl className="mt-2">
-                <input
-                  {...field}
-                  placeholder="Example@email.com"
-                  className="pl-2 w-full font-roboto font-normal text-base border border-[#D9D9D9] rounded-xl h-12 bg-[#F7F9FF] text-black placeholder:font-roboto placeholder:font-normal placeholder:text-base placeholder:opacity-60 placeholder:text-black"
-                />
+                <div className="border border-[#D9D9D9] h-12 bg-[#F7F9FF] rounded-xl py-2 px-3 flex items-center">
+                  <span className="font-roboto font-normal text-base text-black pr-2 border-r border-r-black/60">
+                    +234
+                  </span>
+                  <input
+                    placeholder="Phone eg. 8011112222"
+                    {...field}
+                    className="pl-2 w-full font-roboto font-normal text-base bg-[#F7F9FF] text-black placeholder:font-roboto placeholder:font-normal placeholder:text-base placeholder:opacity-60 placeholder:text-black"
+                  />
+                </div>
               </FormControl>
             </FormItem>
           )}
@@ -79,6 +84,10 @@ export default function SignupSuccessForm({
             "Continue"
           )}
         </Button>
+
+        <p className="mt-6 font-roboto font-medium text-sm italic text-black text-center">
+          Service only available in Nigeria
+        </p>
       </div>
     </>
   );

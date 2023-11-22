@@ -2,11 +2,11 @@ import { UserRegisterResponseType } from "@/types";
 
 export async function registerUser({
   username,
-  whatsappNum,
+  email,
   password,
 }: {
   username: string;
-  whatsappNum: string;
+  email: string;
   password: string;
 }) {
   const headers = new Headers();
@@ -14,7 +14,7 @@ export async function registerUser({
 
   const data = new FormData();
   data.append("name", username);
-  data.append("whatsapp_num", "234" + whatsappNum);
+  data.append("email", email);
   data.append("password", password);
 
   const res = await fetch(`https://askcenta.ng/api/register`, {

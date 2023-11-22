@@ -23,16 +23,14 @@ export default function SignupPage({}: Props) {
       </div>
 
       <div className="h-screen overflow-y-auto">
-        <div className="flex justify-between items-start">
+        <div className="grid place-content-center w-full">
           <Image
-            src="/images/logo2.png"
+            src="/images/logo.svg"
             height={32}
             width={142}
             alt="askcenta"
-            className="ml-5 md:ml-[75px] mt-8"
+            className="ml-5 md:ml-[75px] mt-8 h-8 w-auto"
           />
-
-          <LoginPageIllustrationOne />
         </div>
 
         <SignUpWrapper />

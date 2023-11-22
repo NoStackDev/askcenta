@@ -18,9 +18,7 @@ const signupFormSchema = z.object({
   username: z
     .string({ required_error: "Whatsapp number is required" })
     .min(4, { message: "Username needs to be atleast 4 characters" }),
-  whatsappNum: z
-    .string({ required_error: "Whatsapp number is required" })
-    .length(10, { message: "Phone number can only be 10 digits" }),
+  email: z.string({ required_error: "Email is required" }),
   password: z
     .string({ required_error: "Password is required" })
     .min(6, { message: "Password must be atleast 6 characters" }),
@@ -33,7 +31,7 @@ const phoneVerificationFormSchema = z.object({
 });
 
 const successFormSchema = z.object({
-  email: z.string().optional(),
+  whatsapp_num: z.string().optional(),
 });
 
 interface Props
@@ -49,13 +47,13 @@ export default function SignUpWrapper({ className, ...props }: Props) {
     resolver: zodResolver(signupFormSchema),
     defaultValues: {
       username: "",
-      whatsappNum: "",
+      email: "",
       password: "",
     },
   });
 
   React.useEffect(() => {
-    setAuthState("signup");
+    setAuthState("onboard");
   }, []);
 
   const verificationForm = useForm<z.infer<typeof phoneVerificationFormSchema>>(
@@ -70,7 +68,7 @@ export default function SignUpWrapper({ className, ...props }: Props) {
   const onboardForm = useForm<z.infer<typeof successFormSchema>>({
     resolver: zodResolver(successFormSchema),
     defaultValues: {
-      email: "",
+      whatsapp_num: "",
     },
   });
 
@@ -99,48 +97,48 @@ export default function SignUpWrapper({ className, ...props }: Props) {
           registerUser({ ...values });
         const registeredUser = await registeredUserRes;
         if (registeredUser) {
-          setAuthState("verify");
+          setAuthState("onboard");
           console.log("registered user: ", registeredUser);
         }
       } catch (err: any) {
         console.log(err);
         console.log(err.cause);
-        err.cause.errors.whatsapp_num &&
-          signupForm.setError("whatsappNum", {
-            message: err.cause.errors.whatsapp_num[0],
+        err.cause.errors.email &&
+          signupForm.setError("email", {
+            message: err.cause.errors.email[0],
           });
         setAuthState("signup");
       }
     })();
   }
 
-  function onVerificationSubmit(
-    values: z.infer<typeof phoneVerificationFormSchema>
-  ) {
-    if (authState === "verifying") return;
+  // function onVerificationSubmit(
+  //   values: z.infer<typeof phoneVerificationFormSchema>
+  // ) {
+  //   if (authState === "verifying") return;
 
-    setAuthState("verifying");
+  //   setAuthState("verifying");
 
-    (async () => {
-      try {
-        const verifiedUser = await verifyUserNumber({
-          whatsappNum: signupForm.getValues("whatsappNum"),
-          otpCode: values.verificationCode,
-        });
-        console.log("verified use: ", verifiedUser);
-        if (verifiedUser) {
-          setAuthState("onboard");
-        }
-      } catch (err: any) {
-        console.log(err);
-        err.cause.errors.otp_code &&
-          verificationForm.setError("verificationCode", {
-            message: err.cause.errors.otp_code[0],
-          });
-        setAuthState("verify");
-      }
-    })();
-  }
+  //   (async () => {
+  //     try {
+  //       const verifiedUser = await verifyUserNumber({
+  //         email: signupForm.getValues("email"),
+  //         otpCode: values.verificationCode,
+  //       });
+  //       console.log("verified use: ", verifiedUser);
+  //       if (verifiedUser) {
+  //         setAuthState("onboard");
+  //       }
+  //     } catch (err: any) {
+  //       console.log(err);
+  //       err.cause.errors.otp_code &&
+  //         verificationForm.setError("verificationCode", {
+  //           message: err.cause.errors.otp_code[0],
+  //         });
+  //       setAuthState("verify");
+  //     }
+  //   })();
+  // }
 
   function onBoardSubmit(values: z.infer<typeof successFormSchema>) {
     if (authState === "onboarding") return;
@@ -164,7 +162,7 @@ export default function SignUpWrapper({ className, ...props }: Props) {
         </form>
       </Form>
 
-      <Form {...verificationForm}>
+      {/* <Form {...verificationForm}>
         <form
           onSubmit={verificationForm.handleSubmit(onVerificationSubmit)}
           className={cn(
@@ -181,7 +179,7 @@ export default function SignUpWrapper({ className, ...props }: Props) {
             whatsappNum={signupForm.getValues("whatsappNum")}
           />
         </form>
-      </Form>
+      </Form> */}
 
       <Form {...onboardForm}>
         <form
@@ -197,38 +195,6 @@ export default function SignUpWrapper({ className, ...props }: Props) {
           <SignupSuccessForm onboardForm={onboardForm} />
         </form>
       </Form>
-
-      {/* <Form {...verificationForm}>
-        <form
-          onSubmit={verificationForm.handleSubmit(onVerificationSubmit)}
-          className={cn(
-            "px-5 md:px-[75px] pb-8 w-full absolute transition-all duration-150 ease-in-out",
-
-            className
-          )}
-          {...props}
-        >
-          <PhoneVerficationForm
-            verificationForm={verificationForm}
-            whatsappNum={signupForm.getValues("whatsappNum")}
-          />
-        </form>
-      </Form> */}
-
-      {/* <Form {...onboardForm}>
-        <form
-          onSubmit={onboardForm.handleSubmit(onBoardSubmit)}
-          className={cn(
-            "px-5 md:px-[75px] pb-8 w-full absolute left-full transition-all duration-150 ease-in-out",
-            (authState === "onboard" || authState === "onboarding") && "left-0",
-            (authState === "signup" || authState === "signing up") && "hidden",
-            className
-          )}
-          {...props}
-        >
-          <SignupSuccessForm onboardForm={onboardForm} />
-        </form>
-      </Form> */}
     </div>
   );
 }

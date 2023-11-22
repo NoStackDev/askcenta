@@ -21,7 +21,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
     {
       password: string;
       username: string;
-      whatsappNum: string;
+      email: string;
     },
     any,
     undefined
@@ -45,8 +45,10 @@ export default function SignupForm({ className, signupForm, ...props }: Props) {
 
   return (
     <>
-      <h1 className="font-poppins font-bold text-2xl text-black">Sign up</h1>
-      <p className="font-roboto font-normal text-base text-black opacity-60 mt-4">
+      <h1 className="font-poppins font-bold text-2xl text-black text-center mt-14 uppercase">
+        Sign up
+      </h1>
+      <p className="font-roboto font-normal text-base text-black text-center opacity-60 mt-2">
         Please sign up to continue
       </p>
 
@@ -56,7 +58,7 @@ export default function SignupForm({ className, signupForm, ...props }: Props) {
           control={signupForm.control}
           name="username"
           render={({ field }) => (
-            <FormItem className="mt-8">
+            <FormItem className="">
               <div className="flex justify-between items-center">
                 <FormLabel className="font-roboto font-medium text-sm text-black">
                   Username
@@ -75,26 +77,23 @@ export default function SignupForm({ className, signupForm, ...props }: Props) {
           )}
         />
 
-        {/* whatsapp number  */}
+        {/* Email  */}
         <FormField
           control={signupForm.control}
-          name="whatsappNum"
+          name="email"
           render={({ field }) => (
             <FormItem className="mt-8">
               <div className="flex justify-between items-center">
                 <FormLabel className="font-roboto font-medium text-sm text-black">
-                  WhatsApp Number
+                  Email
                 </FormLabel>
               </div>
 
               <FormMessage />
               <FormControl className="mt-2">
                 <div className="border border-[#D9D9D9] h-12 bg-[#F7F9FF] rounded-xl py-2 px-3 flex items-center">
-                  <span className="font-roboto font-normal text-base text-black pr-2 border-r border-r-black/60">
-                    +234
-                  </span>
                   <input
-                    placeholder="Phone eg. 8011112222"
+                    placeholder="Example@email.com"
                     {...field}
                     className="pl-2 w-full font-roboto font-normal text-base bg-[#F7F9FF] text-black placeholder:font-roboto placeholder:font-normal placeholder:text-base placeholder:opacity-60 placeholder:text-black"
                   />
