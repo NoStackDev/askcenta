@@ -53,7 +53,7 @@ export default function SignUpWrapper({ className, ...props }: Props) {
   });
 
   React.useEffect(() => {
-    setAuthState("onboard");
+    setAuthState("signup");
   }, []);
 
   const verificationForm = useForm<z.infer<typeof phoneVerificationFormSchema>>(

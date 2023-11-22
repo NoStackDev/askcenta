@@ -21,7 +21,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const loginFormSchema = z.object({
-  whatsappNum: z
+  email: z
     .string({ required_error: "Whatsapp number is required" })
     .length(10, { message: "Phone number can only be 10 digits" }),
   password: z
@@ -41,7 +41,7 @@ export default function LoginForm({
   const form = useForm<z.infer<typeof loginFormSchema>>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
-      whatsappNum: "",
+      email: "",
       password: "",
     },
   });
@@ -56,19 +56,19 @@ export default function LoginForm({
 
     try {
       const res = await loginUserAction({
-        whatsappNum: values.whatsappNum,
+        email: values.email,
         password: values.password,
       });
 
       if (res.isError) {
         console.log(res);
         res.error === "Invalid" &&
-          form.setError("whatsappNum", {
-            message: "Invalid number or password",
+          form.setError("email", {
+            message: "Invalid email or password",
           });
         res.error === "Invalid" &&
           form.setError("password", {
-            message: "Invalid number or password",
+            message: "Invalid email or password",
           });
         setAuthState("login");
       }
@@ -93,8 +93,8 @@ export default function LoginForm({
 
   return (
     <div className={cn("px-5 md:px-[75px] pb-8", className)} {...props}>
-      <h1 className="font-poppins font-bold text-2xl text-black">Login</h1>
-      <p className="font-roboto font-normal text-base text-black opacity-60 mt-4">
+      <h1 className="font-poppins font-bold text-2xl text-black text-center mt-14">Login</h1>
+      <p className="font-roboto font-normal text-base text-black opacity-60 mt-4 text-center">
         Welcome Back! please login to continue
       </p>
 
@@ -106,23 +106,20 @@ export default function LoginForm({
           {/* whatsapp number  */}
           <FormField
             control={form.control}
-            name="whatsappNum"
+            name="email"
             render={({ field }) => (
               <FormItem className="">
                 <div className="flex justify-between items-center">
                   <FormLabel className="font-roboto font-medium text-sm text-black">
-                    WhatsApp Number
+                    Email
                   </FormLabel>
                 </div>
 
                 <FormMessage />
                 <FormControl className="mt-2">
                   <div className="border border-[#D9D9D9] h-12 bg-[#F7F9FF] rounded-xl py-2 px-3 flex items-center">
-                    <span className="font-roboto font-normal text-base text-black pr-2 border-r border-r-black/60">
-                      +234
-                    </span>
                     <input
-                      placeholder="Phone eg. 8011112222"
+                      placeholder="Example@email.com"
                       {...field}
                       className="pl-2 w-full font-roboto font-normal text-base bg-[#F7F9FF] text-black placeholder:font-roboto placeholder:font-normal placeholder:text-base placeholder:opacity-60 placeholder:text-black"
                     />

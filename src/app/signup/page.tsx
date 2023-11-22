@@ -29,7 +29,7 @@ export default function SignupPage({}: Props) {
             height={32}
             width={142}
             alt="askcenta"
-            className="ml-5 md:ml-[75px] mt-8 h-8 w-auto"
+            className="mt-8 h-8 w-auto"
           />
         </div>
 

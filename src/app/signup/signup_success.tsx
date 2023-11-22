@@ -37,8 +37,9 @@ export default function SignupSuccessForm({
         <span className="mt-2 block text-[28px]">SUCCESSFUL!</span>
       </h1>
       <p className="font-roboto font-normal text-base text-[#48466D] mt-8">
-        Please provide your email to get notified on offers on your requests and
-        requests that might interest you.
+        Please provide your WhatsApp number, this will allow interested users on
+        your offer to easily reach out. Your number will only be visible to
+        those you choose to connect with.
       </p>
       <div className="mt-10 h-full flex flex-col justify-between overflow-y-auto">
         {/* Whatsapp Number  */}
@@ -80,8 +81,10 @@ export default function SignupSuccessForm({
               <LoadingSpinner />
               <span></span>
             </div>
-          ) : (
+          ) : onboardForm.getValues("whatsapp_num")?.trim().length ? (
             "Continue"
+          ) : (
+            "Skip"
           )}
         </Button>
 

@@ -5,6 +5,7 @@ import {
 import Image from "next/image";
 import React from "react";
 import LoginForm from "./login_form";
+import Link from "next/link";
 
 type Props = {};
 
@@ -20,18 +21,17 @@ export default function LoginPage({}: Props) {
       </div>
 
       <div className="overflow-y-auto">
-        <div className="flex justify-between items-start">
-          <a href="/" className="w-fit h-fit ml-5 md:ml-[75px] mt-8">
+        <div className="grid place-content-center w-full">
+          <Link href="/" className="w-fit h-fit mt-8">
             <Image
-              src="/images/logo2.png"
+              src="/images/logo.svg"
               height={32}
               width={142}
               alt="askcenta"
-              className=""
+              className="h-8 w-auto"
             />
-          </a>
-
-          <LoginPageIllustrationOne />
+          </Link>
+          {/* <LoginPageIllustrationOne /> */}
         </div>
 
         <LoginForm />
