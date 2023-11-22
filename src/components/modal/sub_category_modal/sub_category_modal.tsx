@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ChevronRightIcon, KeyboardBackspaceIcon } from "../../icons";
+import { CancelIcon } from "../../icons";
 import {
   Dialog,
   DialogClose,
@@ -44,15 +44,15 @@ export default async function SubCategoryModal({
       <DialogTrigger>{children}</DialogTrigger>
 
       <DialogContent className="bg-white top-[72px] h-[calc(100vh_-_72px)] md:h-4/5 flex flex-col pb-4 md:pb-8 border-t-2 border-black/5 overflow-y-auto overflow-x-hidden">
-        <div className="bg-white w-full py-4 md:pt-8 md:p flex flex-col gap-5 sticky top-0 z-40">
+        <div className="bg-white w-full py-4 md:pt-8 md:p flex justify-between items-start sticky top-0 z-40">
+          <h3 className="uppercase px-4 font-poppins font-semibold text-base md:text-xl text-[#4C4B60]">
+            {categorygroup}
+          </h3>
+
           <div className="px-4 w-fit h-fit">
             <DialogClose>
-              <KeyboardBackspaceIcon aria-label="back" />
+              <CancelIcon aria-label="back" />
             </DialogClose>
-          </div>
-
-          <div className="uppercase px-4 font-poppins font-semibold text-base md:text-xl text-[#4C4B60]">
-            {categorygroup}
           </div>
         </div>
 

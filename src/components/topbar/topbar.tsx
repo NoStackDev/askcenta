@@ -27,7 +27,10 @@ export default async function Topbar({
     <>
       {!subcategoryid && (
         <Card
-          className={cn("bg-index-topbar-bg bg-no-repeat bg-cover", className)}
+          className={cn(
+            "bg-index-topbar-bg bg-no-repeat bg-cover px-2 pb-4",
+            className
+          )}
           {...props}
           variant="card1"
         >

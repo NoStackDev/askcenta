@@ -51,3 +51,4 @@ export { default as FlagFillIcon } from "./flag_fill_icon";
 export { default as WarningFillIcon } from "./warning_fill_icon";
 export { default as Notebook_icon } from "./notebook_icon";
 export { default as SearchIllustration } from "./search_illustration";
+export { default as CancelIcon } from "./cancel_icon";
