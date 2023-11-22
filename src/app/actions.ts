@@ -12,7 +12,7 @@ export async function loginUserAction(data: LoginFormFields) {
   headers.append("Accept", "application/json");
 
   const formdata = new FormData();
-  formdata.append("whatsapp_num", "234" + data.whatsappNum);
+  formdata.append("email", data.email);
   formdata.append("password", data.password);
 
   const _res = await fetch(`https://askcenta.ng/api/login`, {
@@ -23,7 +23,7 @@ export async function loginUserAction(data: LoginFormFields) {
 
   if (!_res.ok) {
     const errors = await _res.json();
-    console.log(`failed to login user ${data.whatsappNum}`, { ...errors });
+    console.log(`failed to login user ${data.email}`, { ...errors });
     return { isError: true, errorMessage: `failed to login user`, ...errors };
   }
 
@@ -44,7 +44,7 @@ export async function loginUserAction(data: LoginFormFields) {
 
   if (!_res.ok) {
     const errors = await _resUserDetails.json();
-    console.log(`failed to login user ${data.whatsappNum}`, { ...errors });
+    console.log(`failed to login user ${data.email}`, { ...errors });
     return { isError: true, errorMessage: `failed to login user`, ...errors };
   }
 
