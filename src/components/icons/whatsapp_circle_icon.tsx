@@ -12,9 +12,9 @@ const WhatsappCircleIcon = React.forwardRef<
 >(({ className, width, height, pathFill, rectFill, ...props }, forwardRef) => {
   return (
     <svg
-      width={width ? width : "24"}
-      height={height ? height : "24"}
-      viewBox="0 0 24 24"
+      width={width || "24"}
+      height={height || "24"}
+      viewBox={`0 0 ${width || "24"} ${height || "24"}`}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >

@@ -11,12 +11,12 @@ import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 
 const responsePresets = [
-  "I have It",
-  "I am interested",
-  "I can do it",
-  "I can assist",
-  "I have something similar",
-  "I have a suggestion",
+  ["I have It!", "Chat me up"],
+  ["I am interested!", "let’s chat"],
+  ["I can do it!", "let’s have a chat"],
+  ["I can assist"!, "hit me up for a chat"],
+  ["I have something similar!", "let’s chat"],
+  ["I have a suggestion!", "chat me up"],
 ];
 
 interface ResponseFormOneProps extends React.HTMLAttributes<typeof FormField> {
@@ -65,18 +65,27 @@ export default function ResponseFormOne({
                   <Button
                     className={cn(
                       "w-full border border-[#D9D9D9] rounded-[20px] bg-[#F7F9FF] px-4 py-2",
-                      selectedresponse === responsePreset && "bg-[#4FC1E9]"
+                      selectedresponse ===
+                        responsePreset[0] + "  " + responsePreset[1] &&
+                        "bg-[#4FC1E9]"
                     )}
-                    key={responsePreset}
-                    onClick={() => setselectedresponse(responsePreset)}
+                    key={responsePreset[0]}
+                    onClick={() =>
+                      setselectedresponse(
+                        responsePreset[0] + "  " + responsePreset[1]
+                      )
+                    }
                   >
                     <div
                       className={cn(
                         "w-full text-center font-roboto font-medium text-base text-black",
-                        selectedresponse === responsePreset && "text-white"
+                        selectedresponse ===
+                          responsePreset[0] + "  " + responsePreset[1] &&
+                          "text-white"
                       )}
                     >
-                      {responsePreset}
+                      {responsePreset[0] + "  "}{" "}
+                      <span className="opacity-50">{responsePreset[1]}</span>
                     </div>
                   </Button>
                 );

@@ -106,11 +106,11 @@ export default function RequestImgDetail({
           </div>
 
           <div className="mt-4 flex gap-1 items-center">
-            <span className="font-roboto font-normal text-xs text-black opacity-60">
-              People also interested:
+            <span className="font-roboto font-medium text-sm text-black">
+              0 users
             </span>
-            <span className="font-roboto font-semibold text-xs text-black">
-              0
+            <span className="font-roboto font-normal text-sm text-black opacity-60">
+              also interested:
             </span>
           </div>
         </div>
