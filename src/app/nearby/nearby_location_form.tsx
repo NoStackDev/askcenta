@@ -15,6 +15,7 @@ import {
 import React from "react";
 import { CityType } from "@/types";
 import LocationModal from "@/components/modal/location_modal";
+import { cn } from "@/lib/utils";
 
 type Props = {
   cityid: string | string[] | undefined;
@@ -40,12 +41,20 @@ export default function NearbyLocationForm({
   return (
     <>
       <div className="flex gap-2 items-center font-roboto font-normal text-sm">
-        <LocationOnIcon
-          pathColor="#000000"
-          aria-label="location"
-          width="24"
-          height="24"
-        />
+        <div
+          className={cn(
+            "opacity-0",
+            selectedCity && "opacity-100",
+            !selectedCity && "opacity-0"
+          )}
+        >
+          <LocationOnIcon
+            pathColor="#000000"
+            aria-label="location"
+            width="24"
+            height="24"
+          />
+        </div>
 
         {(preSelectedLocation || selectedCity) && (
           <span className="font-roboto font-normal text-sm text-black">

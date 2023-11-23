@@ -37,13 +37,17 @@ export default async function CustomTopbar({
   ]);
 
   return (
-    <Card variant="settings" className={cn("", className)} {...props}>
+    <Card
+      variant="settings"
+      className={cn("bg-index-category-bg bg-cover bg-no-repeat", className)}
+      {...props}
+    >
       <Link href="/">
         <KeyboardBackspaceIcon />
       </Link>
 
       <div className="flex justify-between items-center mt-6">
-        <span className="font-poppins font-semibold text-base text-[#4C4B60]">
+        <span className="font-poppins font-semibold text-base text-black">
           CUSTOM REQUESTS
         </span>
 
