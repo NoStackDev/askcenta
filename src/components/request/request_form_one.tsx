@@ -149,7 +149,7 @@ export default function RequestFormOne({
           <FormItem className="mt-8">
             <div className="flex justify-between items-center">
               <FormLabel className="font-roboto font-medium text-base text-black">
-                Your Location
+                Location
               </FormLabel>
             </div>
 
