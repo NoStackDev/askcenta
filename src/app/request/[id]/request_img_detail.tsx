@@ -126,7 +126,7 @@ export default function RequestImgDetail({
         )}
         {userId && userId === requestDetailData.request.user_id.toString() && (
           <RequestActionsUser
-            className="px-4 md:px-6 py-6 mt-[1px] md:mt-1"
+            className="px-4 md:px-6 py-6 mt-[1px] md:mt-[4px]"
             requestDetailData={requestDetailData}
           />
         )}
