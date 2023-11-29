@@ -52,6 +52,12 @@ export default function NearbyLocationForm({
             {selectedCity ? selectedCity?.city : preSelectedLocation?.city}
           </span>
         )}
+
+        {(!preSelectedLocation || !selectedCity) && (
+          <span className="font-roboto font-normal text-sm text-black">
+            Nationwide
+          </span>
+        )}
       </div>
 
       <Dialog>
