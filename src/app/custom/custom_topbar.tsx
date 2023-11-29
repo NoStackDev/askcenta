@@ -37,13 +37,17 @@ export default async function CustomTopbar({
   ]);
 
   return (
-    <Card variant="settings" className={cn("", className)} {...props}>
+    <Card
+      variant="settings"
+      className={cn("bg-linear-bg-gradient bg-no-repeat bg-cover", className)}
+      {...props}
+    >
       <Link href="/">
         <KeyboardBackspaceIcon />
       </Link>
 
       <div className="flex justify-between items-center mt-6">
-        <span className="font-poppins font-semibold text-base text-[#4C4B60]">
+        <span className="font-poppins font-semibold text-base text-black">
           CUSTOM REQUESTS
         </span>
 
@@ -56,13 +60,13 @@ export default async function CustomTopbar({
         >
           <Button
             aria-label="customize requests"
-            className={cn("flex items-center gap-2")}
+            className={cn("flex items-center gap-2 bg-white rounded h-10 w-10")}
           >
             <TuneIcon />
 
-            <span className="font-roboto font-medium text-base text-[#6356E5]">
+            {/* <span className="font-roboto font-medium text-base text-[#6356E5]">
               Customize
-            </span>
+            </span> */}
           </Button>
         </CustomCustomizeForm>
       </div>
