@@ -23,7 +23,7 @@ import {
 import RequestFormOne from "./request_form_one";
 import RequestFormTwo from "./request_form_two";
 import { cn } from "@/lib/utils";
-import { KeyboardBackspaceIcon, CancelIcon } from "../icons";
+import { KeyboardBackspaceIcon, CloseIcon } from "../icons";
 import { DialogProps } from "@radix-ui/react-dialog";
 import { placeRequestAction, updateRequestAction } from "@/actions";
 import LoadingSpinner from "../load_spinner";
@@ -181,7 +181,7 @@ export default function RequestForm({
 
             <DialogClose>
               <Button>
-                <CancelIcon />
+                <CloseIcon />
               </Button>
             </DialogClose>
           </div>

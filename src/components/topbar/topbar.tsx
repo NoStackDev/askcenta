@@ -70,7 +70,7 @@ export default async function Topbar({
       )}
 
       {subcategoryid && (
-        <Card variant="card1" className="bg-index-category-bg">
+        <Card variant="card1" className="max-md:bg-index-category-bg md:bg-white">
           <Link href="/" className="flex w-fit h-fit">
             <KeyboardBackspaceIcon aria-label="back" />
           </Link>

@@ -1,6 +1,6 @@
 "use client";
 
-import { CancelIcon } from "@/components/icons";
+import { CloseIcon } from "@/components/icons";
 import LocationModal from "@/components/modal/location_modal";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -155,7 +155,7 @@ export default function CustomCustomizeForm({
 
                 <DialogClose>
                   <div>
-                    <CancelIcon />
+                    <CloseIcon />
                   </div>
                 </DialogClose>
               </div>

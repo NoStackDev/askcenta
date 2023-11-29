@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardContent } from "../ui/card";
-import { LocationIcon, PersonIcon, WhatsappCircleIcon, WhatsappIcon } from "../icons";
+import { LocationIcon, PersonIcon, WhatsappIcon } from "../icons";
 import { CitiesResponseType, RequestResponsesType } from "@/types";
 import { cn, month } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
@@ -72,7 +72,7 @@ export default async function ResponseCard({
             </span>
           </div>
 
-          <WhatsappCircleIcon width="32" height="32" aria-label="whatsapp" />
+          <WhatsappIcon width="32" height="32" aria-label="whatsapp" />
         </div>
       </CardContent>
     </Card>

@@ -5,7 +5,7 @@ type Props = {};
 
 export default function NearbyTopbar({}: Props) {
   return (
-    <Card variant="settings" className="w-full bg-white mt-2 md:mt-0 bg-index-category-bg">
+    <Card variant="settings" className="w-full bg-white mt-2 md:mt-0">
       <div className="font-poppins font-semibold text-base text-[#011B39]">
         NEARBY REQUESTS
       </div>
