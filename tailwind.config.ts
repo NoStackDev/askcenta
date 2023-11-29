@@ -59,7 +59,7 @@ const config: Config = {
         "request-gradient":
           "linear-gradient(84.35deg, #6356E5 -10.98%, #4FC1E9 118.31%)",
         "index-topbar-bg": "url('/images/index_topbar_bg.svg')",
-        "index-category-bg":
+        "linear-bg-gradient":
           "linear-gradient(135deg, #6A97FD 0%, rgba(79, 192, 233, 0.58) 99.99%, #4FC1E9 100%)",
       },
 
