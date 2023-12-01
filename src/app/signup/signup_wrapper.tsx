@@ -24,11 +24,11 @@ const signupFormSchema = z.object({
     .min(6, { message: "Password must be atleast 6 characters" }),
 });
 
-const phoneVerificationFormSchema = z.object({
-  verificationCode: z
-    .string()
-    .length(4, { message: "Verification code is 4 digits" }),
-});
+// const phoneVerificationFormSchema = z.object({
+//   verificationCode: z
+//     .string()
+//     .length(4, { message: "Verification code is 4 digits" }),
+// });
 
 const successFormSchema = z.object({
   whatsapp_num: z.string().optional(),
@@ -56,14 +56,14 @@ export default function SignUpWrapper({ className, ...props }: Props) {
     setAuthState("signup");
   }, []);
 
-  const verificationForm = useForm<z.infer<typeof phoneVerificationFormSchema>>(
-    {
-      resolver: zodResolver(phoneVerificationFormSchema),
-      defaultValues: {
-        verificationCode: "",
-      },
-    }
-  );
+  // const verificationForm = useForm<z.infer<typeof phoneVerificationFormSchema>>(
+  //   {
+  //     resolver: zodResolver(phoneVerificationFormSchema),
+  //     defaultValues: {
+  //       verificationCode: "",
+  //     },
+  //   }
+  // );
 
   const onboardForm = useForm<z.infer<typeof successFormSchema>>({
     resolver: zodResolver(successFormSchema),
@@ -79,12 +79,12 @@ export default function SignUpWrapper({ className, ...props }: Props) {
     handleChange: onInputChange,
   } = useVerificationHook(4);
 
-  React.useEffect(() => {
-    verificationForm.setValue(
-      "verificationCode",
-      verificationCode ? verificationCode : ""
-    );
-  }, [verificationCode]);
+  // React.useEffect(() => {
+  //   verificationForm.setValue(
+  //     "verificationCode",
+  //     verificationCode ? verificationCode : ""
+  //   );
+  // }, [verificationCode]);
 
   function onSignupSubmit(values: z.infer<typeof signupFormSchema>) {
     if (authState === "signing up") return;
@@ -101,13 +101,18 @@ export default function SignUpWrapper({ className, ...props }: Props) {
           console.log("registered user: ", registeredUser);
         }
       } catch (err: any) {
-        console.log(err);
-        console.log(err.cause);
+        setAuthState("signup");
+
         err.cause.errors.email &&
           signupForm.setError("email", {
             message: err.cause.errors.email[0],
           });
-        setAuthState("signup");
+        !err.cause &&
+          signupForm.setError("email", { message: "Sign Up failed" });
+        !err.cause &&
+          signupForm.setError("username", { message: "Sign Up failed" });
+        !err.cause &&
+          signupForm.setError("password", { message: "Sign Up failed" });
       }
     })();
   }

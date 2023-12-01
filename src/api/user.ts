@@ -24,7 +24,13 @@ export async function registerUser({
   });
 
   if (!res.ok) {
-    throw new Error(`failed to register user`, { cause: await res.json() });
+    let errObj = await res.json();
+    if (errObj.message && errObj.message.toLowerCase().includes("duplicate")) {
+      throw new Error(`failed to register user`, {
+        cause: { errors: { email: ["Email already in use"] } },
+      });
+    }
+    throw new Error(`failed to register user`);
   }
 
   return res.json();

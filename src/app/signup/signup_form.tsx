@@ -33,7 +33,7 @@ export default function SignupForm({ className, signupForm, ...props }: Props) {
 
   function togglePasswordVisibility() {
     const passwordInput = document.getElementById(
-      "login_password"
+      "signup_password"
     ) as HTMLInputElement | null;
 
     if (passwordInput) {
@@ -123,7 +123,7 @@ export default function SignupForm({ className, signupForm, ...props }: Props) {
                     placeholder="Enter Password"
                     {...field}
                     className="pl-2 w-full font-roboto font-normal text-base bg-[#F7F9FF] text-black placeholder:font-roboto placeholder:font-normal placeholder:text-base placeholder:opacity-60 placeholder:text-black"
-                    id="login_password"
+                    id="signup_password"
                   />
 
                   <span onClick={togglePasswordVisibility}>

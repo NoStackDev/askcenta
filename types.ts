@@ -96,16 +96,16 @@ export type SubCategoryResponseType = {
 };
 
 export type UserRegisterResponseType = {
-  Message: string;
-  data: {
+  user: {
     name: string;
-    whatsapp_num: string;
+    email: string;
     role: string;
     is_verified: boolean;
     updated_at: string;
     created_at: string;
     id: number;
   };
+  email_sent: string;
 };
 
 export type ResendOtpType = {
