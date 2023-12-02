@@ -13,7 +13,11 @@ import { registerUser, verifyUserNumber } from "@/api/user";
 import PhoneVerficationForm from "./phone_verification_form";
 import { UserRegisterResponseType } from "@/types";
 import SignupSuccessForm from "./signup_success";
-import { signupUserAction } from "@/actions";
+import {
+  getUserDetailsAction,
+  signupUserAction,
+  updateUserDetailsAction,
+} from "@/actions";
 
 const signupFormSchema = z.object({
   username: z
@@ -165,10 +169,28 @@ export default function SignUpWrapper({ className, ...props }: Props) {
   //   })();
   // }
 
-  function onBoardSubmit(values: z.infer<typeof successFormSchema>) {
+  async function onBoardSubmit(values: z.infer<typeof successFormSchema>) {
     if (authState === "onboarding") return;
     setAuthState("onboarding");
-    window.location.href = "/";
+
+    try {
+      const userDetails = await getUserDetailsAction();
+
+      if (
+        !userDetails?.isError &&
+        values.whatsapp_num &&
+        values.whatsapp_num.length > 0
+      ) {
+        const data = new FormData();
+        data.append("whatsapp_num", values.whatsapp_num);
+        const updatedUser = await updateUserDetailsAction(data);
+      }
+
+      return (window.location.href = "/");
+    } catch (err: any) {
+      setAuthState("onboard");
+      console.log(err);
+    }
   }
 
   return (

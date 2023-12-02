@@ -187,11 +187,20 @@ export async function getUserDetailsAction() {
   });
 
   if (!res.ok) {
-    throw new Error("failed to fetch settings", { cause: await res.json() });
+    // throw new Error("failed to fetch settings", { cause: await res.json() });
+    const resJson = await res.json();
+    console.log(
+      `failed to fetch user details for user with id ${
+        cookie.get("userId")?.value
+      }`,
+      resJson
+    );
+
+    return { isError: true, resJson };
   }
 
-  const resPromise: Promise<UserDetailsType> = res.json();
-  return resPromise;
+  // const resPromise: Promise<UserDetailsType> = res.json();
+  return res.json();
 }
 
 export async function updateUserDetailsAction(data: FormData) {
@@ -209,13 +218,19 @@ export async function updateUserDetailsAction(data: FormData) {
   });
 
   if (!res.ok) {
-    throw new Error(`failed to update user ${userId}`, {
-      cause: await res.json(),
-    });
+    const resJson = await res.json();
+    console.log(
+      `failed to user user details for user with id ${
+        cookie.get("userId")?.value
+      }`,
+      resJson
+    );
+
+    return { isError: true, resJson };
   }
 
-  const resPromise: Promise<UserDetailsType> = res.json();
-  return resPromise;
+  // const resPromise: Promise<UserDetailsType> = res.json();
+  return res.json();
 }
 
 export async function placeRequestAction(formdata: FormData) {
