@@ -4,9 +4,102 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { FeedsResponse, RequestResponsesType, UserDetailsType } from "@/types";
 import { LoginFormFields } from "./login/login_form";
+import { SignupFormField } from "./signup/signup_wrapper";
 
-// Unauthenticated
+/*
+  sign up user
+*/
 
+export async function signupUserAction(data: SignupFormField) {
+  const headers = new Headers();
+  headers.append("Accept", "application/json");
+
+  const formdata = new FormData();
+  formdata.append("email", data.email);
+  formdata.append("password", data.password);
+  formdata.append("name", data.username);
+
+  const _signupRes = await fetch(`https://askcenta.ng/api/register`, {
+    method: "POST",
+    headers: headers,
+    body: formdata,
+  });
+
+  if (!_signupRes.ok) {
+    const signUpResJson = await _signupRes.json();
+    console.log(
+      `failed to signup user with email address ${data.email}`,
+      `\nerror message: ${signUpResJson.message}`
+    );
+    if (signUpResJson.message.toLowerCase().includes("duplicate")) {
+      return {
+        isError: true,
+        errors: {
+          email: ["Email is already in use"],
+        },
+      };
+    }
+    return { isError: true, message: signUpResJson.message };
+  }
+
+  // login user after successful sign up
+
+  const _loginRes = await fetch(`https://askcenta.ng/api/login`, {
+    method: "POST",
+    headers: headers,
+    body: formdata,
+  });
+
+  if (!_loginRes.ok) {
+    const errors = await _loginRes.json();
+    console.log(`failed to login user with email ${data.email} after signup`, {
+      ...errors,
+    });
+    return _signupRes.json();
+  }
+
+  // save user token after successful sign up
+  const res: Promise<{ token: string }> = _loginRes.json();
+  const loginResJson = await res;
+  const cookie = cookies();
+  cookie.set("Authorization", `Bearer ${loginResJson.token}`, {
+    httpOnly: true,
+    maxAge: 60 * 60 * 24 * 7,
+    sameSite: true,
+  });
+
+  // get user details after successful login
+  headers.append("Authorization", `Bearer ${loginResJson.token}`);
+  const _resUserDetails = await fetch("https://askcenta.ng/api/user", {
+    method: "OPTIONS",
+    headers: headers,
+  });
+
+  if (!_resUserDetails.ok) {
+    const errors = await _resUserDetails.json();
+    console.log(
+      `failed to get user with email ${data.email} details after successful sign up and login`,
+      { ...errors }
+    );
+    return _signupRes.json();
+  }
+
+  // save user id after getting user details
+  const resUserDetails: Promise<UserDetailsType> = _resUserDetails.json();
+  const resUserDetailsJson = await resUserDetails;
+  cookie.set("userId", resUserDetailsJson.data.id.toString(), {
+    httpOnly: true,
+    maxAge: 60 * 60 * 24 * 7,
+    sameSite: true,
+  });
+
+  return _signupRes.json();
+}
+
+/*
+  login user
+
+*/
 export async function loginUserAction(data: LoginFormFields) {
   const headers = new Headers();
   headers.append("Accept", "application/json");
@@ -42,7 +135,7 @@ export async function loginUserAction(data: LoginFormFields) {
     headers: headers,
   });
 
-  if (!_res.ok) {
+  if (!_resUserDetails.ok) {
     const errors = await _resUserDetails.json();
     console.log(`failed to login user ${data.email}`, { ...errors });
     return { isError: true, errorMessage: `failed to login user`, ...errors };

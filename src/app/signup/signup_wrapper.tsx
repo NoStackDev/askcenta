@@ -13,6 +13,7 @@ import { registerUser, verifyUserNumber } from "@/api/user";
 import PhoneVerficationForm from "./phone_verification_form";
 import { UserRegisterResponseType } from "@/types";
 import SignupSuccessForm from "./signup_success";
+import { signupUserAction } from "@/actions";
 
 const signupFormSchema = z.object({
   username: z
@@ -23,6 +24,8 @@ const signupFormSchema = z.object({
     .string({ required_error: "Password is required" })
     .min(6, { message: "Password must be atleast 6 characters" }),
 });
+
+export type SignupFormField = z.infer<typeof signupFormSchema>;
 
 // const phoneVerificationFormSchema = z.object({
 //   verificationCode: z
@@ -93,26 +96,43 @@ export default function SignUpWrapper({ className, ...props }: Props) {
 
     (async () => {
       try {
-        const registeredUserRes: Promise<UserRegisterResponseType> =
-          registerUser({ ...values });
-        const registeredUser = await registeredUserRes;
-        if (registeredUser) {
-          setAuthState("onboard");
-          console.log("registered user: ", registeredUser);
+        const registeredUser = await signupUserAction({ ...values });
+
+        if (registeredUser?.isError) {
+          setAuthState("signup");
+          registeredUser.isError &&
+            registeredUser.errors.email &&
+            signupForm.setError("email", {
+              message: registeredUser.errors.email[0],
+            });
+
+          registeredUser.isError &&
+            !registeredUser.errors.email &&
+            signupForm.setError("email", {
+              message: "Sign up failed",
+            });
+
+          registeredUser.isError &&
+            !registeredUser.errors.email &&
+            signupForm.setError("password", {
+              message: "Sign up failed",
+            });
+
+          registeredUser.isError &&
+            !registeredUser.errors.email &&
+            signupForm.setError("username", {
+              message: "Sign up failed",
+            });
+
+          console.log(registeredUser);
+          return;
         }
+
+        setAuthState("onboard");
+        console.log(registeredUser);
       } catch (err: any) {
         setAuthState("signup");
-
-        err.cause.errors.email &&
-          signupForm.setError("email", {
-            message: err.cause.errors.email[0],
-          });
-        !err.cause &&
-          signupForm.setError("email", { message: "Sign Up failed" });
-        !err.cause &&
-          signupForm.setError("username", { message: "Sign Up failed" });
-        !err.cause &&
-          signupForm.setError("password", { message: "Sign Up failed" });
+        console.log(err);
       }
     })();
   }
