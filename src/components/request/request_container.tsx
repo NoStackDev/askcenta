@@ -98,7 +98,7 @@ export default async function RequestContainer({
             className={cn("mx-4 md:mx-0 mt-6 gap-6 sm:hidden", className)}
             {...props}
           >
-            {feed.map((request) => {
+            {feed.map((request: RequestType) => {
               return (
                 <Link href={`/request/${request.id}`} key={request.id}>
                   <RequestCard requestData={request} />
