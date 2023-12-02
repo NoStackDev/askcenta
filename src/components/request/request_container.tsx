@@ -69,7 +69,7 @@ export default async function RequestContainer({
   const pathname = headersList.get("x-pathname");
 
   const feed = await fetchData(searchparams, pagetype, requesttype);
-  let shuffledRequests = shuffle(feed);
+  let shuffledRequests = shuffle<typeof feed>(feed);
   const userIsAuthorized = cookie.get("Authorization")?.value || null;
 
   if (userIsAuthorized) {
