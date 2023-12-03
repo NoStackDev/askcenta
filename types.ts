@@ -130,7 +130,7 @@ export type UserDetailsType = {
     can_ask_question: boolean;
     request_made: RequestType[];
     requests_responded: RequestType[];
-    // question_answer: [];
+    question_answer: [];
   };
 };
 

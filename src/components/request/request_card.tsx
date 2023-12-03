@@ -23,7 +23,10 @@ export default function RequestCard({
   return (
     <Card
       variant="request"
-      className={cn("w-full h-fit break-inside-avoid mb-6", className)}
+      className={cn(
+        "w-full rounded-2xl break-inside-avoid mb-6 overflow-clip",
+        className
+      )}
     >
       <CardContent>
         {requestData.image_url && (
@@ -32,26 +35,30 @@ export default function RequestCard({
             height={344}
             alt={requestData.title}
             src={`https://${requestData.image_url}`}
-            className="rounded-t-lg w-full h-auto max-h-[392px]"
+            className="rounded-t-lg w-full object-cover"
           />
         )}
 
         <CardTitle
           className={cn(
-            "mb-4 mx-3 pt-[14px] text-center font-roboto font-semibold text-lg text-[#18212D]",
-            !requestData.image_url && "py-6"
+            "px-3 pt-[9px] pb-4 text-center font-roboto font-semibold text-lg text-[#18212D] leading-[30px]",
+            !requestData.image_url &&
+              "min-h-[223px] flex items-center justify-center py-6 bg-[#8CCBFA] text-[22px] leading-[35px]"
           )}
         >
           {requestData.title}
         </CardTitle>
 
-        <hr className="mt-3 mb-5 border-t border-[#EDECF0] border-r-4 bg-none mx-[2px]" />
+        <hr
+          className="border-t border-[#EDECF0] border-r-4 bg-none"
+          role="separator"
+        />
 
-        <div className="w-full px-3">
+        <div className="w-full px-3 pt-4 pb-5 flex flex-col gap-4">
           <div
             className={cn(
-              "flex justify-between items-center",
-              userId === requestData.user_id.toString() && "pb-6"
+              "flex justify-between items-center"
+              // userId === requestData.user_id.toString() && "pb-6"
             )}
           >
             <div className="flex items-center gap-4">
@@ -84,7 +91,7 @@ export default function RequestCard({
 
           {(!userId || userId !== requestData.user_id.toString()) && (
             <ResponseFormWrapper requestid={requestData.id.toString()}>
-              <RespondToRequestBtn className="mt-5 mb-3" />
+              <RespondToRequestBtn className="" />
             </ResponseFormWrapper>
           )}
         </div>
