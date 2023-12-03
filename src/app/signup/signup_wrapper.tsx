@@ -128,12 +128,10 @@ export default function SignUpWrapper({ className, ...props }: Props) {
               message: "Sign up failed",
             });
 
-          console.log(registeredUser);
           return;
         }
 
         setAuthState("onboard");
-        console.log(registeredUser);
       } catch (err: any) {
         setAuthState("signup");
         console.log(err);
@@ -175,7 +173,6 @@ export default function SignUpWrapper({ className, ...props }: Props) {
 
     try {
       const userDetails = await getUserDetailsAction();
-
       if (
         !userDetails?.isError &&
         values.whatsapp_num &&
@@ -184,9 +181,17 @@ export default function SignUpWrapper({ className, ...props }: Props) {
         const data = new FormData();
         data.append("whatsapp_num", values.whatsapp_num);
         const updatedUser = await updateUserDetailsAction(data);
+        if (updatedUser.isError && updatedUser.errors.whatsapp_num) {
+          onboardForm.setError("whatsapp_num", {
+            message: updatedUser.errors.whatsapp_num[0],
+          });
+          setAuthState("onboard");
+          return;
+        }
       }
 
       return (window.location.href = "/");
+      setAuthState("onboard");
     } catch (err: any) {
       setAuthState("onboard");
       console.log(err);

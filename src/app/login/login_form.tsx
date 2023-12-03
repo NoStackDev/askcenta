@@ -21,9 +21,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const loginFormSchema = z.object({
-  email: z
-    .string({ required_error: "Whatsapp number is required" })
-    .length(10, { message: "Phone number can only be 10 digits" }),
+  email: z.string({ required_error: "Email number is required" }),
   password: z
     .string({ required_error: "Password is required" })
     .min(6, { message: "Password must be atleast 6 characters" }),
@@ -93,7 +91,9 @@ export default function LoginForm({
 
   return (
     <div className={cn("px-5 md:px-[75px] pb-8", className)} {...props}>
-      <h1 className="font-poppins font-bold text-2xl text-black text-center mt-14">Login</h1>
+      <h1 className="font-poppins font-bold text-2xl text-black text-center mt-14">
+        Login
+      </h1>
       <p className="font-roboto font-normal text-base text-black opacity-60 mt-4 text-center">
         Welcome Back! please login to continue
       </p>

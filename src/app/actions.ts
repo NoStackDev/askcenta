@@ -220,13 +220,13 @@ export async function updateUserDetailsAction(data: FormData) {
   if (!res.ok) {
     const resJson = await res.json();
     console.log(
-      `failed to user user details for user with id ${
+      `failed to update user details for user with userId ${
         cookie.get("userId")?.value
       }`,
       resJson
     );
 
-    return { isError: true, resJson };
+    return { isError: true, ...resJson };
   }
 
   // const resPromise: Promise<UserDetailsType> = res.json();

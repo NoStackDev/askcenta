@@ -14,7 +14,11 @@ export default async function PhoneNum({ className, ...props }: PhoneNumProps) {
       )}
       {...props}
     >
-      +{userDetails.data.whatsapp_num}
+      {userDetails.data.whatsapp_num && `+${userDetails.data.whatsapp_num}`}
+      {(!userDetails.data.whatsapp_num ||
+        userDetails.data.whatsapp_num.length < 8) && (
+        <div className="invisible"></div>
+      )}
     </div>
   );
 }
