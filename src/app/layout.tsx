@@ -9,9 +9,8 @@ import { UserAuthContextProvider } from "@/context/use_auth_context";
 import { cn } from "@/lib/utils";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
-import { Inter, Poppins, Roboto } from "next/font/google";
+import { Poppins, Roboto } from "next/font/google";
 import { headers } from "next/headers";
-import { RandomizeColorContextProvider } from "@/context/use_randomize_color_context";
 
 const poppins = Poppins({
   weight: ["300", "400", "500", "600", "700", "800", "900"],
@@ -56,9 +55,7 @@ export default function RootLayout({
               )}
             >
               {showNavbar && <Sidebar className="hidden lg:flex" />}
-              <RandomizeColorContextProvider>
-                {children}
-              </RandomizeColorContextProvider>
+              {children}
             </div>
           </SidebarContextProvider>
           <RequestFormWrapper>

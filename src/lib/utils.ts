@@ -38,3 +38,8 @@ export const month = (index: number) => {
 
   return months[index];
 };
+
+export const randomBgColor = () => {
+  const bgColors = [`#E393DB`, `#EB89B5`, `#6DDDC1`, `#8CCBFA`];
+  return bgColors[Math.round(Math.random() * (bgColors.length - 1))];
+};

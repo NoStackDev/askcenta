@@ -7,6 +7,7 @@ import { RequestType } from "@/types";
 import { RequestBookmark, RespondToRequestBtn } from ".";
 import { cookies } from "next/headers";
 import { ResponseFormWrapper } from "../response";
+import CardTitleDynamic from "./card_title_dynamic";
 
 interface RequestCardProps extends React.HTMLAttributes<HTMLDivElement> {
   requestData: RequestType;
@@ -39,15 +40,28 @@ export default function RequestCard({
           />
         )}
 
-        <CardTitle
-          className={cn(
-            "px-3 pt-[9px] pb-4 text-center font-roboto font-semibold text-lg text-[#18212D] leading-[30px]",
-            !requestData.image_url &&
+        {requestData.image_url && (
+          <CardTitle
+            className={cn(
+              "px-3 pt-[9px] pb-4 text-center font-roboto font-semibold text-lg text-[#18212D] leading-[30px]",
+              !requestData.image_url &&
+                `min-h-[223px] flex items-center justify-center py-6 text-[22px] leading-[35px] no-img-request-card`
+            )}
+          >
+            {requestData.title}
+          </CardTitle>
+        )}
+
+        {!requestData.image_url && (
+          <CardTitleDynamic
+            className={cn(
+              "px-3 pt-[9px] pb-4 text-center font-roboto font-semibold text-lg text-[#18212D] leading-[30px]",
               `min-h-[223px] flex items-center justify-center py-6 text-[22px] leading-[35px] no-img-request-card`
-          )}
-        >
-          {requestData.title}
-        </CardTitle>
+            )}
+          >
+            {requestData.title}
+          </CardTitleDynamic>
+        )}
 
         <hr
           className="border-t border-[#EDECF0] border-r-4 bg-none"
