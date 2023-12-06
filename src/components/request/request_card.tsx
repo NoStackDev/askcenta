@@ -2,7 +2,7 @@ import React from "react";
 import { Card, CardContent, CardTitle } from "../ui/card";
 import Image from "next/image";
 import { CommentIcon, LocationOnIcon, ScheduleIcon } from "../icons";
-import { cn, month, randomBgColorRequest } from "@/lib/utils";
+import { cn, month } from "@/lib/utils";
 import { RequestType } from "@/types";
 import { RequestBookmark, RespondToRequestBtn } from ".";
 import { cookies } from "next/headers";
