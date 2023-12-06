@@ -99,11 +99,7 @@ export default async function RequestContainer({
             {...props}
           >
             {feed.map((request: RequestType) => {
-              return (
-                <Link href={`/request/${request.id}`} key={request.id}>
-                  <RequestCard requestData={request} />
-                </Link>
-              );
+              return <RequestCard requestData={request} key={request.id} />;
             })}
           </div>
           <div
@@ -116,11 +112,7 @@ export default async function RequestContainer({
             {shuffledRequests.map((request, index) => {
               const date = new Date(request.created_at);
 
-              return (
-                <Link href={`/request/${request.id}`} key={request.id}>
-                  <RequestCard requestData={request} />
-                </Link>
-              );
+              return <RequestCard requestData={request} key={request.id} />;
             })}
           </div>
         </>

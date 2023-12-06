@@ -8,6 +8,7 @@ import { RequestBookmark, RespondToRequestBtn } from ".";
 import { cookies } from "next/headers";
 import { ResponseFormWrapper } from "../response";
 import CardTitleDynamic from "./card_title_dynamic";
+import Link from "next/link";
 
 interface RequestCardProps extends React.HTMLAttributes<HTMLDivElement> {
   requestData: RequestType;
@@ -21,6 +22,7 @@ export default function RequestCard({
   const cookie = cookies();
   const userId = cookie.get("userId")?.value;
   const date = new Date(requestData.created_at);
+
   return (
     <Card
       variant="request"
@@ -31,38 +33,44 @@ export default function RequestCard({
     >
       <CardContent>
         {requestData.image_url && (
-          <Image
-            width={358}
-            height={344}
-            alt={requestData.title}
-            src={`https://${requestData.image_url}`}
-            className="w-full max-h-[344px] object-cover"
-          />
+          <Link href={`/request/${requestData.id}`}>
+            <Image
+              width={358}
+              height={344}
+              alt={requestData.title}
+              src={`https://${requestData.image_url}`}
+              className="w-full max-h-[344px] object-cover"
+            />
+          </Link>
         )}
 
         {requestData.image_url && (
-          <CardTitle
-            className={cn(
-              "px-3 py-4 text-center font-roboto font-semibold text-lg text-[#18212D] leading-[30px] h-[75px] flex items-center justify-center"
-            )}
-          >
-            {requestData.title.length > 78
-              ? requestData.title.slice(0, 78).trim() + "..."
-              : requestData.title}
-          </CardTitle>
+          <Link href={`/request/${requestData.id}`}>
+            <CardTitle
+              className={cn(
+                "px-3 py-4 text-center font-roboto font-semibold text-lg text-[#18212D] leading-[30px] h-[75px] flex items-center justify-center"
+              )}
+            >
+              {requestData.title.length > 78
+                ? requestData.title.slice(0, 78).trim() + "..."
+                : requestData.title}
+            </CardTitle>
+          </Link>
         )}
 
         {!requestData.image_url && (
-          <CardTitleDynamic
-            className={cn(
-              "px-3 pt-[9px] pb-4 text-center font-roboto font-semibold text-lg text-[#18212D] leading-[30px]",
-              `min-h-[223px] flex items-center justify-center py-6 text-[22px] leading-[35px] no-img-request-card`
-            )}
-          >
-            {requestData.title.length > 78
-              ? requestData.title.slice(0, 78).trim() + "..."
-              : requestData.title}
-          </CardTitleDynamic>
+          <Link href={`/request/${requestData.id}`}>
+            <CardTitleDynamic
+              className={cn(
+                "px-3 pt-[9px] pb-4 text-center font-roboto font-semibold text-lg text-[#18212D] leading-[30px]",
+                `min-h-[223px] flex items-center justify-center py-6 text-[22px] leading-[35px] no-img-request-card`
+              )}
+            >
+              {requestData.title.length > 78
+                ? requestData.title.slice(0, 78).trim() + "..."
+                : requestData.title}
+            </CardTitleDynamic>
+          </Link>
         )}
 
         <hr
@@ -106,7 +114,10 @@ export default function RequestCard({
           </div>
 
           {(!userId || userId !== requestData.user_id.toString()) && (
-            <ResponseFormWrapper requestid={requestData.id.toString()}>
+            <ResponseFormWrapper
+              requestid={requestData.id.toString()}
+              className="z-10"
+            >
               <RespondToRequestBtn className="" />
             </ResponseFormWrapper>
           )}

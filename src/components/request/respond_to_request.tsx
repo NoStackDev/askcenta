@@ -11,11 +11,6 @@ export default function RespondToRequestBtn({
   className,
   ...props
 }: RespondToRequestBtnProps) {
-  function onClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    e.preventDefault();
-    e.stopPropagation();
-  }
-
   return (
     <Button
       variant="request_card_outlined"
@@ -24,7 +19,6 @@ export default function RespondToRequestBtn({
         className
       )}
       {...props}
-      onClick={(e) => onClick(e)}
     >
       Respond to Request
     </Button>
