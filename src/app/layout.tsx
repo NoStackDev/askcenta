@@ -11,6 +11,7 @@ import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { Inter, Poppins, Roboto } from "next/font/google";
 import { headers } from "next/headers";
+import { RandomizeColorContextProvider } from "@/context/use_randomize_color_context";
 
 const poppins = Poppins({
   weight: ["300", "400", "500", "600", "700", "800", "900"],
@@ -55,8 +56,9 @@ export default function RootLayout({
               )}
             >
               {showNavbar && <Sidebar className="hidden lg:flex" />}
-
-              {children}
+              <RandomizeColorContextProvider>
+                {children}
+              </RandomizeColorContextProvider>
             </div>
           </SidebarContextProvider>
           <RequestFormWrapper>

@@ -2,7 +2,7 @@ import React from "react";
 import { Card, CardContent, CardTitle } from "../ui/card";
 import Image from "next/image";
 import { CommentIcon, LocationOnIcon, ScheduleIcon } from "../icons";
-import { cn, month } from "@/lib/utils";
+import { cn, month, randomBgColorRequest } from "@/lib/utils";
 import { RequestType } from "@/types";
 import { RequestBookmark, RespondToRequestBtn } from ".";
 import { cookies } from "next/headers";
@@ -35,7 +35,7 @@ export default function RequestCard({
             height={344}
             alt={requestData.title}
             src={`https://${requestData.image_url}`}
-            className="rounded-t-lg w-full object-cover"
+            className="w-full max-h-[344px] object-cover"
           />
         )}
 
@@ -43,7 +43,7 @@ export default function RequestCard({
           className={cn(
             "px-3 pt-[9px] pb-4 text-center font-roboto font-semibold text-lg text-[#18212D] leading-[30px]",
             !requestData.image_url &&
-              "min-h-[223px] flex items-center justify-center py-6 bg-[#8CCBFA] text-[22px] leading-[35px]"
+              `min-h-[223px] flex items-center justify-center py-6 text-[22px] leading-[35px] no-img-request-card`
           )}
         >
           {requestData.title}
