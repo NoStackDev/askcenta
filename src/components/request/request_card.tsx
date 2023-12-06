@@ -43,12 +43,12 @@ export default function RequestCard({
         {requestData.image_url && (
           <CardTitle
             className={cn(
-              "px-3 pt-[9px] pb-4 text-center font-roboto font-semibold text-lg text-[#18212D] leading-[30px]",
-              !requestData.image_url &&
-                `min-h-[223px] flex items-center justify-center py-6 text-[22px] leading-[35px] no-img-request-card`
+              "px-3 py-4 text-center font-roboto font-semibold text-lg text-[#18212D] leading-[30px] h-[75px] flex items-center justify-center"
             )}
           >
-            {requestData.title}
+            {requestData.title.length > 78
+              ? requestData.title.slice(0, 78).trim() + "..."
+              : requestData.title}
           </CardTitle>
         )}
 
@@ -59,7 +59,9 @@ export default function RequestCard({
               `min-h-[223px] flex items-center justify-center py-6 text-[22px] leading-[35px] no-img-request-card`
             )}
           >
-            {requestData.title}
+            {requestData.title.length > 78
+              ? requestData.title.slice(0, 78).trim() + "..."
+              : requestData.title}
           </CardTitleDynamic>
         )}
 
