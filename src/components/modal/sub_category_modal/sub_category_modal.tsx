@@ -9,22 +9,10 @@ import {
 } from "../../ui/dialog";
 import { SubCategoryResponseType } from "@/types";
 import SubCategoryLink from "./sub_category_link";
+import { fetchSubCategories } from "@/api/category";
 
 interface SubCategoryModalProps extends React.HTMLAttributes<typeof Dialog> {
   categorygroup: string;
-}
-
-async function fetchSubCategories() {
-  const res = await fetch("https://www.askcenta.ng/api/categoryGroups", {
-    method: "OPTIONS",
-    next: {
-      revalidate: 3600 * 6,
-    },
-  });
-
-  if (!res.ok) throw new Error("failed to fetch categories");
-
-  return res.json();
 }
 
 export default async function SubCategoryModal({
