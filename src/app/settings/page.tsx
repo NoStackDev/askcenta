@@ -1,20 +1,36 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import React from "react";
+import React, { use } from "react";
 import LogoutBtn from "./logout";
 import PhoneNum from "./phone_num";
 import ResetPasswordBtn from "./reset_password";
 import EmailNotificationSwitch from "./email_notification_switch";
 import ChangeNotificationEmailBtn from "./change_notification_email";
-import PreferredLocation from "./preferred_location";
-import ChangePrefferedLocationBtn from "./change_preffered_location";
+import ChangePrefferedLocationBtn from "./change_prefered_location";
 import AnonymousSwitch from "./change_anonymous_switch";
 import ContactUsBtn from "./contact_us";
 import DeleteAccountBtn from "./delete_account";
 import Link from "next/link";
+import { getUserDetailsAction } from "@/actions";
+import {
+  CitiesResponseType,
+  StateResponseType,
+  UserDetailsType,
+} from "@/types";
+import { fetchCities, fetchStates } from "@/api/location";
 
 type Props = {};
 
-export default function Page({}: Props) {
+export default async function Page({}: Props) {
+  const userDetailsRes: Promise<UserDetailsType> = getUserDetailsAction();
+  const citiesRes: Promise<CitiesResponseType> = fetchCities();
+  const statesRes: Promise<StateResponseType> = fetchStates();
+
+  const [userDetails, cities, states] = await Promise.all([
+    userDetailsRes,
+    citiesRes,
+    statesRes,
+  ]);
+
   return (
     <main className="w-full mt-2 md:mt-0">
       <Card variant="settings">
@@ -57,19 +73,12 @@ export default function Page({}: Props) {
         </CardContent>
       </Card>
 
-      <Card variant="settings" className="mt-4">
-        <CardContent className="flex flex-col font-roboto">
-          <div className="flex items-center justify-between">
-            <span className="font-normal text-base text-black">
-              Preferred Location
-            </span>
-
-            <ChangePrefferedLocationBtn />
-          </div>
-
-          <PreferredLocation className="mt-2" />
-        </CardContent>
-      </Card>
+      <ChangePrefferedLocationBtn
+        userDetails={userDetails}
+        citiesdata={cities.data}
+        statesdata={states.data}
+        className="mt-2"
+      />
 
       <Card variant="settings" className="mt-4">
         <CardHeader className="font-roboto font-normal text-base text-black opacity-60">

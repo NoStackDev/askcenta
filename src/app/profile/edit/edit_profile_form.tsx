@@ -44,7 +44,7 @@ const editProfileFormSchema = z.object({
     .optional(),
   // .startsWith("0", { message: "Phone number must start with 08 or 09" }),
   business_addr: z.string().optional(),
-  location: z.string().min(1, { message: "Please select a location" }),
+  location: z.string().optional(),
   facebook_link: z
     .string()
     // .min(1, { message: "Please input a valid facebook link" })
@@ -80,6 +80,7 @@ export default function EditProfileForm({
   const imageInputRef = React.useRef<HTMLInputElement>(null);
   const [saving, setSaving] = React.useState(false);
 
+  console.log("user details: ", userDetails);
   React.useEffect(() => {
     async function handleCity() {
       setSelectedCity(
@@ -148,7 +149,7 @@ export default function EditProfileForm({
     values.about && formdata.append("about", values.about);
     values.business_addr &&
       formdata.append("business_addr", values.business_addr);
-    formdata.append("location_id", values.location);
+    values.location && formdata.append("location_id", values.location);
     values.facebook_link &&
       formdata.append("facebook_link", values.facebook_link);
     values.instagram_link &&
@@ -158,7 +159,15 @@ export default function EditProfileForm({
     try {
       const res = await updateUserDetailsAction(formdata);
 
-      console.log(res);
+      if (res.isError) {
+        if (res.errors && res.errors.whatsapp_num) {
+          form.setError("businessPhoneNum", {
+            message: res.errors.whatsapp_num[0],
+          });
+        }
+        console.log("error: ", res.errors);
+        console.log('whats app field: ', form.getValues('businessPhoneNum'))
+      }
       setSaving(false);
     } catch (err) {
       console.log(err);

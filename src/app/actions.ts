@@ -205,7 +205,6 @@ export async function getUserDetailsAction() {
 
 export async function updateUserDetailsAction(data: FormData) {
   const cookie = cookies();
-  const userId = cookie.get("userId")?.value;
 
   const headers = new Headers();
   headers.append("Accept", "application/json");
