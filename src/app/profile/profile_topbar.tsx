@@ -40,7 +40,7 @@ export default async function ProfileTopbar({
                   height={78}
                   src={"https://" + userDetails.data.image_url}
                   alt="profile"
-                  className="h-full w-auto"
+                  className="w-full h-auto bg-cover"
                 />
               ) : (
                 <PersonFillIcon
