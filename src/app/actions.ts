@@ -2,9 +2,37 @@
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { FeedsResponse, RequestResponsesType, UserDetailsType } from "@/types";
+import {
+  FeedsResponse,
+  RequestResponsesType,
+  UserDetailsType,
+  UserPreferenceType,
+} from "@/types";
 import { LoginFormFields } from "./login/login_form";
 import { SignupFormField } from "./signup/signup_wrapper";
+
+/*
+  check and get user authorization cookie and user details
+  if avaialable
+*/
+
+function getAuthCookieInfo() {
+  const cookie = cookies();
+
+  const token = cookie.get("Authorization")?.value;
+  const userDetails = cookie.get("user")?.value;
+
+  if (!token || !userDetails) {
+    cookie.delete("Authorization");
+    cookie.delete("user");
+    return redirect("/login");
+  }
+
+  return {
+    token,
+    userDetails: JSON.parse(userDetails) as UserDetailsType["data"],
+  };
+}
 
 /*
   sign up user
@@ -84,10 +112,12 @@ export async function signupUserAction(data: SignupFormField) {
     return _signupRes.json();
   }
 
-  // save user id after getting user details
+  // save user details after getting user details
   const resUserDetails: Promise<UserDetailsType> = _resUserDetails.json();
   const resUserDetailsJson = await resUserDetails;
-  cookie.set("userId", resUserDetailsJson.data.id.toString(), {
+  const { requests_responded, request_made, question_answer, ...others } =
+    resUserDetailsJson.data;
+  cookie.set("user", JSON.stringify(others), {
     httpOnly: true,
     maxAge: 60 * 60 * 24 * 7,
     sameSite: true,
@@ -143,7 +173,9 @@ export async function loginUserAction(data: LoginFormFields) {
 
   const resUserDetails: Promise<UserDetailsType> = _resUserDetails.json();
   const resUserDetailsJson = await resUserDetails;
-  cookie.set("userId", resUserDetailsJson.data.id.toString(), {
+  const { requests_responded, request_made, question_answer, ...others } =
+    resUserDetailsJson.data;
+  cookie.set("user", JSON.stringify(others), {
     httpOnly: true,
     maxAge: 60 * 60 * 24 * 7,
     sameSite: true,
@@ -152,11 +184,17 @@ export async function loginUserAction(data: LoginFormFields) {
   return redirect("/");
 }
 
+/*
+  logout user
+*/
 export async function logoutUserAction() {
   const cookie = cookies();
+
+  const { token, userDetails } = getAuthCookieInfo();
+
   const headers = new Headers();
   headers.append("Accept", "application/json");
-  headers.append("Authorization", cookie.get("Authorization")?.value || "");
+  headers.append("Authorization", token);
 
   const _res = await fetch(`https://askcenta.ng/api/logout`, {
     method: "POST",
@@ -165,21 +203,31 @@ export async function logoutUserAction() {
 
   if (!_res.ok) {
     const errors = await _res.json();
-    console.log(`failed to logout user`, { ...errors });
-    return { isError: true, errorMessage: `failed to login user`, ...errors };
+    console.log(`failed to logout user with user id ${userDetails.id}`, {
+      ...errors,
+    });
+    return {
+      isError: true,
+      errorMessage: `failed to login user with user id ${userDetails.id}`,
+      ...errors,
+    };
   }
 
   cookie.delete("Authorization");
-  cookie.delete("userId");
+  cookie.delete("user");
   return redirect("/");
 }
 
+/*
+ get user details
+*/
+
 export async function getUserDetailsAction() {
-  const cookie = cookies();
+  const { token, userDetails } = getAuthCookieInfo();
 
   const headers = new Headers();
   headers.append("Accept", "application/json");
-  headers.append("Authorization", cookie.get("Authorization")?.value || "");
+  headers.append("Authorization", token);
 
   const res = await fetch(`https://askcenta.ng/api/user`, {
     method: "OPTIONS",
@@ -190,9 +238,7 @@ export async function getUserDetailsAction() {
     // throw new Error("failed to fetch settings", { cause: await res.json() });
     const resJson = await res.json();
     console.log(
-      `failed to fetch user details for user with id ${
-        cookie.get("userId")?.value
-      }`,
+      `failed to fetch user details for user with user id ${userDetails.id}`,
       resJson
     );
 
@@ -203,12 +249,16 @@ export async function getUserDetailsAction() {
   return res.json();
 }
 
+/*
+  update user details
+*/
+
 export async function updateUserDetailsAction(data: FormData) {
-  const cookie = cookies();
+  const { token, userDetails } = getAuthCookieInfo();
 
   const headers = new Headers();
   headers.append("Accept", "application/json");
-  headers.append("Authorization", cookie.get("Authorization")?.value || "");
+  headers.append("Authorization", token);
 
   const res = await fetch(`https://askcenta.ng/api/update`, {
     method: "POST",
@@ -219,26 +269,39 @@ export async function updateUserDetailsAction(data: FormData) {
   if (!res.ok) {
     const resJson = await res.json();
     console.log(
-      `failed to update user details for user with userId ${
-        cookie.get("userId")?.value
-      }`,
+      `failed to update user details for user with userId ${userDetails.id}`,
       resJson
     );
 
     return { isError: true, ...resJson };
   }
 
-  // const resPromise: Promise<UserDetailsType> = res.json();
-  return res.json();
+  const cookie = cookies();
+  const updatedUserDetailsJson: UserDetailsType = await res.json();
+  const { requests_responded, request_made, question_answer, ...others } =
+    updatedUserDetailsJson.data;
+
+  cookie.set("user", JSON.stringify(others), {
+    httpOnly: true,
+    maxAge: 60 * 60 * 24 * 7,
+    sameSite: true,
+  });
+
+  return updatedUserDetailsJson;
 }
 
+/*
+  place request
+*/
+
 export async function placeRequestAction(formdata: FormData) {
-  const cookie = cookies();
+  const { token, userDetails } = getAuthCookieInfo();
+
   const headers = new Headers();
-  headers.append("Authorization", cookie.get("Authorization")?.value || "");
+  headers.append("Authorization", token);
   headers.append("Accept", "application/json");
-  const userId = cookie.get("userId")?.value;
-  formdata.append("user_id", userId || "");
+
+  formdata.append("user_id", userDetails.id.toString());
 
   const _res = await fetch(`https://askcenta.ng/api/requests`, {
     method: "POST",
@@ -249,12 +312,12 @@ export async function placeRequestAction(formdata: FormData) {
   if (!_res.ok) {
     const errors = await _res.json();
 
-    console.log(`failed to post user ${userId} request`, {
+    console.log(`failed to post user with user id ${userDetails.id} request`, {
       ...errors,
     });
     return {
       isError: true,
-      errorMessage: `failed to post user ${userId} request`,
+      errorMessage: `failed to post user with user id ${userDetails.id} request`,
       ...errors,
     };
   }
@@ -262,16 +325,21 @@ export async function placeRequestAction(formdata: FormData) {
   return await _res.json();
 }
 
+/*
+  update request
+*/
+
 export async function updateRequestAction(
   requestId: number,
   formdata: FormData
 ) {
-  const cookie = cookies();
+  const { token, userDetails } = getAuthCookieInfo();
+
   const headers = new Headers();
-  headers.append("Authorization", cookie.get("Authorization")?.value || "");
+  headers.append("Authorization", token);
   headers.append("Accept", "application/json");
-  const userId = cookie.get("userId")?.value;
-  formdata.append("user_id", userId || "");
+
+  formdata.append("user_id", userDetails.id.toString());
 
   const _res = await fetch(`https://askcenta.ng/api/requests/${requestId}`, {
     method: "POST",
@@ -283,14 +351,14 @@ export async function updateRequestAction(
     const errors = await _res.json();
 
     console.log(
-      `failed to update user ${userId} request with request id${requestId}`,
+      `failed to update user with user id ${userDetails.id} request with request id${requestId}`,
       {
         ...errors,
       }
     );
     return {
       isError: true,
-      errorMessage: `failed to update user ${userId} request with request id${requestId}`,
+      errorMessage: `failed to update user with user id ${userDetails.id} request with request id${requestId}`,
       ...errors,
     };
   }
@@ -298,12 +366,15 @@ export async function updateRequestAction(
   return await _res.json();
 }
 
+/*
+  delete request 
+*/
 export async function deleteRequestAction(requestId: number) {
-  const cookie = cookies();
+  const { token, userDetails } = getAuthCookieInfo();
+
   const headers = new Headers();
-  headers.append("Authorization", cookie.get("Authorization")?.value || "");
+  headers.append("Authorization", token);
   headers.append("Accept", "application/json");
-  const userId = cookie.get("userId")?.value;
 
   const _res = await fetch(`https://askcenta.ng/api/requests/${requestId}`, {
     method: "DELETE",
@@ -314,14 +385,14 @@ export async function deleteRequestAction(requestId: number) {
     const errors = await _res.json();
 
     console.log(
-      `failed to delete user ${userId} request with request id${requestId}`,
+      `failed to delete user with user id ${userDetails.id} request with request id${requestId}`,
       {
         ...errors,
       }
     );
     return {
       isError: true,
-      errorMessage: `failed to delete user ${userId} request with request id${requestId}`,
+      errorMessage: `failed to delete user with user id ${userDetails.id} request with request id${requestId}`,
       ...errors,
     };
   }
@@ -329,15 +400,19 @@ export async function deleteRequestAction(requestId: number) {
   return await _res.json();
 }
 
+/*
+  bookmark request
+*/
+
 export async function bookmarkRequestAction(requestId: string) {
-  const cookie = cookies();
+  const { token, userDetails } = getAuthCookieInfo();
+
   const headers = new Headers();
-  headers.append("Authorization", cookie.get("Authorization")?.value || "");
+  headers.append("Authorization", token);
   headers.append("Accept", "application/json");
-  const userId = cookie.get("userId")?.value;
 
   const data = new FormData();
-  data.append("user_id", userId || "");
+  data.append("user_id", userDetails.id.toString());
   data.append("req_id", requestId.toString());
 
   const _res = await fetch(`https://askcenta.ng/api/bookmarks`, {
@@ -350,7 +425,7 @@ export async function bookmarkRequestAction(requestId: string) {
     const errors = await _res.json();
 
     console.log(
-      `failed to delete user ${userId} request with request id${requestId}`,
+      `failed to delete user with user id ${userDetails.id} request with request id${requestId}`,
       {
         ...errors,
       }
@@ -358,7 +433,7 @@ export async function bookmarkRequestAction(requestId: string) {
     throw new Error("bookmarking failed", {
       cause: {
         isError: true,
-        errorMessage: `failed to delete user ${userId} request with request id${requestId}`,
+        errorMessage: `failed to delete user with user id ${userDetails.id} request with request id${requestId}`,
         ...errors,
       },
     });
@@ -367,12 +442,16 @@ export async function bookmarkRequestAction(requestId: string) {
   return await _res.json();
 }
 
+/*
+  get all request from a user
+*/
+
 export async function getAllRequestsByUser() {
-  const cookie = cookies();
+  const { token, userDetails } = getAuthCookieInfo();
 
   const headers = new Headers();
   headers.append("Accept", "application/json");
-  headers.append("Authorization", cookie.get("Authorization")?.value || "");
+  headers.append("Authorization", token);
 
   const res = await fetch(`http://askcenta.ng/api/requests`, {
     method: "OPTIONS",
@@ -380,21 +459,28 @@ export async function getAllRequestsByUser() {
   });
 
   if (!res.ok) {
-    throw new Error("failed to fetch user requests", {
-      cause: await res.json(),
-    });
+    throw new Error(
+      `failed to fetch user requests of user with user id ${userDetails.id}`,
+      {
+        cause: await res.json(),
+      }
+    );
   }
 
   const resPromise: Promise<FeedsResponse> = res.json();
   return resPromise;
 }
 
+/*
+  fetch user bookmarks
+*/
+
 export async function fetchBookmarksAction() {
-  const cookie = cookies();
+  const { token, userDetails } = getAuthCookieInfo();
+
   const headers = new Headers();
-  headers.append("Authorization", cookie.get("Authorization")?.value || "");
+  headers.append("Authorization", token);
   headers.append("Accept", "application/json");
-  const userId = cookie.get("userId")?.value;
 
   const _res = await fetch(`https://askcenta.ng/api/bookmarks`, {
     method: "OPTIONS",
@@ -404,13 +490,16 @@ export async function fetchBookmarksAction() {
   if (!_res.ok) {
     const errors = await _res.json();
 
-    console.log(`failed to fetch user ${userId} bookmarks}`, {
-      ...errors,
-    });
+    console.log(
+      `failed to fetch user bookmarks for user with user id ${userDetails.id}`,
+      {
+        ...errors,
+      }
+    );
     throw new Error("bookmarking failed", {
       cause: {
         isError: true,
-        errorMessage: `failed to fetch user ${userId} bookmarks}`,
+        errorMessage: `failed to fetch user bookmarks for user with user id ${userDetails.id} bookmarks}`,
         ...errors,
       },
     });
@@ -419,17 +508,19 @@ export async function fetchBookmarksAction() {
   return await _res.json();
 }
 
-export async function postResponseAction(formdata: FormData) {
-  const cookie = cookies();
-  const headers = new Headers();
-  headers.append("Authorization", cookie.get("Authorization")?.value || "");
-  headers.append("Accept", "application/json");
-  const userId = cookie.get("userId")?.value;
-  formdata.append("user_id", userId || "");
+/*
+  post response
+*/
 
-  const userDetails = await getUserDetailsAction();
-  console.log(userDetails);
-  formdata.append("whatsapp_num", userDetails.data.whatsapp_num);
+export async function postResponseAction(formdata: FormData) {
+  const { token, userDetails } = getAuthCookieInfo();
+
+  const headers = new Headers();
+  headers.append("Authorization", token);
+  headers.append("Accept", "application/json");
+  formdata.append("user_id", userDetails.id.toString());
+
+  formdata.append("whatsapp_num", userDetails.whatsapp_num);
 
   const _res = await fetch(`https://askcenta.ng/api/responses`, {
     method: "POST",
@@ -440,12 +531,19 @@ export async function postResponseAction(formdata: FormData) {
   if (!_res.ok) {
     const errors = await _res.json();
 
-    console.log(`failed to post user ${userId} response`, {
-      ...errors,
-    });
+    console.log(
+      `failed to post user reponse of user with user id ${
+        userDetails.id
+      } to request with request id ${formdata.get("req_id")}`,
+      {
+        ...errors,
+      }
+    );
     return {
       isError: true,
-      errorMessage: `failed to post user ${userId} response`,
+      errorMessage: `failed to post user reponse of user with user id ${
+        userDetails.id
+      } to request with request id ${formdata.get("req_id")}`,
       ...errors,
     };
   }
@@ -453,12 +551,16 @@ export async function postResponseAction(formdata: FormData) {
   return await _res.json();
 }
 
+/* 
+  get all response by user
+*/
+
 export async function getAllResponsesByUser() {
-  const cookie = cookies();
+  const { token, userDetails } = getAuthCookieInfo();
 
   const headers = new Headers();
   headers.append("Accept", "application/json");
-  headers.append("Authorization", cookie.get("Authorization")?.value || "");
+  headers.append("Authorization", token);
 
   const res = await fetch(`http://askcenta.ng/api/responses`, {
     method: "OPTIONS",
@@ -466,11 +568,45 @@ export async function getAllResponsesByUser() {
   });
 
   if (!res.ok) {
-    throw new Error("failed to fetch user responses", {
-      cause: await res.json(),
-    });
+    throw new Error(
+      `failed to fetch all responses by user with user id ${userDetails.id}`,
+      {
+        cause: await res.json(),
+      }
+    );
   }
 
   const resPromise: Promise<{ data: RequestResponsesType[] }> = res.json();
+  return resPromise;
+}
+
+/*
+  get user preference
+*/
+export async function getUserPreferenceAction() {
+  const { token, userDetails } = getAuthCookieInfo();
+
+  const headers = new Headers();
+  headers.append("Accept", "application/json");
+  headers.append("Authorization", token);
+
+  const res = await fetch(
+    `http://askcenta.ng/api/user_preferances/${userDetails.id}`,
+    {
+      method: "OPTIONS",
+      headers: headers,
+    }
+  );
+
+  if (!res.ok) {
+    throw new Error(
+      `failed to fetch user preference for user with user id ${userDetails.id}`,
+      {
+        cause: await res.json(),
+      }
+    );
+  }
+
+  const resPromise: Promise<UserPreferenceType> = res.json();
   return resPromise;
 }

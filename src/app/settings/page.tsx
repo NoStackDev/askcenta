@@ -1,7 +1,6 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import React, { use } from "react";
 import LogoutBtn from "./logout";
-import PhoneNum from "./phone_num";
 import ResetPasswordBtn from "./reset_password";
 import EmailNotificationSwitch from "./email_notification_switch";
 import ChangeNotificationEmailBtn from "./change_notification_email";
@@ -17,6 +16,7 @@ import {
   UserDetailsType,
 } from "@/types";
 import { fetchCities, fetchStates } from "@/api/location";
+import Email from "./email";
 
 type Props = {};
 
@@ -39,7 +39,7 @@ export default async function Page({}: Props) {
         </CardHeader>
 
         <CardContent className="mt-7 flex items-center justify-between font-roboto">
-          <PhoneNum />
+          <Email />
           <LogoutBtn />
         </CardContent>
       </Card>

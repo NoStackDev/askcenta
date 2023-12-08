@@ -134,6 +134,16 @@ export type UserDetailsType = {
   };
 };
 
+export type UserPreferenceType = {
+  all_categories: boolean;
+  all_locations: boolean;
+  id: number;
+  post_anonymous: string;
+  selected_categories: string[];
+  selected_locations: string[];
+  user_id: string;
+};
+
 export interface ShareData {
   text?: string;
   title?: string;

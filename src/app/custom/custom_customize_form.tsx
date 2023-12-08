@@ -15,6 +15,7 @@ import React from "react";
 import { CategoryType, CityType, SubCategoryType } from "@/types";
 import CategoryModal from "@/components/modal/category_modal";
 import { DialogProps } from "@radix-ui/react-dialog";
+import { getUserPreferenceAction } from "@/actions";
 
 interface CustomCustomizeFormProps extends DialogProps {
   citiesdata: CityType[];
@@ -47,6 +48,11 @@ export default function CustomCustomizeForm({
   const [selectedCities, setSelectedCities] = React.useState<CityType[]>([]);
 
   React.useEffect(() => {
+    async function fetchUserPreference() {
+      const res = await getUserPreferenceAction();
+      console.log(res);
+    }
+    fetchUserPreference();
     let preSelectedCities: CityType[] = [];
     let preSelectedSubCategories: SubCategoryType[] = [];
     if (searchparams["city_id"]) {
@@ -120,6 +126,7 @@ export default function CustomCustomizeForm({
   };
 
   const onSave = () => {
+    // const formData = new FormData
     const url = new URL(window.location.href);
     url.searchParams.delete("city_id");
     url.searchParams.delete("category_group_id");

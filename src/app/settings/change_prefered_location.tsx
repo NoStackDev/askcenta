@@ -1,6 +1,7 @@
 "use client";
 
 import { updateUserDetailsAction } from "@/actions";
+import LoadingSpinner from "@/components/load_spinner";
 import { LocationModal } from "@/components/modal";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -35,7 +36,6 @@ export default function ChangePreferedLocationBtn({
       const data = new FormData();
       selectedCity && data.append("location_id", selectedCity.id.toString());
       const res = await updateUserDetailsAction(data);
-      console.log(res);
       setIsLoading(false);
     }
 
@@ -63,7 +63,9 @@ export default function ChangePreferedLocationBtn({
             <Button
               className={cn("font-roboto font-medium text-sm text-[#6356E5]")}
             >
-              Change
+              {isLoading && <LoadingSpinner />}
+              {isLoading && "Changing"}
+              {!isLoading && "Change"}
             </Button>
           </LocationModal>
         </div>

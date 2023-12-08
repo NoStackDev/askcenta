@@ -1,5 +1,6 @@
 // import { NextResponse } from "next/server";
 
+import { nearbyPageSearchParams } from "./middlewares/nearbyPageSearchParams";
 import { requestHeaders } from "./middlewares/requestHeaders";
 import { routeAuthorization } from "./middlewares/routeAuthorization";
 import { stackMiddlewares } from "./middlewares/stackHandler";
@@ -24,5 +25,9 @@ import { stackMiddlewares } from "./middlewares/stackHandler";
 //   matcher: ["/*"],
 // };
 
-const middlewares = [routeAuthorization, requestHeaders];
+const middlewares = [
+  routeAuthorization,
+  nearbyPageSearchParams,
+  requestHeaders,
+];
 export default stackMiddlewares(middlewares);

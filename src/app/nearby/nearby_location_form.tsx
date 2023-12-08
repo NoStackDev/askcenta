@@ -15,27 +15,42 @@ import {
 import React from "react";
 import { CityType } from "@/types";
 import LocationModal from "@/components/modal/location_modal";
+import { updateUserDetailsAction } from "@/actions";
+import LoadingSpinner from "@/components/load_spinner";
 
 type Props = {
   cityid: string | string[] | undefined;
   citiesdata: CityType[];
   statesdata: { id: number; name: string }[];
+  userIsLoggedIn: boolean;
 };
 
 export default function NearbyLocationForm({
   cityid,
   statesdata,
   citiesdata,
+  userIsLoggedIn,
 }: Props) {
   const [selectedCity, setSelectedCity] = React.useState<CityType | null>(null);
   const [selectedState, setSelectedState] = React.useState<{
     id: number;
     name: string;
   } | null>(null);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const preSelectedLocation = citiesdata.find(
     (city) => city.id === Number(cityid)
   );
+
+  async function updatePreferredLocation() {
+    setIsLoading(true);
+    const data = new FormData();
+    selectedCity && data.append("location_id", selectedCity.id.toString());
+    if (userIsLoggedIn) {
+      const res = await updateUserDetailsAction(data);
+    }
+    setIsLoading(false);
+  }
 
   return (
     <>
@@ -49,21 +64,17 @@ export default function NearbyLocationForm({
 
         {(preSelectedLocation || selectedCity) && (
           <span className="font-roboto font-normal text-sm text-black">
-            {selectedCity ? selectedCity?.city : preSelectedLocation?.city}
-          </span>
-        )}
-
-        {(!preSelectedLocation || !selectedCity) && (
-          <span className="font-roboto font-normal text-sm text-black">
-            Nationwide
+            {selectedCity?.city || preSelectedLocation?.city || "Nationwide"}
           </span>
         )}
       </div>
 
       <Dialog>
         <DialogTrigger>
-          <Button className="font-roboto font-medium text-xs text-[#6356E5]">
-            Change Preferred Location
+          <Button className="font-roboto font-medium text-xs text-[#6356E5] flex items-center gap-2 justify-center">
+            {!isLoading && "Change Preferred Location"}
+            {isLoading && <LoadingSpinner />}
+            {isLoading && "Changing Location"}
           </Button>
         </DialogTrigger>
 
@@ -124,7 +135,11 @@ export default function NearbyLocationForm({
                   }`}
                   className=""
                 >
-                  <Button variant="request" className="mt-6 py-4 w-full">
+                  <Button
+                    variant="request"
+                    className="mt-6 py-4 w-full"
+                    onClick={updatePreferredLocation}
+                  >
                     Save & Continue
                   </Button>
                 </a>
