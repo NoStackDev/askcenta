@@ -15,7 +15,7 @@ import React from "react";
 import { CategoryType, CityType, SubCategoryType } from "@/types";
 import CategoryModal from "@/components/modal/category_modal";
 import { DialogProps } from "@radix-ui/react-dialog";
-import { getUserPreferenceAction } from "@/actions";
+import { getUserPreferenceAction, updateUserPreferenceAction } from "@/actions";
 
 interface CustomCustomizeFormProps extends DialogProps {
   citiesdata: CityType[];
@@ -50,7 +50,7 @@ export default function CustomCustomizeForm({
   React.useEffect(() => {
     async function fetchUserPreference() {
       const res = await getUserPreferenceAction();
-      console.log(res);
+      console.log("use effect: ", res);
     }
     fetchUserPreference();
     let preSelectedCities: CityType[] = [];
@@ -125,26 +125,38 @@ export default function CustomCustomizeForm({
     setSelectedSubcategories(newSelectedSubCategories);
   };
 
-  const onSave = () => {
-    // const formData = new FormData
-    const url = new URL(window.location.href);
-    url.searchParams.delete("city_id");
-    url.searchParams.delete("category_group_id");
-    if (selectedCities.length > 0) {
-      url.searchParams.append(
-        "city_id",
-        selectedCities.map((city) => city.id.toString()).toString()
-      );
-    }
-    if (selectedSubcategories.length > 0) {
-      url.searchParams.append(
-        "category_group_id",
-        selectedSubcategories
-          .map((subCategory) => subCategory.id.toString())
-          .toString()
-      );
-    }
-    window.location.href = url.href;
+  const onSave = async () => {
+    const formData = new FormData();
+    formData.append(
+      "selected_categories",
+      JSON.stringify(selectedSubcategories.map((category) => category.id))
+    );
+    formData.append(
+      "selected_locations",
+      JSON.stringify(selectedCities.map((city) => city.id))
+    );
+
+    const res = await updateUserPreferenceAction(formData);
+    console.log("updated user preference: ", res);
+    // const url = new URL(window.location.href);
+    // url.searchParams.delete("city_id");
+    // url.searchParams.delete("category_group_id");
+    // if (selectedCities.length > 0) {
+    //   url.searchParams.append(
+    //     "city_id",
+    //     selectedCities.map((city) => city.id.toString()).toString()
+    //   );
+    // }
+    // if (selectedSubcategories.length > 0) {
+    //   url.searchParams.append(
+    //     "category_group_id",
+    //     selectedSubcategories
+    //       .map((subCategory) => subCategory.id.toString())
+    //       .toString()
+    //   );
+    // }
+
+    // window.location.href = url.href;
   };
 
   return (

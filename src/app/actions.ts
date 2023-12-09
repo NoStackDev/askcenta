@@ -430,13 +430,12 @@ export async function bookmarkRequestAction(requestId: string) {
         ...errors,
       }
     );
-    throw new Error("bookmarking failed", {
-      cause: {
-        isError: true,
-        errorMessage: `failed to delete user with user id ${userDetails.id} request with request id${requestId}`,
-        ...errors,
-      },
-    });
+
+    return {
+      isError: true,
+      errorMessage: `failed to delete user with user id ${userDetails.id} request with request id${requestId}`,
+      ...errors,
+    };
   }
 
   return await _res.json();
@@ -459,12 +458,12 @@ export async function getAllRequestsByUser() {
   });
 
   if (!res.ok) {
-    throw new Error(
-      `failed to fetch user requests of user with user id ${userDetails.id}`,
-      {
-        cause: await res.json(),
-      }
-    );
+    const errors = await res.json();
+    return {
+      isError: true,
+      errorMessage: `failed to fetch user requests of user with user id ${userDetails.id}`,
+      ...errors,
+    };
   }
 
   const resPromise: Promise<FeedsResponse> = res.json();
@@ -496,13 +495,12 @@ export async function fetchBookmarksAction() {
         ...errors,
       }
     );
-    throw new Error("bookmarking failed", {
-      cause: {
-        isError: true,
-        errorMessage: `failed to fetch user bookmarks for user with user id ${userDetails.id} bookmarks}`,
-        ...errors,
-      },
-    });
+
+    return {
+      isError: true,
+      errorMessage: `failed to fetch user bookmarks for user with user id ${userDetails.id} bookmarks}`,
+      ...errors,
+    };
   }
 
   return await _res.json();
@@ -568,12 +566,15 @@ export async function getAllResponsesByUser() {
   });
 
   if (!res.ok) {
-    throw new Error(
-      `failed to fetch all responses by user with user id ${userDetails.id}`,
-      {
-        cause: await res.json(),
-      }
+    const errors = await res.json();
+    console.log(
+      `failed to fetch all responses by user with user id ${userDetails.id}`
     );
+    return {
+      isError: true,
+      errorMessage: `failed to fetch all responses by user with user id ${userDetails.id}`,
+      ...errors,
+    };
   }
 
   const resPromise: Promise<{ data: RequestResponsesType[] }> = res.json();
@@ -599,14 +600,53 @@ export async function getUserPreferenceAction() {
   );
 
   if (!res.ok) {
-    throw new Error(
-      `failed to fetch user preference for user with user id ${userDetails.id}`,
-      {
-        cause: await res.json(),
-      }
+    const errors = await res.json();
+    console.log(
+      `failed to fetch user preference for user with user id ${userDetails.id}`
     );
+    return {
+      isError: true,
+      errorMessage: `failed to fetch user preference for user with user id ${userDetails.id}`,
+      ...errors,
+    };
   }
 
   const resPromise: Promise<UserPreferenceType> = res.json();
   return resPromise;
+}
+
+/*
+  update user preference
+*/
+export async function updateUserPreferenceAction(data: FormData) {
+  const { token, userDetails } = getAuthCookieInfo();
+
+  const headers = new Headers();
+  headers.append("Accept", "application/json");
+  headers.append("Authorization", token);
+  data.append("user_id", userDetails.id.toString());
+
+  const res = await fetch(`http://askcenta.ng/api/user_preferances/`, {
+    method: "POST",
+    headers: headers,
+    body: data,
+  });
+  console.log("token: ", token);
+
+  if (!res.ok) {
+    const errors = await res.json();
+    console.log(
+      `failed to update user preference for user with user id ${userDetails.id}`,
+      { error: errors.message }
+    );
+
+    return {
+      isError: true,
+      errorMessage: `failed to update user preference for user with user id ${userDetails.id}`,
+      ...errors,
+    };
+  }
+
+  // const resPromise: Promise<UserPreferenceType> = res.json();
+  return res.json();
 }
