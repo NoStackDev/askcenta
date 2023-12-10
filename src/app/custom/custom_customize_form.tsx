@@ -16,6 +16,7 @@ import { CategoryType, CityType, SubCategoryType } from "@/types";
 import CategoryModal from "@/components/modal/category_modal";
 import { DialogProps } from "@radix-ui/react-dialog";
 import { getUserPreferenceAction, updateUserPreferenceAction } from "@/actions";
+import LoadingSpinner from "@/components/load_spinner";
 
 interface CustomCustomizeFormProps extends DialogProps {
   citiesdata: CityType[];
@@ -33,6 +34,7 @@ export default function CustomCustomizeForm({
   searchparams,
   ...props
 }: CustomCustomizeFormProps) {
+  const [loading, setLoading] = React.useState(false);
   const [selectedSubCategory, setSelectedSubCategory] =
     React.useState<SubCategoryType | null>(null);
   const [selectedCategory, setSelectedCategory] =
@@ -48,11 +50,6 @@ export default function CustomCustomizeForm({
   const [selectedCities, setSelectedCities] = React.useState<CityType[]>([]);
 
   React.useEffect(() => {
-    async function fetchUserPreference() {
-      const res = await getUserPreferenceAction();
-      console.log("use effect: ", res);
-    }
-    fetchUserPreference();
     let preSelectedCities: CityType[] = [];
     let preSelectedSubCategories: SubCategoryType[] = [];
     if (searchparams["city_id"]) {
@@ -126,42 +123,41 @@ export default function CustomCustomizeForm({
   };
 
   const onSave = async () => {
-    const formData = new FormData();
-    formData.append(
-      "selected_categories",
-      JSON.stringify(selectedSubcategories.map((category) => category.id))
+    setLoading(true);
+    const data: { [name: string]: any } = {};
+    data.selected_categories = selectedSubcategories.map(
+      (category) => category.id
     );
-    formData.append(
-      "selected_locations",
-      JSON.stringify(selectedCities.map((city) => city.id))
-    );
+    data.selected_locations = selectedCities.map((city) => city.id);
+    data.all_categories = selectedSubcategories.length > 0 ? false : true;
+    data.all_locations = selectedCities.length > 0 ? false : true;
 
-    const res = await updateUserPreferenceAction(formData);
+    const res = await updateUserPreferenceAction(data);
     console.log("updated user preference: ", res);
-    // const url = new URL(window.location.href);
-    // url.searchParams.delete("city_id");
-    // url.searchParams.delete("category_group_id");
-    // if (selectedCities.length > 0) {
-    //   url.searchParams.append(
-    //     "city_id",
-    //     selectedCities.map((city) => city.id.toString()).toString()
-    //   );
-    // }
-    // if (selectedSubcategories.length > 0) {
-    //   url.searchParams.append(
-    //     "category_group_id",
-    //     selectedSubcategories
-    //       .map((subCategory) => subCategory.id.toString())
-    //       .toString()
-    //   );
-    // }
+    const url = new URL(window.location.href);
+    url.searchParams.delete("city_id");
+    url.searchParams.delete("category_group_id");
+    if (selectedCities.length > 0) {
+      url.searchParams.append(
+        "city_id",
+        selectedCities.map((city) => city.id.toString()).toString()
+      );
+    }
+    if (selectedSubcategories.length > 0) {
+      url.searchParams.append(
+        "category_group_id",
+        selectedSubcategories
+          .map((subCategory) => subCategory.id.toString())
+          .toString()
+      );
+    }
 
-    // window.location.href = url.href;
+    window.location.href = url.href;
   };
 
   return (
     <Dialog {...props}>
-      <DialogTrigger>{children}</DialogTrigger>
+      <DialogTrigger>{loading ? <LoadingSpinner /> : children}</DialogTrigger>
 
       <DialogContent className="bg-[#F7F7F9] flex flex-col justify-between pb-20 overflow-y-auto">
         <div>

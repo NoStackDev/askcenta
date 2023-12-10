@@ -618,20 +618,29 @@ export async function getUserPreferenceAction() {
 /*
   update user preference
 */
-export async function updateUserPreferenceAction(data: FormData) {
+export async function updateUserPreferenceAction(data: {
+  [name: string]: any;
+}) {
   const { token, userDetails } = getAuthCookieInfo();
 
+  const userPreferences: UserPreferenceType = await getUserPreferenceAction();
   const headers = new Headers();
   headers.append("Accept", "application/json");
+  headers.append("Content-type", "application/json");
   headers.append("Authorization", token);
-  data.append("user_id", userDetails.id.toString());
+  data.user_id = userDetails.id;
+  if (data.post_anonymous === undefined) {
+    data.post_anonymous = userPreferences.post_anonymous;
+  }
 
-  const res = await fetch(`http://askcenta.ng/api/user_preferances/`, {
-    method: "POST",
-    headers: headers,
-    body: data,
-  });
-  console.log("token: ", token);
+  const res = await fetch(
+    `http://askcenta.ng/api/user_preferances/${userPreferences.id}`,
+    {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(data),
+    }
+  );
 
   if (!res.ok) {
     const errors = await res.json();
