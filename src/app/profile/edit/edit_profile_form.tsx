@@ -80,7 +80,6 @@ export default function EditProfileForm({
   const imageInputRef = React.useRef<HTMLInputElement>(null);
   const [saving, setSaving] = React.useState(false);
 
-  console.log("user details: ", userDetails);
   React.useEffect(() => {
     async function handleCity() {
       setSelectedCity(
@@ -144,8 +143,9 @@ export default function EditProfileForm({
     setSaving(true);
 
     const formdata = new FormData();
-    // formdata.append("profile_img", values.username);
-    formdata.append("whatsapp_num", userDetails.data.whatsapp_num);
+    // if (form.getValues("businessPhoneNum")?.trim()) {
+    //   form.getValues("businessPhoneNum")?.trim().length > 0 && formdata.append("whatsapp_num", userDetails.data.whatsapp_num);
+    // }
     values.about && formdata.append("about", values.about);
     values.business_addr &&
       formdata.append("business_addr", values.business_addr);
@@ -166,7 +166,7 @@ export default function EditProfileForm({
           });
         }
         console.log("error: ", res.errors);
-        console.log('whats app field: ', form.getValues('businessPhoneNum'))
+        console.log("whats app field: ", form.getValues("businessPhoneNum"));
       }
       setSaving(false);
     } catch (err) {
@@ -233,7 +233,7 @@ export default function EditProfileForm({
                   height={72}
                   src={imagePreview}
                   alt="profile"
-                  className="h-full w-auto"
+                  className="h-full w-auto rounded-full object-cover"
                 />
               )}
             </Button>
