@@ -15,7 +15,8 @@ import React from "react";
 import { CategoryType, CityType, SubCategoryType } from "@/types";
 import CategoryModal from "@/components/modal/category_modal";
 import { DialogProps } from "@radix-ui/react-dialog";
-import { getUserPreferenceAction } from "@/actions";
+import { getUserPreferenceAction, updateUserPreferenceAction } from "@/actions";
+import LoadingSpinner from "@/components/load_spinner";
 
 interface CustomCustomizeFormProps extends DialogProps {
   citiesdata: CityType[];
@@ -33,6 +34,7 @@ export default function CustomCustomizeForm({
   searchparams,
   ...props
 }: CustomCustomizeFormProps) {
+  const [loading, setLoading] = React.useState(false);
   const [selectedSubCategory, setSelectedSubCategory] =
     React.useState<SubCategoryType | null>(null);
   const [selectedCategory, setSelectedCategory] =
@@ -48,11 +50,6 @@ export default function CustomCustomizeForm({
   const [selectedCities, setSelectedCities] = React.useState<CityType[]>([]);
 
   React.useEffect(() => {
-    async function fetchUserPreference() {
-      const res = await getUserPreferenceAction();
-      console.log(res);
-    }
-    fetchUserPreference();
     let preSelectedCities: CityType[] = [];
     let preSelectedSubCategories: SubCategoryType[] = [];
     if (searchparams["city_id"]) {
@@ -125,8 +122,18 @@ export default function CustomCustomizeForm({
     setSelectedSubcategories(newSelectedSubCategories);
   };
 
-  const onSave = () => {
-    // const formData = new FormData
+  const onSave = async () => {
+    setLoading(true);
+    const data: { [name: string]: any } = {};
+    data.selected_categories = selectedSubcategories.map(
+      (category) => category.id
+    );
+    data.selected_locations = selectedCities.map((city) => city.id);
+    data.all_categories = selectedSubcategories.length > 0 ? false : true;
+    data.all_locations = selectedCities.length > 0 ? false : true;
+
+    const res = await updateUserPreferenceAction(data);
+    console.log("updated user preference: ", res);
     const url = new URL(window.location.href);
     url.searchParams.delete("city_id");
     url.searchParams.delete("category_group_id");
@@ -144,12 +151,13 @@ export default function CustomCustomizeForm({
           .toString()
       );
     }
+
     window.location.href = url.href;
   };
 
   return (
     <Dialog {...props}>
-      <DialogTrigger>{children}</DialogTrigger>
+      <DialogTrigger>{loading ? <LoadingSpinner /> : children}</DialogTrigger>
 
       <DialogContent className="bg-[#F7F7F9] flex flex-col justify-between pb-20 overflow-y-auto">
         <div>

@@ -31,7 +31,7 @@ export default function RequestBookmark({ requestData }: Props) {
     }
   }
 
-  console.log("bookmarked: ", bookmarked);
+  // console.log("bookmarked: ", bookmarked);
 
   // console.log("isBookmarked: ", requestData);
   // console.log("bookmark type: ", typeof requestData.bookmark);
