@@ -1,6 +1,6 @@
 import { cn, month } from "@/lib/utils";
 import React from "react";
-import { RequestDetailType } from "@/types";
+import { RequestDetailType, UserDetailsType } from "@/types";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   LocationOnIcon,
@@ -22,7 +22,9 @@ export default function RequestImgDetail({
   requestDetailData,
 }: RequestImgDetailProps) {
   const cookie = cookies();
-  const userId = cookie.get("userId")?.value;
+  const user: UserDetailsType["data"] | null = JSON.parse(
+    cookie.get("user")?.value || "null"
+  );
   const date = new Date(requestDetailData.request.created_at);
 
   return (
@@ -117,14 +119,13 @@ export default function RequestImgDetail({
       </CardContent>
 
       <CardContent className="bg-white mb-4 md:mb-6 border-b border-[#CDCDD1]">
-        {(!userId ||
-          userId !== requestDetailData.request.user_id.toString()) && (
+        {(!user || user.id !== requestDetailData.request.user_id) && (
           <RequestActions
             requestDetailData={requestDetailData}
             className="px-4 md:px-6 py-6 mt-[1px] md:mt-1"
           />
         )}
-        {userId && userId === requestDetailData.request.user_id.toString() && (
+        {user && user.id === requestDetailData.request.user_id && (
           <RequestActionsUser
             className="px-4 md:px-6 py-6 mt-[1px] md:mt-1"
             requestDetailData={requestDetailData}
