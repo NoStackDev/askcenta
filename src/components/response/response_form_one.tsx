@@ -22,6 +22,7 @@ const responsePresets = [
 interface ResponseFormOneProps extends React.HTMLAttributes<typeof FormField> {
   form: UseFormReturn<
     {
+      whatsapp_num: string;
       title: string;
       location: string;
       visibility: "public" | "private";
