@@ -9,7 +9,7 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import { Button } from "../ui/button";
-import { KeyboardBackspaceIcon, CloseIcon } from "../icons";
+import { KeyboardBackspaceIcon, CloseIcon, CancelIcon } from "../icons";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -21,20 +21,24 @@ import ResponseFormTwo from "./response_form_two";
 import { DialogProps } from "@radix-ui/react-dialog";
 import { getUserDetailsAction, postResponseAction } from "@/actions";
 import LoadingSpinner from "../load_spinner";
+import ResponseFormWhatsapp from "./response_form_whatsapp";
 
 interface ResponseFormProps extends React.HTMLAttributes<DialogProps> {
   requestid: string;
   citiesdata: CityType[];
   statesdata: { id: number; name: string }[];
+  user: UserDetailsType["data"] | null;
 }
 
+// const responseFormWhatsappSchema
+
 const responseFormSchema = z.object({
+  whatsapp_num: z
+    .string()
+    .length(10, { message: "Whatsapp number number be 10 digits" }),
   title: z.string().min(1, { message: "Please select a response" }),
   location: z.string().min(1, { message: "Please select a location" }),
   description: z.string().optional(),
-  // .min(20, { message: "Description cannot be less than 20 charactrs" })
-  // .max(120, { message: "Description cannot be more than 120 characters" })
-  // .optional(),
   visibility: z.enum(["public", "private"]),
 });
 
@@ -44,8 +48,10 @@ export default function ResponseForm({
   citiesdata,
   statesdata,
   requestid,
+  user,
   ...props
 }: ResponseFormProps) {
+  const [whatsappNum, setWhatsappNum] = React.useState<string | null>(null);
   const [formStep, setFormStep] = React.useState(0);
   const [selectedCity, setSelectedCity] = React.useState<CityType | null>(null);
   const [selectedState, setSelectedState] = React.useState<{
@@ -58,6 +64,7 @@ export default function ResponseForm({
   const [isPosting, setIsPosting] = React.useState(false);
 
   async function onSubmit(values: z.infer<typeof responseFormSchema>) {
+    console.log("posting state: ", isPosting);
     if (isPosting) return;
 
     if (formStep === 0) {
@@ -67,6 +74,7 @@ export default function ResponseForm({
 
     setIsPosting(true);
     const formdata = new FormData();
+    whatsappNum && formdata.append("whatsapp_num", whatsappNum);
     formdata.append("title", values.title);
     formdata.append("visibility", values.visibility);
     formdata.append("location_id", values.location);
@@ -106,6 +114,13 @@ export default function ResponseForm({
   }
 
   React.useEffect(() => {
+    if (user && user.whatsapp_num) {
+      setWhatsappNum(user.whatsapp_num);
+      form.setValue("whatsapp_num", user.whatsapp_num.slice(3));
+    }
+  }, []);
+
+  React.useEffect(() => {
     form.unregister("location");
   }, []);
 
@@ -118,6 +133,7 @@ export default function ResponseForm({
   const form = useForm<z.infer<typeof responseFormSchema>>({
     resolver: zodResolver(responseFormSchema),
     defaultValues: {
+      whatsapp_num: "",
       title: "",
       location: "",
       description: "",
@@ -131,13 +147,21 @@ export default function ResponseForm({
       <DialogContent>
         <div className="h-full flex flex-col px-4 py-10 pb-20 md:pb-10">
           <div className="flex justify-between items-center">
-            <h2 className="font-poppins font-semibold text-base text-[#011B39]">
-              RESPOND TO THIS REQUEST
-            </h2>
+            {whatsappNum && (
+              <h2 className="font-poppins font-semibold text-xl text-[#011B39] uppercase">
+                RESPOND TO THIS REQUEST
+              </h2>
+            )}
+
+            {!whatsappNum && (
+              <h2 className="font-poppins font-semibold text-xl text-[#000000] uppercase">
+                Setup contact Detail
+              </h2>
+            )}
 
             <DialogClose>
               <Button>
-                <CloseIcon />
+                <CancelIcon />
               </Button>
             </DialogClose>
           </div>
@@ -148,15 +172,28 @@ export default function ResponseForm({
               className="mt-8 h-full flex flex-col justify-between overflow-y-auto"
             >
               <div className="relative overflow-x-clip overflow-y-auto h-full">
-                <ResponseFormOne
-                  form={form}
-                  selectedresponse={selectedResponse}
-                  setselectedresponse={setSelectedResponse}
-                  className={cn(
-                    "h-fit w-full absolute transition-all animate-dialogFirstContentShow",
-                    formStep !== 0 && "hidden"
-                  )}
-                />
+                {whatsappNum && (
+                  <ResponseFormOne
+                    form={form}
+                    selectedresponse={selectedResponse}
+                    setselectedresponse={setSelectedResponse}
+                    className={cn(
+                      "h-fit w-full absolute transition-all animate-dialogFirstContentShow",
+                      formStep !== 0 && "hidden"
+                    )}
+                  />
+                )}
+
+                {!whatsappNum && (
+                  <ResponseFormWhatsapp
+                    setWhatsappNum={setWhatsappNum}
+                    form={form}
+                    className={cn(
+                      "h-fit w-full absolute transition-all animate-dialogFirstContentShow",
+                      formStep !== 0 && "hidden"
+                    )}
+                  />
+                )}
                 <ResponseFormTwo
                   form={form}
                   citiesdata={citiesdata}
@@ -172,40 +209,42 @@ export default function ResponseForm({
                 />
               </div>
 
-              <div className="w-full flex items-center justify-center pt-4">
-                {formStep === 0 && (
-                  <Button
-                    type="submit"
-                    className="w-full rounded-[24px] bg-request-gradient font-roboto font-medium text-base text-white py-3 max-w-[358px]"
-                    onClick={() => {
-                      setTimeout(() => {
-                        !form.control._formState.errors["title"] &&
-                          setFormStep(formStep + 1);
-                        form.clearErrors("location");
-                      }, 0);
-                    }}
-                  >
-                    Next
-                  </Button>
-                )}
-
-                {formStep > 0 && (
-                  <div className="w-full flex items-center justify-between pt-4">
-                    <Button onClick={onBackClick}>
-                      <KeyboardBackspaceIcon width="24" height="24" />
-                    </Button>
-
+              {whatsappNum && (
+                <div className="w-full flex items-center justify-center pt-4">
+                  {formStep === 0 && (
                     <Button
                       type="submit"
-                      className="rounded-[24px] bg-request-gradient font-roboto font-medium text-base text-white py-3 px-12"
+                      className="w-full rounded-[24px] bg-request-gradient font-roboto font-medium text-base text-white py-3 max-w-[358px]"
+                      onClick={() => {
+                        setTimeout(() => {
+                          !form.control._formState.errors["title"] &&
+                            setFormStep(formStep + 1);
+                          form.clearErrors("location");
+                        }, 0);
+                      }}
                     >
-                      {isPosting && <LoadingSpinner />}
-                      {isPosting && "Sending Response"}
-                      {!isPosting && "Send Response"}
+                      Next
                     </Button>
-                  </div>
-                )}
-              </div>
+                  )}
+
+                  {formStep > 0 && (
+                    <div className="w-full flex items-center justify-between pt-4">
+                      <Button onClick={onBackClick}>
+                        <KeyboardBackspaceIcon width="24" height="24" />
+                      </Button>
+
+                      <Button
+                        type="submit"
+                        className="rounded-[24px] bg-request-gradient font-roboto font-medium text-base text-white py-3 px-12"
+                      >
+                        {isPosting && <LoadingSpinner />}
+                        {isPosting && "Sending Response"}
+                        {!isPosting && "Send Response"}
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              )}
             </form>
           </Form>
         </div>

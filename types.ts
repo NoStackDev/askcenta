@@ -123,9 +123,10 @@ export type UserDetailsType = {
     about: string | null;
     location: "";
     business_addr: string | null;
+    business_num: string | null;
     facebook_link: string | null;
     instagram_link: string | null;
-    whatsapp_num: string;
+    whatsapp_num: string | null;
     can_answer_question: boolean;
     can_ask_question: boolean;
     request_made: RequestType[];

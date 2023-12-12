@@ -88,15 +88,17 @@ export default function RequestImgDetail({
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 font-roboto font-normal text-base text-black">
               <Link
-                href={`/profile`}
+                href={`/profile/user=${requestDetailData.request.user_id}`}
                 className="border border-[#9B91FD] bg-white p-[3.2px] rounded-full"
               >
                 <PersonFillIcon height="19.2" width="19.2" />
               </Link>
 
-              <span className="font-medium text-sm text-[#6356E5]">
-                {requestDetailData.request.user}
-              </span>
+              <Link href={`/profile/user=${requestDetailData.request.user_id}`}>
+                <span className="font-medium text-sm text-[#6356E5]">
+                  {requestDetailData.request.user}
+                </span>
+              </Link>
             </div>
 
             <div className="flex items-center gap-2">
