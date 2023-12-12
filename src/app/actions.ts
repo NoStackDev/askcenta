@@ -518,7 +518,8 @@ export async function postResponseAction(formdata: FormData) {
   headers.append("Accept", "application/json");
   formdata.append("user_id", userDetails.id.toString());
 
-  formdata.append("whatsapp_num", userDetails.whatsapp_num);
+  userDetails.whatsapp_num &&
+    formdata.append("whatsapp_num", userDetails.whatsapp_num);
 
   const _res = await fetch(`https://askcenta.ng/api/responses`, {
     method: "POST",
