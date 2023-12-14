@@ -3,7 +3,7 @@ import { Card, CardContent, CardTitle } from "../ui/card";
 import Image from "next/image";
 import { CommentIcon, LocationOnIcon, ScheduleIcon } from "../icons";
 import { cn, month } from "@/lib/utils";
-import { RequestType } from "@/types";
+import { RequestType, UserDetailsType } from "@/types";
 import { RequestBookmark, RespondToRequestBtn } from ".";
 import { cookies } from "next/headers";
 import { ResponseFormWrapper } from "../response";
@@ -20,7 +20,9 @@ export default function RequestCard({
   ...props
 }: RequestCardProps) {
   const cookie = cookies();
-  const userId = cookie.get("userId")?.value;
+  const user: UserDetailsType["data"] | null = JSON.parse(
+    cookie.get("user")?.value || "null"
+  );
   const date = new Date(requestData.created_at);
 
   return (
@@ -108,19 +110,21 @@ export default function RequestCard({
               </div>
             </div>
 
-            {(!userId || userId !== requestData.user_id.toString()) && (
+            {(!user ||
+              user.id.toString() !== requestData.user_id.toString()) && (
               <RequestBookmark requestData={requestData} />
             )}
           </div>
 
-          {(!userId || userId !== requestData.user_id.toString()) && (
-            <ResponseFormWrapper
-              requestid={requestData.id.toString()}
-              className="z-10"
-            >
-              <RespondToRequestBtn className="" />
-            </ResponseFormWrapper>
-          )}
+          {(!user || user.id.toString() !== requestData.user_id.toString()) &&
+            requestData.num_of_responses < 5 && (
+              <ResponseFormWrapper
+                requestid={requestData.id.toString()}
+                className="z-10"
+              >
+                <RespondToRequestBtn className="" />
+              </ResponseFormWrapper>
+            )}
         </div>
       </CardContent>
     </Card>
