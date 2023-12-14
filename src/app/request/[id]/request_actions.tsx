@@ -75,8 +75,8 @@ export default function RequestActions({
         )}
         {isBookmarked && <StarIcon width="24" height="24" />}
 
-        <span className="font-roboto font-normal text-sm text-black opacity-90">
-          Save
+        <span className="font-roboto font-normal text-sm text-black opacity-90 h-full">
+          Add to Favourites
         </span>
       </div>
 
