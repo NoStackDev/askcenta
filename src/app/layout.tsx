@@ -11,6 +11,7 @@ import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { Poppins, Roboto } from "next/font/google";
 import { headers } from "next/headers";
+import { HydrationOverlay } from "@builder.io/react-hydration-overlay";
 
 const poppins = Poppins({
   weight: ["300", "400", "500", "600", "700", "800", "900"],
@@ -43,27 +44,32 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} ${roboto.variable} ${roboto.className} bg-[#F4F3FC]`}
       >
-        <UserAuthContextProvider>
-          <SidebarContextProvider>
-            <Navbar />
-            <Sidebar className="lg:hidden" />
+        <HydrationOverlay>
+          <UserAuthContextProvider>
+            <SidebarContextProvider>
+              <Navbar />
+              <Sidebar className="lg:hidden" />
 
-            <div
-              className={cn(
-                showNavbar &&
-                  "lg:flex lg:flex-row lg:gap-16 my-0 md:my-10 md:mx-4 lg:mx-[100px] 2xl:mx-auto max-w-7xl"
-              )}
-            >
-              {showNavbar && <Sidebar className="hidden lg:flex" />}
-              {children}
-            </div>
-          </SidebarContextProvider>
-          <RequestFormWrapper>
-            <button id="request_form_modal_trigger" className="hidden"></button>
-          </RequestFormWrapper>
-        </UserAuthContextProvider>
+              <div
+                className={cn(
+                  showNavbar &&
+                    "lg:flex lg:flex-row lg:gap-16 my-0 md:my-10 md:mx-4 lg:mx-[100px] 2xl:mx-auto max-w-7xl"
+                )}
+              >
+                {showNavbar && <Sidebar className="hidden lg:flex" />}
+                {children}
+              </div>
+            </SidebarContextProvider>
+            <RequestFormWrapper>
+              <button
+                id="request_form_modal_trigger"
+                className="hidden"
+              ></button>
+            </RequestFormWrapper>
+          </UserAuthContextProvider>
 
-        <Footer />
+          <Footer />
+        </HydrationOverlay>
 
         <Analytics />
       </body>

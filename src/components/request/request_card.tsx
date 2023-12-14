@@ -68,9 +68,10 @@ export default function RequestCard({
                 `min-h-[223px] flex items-center justify-center py-6 text-[22px] leading-[35px] no-img-request-card`
               )}
             >
-              {requestData.title.length > 78
+              {/* {requestData.title.length > 78
                 ? requestData.title.slice(0, 78).trim() + "..."
-                : requestData.title}
+                : requestData.title} */}
+              {requestData.title}
             </CardTitleDynamic>
           </Link>
         )}
@@ -81,11 +82,7 @@ export default function RequestCard({
         />
 
         <div className="w-full px-3 pt-4 pb-5 flex flex-col gap-4">
-          <div
-            className={cn(
-              "flex justify-between items-center"
-            )}
-          >
+          <div className={cn("flex justify-between items-center")}>
             <div className="flex items-center gap-4">
               <div className="flex justify-center items-center gap-1">
                 <CommentIcon />
