@@ -1,6 +1,11 @@
 import React from "react";
 import { Card, CardContent } from "../ui/card";
-import { LocationIcon, PersonIcon, WhatsappCircleIcon, WhatsappIcon } from "../icons";
+import {
+  LocationIcon,
+  PersonIcon,
+  WhatsappCircleIcon,
+  WhatsappIcon,
+} from "../icons";
 import {
   CitiesResponseType,
   RequestResponsesType,
@@ -30,7 +35,6 @@ export default async function ResponseCard({
   const user: UserDetailsType["data"] | null = JSON.parse(
     cookie.get("user")?.value || "null"
   );
-  console.log(response)
 
   return (
     <Card className={cn("", className)} {...props} variant="response">
@@ -61,10 +65,10 @@ export default async function ResponseCard({
         <div className="flex items-center justify-between mt-4 px-3 py-2 border-t border-[#F5F4F4]">
           <div className="flex items-center gap-2">
             <Link href={`/profile?user=${response.user_id}`}>
-              {response.image_url && (
+              {response.user_profile_image_url && (
                 <Avatar>
                   <AvatarImage
-                    src={`https://${response.image_url}`}
+                    src={`https://${response.user_profile_image_url}`}
                     alt={`${response.user} profile`}
                   />
                   <AvatarFallback>{response.user}</AvatarFallback>
@@ -73,9 +77,8 @@ export default async function ResponseCard({
             </Link>
 
             <Link href={`/profile?user=${response.user_id}`}>
-              {!response.image_url && (
+              {!response.user_profile_image_url && (
                 <Avatar>
-                  <AvatarImage alt={`${response.user} profile`} />
                   <AvatarFallback className="bg-[#D9D9D9]">
                     <PersonIcon />
                   </AvatarFallback>
