@@ -16,6 +16,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { fetchCities } from "@/api/location";
 import Link from "next/link";
 import { cookies } from "next/headers";
+import Image from "next/image";
 
 interface ResponseCardProps extends React.HTMLAttributes<HTMLDivElement> {
   response: RequestResponsesType;
@@ -66,13 +67,22 @@ export default async function ResponseCard({
           <div className="flex items-center gap-2">
             <Link href={`/profile?user=${response.user_id}`}>
               {response.user_profile_image_url && (
-                <Avatar>
-                  <AvatarImage
-                    src={`https://${response.user_profile_image_url}`}
-                    alt={`${response.user} profile`}
-                  />
-                  <AvatarFallback>{response.user}</AvatarFallback>
-                </Avatar>
+                // <Avatar>
+                //   <AvatarImage
+                //     src={`https://${response.user_profile_image_url}`}
+                //     alt={`${response.user} profile`}
+                //     className=""
+                //   />
+                //   <AvatarFallback>{response.user}</AvatarFallback>
+                // </Avatar>
+
+                <Image
+                  width={20}
+                  height={20}
+                  src={`https://${response.user_profile_image_url}`}
+                  alt={`${response.user} profile`}
+                  className="rounded-full w-5 h-5 object-cover"
+                />
               )}
             </Link>
 
