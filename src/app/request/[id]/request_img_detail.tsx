@@ -26,7 +26,6 @@ export default function RequestImgDetail({
     cookie.get("user")?.value || "null"
   );
   const date = new Date(requestDetailData.request.created_at);
-  console.log("request: ", requestDetailData);
 
   return (
     <Card variant="request_detail" className="mt-2 md:mt-0">
