@@ -84,7 +84,6 @@ export default function RequestCard({
           <div
             className={cn(
               "flex justify-between items-center"
-              // userId === requestData.user_id.toString() && "pb-6"
             )}
           >
             <div className="flex items-center gap-4">

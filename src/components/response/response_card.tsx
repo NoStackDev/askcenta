@@ -30,6 +30,7 @@ export default async function ResponseCard({
   const user: UserDetailsType["data"] | null = JSON.parse(
     cookie.get("user")?.value || "null"
   );
+  console.log(response)
 
   return (
     <Card className={cn("", className)} {...props} variant="response">

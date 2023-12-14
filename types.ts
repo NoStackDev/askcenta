@@ -36,6 +36,7 @@ export type RequestType = {
   location: string;
   title: string;
   user: string;
+  user_profile_image_url: string | null;
   user_id: number;
   num_of_views: number;
   num_of_responses: number;

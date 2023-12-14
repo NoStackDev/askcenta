@@ -26,6 +26,7 @@ export default function RequestImgDetail({
     cookie.get("user")?.value || "null"
   );
   const date = new Date(requestDetailData.request.created_at);
+  console.log("request: ", requestDetailData);
 
   return (
     <Card variant="request_detail" className="mt-2 md:mt-0">
@@ -89,9 +90,23 @@ export default function RequestImgDetail({
             <div className="flex items-center gap-2 font-roboto font-normal text-base text-black">
               <Link
                 href={`/profile/user=${requestDetailData.request.user_id}`}
-                className="border border-[#9B91FD] bg-white p-[3.2px] rounded-full"
+                className={cn(
+                  "border border-[#9B91FD] bg-white p-[3.2px] rounded-full",
+                  requestDetailData.request.user_profile_image_url && "p-0"
+                )}
               >
-                <PersonFillIcon height="19.2" width="19.2" />
+                {requestDetailData.request.user_profile_image_url && (
+                  <Image
+                    height={19.2}
+                    width={19.2}
+                    alt={requestDetailData.request.user}
+                    src={`https://${requestDetailData.request.user_profile_image_url}`}
+                    className="rounded-full h-[20px] w-[20px] object-cover"
+                  />
+                )}
+                {!requestDetailData.request.user_profile_image_url && (
+                  <PersonFillIcon height="19.2" width="19.2" />
+                )}
               </Link>
 
               <Link href={`/profile/user=${requestDetailData.request.user_id}`}>
@@ -121,14 +136,14 @@ export default function RequestImgDetail({
       </CardContent>
 
       <CardContent className="bg-white mb-4 md:mb-6 border-b border-[#CDCDD1]">
-        {(!user || user.id !== requestDetailData.request.user_id) && (
+        {(!user || user.id != requestDetailData.request.user_id) && (
           <RequestActions
             user={user}
             className="px-4 md:px-6 py-6 mt-[1px] md:mt-1"
             requestDetailData={requestDetailData}
           />
         )}
-        {user && user.id === requestDetailData.request.user_id && (
+        {user && user.id == requestDetailData.request.user_id && (
           <RequestActionsUser
             className="px-4 md:px-6 py-6 mt-[1px] md:mt-1"
             requestDetailData={requestDetailData}

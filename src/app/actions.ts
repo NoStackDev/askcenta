@@ -269,7 +269,7 @@ export async function updateUserDetailsAction(data: FormData) {
   if (!res.ok) {
     const resJson = await res.json();
     console.log(
-      `failed to update user details for user with userId ${userDetails.id}`,
+      `failed to update user details for user with user id ${userDetails.id}`,
       resJson
     );
 
