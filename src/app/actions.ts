@@ -401,10 +401,46 @@ export async function deleteRequestAction(requestId: number) {
 }
 
 /*
-  bookmark request
+  fetch user bookmarks
 */
 
-export async function bookmarkRequestAction(requestId: string) {
+export async function fetchBookmarksAction() {
+  const { token, userDetails } = getAuthCookieInfo();
+
+  const headers = new Headers();
+  headers.append("Authorization", token);
+  headers.append("Accept", "application/json");
+
+  const _res = await fetch(`https://askcenta.ng/api/bookmarks`, {
+    method: "OPTIONS",
+    headers: headers,
+  });
+
+  if (!_res.ok) {
+    const errors = await _res.json();
+
+    console.log(
+      `failed to fetch user bookmarks for user with user id ${userDetails.id}`,
+      {
+        ...errors,
+      }
+    );
+
+    return {
+      isError: true,
+      errorMessage: `failed to fetch user bookmarks for user with user id ${userDetails.id} bookmarks}`,
+      ...errors,
+    };
+  }
+
+  return await _res.json();
+}
+
+/*
+  add  bookmark
+*/
+
+export async function addBookmarkAction(requestId: string) {
   const { token, userDetails } = getAuthCookieInfo();
 
   const headers = new Headers();
@@ -468,42 +504,6 @@ export async function getAllRequestsByUser() {
 
   const resPromise: Promise<FeedsResponse> = res.json();
   return resPromise;
-}
-
-/*
-  fetch user bookmarks
-*/
-
-export async function fetchBookmarksAction() {
-  const { token, userDetails } = getAuthCookieInfo();
-
-  const headers = new Headers();
-  headers.append("Authorization", token);
-  headers.append("Accept", "application/json");
-
-  const _res = await fetch(`https://askcenta.ng/api/bookmarks`, {
-    method: "OPTIONS",
-    headers: headers,
-  });
-
-  if (!_res.ok) {
-    const errors = await _res.json();
-
-    console.log(
-      `failed to fetch user bookmarks for user with user id ${userDetails.id}`,
-      {
-        ...errors,
-      }
-    );
-
-    return {
-      isError: true,
-      errorMessage: `failed to fetch user bookmarks for user with user id ${userDetails.id} bookmarks}`,
-      ...errors,
-    };
-  }
-
-  return await _res.json();
 }
 
 /*

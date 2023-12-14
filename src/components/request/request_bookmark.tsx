@@ -4,8 +4,8 @@ import React from "react";
 
 import { Button } from "../ui/button";
 import { RequestType } from "@/types";
-import { bookmarkRequestAction } from "@/actions";
 import { StarFilledIcon, StarIcon } from "../icons";
+import { addBookmarkAction } from "@/actions";
 
 type Props = {
   requestData: RequestType;
@@ -23,18 +23,13 @@ export default function RequestBookmark({ requestData }: Props) {
   async function onSaveClick() {
     setBookmarked(!bookmarked);
     try {
-      const res = await bookmarkRequestAction(requestData.id.toString());
+      const res = await addBookmarkAction(requestData.id.toString());
       console.log("res: ", res);
     } catch (err) {
       setBookmarked(!bookmarked);
       console.log(err);
     }
   }
-
-  // console.log("bookmarked: ", bookmarked);
-
-  // console.log("isBookmarked: ", requestData);
-  // console.log("bookmark type: ", typeof requestData.bookmark);
 
   return (
     <Button

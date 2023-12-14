@@ -9,10 +9,10 @@ import {
   VisibilityFillIcon,
 } from "@/components/icons";
 import Image from "next/image";
-import RequestActions from "./request_actions";
 import Link from "next/link";
 import { cookies } from "next/headers";
 import RequestActionsUser from "./request_actions_user";
+import RequestActions from "./request_actions";
 
 interface RequestImgDetailProps extends React.HTMLAttributes<HTMLDivElement> {
   requestDetailData: RequestDetailType;
@@ -122,13 +122,14 @@ export default function RequestImgDetail({
 
       <CardContent className="bg-white mb-4 md:mb-6 border-b border-[#CDCDD1]">
         {(!user || user.id !== requestDetailData.request.user_id) && (
-          <RequestActions
-            requestDetailData={requestDetailData}
+          <RequestActionsUser
+            user={user}
             className="px-4 md:px-6 py-6 mt-[1px] md:mt-1"
+            requestDetailData={requestDetailData}
           />
         )}
         {user && user.id === requestDetailData.request.user_id && (
-          <RequestActionsUser
+          <RequestActions
             className="px-4 md:px-6 py-6 mt-[1px] md:mt-1"
             requestDetailData={requestDetailData}
           />

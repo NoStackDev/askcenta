@@ -38,7 +38,7 @@ const editProfileFormSchema = z.object({
     .string()
     .max(300, { message: "Bio cannot be more than 300 characters" })
     .optional(),
-  businessPhoneNum: z
+  business_num: z
     .string()
     // .length(11, { message: "Phone number must be 11 numbers." })
     .optional(),
@@ -94,6 +94,9 @@ export default function EditProfileForm({
     if (userDetails.data.about) {
       form.setValue("about", userDetails.data.about);
     }
+    if (userDetails.data.business_num) {
+      form.setValue("business_num", userDetails.data.business_num);
+    }
     if (userDetails.data.business_addr) {
       form.setValue("business_addr", userDetails.data.business_addr);
     }
@@ -129,13 +132,13 @@ export default function EditProfileForm({
     resolver: zodResolver(editProfileFormSchema),
     defaultValues: {
       name: "",
-      about: "",
-      businessPhoneNum: "",
-      business_addr: "",
-      location: "",
-      facebook_link: "",
-      instagram_link: "",
-      twitter_link: "",
+      // about: "",
+      // business_num: "",
+      // business_addr: "",
+      // location: "",
+      // facebook_link: "",
+      // instagram_link: "",
+      // twitter_link: "",
     },
   });
 
@@ -143,10 +146,9 @@ export default function EditProfileForm({
     setSaving(true);
 
     const formdata = new FormData();
-    // if (form.getValues("businessPhoneNum")?.trim()) {
-    //   form.getValues("businessPhoneNum")?.trim().length > 0 && formdata.append("whatsapp_num", userDetails.data.whatsapp_num);
-    // }
+
     values.about && formdata.append("about", values.about);
+    values.business_num && formdata.append("business_num", values.business_num);
     values.business_addr &&
       formdata.append("business_addr", values.business_addr);
     values.location && formdata.append("location_id", values.location);
@@ -159,15 +161,6 @@ export default function EditProfileForm({
     try {
       const res = await updateUserDetailsAction(formdata);
 
-      if (res.isError) {
-        if (res.errors && res.errors.whatsapp_num) {
-          form.setError("businessPhoneNum", {
-            message: res.errors.whatsapp_num[0],
-          });
-        }
-        console.log("error: ", res.errors);
-        console.log("whats app field: ", form.getValues("businessPhoneNum"));
-      }
       setSaving(false);
     } catch (err) {
       console.log(err);
@@ -305,7 +298,7 @@ export default function EditProfileForm({
           {/* business phone number  */}
           <FormField
             control={form.control}
-            name="businessPhoneNum"
+            name="business_num"
             render={({ field }) => (
               <FormItem className="mt-6">
                 <div className="flex justify-between items-center">
@@ -316,10 +309,20 @@ export default function EditProfileForm({
 
                 <FormMessage />
                 <FormControl>
-                  <input
+                  {/* <input
                     {...field}
                     className="mt-2 w-full p-3 bg-[#F7F9FF] border border-[#D9D9D9] rounded-xl font-roboto font-normal text-base text-black"
-                  />
+                  /> */}
+                  <div className="mt-2 border border-[#D9D9D9] h-12 bg-[#F7F9FF] rounded-xl py-2 px-3 flex items-center">
+                    <span className="font-roboto font-normal text-base text-black opacity-70 pr-2 border-r border-r-black/60">
+                      +234
+                    </span>
+                    <input
+                      placeholder="8011112222"
+                      {...field}
+                      className="pl-2 w-full font-roboto font-normal text-base bg-[#F7F9FF] text-black placeholder:font-roboto placeholder:font-normal placeholder:text-base placeholder:opacity-60 placeholder:text-black"
+                    />
+                  </div>
                 </FormControl>
               </FormItem>
             )}
