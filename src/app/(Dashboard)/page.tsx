@@ -19,7 +19,7 @@ export default function Home({ searchParams }: Props) {
   const user: UserDetailsType["data"] | null = JSON.parse(
     cookie.get("user")?.value || "null"
   );
-  
+
   return (
     <main className="w-full">
       <Topbar className="mt-2 md:mt-0" subcategoryid={subCategoryId} />
@@ -34,7 +34,7 @@ export default function Home({ searchParams }: Props) {
 
       <RequestContainer searchparams={searchParams} />
 
-      <DiscoverPlaceRequestBtn user={user}/>
+      <DiscoverPlaceRequestBtn user={user} />
     </main>
   );
 }

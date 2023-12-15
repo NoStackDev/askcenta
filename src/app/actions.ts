@@ -8,7 +8,7 @@ import {
   UserDetailsType,
   UserPreferenceType,
 } from "@/types";
-import { LoginFormFields } from "./login/login_form";
+import { LoginFormFields } from "./(Authenticate)/login/login_form";
 import { SignupFormField } from "./signup/signup_wrapper";
 
 /*
