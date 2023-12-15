@@ -56,7 +56,7 @@ export default function RequestCard({
           <Link href={`/request/${requestData.id}`}>
             <CardTitle
               className={cn(
-                "px-3 py-4 text-center font-roboto font-semibold text-lg text-[#18212D] leading-[30px] h-[75px] flex items-center justify-center"
+                "px-3 py-4 text-center font-roboto font-semibold text-lg text-[#18212D] leading-[30px] h-[100px] flex items-center justify-center"
               )}
             >
               {requestData.title.length > 78
