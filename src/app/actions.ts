@@ -9,7 +9,7 @@ import {
   UserPreferenceType,
 } from "@/types";
 import { LoginFormFields } from "./(Authenticate)/login/login_form";
-import { SignupFormField } from "./signup/signup_wrapper";
+import { SignupFormField } from "./(Authenticate)/signup/signup_wrapper";
 
 /*
   check and get user authorization cookie and user details
