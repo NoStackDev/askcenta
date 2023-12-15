@@ -6,6 +6,7 @@ import ShareIcon from "@/components/icons/share_icon";
 import Share from "@/components/share";
 import { cn } from "@/lib/utils";
 import { RequestDetailType, RequestType, UserDetailsType } from "@/types";
+import Link from "next/link";
 import React from "react";
 
 interface RequestActionsProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -66,19 +67,33 @@ export default function RequestActions({
         </span>
       </div>
 
-      <div
-        className="flex items-center gap-1 hover:cursor-pointer"
-        onClick={onSaveClick}
-      >
-        {!isBookmarked && (
-          <StarFilledIcon width="24" height="24" aria-label="save" />
-        )}
-        {isBookmarked && <StarIcon width="24" height="24" />}
+      {user && (
+        <div
+          className="flex items-center gap-1 hover:cursor-pointer"
+          onClick={onSaveClick}
+        >
+          {!isBookmarked && (
+            <StarFilledIcon width="24" height="24" aria-label="save" />
+          )}
+          {isBookmarked && <StarIcon width="24" height="24" />}
 
-        <span className="font-roboto font-normal text-sm text-black opacity-90 h-full">
-          Add to Favourites
-        </span>
-      </div>
+          <span className="font-roboto font-normal text-sm text-black opacity-90 flex items-end">
+            {isBookmarked ? "Remove from " : "Add to "} Favourites
+          </span>
+        </div>
+      )}
+
+      {!user && (
+        <Link
+          href={"/login"}
+          className="flex items-center gap-1 hover:cursor-pointer"
+        >
+          <StarFilledIcon width="24" height="24" aria-label="save" />
+          <span className="font-roboto font-normal text-sm text-black opacity-90 flex items-end">
+            Add to Favourites
+          </span>
+        </Link>
+      )}
 
       <Share text={requestDetailData.request.title}>
         <div className="flex items-center gap-1 hover:cursor-pointer">

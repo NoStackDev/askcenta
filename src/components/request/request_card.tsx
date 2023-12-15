@@ -1,7 +1,12 @@
 import React from "react";
 import { Card, CardContent, CardTitle } from "../ui/card";
 import Image from "next/image";
-import { CommentIcon, LocationOnIcon, ScheduleIcon } from "../icons";
+import {
+  CommentIcon,
+  LocationOnIcon,
+  ScheduleIcon,
+  StarFilledIcon,
+} from "../icons";
 import { cn, month } from "@/lib/utils";
 import { RequestType, UserDetailsType } from "@/types";
 import { RequestBookmark, RespondToRequestBtn } from ".";
@@ -9,6 +14,7 @@ import { cookies } from "next/headers";
 import { ResponseFormWrapper } from "../response";
 import CardTitleDynamic from "./card_title_dynamic";
 import Link from "next/link";
+import { Button } from "../ui/button";
 
 interface RequestCardProps extends React.HTMLAttributes<HTMLDivElement> {
   requestData: RequestType;
@@ -106,13 +112,19 @@ export default function RequestCard({
               </div>
             </div>
 
-            {(!user ||
-              user.id.toString() !== requestData.user_id.toString()) && (
+            {user && user.id.toString() !== requestData.user_id.toString() && (
               <RequestBookmark requestData={requestData} />
+            )}
+
+            {!user && (
+              <Link href={"/login"}>
+                <StarFilledIcon className="hover:cursor-pointer" />
+              </Link>
             )}
           </div>
 
-          {(!user || user.id.toString() !== requestData.user_id.toString()) &&
+          {user &&
+            user.id.toString() !== requestData.user_id.toString() &&
             requestData.num_of_responses < 5 && (
               <ResponseFormWrapper
                 requestid={requestData.id.toString()}
@@ -121,6 +133,20 @@ export default function RequestCard({
                 <RespondToRequestBtn className="" />
               </ResponseFormWrapper>
             )}
+
+          {!user && (
+            <Link href={"/login"}>
+              <Button
+                variant="request_card_outlined"
+                className={cn(
+                  "hover:cursor-pointer font-roboto font-normal text-sm",
+                  className
+                )}
+              >
+                Respond to Request
+              </Button>
+            </Link>
+          )}
         </div>
       </CardContent>
     </Card>

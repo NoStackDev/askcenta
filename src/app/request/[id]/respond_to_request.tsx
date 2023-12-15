@@ -16,7 +16,7 @@ export default function RespondToRequest({
       )}
       {...props}
     >
-      <Button className="mx-4 sm:mx-0 w-4/5 sm:w-fit sm:px-[108px] py-[13px] font-roboto font-medium text-base text-white bg-request-gradient rounded-3xl sm:auto">
+      <Button className="mx-4 sm:mx-0 w-4/5 sm:w-fit sm:px-[108px] py-[13px] font-roboto font-medium text-base text-white bg-request-gradient rounded-3xl">
         Respond to Request
       </Button>
 

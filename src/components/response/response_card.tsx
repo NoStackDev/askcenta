@@ -67,15 +67,6 @@ export default async function ResponseCard({
           <div className="flex items-center gap-2">
             <Link href={`/profile?user=${response.user_id}`}>
               {response.user_profile_image_url && (
-                // <Avatar>
-                //   <AvatarImage
-                //     src={`https://${response.user_profile_image_url}`}
-                //     alt={`${response.user} profile`}
-                //     className=""
-                //   />
-                //   <AvatarFallback>{response.user}</AvatarFallback>
-                // </Avatar>
-
                 <Image
                   width={20}
                   height={20}
