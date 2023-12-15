@@ -60,12 +60,26 @@ export default function RequestActions({
       className={cn("flex justify-between items-center", className)}
       {...props}
     >
-      <div className="flex items-center gap-1 hover:cursor-pointer">
-        <FlagIcon aria-label="report" />
-        <span className="font-roboto font-normal text-sm text-black opacity-80">
-          Report
-        </span>
-      </div>
+      {user && (
+        <div className="flex items-center gap-1 hover:cursor-pointer">
+          <FlagIcon aria-label="report" />
+          <span className="font-roboto font-normal text-sm text-black opacity-80">
+            Report
+          </span>
+        </div>
+      )}
+
+      {!user && (
+        <Link
+          href={"/login"}
+          className="flex items-center gap-1 hover:cursor-pointer"
+        >
+          <FlagIcon aria-label="report" />
+          <span className="font-roboto font-normal text-sm text-black opacity-80">
+            Report
+          </span>
+        </Link>
+      )}
 
       {user && (
         <div
