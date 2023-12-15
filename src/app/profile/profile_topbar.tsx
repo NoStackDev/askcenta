@@ -7,17 +7,20 @@ import React from "react";
 import ProfileReportUserModal from "./profile_report_user";
 import { getUserDetailsAction } from "@/actions";
 import Image from "next/image";
+import { UserDetailsType } from "@/types";
 
 interface ProfilePageProps extends React.HTMLAttributes<HTMLDivElement> {
-  otheruser?: boolean;
+  otherUserId?: string | string[] | undefined;
 }
 
 export default async function ProfileTopbar({
   className,
-  otheruser,
+  otherUserId,
   ...props
 }: ProfilePageProps) {
-  const userDetails = await getUserDetailsAction();
+  const userDetails: UserDetailsType = otherUserId
+    ? await getUserDetailsAction(otherUserId.toString())
+    : await getUserDetailsAction();
 
   return (
     <Card
@@ -59,7 +62,9 @@ export default async function ProfileTopbar({
               <div className="mt-1 flex items-center gap-4">
                 <div className="flex items-center gap-1">
                   <span className="font-roboto font-medium text-sm text-black">
-                    {userDetails.data.request_made.length}
+                    {userDetails.data.request_made
+                      ? userDetails.data.request_made.length
+                      : "0"}
                   </span>
                   <span className="font-roboto font-normal text-sm text-black opacity-60">
                     Requests
@@ -78,7 +83,7 @@ export default async function ProfileTopbar({
             </div>
           </div>
 
-          {!otheruser && (
+          {!otherUserId && (
             <Link href="/profile/edit" className="h-fit w-fit mt-7 md:mt-0">
               <Button className="flex items-center gap-2">
                 <EditIcon height="24" width="24" />
@@ -89,7 +94,7 @@ export default async function ProfileTopbar({
             </Link>
           )}
 
-          {otheruser && (
+          {otherUserId && (
             <ProfileReportUserModal>
               <Button className="flex items-center gap-2 mt-7 md:mt-0">
                 <FlagFillIcon />

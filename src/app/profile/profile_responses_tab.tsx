@@ -5,17 +5,21 @@ import { TabsContentProps } from "@radix-ui/react-tabs";
 import React from "react";
 
 interface ProfileResponsesTabProps extends TabsContentProps {
-  otheruser?: boolean;
+  otherUserId?: string | string[] | undefined;
 }
 
 export default function ProfileResponsesTab({
   className,
-  otheruser,
+  otherUserId,
   ...props
 }: ProfileResponsesTabProps) {
   return (
     <TabsContent className={cn("", className)} {...props}>
-      <RequestContainer pagetype="profile" requesttype="response" />
+      <RequestContainer
+        pagetype="profile"
+        requesttype="response"
+        searchparams={{ user: otherUserId?.toString() }}
+      />
     </TabsContent>
   );
 }

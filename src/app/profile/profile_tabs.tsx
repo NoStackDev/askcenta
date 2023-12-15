@@ -8,18 +8,18 @@ import ProfileResponsesTab from "./profile_responses_tab";
 import { cn } from "@/lib/utils";
 
 interface ProfileTabProps extends TabsProps {
-  otheruser?: boolean;
+  otherUserId?: string | string[] | undefined;
 }
 
 export default function ProfileTabs({
   className,
-  otheruser,
+  otherUserId,
   ...props
 }: ProfileTabProps) {
   return (
     <Tabs defaultValue="about" className={className} {...props}>
       <TabsList
-        className={cn("grid w-full grid-cols-4", otheruser && "grid-cols-3")}
+        className={cn("grid w-full grid-cols-4", otherUserId && "grid-cols-3")}
       >
         <TabsTrigger
           value="about"
@@ -33,7 +33,7 @@ export default function ProfileTabs({
         >
           Q&A (0)
         </TabsTrigger>
-        {!otheruser && (
+        {!otherUserId && (
           <TabsTrigger
             value="requests"
             className="py-4 font-roboto font-semibold text-sm text-black opacity-60 data-[state=active]:text-[#6356E5] data-[state=active]:opacity-100 border-b-[2px] border-[#D9D9D9] data-[state=active]:border-b-[2px] data-[state=active]:border-[#6356E5]"
@@ -49,14 +49,22 @@ export default function ProfileTabs({
         </TabsTrigger>
       </TabsList>
 
-      <ProfileAboutTab value="about" className="mt-12" />
+      <ProfileAboutTab
+        otherUserId={otherUserId}
+        value="about"
+        className="mt-12"
+      />
 
-      <ProfileQandATab otheruser={otheruser} value="q&a" className="mt-12" />
+      <ProfileQandATab
+        otherUserId={otherUserId}
+        value="q&a"
+        className="mt-12"
+      />
 
       <ProfileRequestsTab value="requests" className="" />
 
       <ProfileResponsesTab
-        otheruser={otheruser}
+        otherUserId={otherUserId}
         value="responses"
         className=""
       />

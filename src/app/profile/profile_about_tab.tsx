@@ -12,13 +12,18 @@ import { UserDetailsType } from "@/types";
 import { TabsContentProps } from "@radix-ui/react-tabs";
 import React from "react";
 
-interface ProfileAboutTabProps extends TabsContentProps {}
+interface ProfileAboutTabProps extends TabsContentProps {
+  otherUserId?: string | string[] | undefined;
+}
 
 export default async function ProfileAboutTab({
   className,
+  otherUserId,
   ...props
 }: ProfileAboutTabProps) {
-  const userDetails: UserDetailsType = await getUserDetailsAction();
+  const userDetails: UserDetailsType = otherUserId
+    ? await getUserDetailsAction(otherUserId.toString())
+    : await getUserDetailsAction();
   const cities = await fetchCities();
   const city = cities.data.find(
     (city) =>

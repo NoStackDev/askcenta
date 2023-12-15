@@ -10,17 +10,17 @@ import SketchIllustration from "@/components/icons/sketch_illustration";
 import ProfileQuestionModal from "./profile_question_modal";
 
 interface ProfileQandATabProps extends TabsContentProps {
-  otheruser?: boolean;
+  otherUserId?: string | string[] | undefined;
 }
 
 export default function ProfileQandATab({
   className,
-  otheruser,
+  otherUserId,
   ...props
 }: ProfileQandATabProps) {
   return (
     <TabsContent className={cn("flex flex-col gap-4", className)} {...props}>
-      {otheruser && (
+      {otherUserId && (
         <div className="px-4 md:px-0">
           <Card className="w-full py-6 bg-white flex flex-col justify-center items-center gap-4 rounded-lg shadow-category-card">
             <div className="flex flex-col items-center gap-2 font-roboto font-normal text-base text-black opacity-60">

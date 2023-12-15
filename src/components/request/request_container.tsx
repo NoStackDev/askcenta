@@ -29,8 +29,15 @@ async function getfeed(searchparams?: {
   return (await feedres).data;
 }
 
-async function getUserRequests(requesttype?: "request" | "response") {
-  const res = getUserDetailsAction();
+async function getUserRequests(
+  searchparams?: {
+    [key: string]: string | string[] | undefined;
+  },
+  requesttype?: "request" | "response"
+) {
+  const res = searchparams?.user
+    ? getUserDetailsAction(searchparams.user.toString())
+    : getUserDetailsAction();
   if (requesttype === "request") {
     return (await res).data.request_made;
   }
@@ -49,7 +56,7 @@ function fetchData(
 ) {
   if (pagetype && pagetype === "profile") {
     if (requesttype === "request" || requesttype === "response") {
-      return getUserRequests(requesttype);
+      return getUserRequests(searchparams, requesttype);
     }
   }
 

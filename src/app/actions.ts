@@ -222,17 +222,24 @@ export async function logoutUserAction() {
  get user details
 */
 
-export async function getUserDetailsAction() {
+export async function getUserDetailsAction(
+  userId: string | number | null = null
+) {
   const { token, userDetails } = getAuthCookieInfo();
 
   const headers = new Headers();
   headers.append("Accept", "application/json");
   headers.append("Authorization", token);
 
-  const res = await fetch(`https://askcenta.ng/api/user`, {
-    method: "OPTIONS",
-    headers: headers,
-  });
+  const res = userId
+    ? await fetch(`https://askcenta.ng/api/users/${userId}`, {
+        method: "OPTIONS",
+        headers: headers,
+      })
+    : await fetch(`https://askcenta.ng/api/user`, {
+        method: "OPTIONS",
+        headers: headers,
+      });
 
   if (!res.ok) {
     // throw new Error("failed to fetch settings", { cause: await res.json() });
