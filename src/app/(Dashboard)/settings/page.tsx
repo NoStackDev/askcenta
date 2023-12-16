@@ -4,16 +4,17 @@ import LogoutBtn from "./logout";
 import ResetPasswordBtn from "./reset_password";
 import EmailNotificationSwitch from "./email_notification_switch";
 import ChangeNotificationEmailBtn from "./change_notification_email";
-import ChangePrefferedLocationBtn from "./change_prefered_location";
+import ChangePreferedLocationBtn from "./change_prefered_location";
 import AnonymousSwitch from "./change_anonymous_switch";
 import ContactUsBtn from "./contact_us";
 import DeleteAccountBtn from "./delete_account";
 import Link from "next/link";
-import { getUserDetailsAction } from "@/actions";
+import { getUserDetailsAction, getUserPreferenceAction } from "@/actions";
 import {
   CitiesResponseType,
   StateResponseType,
   UserDetailsType,
+  UserPreferenceType,
 } from "@/types";
 import { fetchCities, fetchStates } from "@/api/location";
 import Email from "./email";
@@ -22,11 +23,14 @@ type Props = {};
 
 export default async function Page({}: Props) {
   const userDetailsRes: Promise<UserDetailsType> = getUserDetailsAction();
+  const userPreferenceRes: Promise<UserPreferenceType> =
+    getUserPreferenceAction();
   const citiesRes: Promise<CitiesResponseType> = fetchCities();
   const statesRes: Promise<StateResponseType> = fetchStates();
 
-  const [userDetails, cities, states] = await Promise.all([
+  const [userDetails, userPreference, cities, states] = await Promise.all([
     userDetailsRes,
+    userPreferenceRes,
     citiesRes,
     statesRes,
   ]);
@@ -73,7 +77,7 @@ export default async function Page({}: Props) {
         </CardContent>
       </Card>
 
-      <ChangePrefferedLocationBtn
+      <ChangePreferedLocationBtn
         userDetails={userDetails}
         citiesdata={cities.data}
         statesdata={states.data}
@@ -88,10 +92,10 @@ export default async function Page({}: Props) {
         <CardContent className="mt-3 flex flex-col font-roboto">
           <div className="flex items-center justify-between">
             <span className="font-normal text-base text-black">
-              Post as Annonymous
+              Post as Anonymous
             </span>
 
-            <AnonymousSwitch />
+            <AnonymousSwitch userPreference={userPreference} />
           </div>
 
           <p className="font-normal text-xs text-black opacity-70 mt-2">

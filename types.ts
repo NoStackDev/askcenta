@@ -36,6 +36,7 @@ export type RequestType = {
   location: string;
   title: string;
   user: string;
+  show_profile: boolean;
   user_profile_image_url: string | null;
   user_id: number;
   num_of_views: number;
@@ -141,7 +142,7 @@ export type UserPreferenceType = {
   all_categories: boolean;
   all_locations: boolean;
   id: number;
-  post_anonymous: string;
+  post_anonymous: boolean;
   selected_categories: string[];
   selected_locations: string[];
   user_id: string;
