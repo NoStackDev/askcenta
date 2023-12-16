@@ -85,35 +85,57 @@ export default function RequestImgDetail({
             Request posted by:
           </span>
 
+          {/* profile pic, username and location  */}
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 font-roboto font-normal text-base text-black">
-              <Link
-                href={`/profile?user=${requestDetailData.request.user_id}`}
-                className={cn(
-                  "border border-[#9B91FD] bg-white p-[3.2px] rounded-full",
-                  requestDetailData.request.user_profile_image_url && "p-0"
-                )}
-              >
-                {requestDetailData.request.user_profile_image_url && (
-                  <Image
-                    height={19.2}
-                    width={19.2}
-                    alt={requestDetailData.request.user}
-                    src={`https://${requestDetailData.request.user_profile_image_url}`}
-                    className="rounded-full h-[20px] w-[20px] object-cover"
-                  />
-                )}
-                {!requestDetailData.request.user_profile_image_url && (
-                  <PersonFillIcon height="19.2" width="19.2" />
-                )}
-              </Link>
+            {Boolean(Number(requestDetailData.request.show_profile)) && (
+              <div className="flex items-center gap-2 font-roboto font-normal text-base text-black">
+                <Link
+                  href={`/profile?user=${requestDetailData.request.user_id}`}
+                  className={cn(
+                    "border border-[#9B91FD] bg-white p-[3.2px] rounded-full",
+                    requestDetailData.request.user_profile_image_url && "p-0"
+                  )}
+                >
+                  {requestDetailData.request.user_profile_image_url && (
+                    <Image
+                      height={19.2}
+                      width={19.2}
+                      alt={requestDetailData.request.user}
+                      src={`https://${requestDetailData.request.user_profile_image_url}`}
+                      className="rounded-full h-[20px] w-[20px] object-cover"
+                    />
+                  )}
+                  {!requestDetailData.request.user_profile_image_url && (
+                    <PersonFillIcon height="19.2" width="19.2" />
+                  )}
+                </Link>
 
-              <Link href={`/profile?user=${requestDetailData.request.user_id}`}>
+                <Link
+                  href={`/profile?user=${requestDetailData.request.user_id}`}
+                >
+                  <span className="font-medium text-sm text-[#6356E5]">
+                    {requestDetailData.request.user}
+                  </span>
+                </Link>
+              </div>
+            )}
+
+            {!Boolean(Number(requestDetailData.request.show_profile)) && (
+              <div className="flex items-center gap-2 font-roboto font-normal text-base text-black">
+                <div
+                  className={cn(
+                    "border border-[#9B91FD] bg-white p-[3.2px] rounded-full",
+                    requestDetailData.request.user_profile_image_url && "p-0"
+                  )}
+                >
+                  <PersonFillIcon height="19.2" width="19.2" />
+                </div>
+
                 <span className="font-medium text-sm text-[#6356E5]">
-                  {requestDetailData.request.user}
+                  Anonymous
                 </span>
-              </Link>
-            </div>
+              </div>
+            )}
 
             <div className="flex items-center gap-2">
               <LocationOnIcon height="20" width="20" />

@@ -637,16 +637,15 @@ export async function updateUserPreferenceAction(data: {
   headers.append("Content-type", "application/json");
   headers.append("Authorization", token);
   data.user_id = userDetails.id;
-  if (data.post_anonymous === undefined) {
-    data.post_anonymous = userPreferences.post_anonymous;
-  }
+  let formData = {};
+  formData = { ...userPreferences, ...data };
 
   const res = await fetch(
     `http://askcenta.ng/api/user_preferances/${userPreferences.id}`,
     {
       method: "POST",
       headers: headers,
-      body: JSON.stringify(data),
+      body: JSON.stringify(formData),
     }
   );
 
