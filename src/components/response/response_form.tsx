@@ -78,6 +78,7 @@ export default function ResponseForm({
     formdata.append("title", values.title);
     formdata.append("visibility", values.visibility);
     formdata.append("location_id", values.location);
+    values.description && formdata.append("description", values.description);
     formdata.append("req_id", requestid);
 
     try {
@@ -94,6 +95,10 @@ export default function ResponseForm({
 
       window.location.reload();
       setIsPosting(false);
+      // console.log(values);
+      // setTimeout(() => {
+      //   setIsPosting(false);
+      // }, 2000);
     } catch (err) {
       console.log(err);
       setIsPosting(false);
