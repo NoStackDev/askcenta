@@ -42,11 +42,11 @@ const Navbar = React.forwardRef<
 
             <div className="flex items-center gap-6 md:gap-10">
               {!authorization && (
-                <a href="/login">
+                <Link href="/login" className="w-fit h-fit">
                   <Button className="" variant="nav">
                     Login
                   </Button>
-                </a>
+                </Link>
               )}
 
               <Link
@@ -69,7 +69,17 @@ const Navbar = React.forwardRef<
 
               <HamburgerMenu />
 
-              <NavbarPlaceRequestBtn />
+              {authorization && <NavbarPlaceRequestBtn />}
+              {!authorization && (
+                <Link href={"/login"} className="hidden lg:flex">
+                  <Button
+                    className={cn("hidden lg:flex", className)}
+                    variant="request"
+                  >
+                    Place a Request
+                  </Button>
+                </Link>
+              )}
             </div>
           </nav>
         </div>

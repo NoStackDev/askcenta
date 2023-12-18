@@ -666,3 +666,44 @@ export async function updateUserPreferenceAction(data: {
   // const resPromise: Promise<UserPreferenceType> = res.json();
   return res.json();
 }
+
+/* 
+  post a question
+*/
+export async function postQuestion(formData: FormData) {
+  const { token, userDetails } = getAuthCookieInfo();
+
+  const userPreferences: UserPreferenceType = await getUserPreferenceAction();
+  const headers = new Headers();
+  headers.append("Accept", "application/json");
+  headers.append("Content-type", "application/json");
+  headers.append("Authorization", token);
+
+  formData.append("ask_user_id", userDetails.id.toString());
+
+  const res = await fetch(`http://askcenta.ng/api/questions`, {
+    method: "POST",
+    headers: headers,
+    body: formData,
+  });
+
+  if (!res.ok) {
+    const errors = await res.json();
+    console.log(
+      `failed to post question from user with user id ${
+        userDetails.id
+      } to user with user id ${formData.get("answer_user_id")}`,
+      { error: errors.message }
+    );
+
+    return {
+      isError: true,
+      errorMessage: `failed to post question from user with user id ${
+        userDetails.id
+      } to user with user id ${formData.get("answer_user_id")}`,
+      ...errors,
+    };
+  }
+
+  return res.json();
+}
