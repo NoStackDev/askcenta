@@ -1,13 +1,17 @@
 import { cn, shuffle } from "@/lib/utils";
 import React from "react";
-import { RequestDetailType, RequestResponsesType } from "@/types";
+import {
+  RequestDetailType,
+  RequestResponsesType,
+  UserDetailsType,
+} from "@/types";
 import { ResponseCard } from ".";
 import { fetchRequestDetails } from "@/api/request";
 import { getAllResponsesByUser } from "@/actions";
+import { cookies } from "next/headers";
 
 interface ResponseProps extends React.HTMLAttributes<HTMLDivElement> {
-  requestid?: string;
-  isprofilepage?: boolean;
+  requestid: string;
 }
 
 async function getRequestDetail(requestid: string) {
@@ -27,14 +31,14 @@ export default async function ResponseContainer({
   className,
   ...props
 }: ResponseProps) {
-  const responseRes = props.requestid
-    ? await getRequestDetail(props.requestid)
-    : await getUserResponses();
-  const responsesShuffled = shuffle(
-    props.requestid
-      ? (responseRes as RequestDetailType).responses.reverse()
-      : (responseRes as { data: RequestResponsesType[] }).data.reverse()
+  const cookie = cookies();
+  const user: UserDetailsType["data"] | null = JSON.parse(
+    cookie.get("user")?.value || "null"
   );
+  const responseRes: RequestDetailType = await getRequestDetail(
+    props.requestid
+  );
+  const responsesShuffled = shuffle(responseRes.responses.reverse());
 
   return (
     <div className={cn("mx-4 md:mx-0 mb-16", className)} {...props}>
@@ -47,24 +51,38 @@ export default async function ResponseContainer({
       <div
         className={cn(
           "flex flex-col gap-6 sm:hidden",
-          props.requestid && "mt-4",
-          props.isprofilepage && "mt-8"
+          props.requestid && "mt-4"
         )}
       >
         {responsesShuffled.map((response) => {
-          return <ResponseCard response={response} key={response.id} />;
+          const showResponse =
+            (user && user.id == response.user_id) ||
+            (user && user.id == responseRes.request.user_id) ||
+            response.visibility === "public";
+          return (
+            showResponse && (
+              <ResponseCard response={response} key={response.id} />
+            )
+          );
         })}
       </div>
 
       <div
         className={cn(
           "hidden sm:block sm:columns-2 gap-6",
-          props.requestid && "mt-4",
-          props.isprofilepage && "mt-8"
+          props.requestid && "mt-4"
         )}
       >
         {responsesShuffled.map((response) => {
-          return <ResponseCard response={response} key={response.id} />;
+          const showResponse =
+            (user && user.id == response.user_id) ||
+            (user && user.id == responseRes.request.user_id) ||
+            response.visibility === "public";
+          return (
+            showResponse && (
+              <ResponseCard response={response} key={response.id} />
+            )
+          );
         })}
       </div>
     </div>

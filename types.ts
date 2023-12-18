@@ -61,7 +61,7 @@ export type RequestResponsesType = {
   user_id: number;
   user: string;
   user_profile_image_url: string | null;
-  visibility: string;
+  visibility: "public" | "private";
   whatsapp_num: string;
   whatsapp_link: string;
 };

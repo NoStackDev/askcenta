@@ -16,9 +16,7 @@ import { cn, month } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { fetchCities } from "@/api/location";
 import Link from "next/link";
-import { cookies } from "next/headers";
 import Image from "next/image";
-import { fetchRequestDetails } from "@/api/request";
 
 interface ResponseCardProps extends React.HTMLAttributes<HTMLDivElement> {
   response: RequestResponsesType;
@@ -34,20 +32,17 @@ export default async function ResponseCard({
     (city) => city.id === Number(response.location)
   );
   const date = new Date(response.created_at);
-  const cookie = cookies();
-  const user: UserDetailsType["data"] | null = JSON.parse(
-    cookie.get("user")?.value || "null"
-  );
-  const requestId = response.request_url.split("/").reverse()[0];
 
-  const requestDetail: RequestDetailType = await fetchRequestDetails(requestId);
-  const requestOrResponseMadeByUser =
-    (user && user.id == response.user_id) ||
-    (user && user.id == requestDetail.request.user_id);
+  // const requestId = response.request_url.split("/").reverse()[0];
+
+  // const requestDetail: RequestDetailType = await fetchRequestDetails(requestId);
+  // const requestOrResponseMadeByUser =
+  //   (user && user.id == response.user_id) ||
+  //   (user && user.id == requestDetail.request.user_id);
 
   return (
     <>
-      {(response.visibility === "public" || requestOrResponseMadeByUser) && (
+      {(response.visibility === "public" || true) && (
         <Card className={cn("", className)} {...props} variant="response">
           <CardContent className="flex flex-col">
             <h3 className="font-roboto font-semibold text-lg text-[#011B39] leading-[30px] px-3">
