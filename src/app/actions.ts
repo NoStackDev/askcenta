@@ -10,6 +10,7 @@ import {
 } from "@/types";
 import { LoginFormFields } from "./(Authenticate)/login/login_form";
 import { SignupFormField } from "./(Authenticate)/signup/signup_wrapper";
+import { fetchCities } from "@/api/location";
 
 /*
   check and get user authorization cookie and user details
@@ -260,17 +261,44 @@ export async function getUserDetailsAction(
   update user details
 */
 
-export async function updateUserDetailsAction(data: FormData) {
+export async function updateUserDetailsAction(tempData: FormData) {
   const { token, userDetails } = getAuthCookieInfo();
 
   const headers = new Headers();
   headers.append("Accept", "application/json");
   headers.append("Authorization", token);
+  const formData = new FormData();
+
+  // append other user data
+  for (let userDetailsKey in userDetails) {
+    typeof userDetails[userDetailsKey as keyof typeof userDetails] ===
+      "string" &&
+      formData.append(
+        userDetailsKey,
+        userDetails[userDetailsKey as keyof typeof userDetails] as string
+      );
+  }
+
+  !tempData.get("whatsapp_num") && formData.delete("whatsapp_num");
+
+  const citiesData = (await fetchCities()).data;
+
+  const userPreferredLocation = citiesData.find(
+    (city) => city.city.toLowerCase() === userDetails.location.toLowerCase()
+  );
+
+  userPreferredLocation &&
+    formData.append("location_id", userPreferredLocation.id.toString());
+
+  // append new data
+  for (const pair of tempData.entries()) {
+    formData.append(pair[0], pair[1]);
+  }
 
   const res = await fetch(`https://askcenta.ng/api/update`, {
     method: "POST",
     headers: headers,
-    body: data,
+    body: formData,
   });
 
   if (!res.ok) {
@@ -673,10 +701,10 @@ export async function updateUserPreferenceAction(data: {
 export async function postQuestion(formData: FormData) {
   const { token, userDetails } = getAuthCookieInfo();
 
-  const userPreferences: UserPreferenceType = await getUserPreferenceAction();
+  // const userPreferences: UserPreferenceType = await getUserPreferenceAction();
   const headers = new Headers();
   headers.append("Accept", "application/json");
-  headers.append("Content-type", "application/json");
+  // headers.append("Content-type", "application/json");
   headers.append("Authorization", token);
 
   formData.append("ask_user_id", userDetails.id.toString());

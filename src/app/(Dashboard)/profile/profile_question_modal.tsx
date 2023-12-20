@@ -1,6 +1,7 @@
 "use client";
 
-import { CloseIcon } from "@/components/icons";
+import { postQuestion } from "@/actions";
+import { CancelIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -16,6 +17,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { ProfileQuestionResponseType } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DialogProps } from "@radix-ui/react-dialog";
 import React from "react";
@@ -25,8 +27,8 @@ import { z } from "zod";
 const questionFormSchema = z.object({
   question: z
     .string()
-    .min(20, { message: "Question cannot be less than 20 charactrs" })
-    .max(120, { message: "Question cannot be more than 120 characters" }),
+    .min(5, { message: "Question cannot be less than 5 charactrs" })
+    .max(140, { message: "Question cannot be more than 140 characters" }),
 });
 
 interface ProfileQuestionModalProps extends DialogProps {}
@@ -35,6 +37,9 @@ export default function ProfileQuestionModal({
   children,
   ...props
 }: ProfileQuestionModalProps) {
+  const [asking, setAsking] = React.useState(false);
+  const closeButtonRef = React.useRef<HTMLButtonElement>(null);
+
   const form = useForm<z.infer<typeof questionFormSchema>>({
     resolver: zodResolver(questionFormSchema),
     defaultValues: {
@@ -42,8 +47,26 @@ export default function ProfileQuestionModal({
     },
   });
 
-  function onSubmit(values: z.infer<typeof questionFormSchema>) {
-    console.log("on submit: ", values);
+  async function onSubmit(values: z.infer<typeof questionFormSchema>) {
+    setAsking(true);
+    const params = new URLSearchParams(document.location.search);
+    const otherUserId = params.get("user");
+    try {
+      const formData = new FormData();
+      otherUserId && formData.append("answer_user_id", otherUserId);
+      formData.append("question", values.question);
+      const res: ProfileQuestionResponseType = await postQuestion(formData);
+      if (res.success) {
+        setAsking(false);
+        if (closeButtonRef.current) {
+          closeButtonRef.current.click();
+        }
+        return;
+      }
+    } catch (err) {
+      console.log(err);
+      setAsking(false);
+    }
   }
   return (
     <Dialog {...props}>
@@ -56,8 +79,8 @@ export default function ProfileQuestionModal({
             </h2>
 
             <DialogClose>
-              <Button>
-                <CloseIcon />
+              <Button ref={closeButtonRef}>
+                <CancelIcon />
               </Button>
             </DialogClose>
           </div>
@@ -106,7 +129,7 @@ export default function ProfileQuestionModal({
                     type="submit"
                     className="w-full rounded-[24px] bg-request-gradient font-roboto font-medium text-base text-white py-3 px-12"
                   >
-                    Ask
+                    {asking ? "Posting Question" : "Ask"}
                   </Button>
                 </div>
               </div>

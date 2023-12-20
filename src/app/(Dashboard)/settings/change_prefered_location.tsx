@@ -34,6 +34,7 @@ export default function ChangePreferedLocationBtn({
     async function updatePreferredLocation() {
       setIsLoading(true);
       const data = new FormData();
+
       selectedCity && data.append("location_id", selectedCity.id.toString());
       const res = await updateUserDetailsAction(data);
       setIsLoading(false);

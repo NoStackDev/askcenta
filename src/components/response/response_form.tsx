@@ -30,8 +30,6 @@ interface ResponseFormProps extends React.HTMLAttributes<DialogProps> {
   user: UserDetailsType["data"] | null;
 }
 
-// const responseFormWhatsappSchema
-
 const responseFormSchema = z.object({
   whatsapp_num: z
     .string()
@@ -95,10 +93,6 @@ export default function ResponseForm({
 
       window.location.reload();
       setIsPosting(false);
-      // console.log(values);
-      // setTimeout(() => {
-      //   setIsPosting(false);
-      // }, 2000);
     } catch (err) {
       console.log(err);
       setIsPosting(false);

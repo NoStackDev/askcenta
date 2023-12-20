@@ -14,6 +14,7 @@ import { Button } from "../ui/button";
 import LoadingSpinner from "../load_spinner";
 import { updateUserDetailsAction } from "@/actions";
 import { UserDetailsType } from "@/types";
+import { WhatsappCircleIcon } from "../icons";
 
 interface ResponseFormWhatsappProps
   extends React.HTMLAttributes<typeof FormField> {
@@ -65,10 +66,10 @@ export default function ResponseFormWhatsapp({
   return (
     <div className={cn("flex flex-col", className)}>
       <div className="flex flex-col gap-4 items-start text-justify">
-        <h3 className="font-roboto text-lg font-medium text-black leading-[23px]">
+        <h3 className="font-roboto text-lg font-medium text-[#4FC1E9] leading-[23px]">
           Via WhatsApp Messenger
         </h3>
-        <p className="font-roboto text-base font-normal text-black leading-[23px]">
+        <p className="font-roboto text-base font-normal text-[#262525] leading-[23px]">
           Kindly add your WhatsApp number. This allows interested users to
           easily contact you. Rest assured, your number will only be visible to
           those you choose to connect with, ensuring your privacy.
@@ -90,7 +91,7 @@ export default function ResponseFormWhatsapp({
             <FormMessage />
 
             <FormControl className="mt-2">
-              <div className="border border-[#D9D9D9] h-12 bg-[#F7F9FF] rounded-xl py-2 px-3 flex items-center">
+              <div className="border border-[#D9D9D9] h-12 bg-[#F7F9FF] rounded-xl py-2 px-3 flex gap-1 items-center">
                 <span className="font-roboto font-normal text-base text-black opacity-70 pr-2 border-r border-r-black/60">
                   +234
                 </span>
@@ -99,6 +100,7 @@ export default function ResponseFormWhatsapp({
                   {...field}
                   className="pl-2 w-full font-roboto font-normal text-base bg-[#F7F9FF] text-black placeholder:font-roboto placeholder:font-normal placeholder:text-base placeholder:opacity-60 placeholder:text-black"
                 />
+                <WhatsappCircleIcon />
               </div>
             </FormControl>
           </FormItem>
@@ -115,7 +117,7 @@ export default function ResponseFormWhatsapp({
         {!isUpdating && "Save & Continue"}
       </Button>
 
-      <span className="mt-10 font-roboto text-sm font-medium text-black text-center italic">
+      <span className="mt-10 font-roboto text-sm font-medium text-black text-center italic opacity-60">
         Service only available in Nigeria
       </span>
     </div>

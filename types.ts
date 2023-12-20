@@ -124,7 +124,7 @@ export type UserDetailsType = {
     role: "Regular" | "Admin";
     image_url: string | null;
     about: string | null;
-    location: "";
+    location: string;
     business_addr: string | null;
     business_num: string | null;
     facebook_link: string | null;
@@ -146,6 +146,12 @@ export type UserPreferenceType = {
   selected_categories: string[];
   selected_locations: string[];
   user_id: string;
+};
+
+export type ProfileQuestionResponseType = {
+  success: boolean;
+  email_sent: boolean;
+  message: string;
 };
 
 export interface ShareData {

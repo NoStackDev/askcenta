@@ -18,6 +18,10 @@ import {
 } from "@/types";
 import { fetchCities, fetchStates } from "@/api/location";
 import Email from "./email";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import WhatsappNumForm from "./whatsapp_number_form";
 
 type Props = {};
 
@@ -62,18 +66,39 @@ export default async function Page({}: Props) {
         <CardContent className="flex flex-col font-roboto">
           <div className="flex items-center justify-between">
             <span className="font-normal text-base text-black">
-              Enable email notification
+              WhatsApp Messenger
             </span>
-
-            <EmailNotificationSwitch />
           </div>
 
           <p className="font-normal text-xs text-black opacity-70 mt-2">
-            Receive email notifications for offers on your requests and requests
-            you might be interested in
+            Add your WhatsApp contact details for easy reach out from those
+            interested in your offers.
           </p>
 
-          <ChangeNotificationEmailBtn className="self-start mt-4" />
+          <div
+            className={cn(
+              "flex justify-between items-center mt-5",
+              !userDetails.data.whatsapp_num && "justify-end"
+            )}
+          >
+            {userDetails.data.whatsapp_num && (
+              <span>{userDetails.data.whatsapp_num}</span>
+            )}
+
+            <Dialog>
+              <DialogTrigger>
+                <Button className="font-roboto text-sm font-medium text-[#6356E5]">
+                  Change Number
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <WhatsappNumForm
+                  userDetails={userDetails}
+                  citiesData={cities.data}
+                />
+              </DialogContent>
+            </Dialog>
+          </div>
         </CardContent>
       </Card>
 
@@ -81,7 +106,7 @@ export default async function Page({}: Props) {
         userDetails={userDetails}
         citiesdata={cities.data}
         statesdata={states.data}
-        className="mt-2"
+        className="mt-4"
       />
 
       <Card variant="settings" className="mt-4">
