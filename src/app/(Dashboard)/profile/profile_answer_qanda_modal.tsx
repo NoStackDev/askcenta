@@ -21,20 +21,33 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { ProfileQuestionResponseType } from "@/types";
+import { postAnswer } from "@/actions";
+import LoadingSpinner from "@/components/load_spinner";
 
 const answerFormSchema = z.object({
   answer: z
     .string()
-    .min(20, { message: "Answer cannot be less than 20 charactrs" })
+    .min(5, { message: "Answer cannot be less than 5 charactrs" })
     .max(120, { message: "Answer cannot be more than 120 characters" }),
 });
 
-interface AnswerQandAModalProps extends DialogProps {}
+interface AnswerQandAModalProps extends DialogProps {
+  question_answer_id: number;
+  question: string;
+  answer_username: string;
+}
 
 export default function AnswerQandAModal({
   children,
+  question_answer_id,
+  answer_username,
+  question,
   ...props
 }: AnswerQandAModalProps) {
+  const [posting, setPosting] = React.useState(false);
+  const closeButtonRef = React.useRef<HTMLButtonElement>(null);
+
   const form = useForm<z.infer<typeof answerFormSchema>>({
     resolver: zodResolver(answerFormSchema),
     defaultValues: {
@@ -42,8 +55,24 @@ export default function AnswerQandAModal({
     },
   });
 
-  function onSubmit(values: z.infer<typeof answerFormSchema>) {
-    console.log("on submit: ", values);
+  async function onSubmit(values: z.infer<typeof answerFormSchema>) {
+    setPosting(true);
+    try {
+      const formData = new FormData();
+      formData.append("id", question_answer_id.toString());
+      formData.append("answer", values.answer);
+      const res: ProfileQuestionResponseType = await postAnswer(formData);
+      if (res.success) {
+        setPosting(false);
+        if (closeButtonRef.current) {
+          closeButtonRef.current.click();
+        }
+        return;
+      }
+    } catch (err) {
+      console.log(err);
+      setPosting(false);
+    }
   }
 
   return (
@@ -57,7 +86,7 @@ export default function AnswerQandAModal({
             </h2>
 
             <DialogClose>
-              <Button>
+              <Button ref={closeButtonRef}>
                 <CloseIcon />
               </Button>
             </DialogClose>
@@ -75,8 +104,7 @@ export default function AnswerQandAModal({
                   </h3>
 
                   <p className="mt-2 font-roboto font-medium text-base text-[#010E1E]">
-                    Lorem ipsum dolor sit amet consectetur. In malesuada
-                    fringilla molestie dis sapien?
+                    {question}
                   </p>
 
                   <div className="mt-4 flex items-center gap-2">
@@ -84,7 +112,7 @@ export default function AnswerQandAModal({
                       Asked by:
                     </span>
                     <span className="font-roboto font-medium text-sm text-[#6356E5]">
-                      User Name
+                      {answer_username}
                     </span>
                   </div>
                 </div>
@@ -127,7 +155,13 @@ export default function AnswerQandAModal({
                     type="submit"
                     className="w-full rounded-[24px] bg-request-gradient font-roboto font-medium text-base text-white py-3 px-12"
                   >
-                    Answer
+                    {posting ? (
+                      <div className="flex items-center gap-2">
+                        <LoadingSpinner /> <span>Posting Answer</span>
+                      </div>
+                    ) : (
+                      "Answer"
+                    )}
                   </Button>
                 </div>
               </div>

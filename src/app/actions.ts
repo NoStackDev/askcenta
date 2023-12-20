@@ -735,3 +735,44 @@ export async function postQuestion(formData: FormData) {
 
   return res.json();
 }
+
+/* 
+  post a answer
+*/
+export async function postAnswer(formData: FormData) {
+  const { token, userDetails } = getAuthCookieInfo();
+
+  // const userPreferences: UserPreferenceType = await getUserPreferenceAction();
+  const headers = new Headers();
+  headers.append("Accept", "application/json");
+  // headers.append("Content-type", "application/json");
+  headers.append("Authorization", token);
+
+  // formData.append("ask_user_id", userDetails.id.toString());
+
+  const res = await fetch(`http://askcenta.ng/api/answers`, {
+    method: "POST",
+    headers: headers,
+    body: formData,
+  });
+
+  if (!res.ok) {
+    const errors = await res.json();
+    console.log(
+      `failed to post answer from user with user id ${
+        userDetails.id
+      } to question with question id ${formData.get("id")}`,
+      { error: errors.message }
+    );
+
+    return {
+      isError: true,
+      errorMessage: `failed to post answer from user with user id ${
+        userDetails.id
+      } question with question id ${formData.get("id")}`,
+      ...errors,
+    };
+  }
+
+  return res.json();
+}

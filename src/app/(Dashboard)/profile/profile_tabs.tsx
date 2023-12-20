@@ -6,16 +6,22 @@ import ProfileQandATab from "./profile_qa_tab";
 import ProfileRequestsTab from "./profile_requests_tab";
 import ProfileResponsesTab from "./profile_responses_tab";
 import { cn } from "@/lib/utils";
+import { UserDetailsType } from "@/types";
+import { getUserDetailsAction } from "@/actions";
 
 interface ProfileTabProps extends TabsProps {
   otherUserId?: string | string[] | undefined;
 }
 
-export default function ProfileTabs({
+export default async function ProfileTabs({
   className,
   otherUserId,
   ...props
 }: ProfileTabProps) {
+  const userDetails: UserDetailsType = otherUserId
+    ? await getUserDetailsAction(otherUserId.toString())
+    : await getUserDetailsAction();
+
   return (
     <Tabs defaultValue="about" className={className} {...props}>
       <TabsList
@@ -31,7 +37,7 @@ export default function ProfileTabs({
           value="q&a"
           className="py-4 font-roboto font-semibold text-sm text-black opacity-60 data-[state=active]:text-[#6356E5] data-[state=active]:opacity-100 border-b-[2px] border-[#D9D9D9] data-[state=active]:border-b-[2px] data-[state=active]:border-[#6356E5]"
         >
-          Q&A (0)
+          Q&A ({userDetails.data.question_answer.length})
         </TabsTrigger>
         {!otherUserId && (
           <TabsTrigger

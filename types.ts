@@ -134,8 +134,15 @@ export type UserDetailsType = {
     can_ask_question: boolean;
     request_made: RequestType[];
     requests_responded: RequestType[];
-    question_answer: [];
+    question_answer: ProfileQuestionAnswer[];
   };
+};
+
+export type ProfileQuestionAnswer = {
+  id: number;
+  question: string;
+  answer: string | null;
+  created_at: string;
 };
 
 export type UserPreferenceType = {

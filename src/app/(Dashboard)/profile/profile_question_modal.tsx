@@ -2,6 +2,7 @@
 
 import { postQuestion } from "@/actions";
 import { CancelIcon } from "@/components/icons";
+import LoadingSpinner from "@/components/load_spinner";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -129,7 +130,13 @@ export default function ProfileQuestionModal({
                     type="submit"
                     className="w-full rounded-[24px] bg-request-gradient font-roboto font-medium text-base text-white py-3 px-12"
                   >
-                    {asking ? "Posting Question" : "Ask"}
+                    {asking ? (
+                      <div className="flex items-center gap-2">
+                        <LoadingSpinner /> <span>Posting Question</span>
+                      </div>
+                    ) : (
+                      "Ask"
+                    )}
                   </Button>
                 </div>
               </div>
