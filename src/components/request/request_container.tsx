@@ -16,7 +16,7 @@ interface RequestContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   searchparams?: { [key: string]: string | string[] | undefined };
   userid?: string;
   pagetype?: "profile";
-  requesttype?: "request" | "response";
+  requesttype?: "request" | "response" | "userBookmarkedRequest";
 }
 
 async function getfeed(searchparams?: {
@@ -47,21 +47,34 @@ async function getUserRequests(
   return (await res).data.request_made;
 }
 
+async function getUserBookmarkedRequest() {
+  return (await fetchBookmarksAction()).data;
+}
+
 function fetchData(
   searchparams?: {
     [key: string]: string | string[] | undefined;
   },
   pagetype?: "profile",
-  requesttype?: "request" | "response"
+  requesttype?: "request" | "response" | "userBookmarkedRequest"
 ) {
   if (pagetype && pagetype === "profile") {
     if (requesttype === "request" || requesttype === "response") {
       return getUserRequests(searchparams, requesttype);
     }
   }
-
+  if (requesttype === "userBookmarkedRequest") {
+    return getUserBookmarkedRequest();
+  }
   return getfeed(searchparams);
 }
+
+// request runs 4 times!!! first two return response with
+// bookmarks is user has bookmarks
+// last two return empty array even when first two returned
+// bookmarks, using this as cache, a very crude way around
+// the problem :(
+let bookmarkedRequestsCache: RequestType[] = [];
 
 export default async function RequestContainer({
   className,
@@ -71,29 +84,43 @@ export default async function RequestContainer({
   pagetype,
   ...props
 }: RequestContainerProps) {
-  const cookie = cookies();
   const headersList = headers();
   const pathname = headersList.get("x-pathname");
-
-  const feed = await fetchData(searchparams, pagetype, requesttype);
-  let shuffledRequests = shuffle<typeof feed>(feed);
+  const cookie = cookies();
   const userIsAuthorized = cookie.get("Authorization")?.value || null;
+  const user: UserDetailsType["data"] | null = JSON.parse(
+    cookie.get("user")?.value || "null"
+  );
 
-  if (userIsAuthorized) {
+  let feed: RequestType[] = await fetchData(
+    searchparams,
+    pagetype,
+    requesttype
+  );
+  let shuffledRequests = shuffle<typeof feed>(feed);
+
+  if (userIsAuthorized && requesttype !== "userBookmarkedRequest") {
     try {
-      const userBookmarkRes: Promise<{ data: RequestType[] }> =
-        fetchBookmarksAction();
-      const userBookmarkJson = await userBookmarkRes;
-      shuffledRequests = shuffledRequests.map((req) => {
-        const foundBookmark = userBookmarkJson.data.find(
-          (ele) => req.id === ele.id
+      const bookmarkedUserRequests = await fetchBookmarksAction();
+      if (bookmarkedUserRequests.data.length > 0) {
+        bookmarkedRequestsCache = bookmarkedUserRequests.data;
+      }
+      feed = feed.map((request) => {
+        const matchedBookmark = bookmarkedRequestsCache.find(
+          (bookmarkedRequest) => bookmarkedRequest.id === request.id
         );
-
-        if (foundBookmark) return foundBookmark;
-        return req;
+        if (matchedBookmark) {
+          return matchedBookmark;
+        }
+        return request;
       });
     } catch (err) {
-      console.log(err);
+      console.log(
+        `failed trying to fetch bookmarks for user with user id ${
+          user && user.id
+        }`,
+        err
+      );
     }
   }
 
@@ -106,7 +133,11 @@ export default async function RequestContainer({
             {...props}
           >
             {feed.map((request: RequestType) => {
-              return <RequestCard requestData={request} key={request.id} />;
+              return (
+                !request.category.toLowerCase().includes("hookup") && (
+                  <RequestCard requestData={request} key={request.id} />
+                )
+              );
             })}
           </div>
           <div
@@ -117,9 +148,11 @@ export default async function RequestContainer({
             {...props}
           >
             {shuffledRequests.map((request, index) => {
-              const date = new Date(request.created_at);
-
-              return <RequestCard requestData={request} key={request.id} />;
+              return (
+                !request.category.toLowerCase().includes("hookup") && (
+                  <RequestCard requestData={request} key={request.id} />
+                )
+              );
             })}
           </div>
         </>

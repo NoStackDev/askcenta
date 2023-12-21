@@ -6,7 +6,8 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function shuffle<T>(data: T[], dataType?: "response") {
+export function shuffle<T>(data: T, dataType?: "response") {
+  if (!Array.isArray(data)) return data;
   if (dataType && dataType === "response") return data;
   if (data.length < 1) return data;
 

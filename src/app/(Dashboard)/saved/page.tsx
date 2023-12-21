@@ -15,7 +15,7 @@ export default function SavedRequestPage({}: Props) {
         </CardContent>
       </Card>
 
-      <RequestContainer />
+      <RequestContainer requesttype="userBookmarkedRequest" />
     </main>
   );
 }

@@ -68,17 +68,19 @@ export default async function ProfileQandATab({
               </p>
             </div>
 
-            {user && user.id === userDetails.data.id && (
-              <AnswerQandAModal
-                question={question_answer.question}
-                question_answer_id={question_answer.id}
-                answer_username={userDetails.data.name}
-              >
-                <Button className="bg-[#F0EEFF] w-fit rounded-2xl py-2 px-6 mt-4 ml-8 font-roboto font-medium text-sm text-[#6356E5]">
-                  Answer
-                </Button>
-              </AnswerQandAModal>
-            )}
+            {user &&
+              user.id === userDetails.data.id &&
+              !question_answer.answer && (
+                <AnswerQandAModal
+                  question={question_answer.question}
+                  question_answer_id={question_answer.id}
+                  answer_username={userDetails.data.name}
+                >
+                  <Button className="bg-[#F0EEFF] w-fit rounded-2xl py-2 px-6 mt-4 ml-8 font-roboto font-medium text-sm text-[#6356E5]">
+                    Answer
+                  </Button>
+                </AnswerQandAModal>
+              )}
 
             <div className="mt-2 flex items-center justify-between pl-7">
               <span className="font-roboto font-normal text-sm text-black opacity-60">

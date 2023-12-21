@@ -24,7 +24,6 @@ export default function RequestBookmark({ requestData }: Props) {
     setBookmarked(!bookmarked);
     try {
       const res = await addBookmarkAction(requestData.id.toString());
-      console.log("res: ", res);
     } catch (err) {
       setBookmarked(!bookmarked);
       console.log(err);
@@ -41,10 +40,10 @@ export default function RequestBookmark({ requestData }: Props) {
       aria-label="bookmark"
       className="hover:scale-105 hover:shadow-sm"
     >
-      {!requestData.bookmark && (
-        <StarFilledIcon className="hover:cursor-pointer" />
+      {!bookmarked && <StarFilledIcon className="hover:cursor-pointer" />}
+      {bookmarked && (
+        <StarIcon className="hover:cursor-pointer" width={"32"} height={"32"} />
       )}
-      {requestData.bookmark && <StarIcon className="hover:cursor-pointer" />}
       {/* {bookmarked && "bookmarked"} */}
       {/* {!bookmarked && "Not bookmarked"} */}
     </Button>

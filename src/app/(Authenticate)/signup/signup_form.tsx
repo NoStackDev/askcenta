@@ -30,17 +30,10 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 
 export default function SignupForm({ className, signupForm, ...props }: Props) {
   const { authState } = useUserAuthContext();
+  const [passwordIsVisible, setPasswordIsVisible] = React.useState(false);
 
   function togglePasswordVisibility() {
-    const passwordInput = document.getElementById(
-      "signup_password"
-    ) as HTMLInputElement | null;
-
-    if (passwordInput) {
-      passwordInput.type === "password"
-        ? (passwordInput.type = "text")
-        : (passwordInput.type = "password");
-    }
+    setPasswordIsVisible(!passwordIsVisible);
   }
 
   return (
@@ -119,7 +112,7 @@ export default function SignupForm({ className, signupForm, ...props }: Props) {
               <FormControl className="mt-2">
                 <div className="border border-[#D9D9D9] h-12 bg-[#F7F9FF] rounded-xl py-2 px-3 flex items-center gap-2">
                   <input
-                    type="password"
+                    type={passwordIsVisible ? "text" : "password"}
                     placeholder="Enter Password"
                     {...field}
                     className="pl-2 w-full font-roboto font-normal text-base bg-[#F7F9FF] text-black placeholder:font-roboto placeholder:font-normal placeholder:text-base placeholder:opacity-60 placeholder:text-black"

@@ -774,5 +774,11 @@ export async function postAnswer(formData: FormData) {
     };
   }
 
-  return res.json();
+  const responseJson = await res.json();
+  console.log(responseJson);
+
+  return new Promise((resolve) => {
+    resolve({ success: true, response: responseJson });
+  });
+  // return res.json();
 }

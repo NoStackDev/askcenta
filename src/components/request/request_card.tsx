@@ -31,6 +31,8 @@ export default function RequestCard({
   );
   const date = new Date(requestData.created_at);
 
+  // console.log('request data: ', requestData)
+
   return (
     <Card
       variant="request"
