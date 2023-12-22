@@ -160,11 +160,11 @@ export default async function RequestContainer({
 
       {feed.length === 0 && (
         <div className="w-full py-12 md:py-24 flex flex-col items-center justify-center">
-          {/* no requests illustration for 'discover' 'nearby' 'custom' 'saved' pages  */}
+          {/* no requests illustration for 'discover' 'nearby' 'custom' 'favourite' pages  */}
           {(pathname === "/" ||
             pathname === "/nearby" ||
             pathname === "/custom" ||
-            pathname === "/saved" ||
+            pathname === "/favourite" ||
             pathname?.split("/")[1] === "profile") && <Notebook_icon />}
 
           {/* no requests illustration for 'search' page */}
@@ -174,7 +174,7 @@ export default async function RequestContainer({
             {(pathname === "/" ||
               pathname === "/nearby" ||
               pathname === "/custom" ||
-              pathname === "/saved" ||
+              pathname === "/favourite" ||
               pathname?.split("/")[1] === "profile") &&
               "Oops! No Request"}
             {pathname === "/search" && "No Result Found"}

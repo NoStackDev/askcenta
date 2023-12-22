@@ -119,26 +119,26 @@ const Sidebar = React.forwardRef<
             </Link>
 
             <Link
-              href="/saved"
+              href="/favourite"
               className="border-b border-[#EDECF0]"
               onClick={() => setShowSidebar(false)}
             >
               <li
                 className={cn(
                   "mb-4 flex items-center gap-8 mr-10",
-                  pathname.split("/")[1] === "saved" && "text-[#6356E5]"
+                  pathname.split("/")[1] === "favourite" && "text-[#6356E5]"
                 )}
               >
                 <StarIcon
                   height="24px"
                   width="24px"
-                  aria-label="saved requests"
+                  aria-label="favourite requests"
                   pathColor={
-                    pathname.split("/")[1] === "saved" ? "#6356E5" : null
+                    pathname.split("/")[1] === "favourite" ? "#6356E5" : null
                   }
                 />
 
-                <span className="w-max">Saved</span>
+                <span className="w-max">Favourite</span>
               </li>
             </Link>
 

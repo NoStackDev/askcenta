@@ -10,7 +10,7 @@ export default function SavedRequestPage({}: Props) {
       <Card variant="settings" className="mt-2 md:mt-0">
         <CardContent>
           <h2 className="font-poppins font-semibold text-base text-[#011B39]">
-            SAVED REQUESTS
+            FAVOURITE REQUESTS
           </h2>
         </CardContent>
       </Card>
