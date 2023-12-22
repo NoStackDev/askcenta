@@ -97,7 +97,7 @@ export default async function RequestContainer({
     pagetype,
     requesttype
   );
-  let shuffledRequests = shuffle<typeof feed>(feed);
+  let shuffledRequests = shuffle<RequestType>(feed);
 
   if (userIsAuthorized && requesttype !== "userBookmarkedRequest") {
     try {
