@@ -2,7 +2,7 @@ import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
 import { MiddlewareFactory } from "../../types";
 import { cookies } from "next/headers";
 
-const protectedRoutes = ["favourite", "profile", "settings"];
+const protectedRoutes = ["favourites", "profile", "settings"];
 
 export const routeAuthorization: MiddlewareFactory = (next) => {
   return async (request: NextRequest, _next: NextFetchEvent) => {
