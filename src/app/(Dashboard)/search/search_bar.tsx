@@ -13,8 +13,8 @@ export default function Searchbar({ className, ...props }: SearchbarProps) {
       "searchStr"
     ) as HTMLInputElement | null;
     const url = new URL(window.location.href);
-    url.searchParams.delete("str");
-    searchStr && url.searchParams.append("str", searchStr.value);
+    url.searchParams.delete("searchStr");
+    searchStr && url.searchParams.append("searchStr", searchStr.value);
     window.location.href = url.href;
   };
 
@@ -27,7 +27,7 @@ export default function Searchbar({ className, ...props }: SearchbarProps) {
       <form onSubmit={onSubmit} className="flex items-center justify-between">
         <input
           type="text"
-          name="str"
+          name="searchStr"
           id="searchStr"
           placeholder="Search keywords for requests"
           className="p-1 font-roboto font-normal text-sm text-black opacity-80 placeholder:font-roboto placeholder:font-normal placeholder:text-sm placeholder:text-black placeholder:opacity-60 w-full"
