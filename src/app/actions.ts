@@ -269,36 +269,36 @@ export async function updateUserDetailsAction(tempData: FormData) {
   headers.append("Authorization", token);
   const formData = new FormData();
 
-  // append other user data
-  for (let userDetailsKey in userDetails) {
-    typeof userDetails[userDetailsKey as keyof typeof userDetails] ===
-      "string" &&
-      formData.append(
-        userDetailsKey,
-        userDetails[userDetailsKey as keyof typeof userDetails] as string
-      );
-  }
+  // // append other user data
+  // for (let userDetailsKey in userDetails) {
+  //   typeof userDetails[userDetailsKey as keyof typeof userDetails] ===
+  //     "string" &&
+  //     formData.append(
+  //       userDetailsKey,
+  //       userDetails[userDetailsKey as keyof typeof userDetails] as string
+  //     );
+  // }
 
-  !tempData.get("whatsapp_num") && formData.delete("whatsapp_num");
+  // !tempData.get("whatsapp_num") && formData.delete("whatsapp_num");
 
-  const citiesData = (await fetchCities()).data;
+  // const citiesData = (await fetchCities()).data;
 
-  const userPreferredLocation = citiesData.find(
-    (city) => city.city.toLowerCase() === userDetails.location.toLowerCase()
-  );
+  // const userPreferredLocation = citiesData.find(
+  //   (city) => city.city.toLowerCase() === userDetails.location.toLowerCase()
+  // );
 
-  userPreferredLocation &&
-    formData.append("location_id", userPreferredLocation.id.toString());
+  // userPreferredLocation &&
+  //   formData.append("location_id", userPreferredLocation.id.toString());
 
-  // append new data
-  for (const pair of tempData.entries()) {
-    formData.append(pair[0], pair[1]);
-  }
+  // // append new data
+  // for (const pair of tempData.entries()) {
+  //   formData.append(pair[0], pair[1]);
+  // }
 
   const res = await fetch(`https://askcenta.ng/api/update`, {
     method: "POST",
     headers: headers,
-    body: formData,
+    body: tempData,
   });
 
   if (!res.ok) {
