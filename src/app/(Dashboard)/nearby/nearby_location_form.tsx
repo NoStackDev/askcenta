@@ -64,7 +64,13 @@ export default function NearbyLocationForm({
 
         {(preSelectedLocation || selectedCity) && (
           <span className="font-roboto font-normal text-sm text-black">
-            {selectedCity?.city || preSelectedLocation?.city || "Nationwide"}
+            {selectedCity?.city || preSelectedLocation?.city}
+          </span>
+        )}
+
+        {!preSelectedLocation && !selectedCity && (
+          <span className="font-roboto font-normal text-sm text-black">
+            Nationwide
           </span>
         )}
       </div>

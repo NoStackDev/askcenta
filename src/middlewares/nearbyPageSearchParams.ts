@@ -12,11 +12,9 @@ export const nearbyPageSearchParams: MiddlewareFactory = (next) => {
 
     if (
       userDetails &&
-      route.every(
-        (ele) =>
-          request.nextUrl.pathname.split("/")[1] === ele &&
-          !request.nextUrl.searchParams.get("city_id")
-      )
+      route.every((ele) => request.nextUrl.pathname.split("/")[1] === ele) &&
+      !request.nextUrl.searchParams.get("city_id") &&
+      (JSON.parse(userDetails) as UserDetailsType["data"]).location
     ) {
       const absoluteURL = new URL("/nearby", request.nextUrl.origin);
       const locationString = (
