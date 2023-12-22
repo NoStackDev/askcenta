@@ -23,6 +23,21 @@ export default async function Topbar({
     fetchSubCategories();
   const subCategories = await subCategoriesRes;
 
+  const captions = [
+    "Explore people's need around you and make them an offer",
+    "Transform how you access products, services and connections",
+    "Whatever you want, whereever you need it. Just ask!",
+  ];
+  const mathRandom = Math.random();
+  const mathRandomWithFloor = Math.round(mathRandom * captions.length);
+  // console.log(
+  //   "math random: ",
+  //   mathRandom,
+  //   "\n",
+  //   "math random with floor: ",
+  //   mathRandomWithFloor
+  // );
+
   return (
     <>
       {!subcategoryid && (
@@ -35,7 +50,7 @@ export default async function Topbar({
           variant="card1"
         >
           <p className="font-poppins font-extrabold text-xl text-center text-white leading-[36px] tracking-[0.02em] mt-6">
-            Immediate Offers For Your Every Requests
+            {captions[mathRandomWithFloor]}
           </p>
           <CardContent className="flex flex-col gap-5 bg-white rounded-3xl md:rounded-lg py-4 px-3 mt-8">
             <div className="w-full bg-[#F2F4F8] h-12 rounded-3xl md:rounded-lg flex items-center px-3 gap-2">
@@ -70,7 +85,10 @@ export default async function Topbar({
       )}
 
       {subcategoryid && (
-        <Card variant="card1" className="max-md:bg-linear-bg-gradient md:bg-white">
+        <Card
+          variant="card1"
+          className="max-md:bg-linear-bg-gradient md:bg-white"
+        >
           <Link href="/" className="flex w-fit h-fit">
             <KeyboardBackspaceIcon aria-label="back" />
           </Link>
