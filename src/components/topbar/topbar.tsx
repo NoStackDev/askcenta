@@ -27,16 +27,14 @@ export default async function Topbar({
     "Explore people's need around you and make them an offer",
     "Transform how you access products, services and connections",
     "Whatever you want, whereever you need it. Just ask!",
+    "Request for whatever you need and get instant offers for it",
   ];
   const mathRandom = Math.random();
-  const mathRandomWithFloor = Math.round(mathRandom * captions.length);
-  // console.log(
-  //   "math random: ",
-  //   mathRandom,
-  //   "\n",
-  //   "math random with floor: ",
-  //   mathRandomWithFloor
-  // );
+  const mathRandomWithFloor = Math.floor(mathRandom * captions.length);
+  const randomInteger =
+    mathRandomWithFloor >= captions.length
+      ? captions.length - 1
+      : mathRandomWithFloor;
 
   return (
     <>
@@ -50,7 +48,7 @@ export default async function Topbar({
           variant="card1"
         >
           <p className="font-poppins font-extrabold text-xl text-center text-white leading-[36px] tracking-[0.02em] mt-6">
-            {captions[mathRandomWithFloor]}
+            {captions[randomInteger]}
           </p>
           <CardContent className="flex flex-col gap-5 bg-white rounded-3xl md:rounded-lg py-4 px-3 mt-8">
             <div className="w-full bg-[#F2F4F8] h-12 rounded-3xl md:rounded-lg flex items-center px-3 gap-2">
