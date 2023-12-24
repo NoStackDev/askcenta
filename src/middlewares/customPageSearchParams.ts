@@ -20,7 +20,11 @@ export const customPageSearchParams: MiddlewareFactory = (next) => {
       !request.nextUrl.searchParams.get("city_id") &&
       !request.nextUrl.searchParams.get("category_group_id")
     ) {
-      const res: UserPreferenceType = await getUserPreferenceAction();
+      const res = await getUserPreferenceAction();
+      if (res.isError) {
+        return next(request, _next);
+      }
+
       if (
         res.selected_categories.length === 0 &&
         res.selected_locations.length === 0
