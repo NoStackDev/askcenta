@@ -11,13 +11,13 @@ export default function ProfilePage({ searchParams }: Props) {
   const otherUserId = searchParams.user;
   return (
     <main className="w-full">
-      {otherUserId ? <ProfileTopbar otherUserId={otherUserId} /> : <ProfileTopbar />}
-
       {otherUserId ? (
-        <ProfileTabs otherUserId={otherUserId} className="mt-4" />
+        <ProfileTopbar otherUserId={otherUserId} />
       ) : (
-        <ProfileTabs className="mt-4" />
+        <ProfileTopbar />
       )}
+
+      <ProfileTabs otherUserId={otherUserId} className="mt-4" />
     </main>
   );
 }

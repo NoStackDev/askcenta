@@ -67,7 +67,11 @@ export default async function ProfileTabs({
         className="mt-12"
       />
 
-      <ProfileRequestsTab value="requests" className="" />
+      <ProfileRequestsTab
+        otherUserId={otherUserId}
+        value="requests"
+        className=""
+      />
 
       <ProfileResponsesTab
         otherUserId={otherUserId}
