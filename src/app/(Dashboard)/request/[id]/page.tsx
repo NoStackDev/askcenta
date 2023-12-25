@@ -4,11 +4,12 @@ import RespondToRequest from "./respond_to_request";
 import { ResponseContainer, ResponseFormWrapper } from "@/components/response";
 import { cookies } from "next/headers";
 import { RequestDetailType, UserDetailsType } from "@/types";
-import { fetchRequestDetails } from "@/api/request";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Notebook_icon } from "@/components/icons";
+import { getRequestDetails } from "@/actions";
+import { notFound } from "next/navigation";
 
 type Props = {
   params: { id: string };
@@ -21,8 +22,13 @@ export default async function RequestPage({ params }: Props) {
     cookie.get("user")?.value || "null"
   );
   const id = params.id;
-  const requestDetail: Promise<RequestDetailType> = fetchRequestDetails(id);
+  const requestDetail: Promise<RequestDetailType> = getRequestDetails(id);
   const requestDetailData = await requestDetail;
+
+  if (!requestDetailData) {
+    notFound();
+  }
+
   return (
     <main className="w-full">
       <RequestImgDetail requestDetailData={requestDetailData} />

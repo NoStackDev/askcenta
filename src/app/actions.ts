@@ -11,6 +11,7 @@ import {
 import { LoginFormFields } from "./(Authenticate)/login/login_form";
 import { SignupFormField } from "./(Authenticate)/signup/signup_wrapper";
 import { fetchCities } from "@/api/location";
+import { NextResponse } from "next/server";
 
 /*
   check and get user authorization cookie and user details
@@ -243,7 +244,6 @@ export async function getUserDetailsAction(
       });
 
   if (!res.ok) {
-    // throw new Error("failed to fetch settings", { cause: await res.json() });
     const resJson = await res.json();
     console.log(
       `failed to fetch user details for user with user id ${userDetails.id}`,
@@ -253,7 +253,6 @@ export async function getUserDetailsAction(
     return { isError: true, resJson };
   }
 
-  // const resPromise: Promise<UserDetailsType> = res.json();
   return res.json();
 }
 
@@ -323,6 +322,32 @@ export async function updateUserDetailsAction(tempData: FormData) {
   });
 
   return updatedUserDetailsJson;
+}
+
+/*
+  get request details
+*/
+
+export async function getRequestDetails(requestid: string) {
+  const res = await fetch(`https://www.askcenta.ng/api/requests/${requestid}`, {
+    method: "OPTIONS",
+    next: {
+      revalidate: 0,
+    },
+  });
+
+  if (!res.ok) {
+
+    if (res.status === 404) {
+      return undefined
+    }
+    const resJson = await res.json();
+    console.log(`failed to fetch request id ${requestid} details`, resJson);
+
+    return { isError: true, resJson };
+  }
+
+  return res.json();
 }
 
 /*
