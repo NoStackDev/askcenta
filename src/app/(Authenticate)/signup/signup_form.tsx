@@ -136,7 +136,7 @@ export default function SignupForm({ className, signupForm, ...props }: Props) {
         >
           {authState === "signing up" ? (
             <div className="flex items-start justify-center gap-3">
-              <LoadingSpinner />
+              <LoadingSpinner pathFill="transparent" pathFill1="white" />
               <span>Signing up</span>
             </div>
           ) : (

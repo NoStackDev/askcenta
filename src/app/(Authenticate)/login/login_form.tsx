@@ -160,7 +160,7 @@ export default function LoginForm({
           >
             {authState === "logging in" ? (
               <div className="flex items-start justify-center gap-3">
-                <LoadingSpinner />
+                <LoadingSpinner pathFill="transparent" pathFill1="white" />
                 <span>Logging in</span>
               </div>
             ) : (

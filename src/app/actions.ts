@@ -513,6 +513,84 @@ export async function addBookmarkAction(requestId: string) {
 }
 
 /*
+  get feeds
+*/
+export async function getFeedsActions(searchParams?: {
+  [key: string]: string | string[] | undefined;
+}) {
+  if (searchParams) {
+    const params = Object.keys(searchParams).reduce(
+      (previousValue, currentValue) => {
+        return (previousValue += `${currentValue}=${searchParams[currentValue]}&`);
+      },
+      ""
+    );
+
+    const res = await fetch(
+      `https://www.askcenta.ng/api/feeds?${params.slice(0, params.length - 1)}`,
+      {
+        method: "OPTIONS",
+        next: {
+          revalidate: 0,
+        },
+      }
+    );
+
+    if (!res.ok) {
+      const errors = await res.json();
+
+      console.log(
+        `failed to fetch feeds from https://www.askcenta.ng/api/feeds?${params.slice(
+          0,
+          params.length - 1
+        )}}`,
+        {
+          ...errors,
+        }
+      );
+
+      return {
+        isError: true,
+        errorMessage: `failed to fetch feeds from https://www.askcenta.ng/api/feeds?${params.slice(
+          0,
+          params.length - 1
+        )}}`,
+        ...errors,
+      };
+    }
+
+    return res.json();
+  }
+
+  const res = await fetch("https://www.askcenta.ng/api/feeds", {
+    method: "OPTIONS",
+    next: {
+      revalidate: 0,
+    },
+  });
+
+  if (!res.ok) {
+    const errors = await res.json();
+
+    console.log(
+      "failed to fetch feeds from https://www.askcenta.ng/api/feeds",
+
+      {
+        ...errors,
+      }
+    );
+
+    return {
+      isError: true,
+      errorMessage:
+        "failed to fetch feeds from https://www.askcenta.ng/api/feeds",
+      ...errors,
+    };
+  }
+  return res.json();
+}
+
+/*
   get all request from a user
 */
 

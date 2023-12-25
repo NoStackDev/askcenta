@@ -1,14 +1,13 @@
 import { cn, shuffle } from "@/lib/utils";
 import React from "react";
 import { FeedsResponse, RequestType, UserDetailsType } from "@/types";
-import Link from "next/link";
 import { RequestCard } from ".";
-import { fetchFeed } from "@/api/feeds";
 import { Notebook_icon, SearchIllustration } from "../icons";
 import { cookies, headers } from "next/headers";
 import {
   fetchBookmarksAction,
   getAllRequestsByUser,
+  getFeedsActions,
   getUserDetailsAction,
 } from "@/actions";
 
@@ -24,8 +23,8 @@ async function getfeed(searchparams?: {
 }) {
   const feedres: Promise<FeedsResponse> =
     searchparams && Object.keys(searchparams).length > 0
-      ? fetchFeed(searchparams)
-      : fetchFeed();
+      ? getFeedsActions(searchparams)
+      : getFeedsActions();
   return (await feedres).data;
 }
 

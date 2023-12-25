@@ -1,22 +1,14 @@
 import React from "react";
 import { Card, CardContent } from "../ui/card";
-import {
-  LocationIcon,
-  PersonIcon,
-  WhatsappCircleIcon,
-  WhatsappIcon,
-} from "../icons";
-import {
-  CitiesResponseType,
-  RequestDetailType,
-  RequestResponsesType,
-  UserDetailsType,
-} from "@/types";
+import { LocationIcon, PersonIcon, WhatsappCircleIcon } from "../icons";
+import { CitiesResponseType, RequestResponsesType } from "@/types";
 import { cn, month } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { fetchCities } from "@/api/location";
 import Link from "next/link";
 import Image from "next/image";
+import ResponseWhatsappContactModal from "./response_whatsapp_contact_modal";
+import { Button } from "../ui/button";
 
 interface ResponseCardProps extends React.HTMLAttributes<HTMLDivElement> {
   response: RequestResponsesType;
@@ -99,11 +91,11 @@ export default async function ResponseCard({
                 </Link>
               </div>
 
-              <WhatsappCircleIcon
-                width="32"
-                height="32"
-                aria-label="whatsapp"
-              />
+              <ResponseWhatsappContactModal response={response}>
+                <Button aria-label="whatsapp">
+                  <WhatsappCircleIcon width="32" height="32" />
+                </Button>
+              </ResponseWhatsappContactModal>
             </div>
           </CardContent>
         </Card>

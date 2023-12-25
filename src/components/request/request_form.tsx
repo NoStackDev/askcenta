@@ -29,6 +29,7 @@ import { placeRequestAction, updateRequestAction } from "@/actions";
 import LoadingSpinner from "../load_spinner";
 import { fetchCities } from "@/api/location";
 import { fetchSubCategories } from "@/api/category";
+import { usePopupStatesContext } from "@/context/popup_states_context";
 
 const requestFormSchema = z.object({
   title: z
@@ -57,6 +58,7 @@ export default function RequestForm({
   prevRequestData,
   children,
 }: RequestFormProps) {
+  const [openModal, setOpenModal] = React.useState(false);
   const [selectedSubCategory, setSelectedSubCategory] =
     React.useState<SubCategoryType | null>(null);
   const [selectedCategory, setSelectedCategory] =
@@ -69,6 +71,7 @@ export default function RequestForm({
   const [image, setImage] = React.useState<File | null>(null);
   const [formStep, setFormStep] = React.useState(0);
   const [isPosting, setIsPosting] = React.useState(false);
+  const { setPopupStateType } = usePopupStatesContext();
 
   const form = useForm<z.infer<typeof requestFormSchema>>({
     resolver: zodResolver(requestFormSchema),
@@ -137,10 +140,10 @@ export default function RequestForm({
         return;
       }
 
-      console.log(res);
-
-      prevRequestData ? window.location.reload() : (window.location.href = "/");
       setIsPosting(false);
+      setPopupStateType("REQUEST_SUCCESSFUL");
+      setOpenModal(false);
+      prevRequestData ? window.location.reload() : (window.location.href = "/");
     } catch (err) {
       console.log(err);
       setIsPosting(false);
@@ -170,7 +173,13 @@ export default function RequestForm({
   }, [selectedSubCategory, selectedCity]);
 
   return (
-    <Dialog onOpenChange={(open) => !open && clearForm()}>
+    <Dialog
+      open={openModal}
+      onOpenChange={(open) => {
+        open && clearForm();
+        setOpenModal(open);
+      }}
+    >
       <DialogTrigger>{children}</DialogTrigger>
       <DialogContent>
         <div className="h-full flex flex-col px-4 py-10 pb-20 md:pb-10">
@@ -242,7 +251,12 @@ export default function RequestForm({
                       type="submit"
                       className="rounded-[24px] bg-request-gradient font-roboto font-medium text-base text-white py-3 px-12 flex items-center gap-2"
                     >
-                      {isPosting && <LoadingSpinner />}
+                      {isPosting && (
+                        <LoadingSpinner
+                          pathFill="transparent"
+                          pathFill1="white"
+                        />
+                      )}
                       {isPosting && !prevRequestData && "Posting Request"}
                       {!isPosting && !prevRequestData && "Post Request"}
                       {isPosting && prevRequestData && "Updating Request"}

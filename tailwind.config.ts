@@ -25,10 +25,8 @@ const config: Config = {
         "accordion-up": "accordion-up 0.2s ease-out",
         overlayShow: "overlayShow 200ms ease-in-out",
         contentShow: "contentShow 200ms ease-in-out",
-        contentShowMd: "contentShowMd 150ms ease-in-out",
         dialogFirstContentShow: "dialogFirstContentShow 200ms ease-in-out",
         dialogHide: "dialogHide 200ms ease-in-out",
-        dialogHideMd: "dialogHideMd 200ms ease-in-out",
         sidebarOverlayShow: "sidebarOverlayShow 200ms ease-in-out",
         "hamburger-up-rotate": "hamburger-up-rotate 200ms ease-out both",
         "hamburger-down-rotate": "hamburger-down-rotate 200ms ease-out both",
@@ -52,6 +50,8 @@ const config: Config = {
           "0px 16px 24px 0px #16223314, 0px 4px 8px -4px #16223314",
         "place-a-request": "2px 4px 8px 0px #0000004D",
         "response-card":
+          "0px 16px 24px 0px rgba(22, 34, 51, 0.08), 0px 4px 8px -4px rgba(22, 34, 51, 0.08)",
+        "modal-content":
           "0px 16px 24px 0px rgba(22, 34, 51, 0.08), 0px 4px 8px -4px rgba(22, 34, 51, 0.08)",
       },
 
@@ -85,18 +85,13 @@ const config: Config = {
 
         contentShow: {
           from: {
-            transform: "translateY(100%)",
+            left: "50%",
+            transform: "translate(-50%, 100vh)",
           },
           to: {
-            transform: "translateY(0)",
+            left: "50%",
+            transform: "translate(-50%, 0%)",
           },
-        },
-        contentShowMd: {
-          from: {
-            opacity: "0",
-            transform: "translate(-50%, -48%) scale(0.5)",
-          },
-          to: { opacity: "1", transform: "translate(-50%, -50%) scale(1)" },
         },
 
         dialogFirstContentShow: {
@@ -113,19 +108,13 @@ const config: Config = {
 
         dialogHide: {
           from: {
-            transform: "translateY(0%)",
+            left: "50%",
+            transform: "translate(-50%, 0%)",
           },
           to: {
-            transform: "translateY(100%)",
+            left: "50%",
+            transform: "translate(-50%, 100vh)",
           },
-        },
-
-        dialogHideMd: {
-          from: {
-            opacity: "1",
-            transform: "translate(-50%, -50%) scale(1)",
-          },
-          to: { opacity: "0", transform: "translate(-50%, -48%) scale(0.5)" },
         },
 
         "hamburger-up-rotate": {
