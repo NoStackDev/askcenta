@@ -17,6 +17,12 @@ export default function ResponseWhatsappContactModal({
   children,
   response,
 }: Props) {
+  const [currentUrl, setCurrentUrl] = React.useState("");
+
+  React.useEffect(() => {
+    setCurrentUrl(window.location.href);
+  }, []);
+
   return (
     <Dialog>
       <DialogTrigger>{children}</DialogTrigger>
@@ -44,7 +50,9 @@ export default function ResponseWhatsappContactModal({
             variant="request_outlined"
             className="mt-10 w-full text-base rounded-3xl py-[14px] font-medium"
           >
-            <a href={response.whatsapp_link}> Proceed to WhatsApp</a>
+            <a href={response.whatsapp_link + `?text=${currentUrl}%0A`}>
+              Proceed to WhatsApp
+            </a>
           </Button>
         </div>
       </DialogContent>
