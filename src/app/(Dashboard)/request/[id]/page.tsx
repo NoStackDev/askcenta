@@ -8,6 +8,7 @@ import { fetchRequestDetails } from "@/api/request";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { Notebook_icon } from "@/components/icons";
 
 type Props = {
   params: { id: string };
@@ -52,7 +53,22 @@ export default async function RequestPage({ params }: Props) {
         </div>
       )}
 
-      <ResponseContainer className="mt-8 md:10" requestid={id} />
+      <ResponseContainer
+        className="mt-8 md:10"
+        requestid={id}
+        requestUserId={requestDetailData.request.user_id}
+        responses={requestDetailData.responses}
+      />
+
+      {requestDetailData.responses.length === 0 && (
+        <div className="w-full pb-12 md:pb-24 flex flex-col items-center justify-center">
+          <Notebook_icon />
+
+          <p className="mt-6 font-poppins font-medium text-base text-black">
+            No Response Yet
+          </p>
+        </div>
+      )}
     </main>
   );
 }

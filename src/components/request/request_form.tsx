@@ -141,7 +141,7 @@ export default function RequestForm({
       }
 
       setIsPosting(false);
-      setPopupStateType("REQUEST_SUCCESSFUL");
+      !prevRequestData && setPopupStateType("REQUEST_SUCCESSFUL");
       setOpenModal(false);
       prevRequestData ? window.location.reload() : (window.location.href = "/");
     } catch (err) {
