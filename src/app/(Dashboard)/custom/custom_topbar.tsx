@@ -13,6 +13,7 @@ import CustomCustomizeForm from "./custom_customize_form";
 import { Button } from "@/components/ui/button";
 import { fetchCities, fetchStates } from "@/api/location";
 import { fetchCategories, fetchSubCategories } from "@/api/category";
+import { cookies } from "next/headers";
 
 interface CustomTopbarProps extends React.HTMLAttributes<HTMLDivElement> {
   searchparams: { [key: string]: string | string[] | undefined };
@@ -28,6 +29,8 @@ export default async function CustomTopbar({
   const categoriesRes: Promise<CategoryType[]> = fetchCategories();
   const subCategoriesRes: Promise<SubCategoryResponseType> =
     fetchSubCategories();
+  const cookie = cookies();
+  const user = JSON.parse(cookie.get("user")?.value || "null");
 
   const [cities, states, categories, subCategories] = await Promise.all([
     citiesRes,
@@ -57,6 +60,7 @@ export default async function CustomTopbar({
           categoriesdata={categories}
           subCategoriesdata={subCategories.data}
           searchparams={searchparams}
+          user={user}
         >
           <Button
             aria-label="customize requests"

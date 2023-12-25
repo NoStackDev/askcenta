@@ -12,7 +12,12 @@ import {
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import React from "react";
-import { CategoryType, CityType, SubCategoryType } from "@/types";
+import {
+  CategoryType,
+  CityType,
+  SubCategoryType,
+  UserDetailsType,
+} from "@/types";
 import CategoryModal from "@/components/modal/category_modal";
 import { DialogProps } from "@radix-ui/react-dialog";
 import { getUserPreferenceAction, updateUserPreferenceAction } from "@/actions";
@@ -24,6 +29,7 @@ interface CustomCustomizeFormProps extends DialogProps {
   categoriesdata: CategoryType[];
   subCategoriesdata: SubCategoryType[];
   searchparams: { [key: string]: string | string[] | undefined };
+  user: UserDetailsType["data"] | null;
 }
 export default function CustomCustomizeForm({
   children,
@@ -32,6 +38,7 @@ export default function CustomCustomizeForm({
   categoriesdata,
   subCategoriesdata,
   searchparams,
+  user,
   ...props
 }: CustomCustomizeFormProps) {
   const [loading, setLoading] = React.useState(false);
@@ -132,8 +139,7 @@ export default function CustomCustomizeForm({
     data.all_categories = selectedSubcategories.length > 0 ? false : true;
     data.all_locations = selectedCities.length > 0 ? false : true;
 
-    const res = await updateUserPreferenceAction(data);
-    console.log("updated user preference: ", res);
+    user && (await updateUserPreferenceAction(data));
     const url = new URL(window.location.href);
     url.searchParams.delete("city_id");
     url.searchParams.delete("category_group_id");
