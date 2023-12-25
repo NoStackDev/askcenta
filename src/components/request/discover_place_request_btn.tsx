@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { useSidebarContext } from "@/context/sidebar_context";
 import { UserDetailsType } from "@/types";
 import Link from "next/link";
+import { usePopupStatesContext } from "@/context/popup_states_context";
 
 interface DiscoverPlaceRequestBtnProps
   extends React.HTMLAttributes<HTMLButtonElement> {
@@ -18,6 +19,7 @@ export default function DiscoverPlaceRequestBtn({
   ...props
 }: DiscoverPlaceRequestBtnProps) {
   const { showSidebar } = useSidebarContext();
+  const { popupStateType } = usePopupStatesContext();
 
   function onClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
@@ -33,7 +35,12 @@ export default function DiscoverPlaceRequestBtn({
       {user ? (
         <Button
           onClick={(e) => onClick(e)}
-          className={cn("md:hidden", showSidebar && "hidden", className)}
+          className={cn(
+            "md:hidden",
+            showSidebar && "hidden",
+            popupStateType && "hidden",
+            className
+          )}
           variant="place_a_request"
           {...props}
         >

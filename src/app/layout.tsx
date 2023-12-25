@@ -4,6 +4,7 @@ import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { Poppins, Roboto } from "next/font/google";
 import { HydrationOverlay } from "@builder.io/react-hydration-overlay";
+import { PopupStatesContextProvider } from "@/context/popup_states_context";
 
 const poppins = Poppins({
   weight: ["300", "400", "500", "600", "700", "800", "900"],
@@ -33,7 +34,9 @@ export default function RootLayout({
         className={`${poppins.variable} ${roboto.variable} ${roboto.className} bg-[#F4F3FC] antialiased`}
       >
         <HydrationOverlay>
-          <UserAuthContextProvider>{children}</UserAuthContextProvider>
+          <UserAuthContextProvider>
+            <PopupStatesContextProvider>{children}</PopupStatesContextProvider>
+          </UserAuthContextProvider>
         </HydrationOverlay>
 
         <Analytics />

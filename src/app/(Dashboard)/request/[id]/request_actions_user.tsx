@@ -1,4 +1,4 @@
-import { EditIcon } from "@/components/icons";
+import { DeleteIcon, EditIcon } from "@/components/icons";
 import ShareIcon from "@/components/icons/share_icon";
 import { RequestFormWrapper } from "@/components/request";
 import Share from "@/components/share";
@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { RequestDetailType } from "@/types";
 import React from "react";
-import RequestDeleteBtn from "./request_delete_btn";
+import DeleteRequestModal from "@/components/request/delete_request_modal";
 
 interface RequestActionsProps extends React.HTMLAttributes<HTMLDivElement> {
   requestDetailData: RequestDetailType;
@@ -22,7 +22,15 @@ export default function RequestActionsUser({
       className={cn("flex justify-between items-center", className)}
       {...props}
     >
-      <RequestDeleteBtn requestid={requestDetailData.request.id} />
+      <DeleteRequestModal requestid={requestDetailData.request.id}>
+        <Button
+          aria-label="Delete"
+          className="font-roboto font-normal text-sm text-black opacity-80"
+        >
+          <DeleteIcon />
+          Delete
+        </Button>
+      </DeleteRequestModal>
 
       <RequestFormWrapper prevRequestData={requestDetailData}>
         <Button className="flex items-center gap-1 hover:cursor-pointer">
