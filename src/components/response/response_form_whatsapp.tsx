@@ -40,6 +40,9 @@ export default function ResponseFormWhatsapp({
   const [isUpdating, setIsUpdating] = React.useState(false);
 
   async function onSaveClick() {
+    if (isUpdating) {
+      return;
+    }
     setIsUpdating(true);
     if (form.getValues("whatsapp_num").length !== 10) {
       form.trigger("whatsapp_num");
@@ -49,16 +52,19 @@ export default function ResponseFormWhatsapp({
       try {
         const formData = new FormData();
         formData.append("whatsapp_num", 234 + form.getValues("whatsapp_num"));
-        const res: UserDetailsType = await updateUserDetailsAction(formData);
+        const res = await updateUserDetailsAction(formData);
+        if (res.isError) {
+          res.errors.whatsapp_num &&
+            form.setError("whatsapp_num", {
+              message: res.errors.whatsapp_num[0],
+            });
+          setIsUpdating(false);
+          return;
+        }
         setIsUpdating(false);
         setWhatsappNum(res.data.whatsapp_num);
       } catch (err: any) {
         console.log(err);
-        if (err.errors && err.errors.whatsapp_num) {
-          form.setError("whatsapp_num", {
-            message: err.errors.whatsapp_num[0],
-          });
-        }
         setIsUpdating(false);
       }
     }
