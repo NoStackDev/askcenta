@@ -24,7 +24,7 @@ export default async function Home({ searchParams }: Props) {
 
   const feedres: Promise<FeedsResponse> = getFeedsActions(searchParams);
   const requests = (await feedres).data;
-  let requestsWithBookmarks: RequestType[] = [];
+  let requestsWithBookmarks: RequestType[] = [...requests];
 
   if (user) {
     try {
@@ -58,7 +58,7 @@ export default async function Home({ searchParams }: Props) {
 
       <RequestContainer requests={requestsWithBookmarks} />
 
-      {requests.length === 0 && (
+      {requestsWithBookmarks.length === 0 && (
         <div className="w-full py-12 md:py-24 flex flex-col items-center justify-center">
           <Notebook_icon />
 
