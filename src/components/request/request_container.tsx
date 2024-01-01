@@ -10,6 +10,7 @@ import {
   getFeedsActions,
   getUserDetailsAction,
 } from "@/actions";
+import RequestContainerClient from "./request_container_client";
 
 interface RequestContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   searchparams?: { [key: string]: string | string[] | undefined };
@@ -34,8 +35,10 @@ export default async function RequestContainer({
     <>
       <div
         className={cn("mx-4 md:mx-0 mt-6 gap-6 sm:hidden", className)}
+        id="request-container"
         {...props}
       >
+        <RequestContainerClient />
         {requests.map((request) => {
           return (
             !request.category.toLowerCase().includes("hookup") && (
@@ -49,8 +52,10 @@ export default async function RequestContainer({
           "mx-4 md:mx-0 mt-6 sm:columns-2 gap-6 hidden sm:block",
           className
         )}
+        id="request-container-md"
         {...props}
       >
+        <RequestContainerClient />
         {shuffledRequests.map((request, index) => {
           return (
             !request.category.toLowerCase().includes("hookup") && (
