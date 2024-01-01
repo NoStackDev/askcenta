@@ -30,6 +30,7 @@ import LoadingSpinner from "../load_spinner";
 import { fetchCities } from "@/api/location";
 import { fetchSubCategories } from "@/api/category";
 import { usePopupStatesContext } from "@/context/popup_states_context";
+import { useRequestContext } from "@/context/request_context";
 
 const requestFormSchema = z.object({
   title: z
@@ -72,6 +73,7 @@ export default function RequestForm({
   const [formStep, setFormStep] = React.useState(0);
   const [isPosting, setIsPosting] = React.useState(false);
   const { setPopupStateType } = usePopupStatesContext();
+  const { requestData, setRequestData } = useRequestContext();
 
   const form = useForm<z.infer<typeof requestFormSchema>>({
     resolver: zodResolver(requestFormSchema),
@@ -140,10 +142,16 @@ export default function RequestForm({
         return;
       }
 
+      console.log("request response: ", res);
+
+      requestData
+        ? setRequestData([...requestData, res.data])
+        : setRequestData([res.data]);
+
       setIsPosting(false);
       !prevRequestData && setPopupStateType("REQUEST_SUCCESSFUL");
       setOpenModal(false);
-      prevRequestData ? window.location.reload() : (window.location.href = "/");
+      prevRequestData ? window.location.reload() : null;
     } catch (err) {
       console.log(err);
       setIsPosting(false);
