@@ -9,7 +9,7 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import { Button } from "../ui/button";
-import { KeyboardBackspaceIcon, CloseIcon, CancelIcon } from "../icons";
+import { KeyboardBackspaceIcon, CancelIcon } from "../icons";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -19,7 +19,7 @@ import ResponseFormOne from "./response_form_one";
 import { cn } from "@/lib/utils";
 import ResponseFormTwo from "./response_form_two";
 import { DialogProps } from "@radix-ui/react-dialog";
-import { getUserDetailsAction, postResponseAction } from "@/actions";
+import { postResponseAction } from "@/actions";
 import LoadingSpinner from "../load_spinner";
 import ResponseFormWhatsapp from "./response_form_whatsapp";
 
