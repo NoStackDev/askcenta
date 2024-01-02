@@ -2,12 +2,6 @@
 
 import React from "react";
 
-// {
-//     success: boolean;
-//     email_sent: boolean;
-//     data: RequestType
-// }
-
 type RequestData = {
   category: string;
   created_at: string;
@@ -18,15 +12,16 @@ type RequestData = {
   user: string;
   user_id: number;
   num_of_responses: number;
+  bookmark: boolean;
 };
 
 type RequestContextType = {
-  requestData: RequestData[] | null;
-  setRequestData: React.Dispatch<React.SetStateAction<RequestData[] | null>>;
+  requestData: RequestData[];
+  setRequestData: React.Dispatch<React.SetStateAction<RequestData[]>>;
 };
 
 const RequestContext = React.createContext<RequestContextType>({
-  requestData: null,
+  requestData: [],
   setRequestData: () => {},
 });
 
@@ -37,9 +32,7 @@ interface RequestContextProviderI {
 export const RequestContextProvider = ({
   children,
 }: RequestContextProviderI) => {
-  const [requestData, setRequestData] = React.useState<RequestData[] | null>(
-    null
-  );
+  const [requestData, setRequestData] = React.useState<RequestData[]>([]);
 
   return (
     <RequestContext.Provider

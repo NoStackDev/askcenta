@@ -10,7 +10,6 @@ import {
 import { cn, month } from "@/lib/utils";
 import { RequestType, UserDetailsType } from "@/types";
 import { RequestBookmark, RespondToRequestBtn } from ".";
-import { cookies } from "next/headers";
 import { ResponseFormWrapper } from "../response";
 import CardTitleDynamic from "./card_title_dynamic";
 import Link from "next/link";
@@ -18,20 +17,16 @@ import { Button } from "../ui/button";
 
 interface RequestCardProps extends React.HTMLAttributes<HTMLDivElement> {
   requestData: RequestType;
+  user: UserDetailsType["data"] | null;
 }
 
 export default function RequestCard({
   className,
   requestData,
+  user,
   ...props
 }: RequestCardProps) {
-  const cookie = cookies();
-  const user: UserDetailsType["data"] | null = JSON.parse(
-    cookie.get("user")?.value || "null"
-  );
   const date = new Date(requestData.created_at);
-
-  // console.log('request data: ', requestData)
 
   return (
     <Card
