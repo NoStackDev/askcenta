@@ -3,10 +3,11 @@
 import { useRequestContext } from "@/context/request_context";
 import React from "react";
 import RequestCardClient from "./request_card_client";
+import { CityType, StateResponseType } from "@/types";
 
-type Props = {};
+type Props = { cities: CityType[]; states: StateResponseType["data"] };
 
-export default function NewRequestContainerClient({}: Props) {
+export default function NewRequestContainerClient({ cities, states }: Props) {
   const { requestData } = useRequestContext();
   const user = null;
 
@@ -19,6 +20,8 @@ export default function NewRequestContainerClient({}: Props) {
               key={request.id}
               requestData={request}
               user={user}
+              cities={cities}
+              states={states}
             />
           );
         })}

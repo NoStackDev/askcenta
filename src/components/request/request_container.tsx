@@ -51,7 +51,7 @@ export default async function RequestContainer({
         id="request-container"
         {...props}
       >
-        <NewRequestContainerClient />
+        <NewRequestContainerClient cities={cities.data} states={states.data} />
         {requests.map((request) => {
           return (
             !request.category.toLowerCase().includes("hookup") && (
