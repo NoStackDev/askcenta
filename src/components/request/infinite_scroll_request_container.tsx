@@ -2,7 +2,12 @@
 
 import { getFeedsActions } from "@/actions";
 import { useIntersectionObserver, useMediaQuery } from "@/hooks";
-import { RequestType, UserDetailsType } from "@/types";
+import {
+  CityType,
+  RequestType,
+  StateResponseType,
+  UserDetailsType,
+} from "@/types";
 import React from "react";
 import RequestCardClient from "./request_card_client";
 import { cn, shuffle } from "@/lib/utils";
@@ -13,12 +18,16 @@ type Props = {
   preFetchedRequests: RequestType[];
   user: UserDetailsType["data"] | null;
   lastPage?: number | undefined;
+  cities: CityType[];
+  states: StateResponseType["data"];
 };
 
 export default function InfiniteScrollRequestContainer({
   preFetchedRequests,
   user,
   lastPage,
+  cities,
+  states,
 }: Props) {
   const [requests, setRequests] = React.useState<RequestType[]>([]);
   const [shuffled, setShuffled] = React.useState<any[]>([]);
@@ -63,6 +72,8 @@ export default function InfiniteScrollRequestContainer({
               key={request.id}
               requestData={request}
               user={user}
+              cities={cities}
+              states={states}
             />
           );
         })}
@@ -74,6 +85,8 @@ export default function InfiniteScrollRequestContainer({
               key={request.id}
               requestData={request}
               user={user}
+              cities={cities}
+              states={states}
             />
           );
         })}
