@@ -8,7 +8,7 @@ import { StarFilledIcon, StarIcon } from "../icons";
 import { addBookmarkAction } from "@/actions";
 
 type Props = {
-  requestData: RequestType;
+  requestData: { id: RequestType["id"]; bookmark: RequestType["bookmark"] };
 };
 
 export default function RequestBookmark({ requestData }: Props) {
@@ -44,8 +44,6 @@ export default function RequestBookmark({ requestData }: Props) {
       {bookmarked && (
         <StarIcon className="hover:cursor-pointer" width={"32"} height={"32"} />
       )}
-      {/* {bookmarked && "bookmarked"} */}
-      {/* {!bookmarked && "Not bookmarked"} */}
     </Button>
   );
 }

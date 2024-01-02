@@ -142,11 +142,9 @@ export default function RequestForm({
         return;
       }
 
-      console.log("request response: ", res);
-
-      requestData
-        ? setRequestData([...requestData, res.data])
-        : setRequestData([res.data]);
+      requestData.length > 0
+        ? setRequestData([{ ...res.data, bookmark: false }, ...requestData])
+        : setRequestData([{ ...res.data, bookmark: false }]);
 
       setIsPosting(false);
       !prevRequestData && setPopupStateType("REQUEST_SUCCESSFUL");

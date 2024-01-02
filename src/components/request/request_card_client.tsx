@@ -3,10 +3,19 @@
 import React from "react";
 import { Card, CardContent, CardTitle } from "../ui/card";
 import Image from "next/image";
-import { CommentIcon, LocationOnIcon, ScheduleIcon } from "../icons";
+import {
+  CommentIcon,
+  LocationOnIcon,
+  ScheduleIcon,
+  StarFilledIcon,
+  StarIcon,
+} from "../icons";
 import { cn, month } from "@/lib/utils";
 import CardTitleDynamic from "./card_title_dynamic";
 import Link from "next/link";
+import { UserDetailsType } from "@/types";
+import { Button } from "../ui/button";
+import { addBookmarkAction } from "@/actions";
 
 interface RequestCardProps extends React.HTMLAttributes<HTMLDivElement> {
   requestData: {
@@ -19,15 +28,36 @@ interface RequestCardProps extends React.HTMLAttributes<HTMLDivElement> {
     user: string;
     user_id: number;
     num_of_responses: number;
+    bookmark: boolean;
   };
+  user: UserDetailsType["data"] | null;
 }
 
 export default function RequestCardClient({
   className,
   requestData,
+  user,
   ...props
 }: RequestCardProps) {
+  const [bookmarked, setBookmarked] = React.useState(requestData.bookmark);
+
   const date = new Date(requestData.created_at);
+
+  React.useEffect(() => {
+    if (requestData.bookmark) {
+      setBookmarked(true);
+    }
+  }, []);
+
+  async function onSaveClick() {
+    setBookmarked(!bookmarked);
+    try {
+      const res = await addBookmarkAction(requestData.id.toString());
+    } catch (err) {
+      setBookmarked(!bookmarked);
+      console.log(err);
+    }
+  }
 
   return (
     <Card
@@ -109,7 +139,54 @@ export default function RequestCardClient({
                 </span>
               </div>
             </div>
+
+            {user && user.id.toString() !== requestData.user_id.toString() && (
+              <Button
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  onSaveClick();
+                }}
+                aria-label="bookmark"
+                className="hover:scale-105 hover:shadow-sm"
+              >
+                {!bookmarked && (
+                  <StarFilledIcon className="hover:cursor-pointer" />
+                )}
+                {bookmarked && (
+                  <StarIcon
+                    className="hover:cursor-pointer"
+                    width={"32"}
+                    height={"32"}
+                  />
+                )}
+              </Button>
+            )}
+
+            {!user && (
+              <Link href={"/login"}>
+                <StarFilledIcon className="hover:cursor-pointer" />
+              </Link>
+            )}
           </div>
+
+          {user &&
+            user.id.toString() !== requestData.user_id.toString() &&
+            requestData.num_of_responses < 5 && <></>}
+
+          {!user && (
+            <Link href={"/login"}>
+              <Button
+                variant="request_card_outlined"
+                className={cn(
+                  "hover:cursor-pointer font-roboto font-normal text-sm",
+                  className
+                )}
+              >
+                Respond to Request
+              </Button>
+            </Link>
+          )}
         </div>
       </CardContent>
     </Card>

@@ -1,22 +1,18 @@
 import { cn, shuffle } from "@/lib/utils";
 import React from "react";
-import { FeedsResponse, RequestType, UserDetailsType } from "@/types";
+import { RequestType, UserDetailsType } from "@/types";
 import { RequestCard } from ".";
-import { Notebook_icon, SearchIllustration } from "../icons";
-import { cookies, headers } from "next/headers";
-import {
-  fetchBookmarksAction,
-  getAllRequestsByUser,
-  getFeedsActions,
-  getUserDetailsAction,
-} from "@/actions";
-import RequestContainerClient from "./request_container_client";
+import { cookies } from "next/headers";
+
+import NewRequestContainerClient from "./new_request_container_client";
+import InfiniteScrollRequestContainer from "./infinite_scroll_request_container";
 
 interface RequestContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   searchparams?: { [key: string]: string | string[] | undefined };
   userid?: string;
   pagetype?: "profile";
   requesttype?: "request" | "response" | "userBookmarkedRequest";
+  lastPage?: number;
   requests: RequestType[];
 }
 
@@ -26,43 +22,49 @@ export default async function RequestContainer({
   userid,
   requesttype,
   pagetype,
+  lastPage,
   requests,
   ...props
 }: RequestContainerProps) {
+  const cookie = cookies();
+  const user: UserDetailsType["data"] | null = JSON.parse(
+    cookie.get("user")?.value || "null"
+  );
   let shuffledRequests = shuffle<RequestType>(requests);
-
   return (
     <>
       <div
-        className={cn("mx-4 md:mx-0 mt-6 gap-6 sm:hidden", className)}
+        className={cn("mx-4 md:mx-0 mt-6 gap-6 sm:hidden relative pb-14", className)}
         id="request-container"
         {...props}
       >
-        <RequestContainerClient />
+        <NewRequestContainerClient />
         {requests.map((request) => {
           return (
             !request.category.toLowerCase().includes("hookup") && (
-              <RequestCard requestData={request} key={request.id} />
+              <RequestCard requestData={request} key={request.id} user={user} />
             )
           );
         })}
+        <InfiniteScrollRequestContainer
+          preFetchedRequests={requests}
+          lastPage={lastPage}
+          user={user}
+        />
       </div>
       <div
         className={cn(
-          "mx-4 md:mx-0 mt-6 sm:columns-2 gap-6 hidden sm:block",
+          "mx-4 md:mx-0 mt-6 sm:columns-2 gap-6 hidden sm:block relative pb-20",
           className
         )}
         id="request-container-md"
         {...props}
       >
-        <RequestContainerClient />
-        {shuffledRequests.map((request, index) => {
-          return (
-            !request.category.toLowerCase().includes("hookup") && (
-              <RequestCard requestData={request} key={request.id} />
-            )
-          );
-        })}
+        <InfiniteScrollRequestContainer
+          preFetchedRequests={requests}
+          lastPage={lastPage}
+          user={user}
+        />
       </div>
     </>
   );
