@@ -18,12 +18,16 @@ type Props = {
   preFetchedRequests: RequestType[];
   user: UserDetailsType["data"] | null;
   nextPageUrl?: string | null;
+  cities: CityType[];
+  states: StateResponseType["data"];
 };
 
 export default function InfiniteScrollRequestContainer({
   preFetchedRequests,
   user,
   nextPageUrl,
+  cities,
+  states,
 }: Props) {
   const [requests, setRequests] = React.useState<RequestType[]>([]);
   const [shuffled, setShuffled] = React.useState<any[]>([]);
