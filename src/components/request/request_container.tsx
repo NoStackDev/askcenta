@@ -1,11 +1,17 @@
 import { cn, shuffle } from "@/lib/utils";
 import React from "react";
-import { RequestType, UserDetailsType } from "@/types";
+import {
+  CitiesResponseType,
+  RequestType,
+  StateResponseType,
+  UserDetailsType,
+} from "@/types";
 import { RequestCard } from ".";
 import { cookies } from "next/headers";
 
 import NewRequestContainerClient from "./new_request_container_client";
 import InfiniteScrollRequestContainer from "./infinite_scroll_request_container";
+import { fetchCities, fetchStates } from "@/api/location";
 
 interface RequestContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   searchparams?: { [key: string]: string | string[] | undefined };
@@ -30,6 +36,10 @@ export default async function RequestContainer({
   const user: UserDetailsType["data"] | null = JSON.parse(
     cookie.get("user")?.value || "null"
   );
+  const citiesRes: Promise<CitiesResponseType> = fetchCities();
+  const statesRes: Promise<StateResponseType> = fetchStates();
+
+  const [cities, states] = await Promise.all([citiesRes, statesRes]);
   let shuffledRequests = shuffle<RequestType>(requests);
   return (
     <>
@@ -41,7 +51,7 @@ export default async function RequestContainer({
         id="request-container"
         {...props}
       >
-        <NewRequestContainerClient />
+        <NewRequestContainerClient cities={cities.data} states={states.data} />
         {requests.map((request) => {
           return (
             !request.category.toLowerCase().includes("hookup") && (
@@ -53,6 +63,8 @@ export default async function RequestContainer({
           preFetchedRequests={requests}
           nextPageUrl={nextPageUrl}
           user={user}
+          cities={cities.data}
+          states={states.data}
         />
       </div>
       <div
@@ -67,6 +79,8 @@ export default async function RequestContainer({
           preFetchedRequests={requests}
           nextPageUrl={nextPageUrl}
           user={user}
+          cities={cities.data}
+          states={states.data}
         />
       </div>
     </>

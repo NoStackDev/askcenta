@@ -2,7 +2,12 @@
 
 import { getFeedsActions } from "@/actions";
 import { useIntersectionObserver, useMediaQuery } from "@/hooks";
-import { RequestType, UserDetailsType } from "@/types";
+import {
+  CityType,
+  RequestType,
+  StateResponseType,
+  UserDetailsType,
+} from "@/types";
 import React from "react";
 import RequestCardClient from "./request_card_client";
 import { cn, shuffle } from "@/lib/utils";
@@ -72,6 +77,8 @@ export default function InfiniteScrollRequestContainer({
               key={request.id}
               requestData={request}
               user={user}
+              cities={cities}
+              states={states}
             />
           );
         })}
@@ -83,6 +90,8 @@ export default function InfiniteScrollRequestContainer({
               key={request.id}
               requestData={request}
               user={user}
+              cities={cities}
+              states={states}
             />
           );
         })}
