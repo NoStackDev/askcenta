@@ -12,17 +12,19 @@ import LoadingDots from "../loading_dots";
 type Props = {
   preFetchedRequests: RequestType[];
   user: UserDetailsType["data"] | null;
-  lastPage?: number | undefined;
+  nextPageUrl?: string | null;
 };
 
 export default function InfiniteScrollRequestContainer({
   preFetchedRequests,
   user,
-  lastPage,
+  nextPageUrl,
 }: Props) {
   const [requests, setRequests] = React.useState<RequestType[]>([]);
   const [shuffled, setShuffled] = React.useState<any[]>([]);
-  const [currentPage, setCurrentPage] = React.useState<number>(1);
+  const [nextUrl, setNextUrl] = React.useState<string | null | undefined>(
+    nextPageUrl
+  );
   const [loading, setLoading] = React.useState(false);
   const container = React.useRef<HTMLDivElement | null>(null);
   const { requestData } = useRequestContext();
@@ -32,15 +34,22 @@ export default function InfiniteScrollRequestContainer({
   React.useEffect(() => {
     async function fetchNextPage() {
       try {
-        const res = await getFeedsActions({ page: `${currentPage + 1}` });
-        setRequests([...requests, ...res.data]);
-        setCurrentPage(currentPage + 1);
+        const res = await fetch(nextPageUrl!, {
+          method: "OPTIONS",
+        });
+
+        if (!res.ok) {
+          throw `failed to fetch next page ${nextPageUrl}`;
+        }
+        const resData = await res.json();
+        setRequests([...requests, ...resData.data]);
+        setNextUrl(resData.links.next);
         setLoading(false);
       } catch (err) {
         console.log(err);
       }
     }
-    if (isInView && lastPage && currentPage < lastPage) {
+    if (isInView && nextUrl) {
       setLoading(true);
       fetchNextPage();
     }

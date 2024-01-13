@@ -12,7 +12,7 @@ interface RequestContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   userid?: string;
   pagetype?: "profile";
   requesttype?: "request" | "response" | "userBookmarkedRequest";
-  lastPage?: number;
+  nextPageUrl?: string | null;
   requests: RequestType[];
 }
 
@@ -22,7 +22,7 @@ export default async function RequestContainer({
   userid,
   requesttype,
   pagetype,
-  lastPage,
+  nextPageUrl,
   requests,
   ...props
 }: RequestContainerProps) {
@@ -34,7 +34,10 @@ export default async function RequestContainer({
   return (
     <>
       <div
-        className={cn("mx-4 md:mx-0 mt-6 gap-6 sm:hidden relative pb-14", className)}
+        className={cn(
+          "mx-4 md:mx-0 mt-6 gap-6 sm:hidden relative pb-14",
+          className
+        )}
         id="request-container"
         {...props}
       >
@@ -48,7 +51,7 @@ export default async function RequestContainer({
         })}
         <InfiniteScrollRequestContainer
           preFetchedRequests={requests}
-          lastPage={lastPage}
+          nextPageUrl={nextPageUrl}
           user={user}
         />
       </div>
@@ -62,7 +65,7 @@ export default async function RequestContainer({
       >
         <InfiniteScrollRequestContainer
           preFetchedRequests={requests}
-          lastPage={lastPage}
+          nextPageUrl={nextPageUrl}
           user={user}
         />
       </div>

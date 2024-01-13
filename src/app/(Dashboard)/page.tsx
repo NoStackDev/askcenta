@@ -59,7 +59,7 @@ export default async function Home({ searchParams }: Props) {
 
       <RequestContainer
         requests={requestsWithBookmarks}
-        lastPage={feeds.meta.last_page}
+        nextPageUrl={feeds.links.next}
       />
 
       {requestsWithBookmarks.length === 0 && (
