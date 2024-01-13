@@ -19,9 +19,7 @@ export default async function NearbyPage({ searchParams }: Props) {
   );
   const cityId = searchParams.city_id;
 
-  const feedres: Promise<FeedsResponse> = getFeedsActions(searchParams);
-  const feeds = await feedres;
-  // const requests = (await feedres).data;
+  const feeds: FeedsResponse = await getFeedsActions(searchParams);
   let requestsWithBookmarks: RequestType[] = [...feeds.data];
 
   if (user) {

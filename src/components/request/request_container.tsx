@@ -31,6 +31,7 @@ export default async function RequestContainer({
     cookie.get("user")?.value || "null"
   );
   let shuffledRequests = shuffle<RequestType>(requests);
+  
   return (
     <>
       <div

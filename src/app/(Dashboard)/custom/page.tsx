@@ -16,8 +16,7 @@ export default async function CustomPage({ searchParams }: Props) {
   const user: UserDetailsType["data"] | null = JSON.parse(
     cookie.get("user")?.value || "null"
   );
-  const feedres: Promise<FeedsResponse> = getFeedsActions(searchParams);
-  const feeds = await feedres;
+  const feeds: FeedsResponse = await getFeedsActions(searchParams);
   let requestsWithBookmarks: RequestType[] = [...feeds.data];
 
   if (user) {

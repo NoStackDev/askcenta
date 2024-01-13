@@ -39,7 +39,8 @@ export default function InfiniteScrollRequestContainer({
         });
 
         if (!res.ok) {
-          throw `failed to fetch next page ${nextPageUrl}`;
+          setLoading(false);
+          throw `failed to fetch next page ${nextPageUrl},`;
         }
         const resData = await res.json();
         setRequests([...requests, ...resData.data]);
