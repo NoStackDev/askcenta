@@ -22,8 +22,7 @@ export default async function Home({ searchParams }: Props) {
     cookie.get("user")?.value || "null"
   );
 
-  const feedres: Promise<FeedsResponse> = getFeedsActions(searchParams);
-  const feeds = await feedres;
+  const feeds: FeedsResponse = await getFeedsActions(searchParams);
   const requests = feeds.data;
   let requestsWithBookmarks: RequestType[] = [...requests];
 
@@ -59,7 +58,7 @@ export default async function Home({ searchParams }: Props) {
 
       <RequestContainer
         requests={requestsWithBookmarks}
-        lastPage={feeds.meta.last_page}
+        nextPageUrl={feeds.links.next}
       />
 
       {requestsWithBookmarks.length === 0 && (

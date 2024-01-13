@@ -18,7 +18,7 @@ interface RequestContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   userid?: string;
   pagetype?: "profile";
   requesttype?: "request" | "response" | "userBookmarkedRequest";
-  lastPage?: number;
+  nextPageUrl?: string | null;
   requests: RequestType[];
 }
 
@@ -28,7 +28,7 @@ export default async function RequestContainer({
   userid,
   requesttype,
   pagetype,
-  lastPage,
+  nextPageUrl,
   requests,
   ...props
 }: RequestContainerProps) {
@@ -41,6 +41,7 @@ export default async function RequestContainer({
 
   const [cities, states] = await Promise.all([citiesRes, statesRes]);
   let shuffledRequests = shuffle<RequestType>(requests);
+  
   return (
     <>
       <div
@@ -61,7 +62,7 @@ export default async function RequestContainer({
         })}
         <InfiniteScrollRequestContainer
           preFetchedRequests={requests}
-          lastPage={lastPage}
+          nextPageUrl={nextPageUrl}
           user={user}
           cities={cities.data}
           states={states.data}
@@ -77,7 +78,7 @@ export default async function RequestContainer({
       >
         <InfiniteScrollRequestContainer
           preFetchedRequests={requests}
-          lastPage={lastPage}
+          nextPageUrl={nextPageUrl}
           user={user}
           cities={cities.data}
           states={states.data}

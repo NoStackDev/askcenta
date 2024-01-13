@@ -19,16 +19,15 @@ export default async function SearchPage({ searchParams }: Props) {
   );
 
   const cityId = searchParams.city_id;
-  const feedres: Promise<FeedsResponse> = getFeedsActions(searchParams);
-  const requests = (await feedres).data;
+  const feeds: FeedsResponse = await getFeedsActions(searchParams);
 
-  let requestsWithBookmarks: RequestType[] = [...requests];
+  let requestsWithBookmarks: RequestType[] = [...feeds.data];
 
   if (user) {
     try {
       const bookmarkedUserRequests: { data: RequestType[] } =
         await fetchBookmarksAction();
-      requestsWithBookmarks = requests.map((request) => {
+      requestsWithBookmarks = feeds.data.map((request) => {
         const matchedBookmark = bookmarkedUserRequests.data.find(
           (bookmarkedRequest) => bookmarkedRequest.id === request.id
         );
@@ -49,7 +48,10 @@ export default async function SearchPage({ searchParams }: Props) {
       </div>
 
       <SearchTopbar cityid={cityId} className="mt-10" />
-      <RequestContainer requests={requestsWithBookmarks} />
+      <RequestContainer
+        requests={requestsWithBookmarks}
+        nextPageUrl={feeds.links.next}
+      />
 
       {requestsWithBookmarks.length === 0 && (
         <div className="w-full py-12 md:py-24 flex flex-col items-center justify-center">

@@ -19,15 +19,14 @@ export default async function NearbyPage({ searchParams }: Props) {
   );
   const cityId = searchParams.city_id;
 
-  const feedres: Promise<FeedsResponse> = getFeedsActions(searchParams);
-  const requests = (await feedres).data;
-  let requestsWithBookmarks: RequestType[] = [...requests];
+  const feeds: FeedsResponse = await getFeedsActions(searchParams);
+  let requestsWithBookmarks: RequestType[] = [...feeds.data];
 
   if (user) {
     try {
       const bookmarkedUserRequests: { data: RequestType[] } =
         await fetchBookmarksAction();
-      requestsWithBookmarks = requests.map((request) => {
+      requestsWithBookmarks = feeds.data.map((request) => {
         const matchedBookmark = bookmarkedUserRequests.data.find(
           (bookmarkedRequest) => bookmarkedRequest.id === request.id
         );
@@ -45,7 +44,10 @@ export default async function NearbyPage({ searchParams }: Props) {
     <main className="w-full">
       <NearbyTopbar />
       <NearbyLocation cityid={cityId} className="mt-2 md:mt-4" />
-      <RequestContainer requests={requestsWithBookmarks} />
+      <RequestContainer
+        requests={requestsWithBookmarks}
+        nextPageUrl={feeds.links.next}
+      />
 
       {requestsWithBookmarks.length === 0 && (
         <div className="w-full py-12 md:py-24 flex flex-col items-center justify-center">
