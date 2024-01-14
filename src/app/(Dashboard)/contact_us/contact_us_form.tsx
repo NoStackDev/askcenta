@@ -44,14 +44,17 @@ export default function ContactUsForm({
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className={cn("", className)}
+        className={cn(
+          "py-6 sm:px-6 sm:flex sm:flex-col sm:items-center",
+          className
+        )}
       >
         {/* name  */}
         <FormField
           control={form.control}
           name="name"
           render={({ field }) => (
-            <FormItem className="">
+            <FormItem className="w-full">
               <div className="flex justify-between items-center">
                 <FormLabel className="font-roboto font-medium text-sm text-black">
                   Name
@@ -76,7 +79,7 @@ export default function ContactUsForm({
           control={form.control}
           name="email"
           render={({ field }) => (
-            <FormItem className="mt-[30px]">
+            <FormItem className="mt-[30px] w-full">
               <div className="flex justify-between items-center">
                 <FormLabel className="font-roboto font-medium text-sm text-black">
                   Email
@@ -101,7 +104,7 @@ export default function ContactUsForm({
           control={form.control}
           name="message"
           render={({ field }) => (
-            <FormItem className="mt-[30px]">
+            <FormItem className="mt-[30px] w-full">
               <div className="flex justify-between items-center">
                 <FormLabel className="font-roboto font-medium text-sm text-black">
                   Message
@@ -123,7 +126,7 @@ export default function ContactUsForm({
 
         <Button
           type="submit"
-          className="w-full rounded-[24px] bg-request-gradient font-roboto font-medium text-base text-white py-3 px-12 mt-8 md:mt-14"
+          className="w-full rounded-[24px] bg-request-gradient font-roboto font-medium text-base text-white py-3 px-12 mt-8 md:mt-14 max-w-[450px]"
         >
           Send Message
         </Button>
