@@ -55,3 +55,4 @@ export { default as SearchIllustration } from "./search_illustration";
 export { default as CancelIcon } from "./cancel_icon";
 export { default as DeleteConfirmationIllustration } from "./delete_confirmation_illustration";
 export { default as WhatsappIllustration } from "./whatsapp_illustration";
+export { default as VisibilityOnFillIcon } from "./visibility_on_icon";

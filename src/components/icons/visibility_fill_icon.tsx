@@ -12,9 +12,9 @@ const VisibilityFillIcon = React.forwardRef<
   return (
     <svg
       fill="none"
-      width={width ? width : "16"}
-      height={height ? height : "16"}
-      viewBox="0 0 16 16"
+      width={width || "16"}
+      height={height || "16"}
+      viewBox={`0 0 ${width || 16} ${height || 16}`}
       xmlns="http://www.w3.org/2000/svg"
       ref={forwardRef}
       aria-label={props["aria-label"]}
