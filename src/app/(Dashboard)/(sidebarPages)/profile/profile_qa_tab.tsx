@@ -33,9 +33,10 @@ export default async function ProfileQandATab({
       {otherUserId && (
         <div className="px-4 md:px-0">
           <Card className="w-full py-6 bg-white flex flex-col justify-center items-center gap-4 rounded-lg shadow-category-card">
-            <div className="flex flex-col items-center gap-2 font-roboto font-normal text-base text-black opacity-60">
-              Do you have any question to ask?
-              <span className="opacity-100">Username</span>
+            <div className="flex flex-col items-center gap-2 font-roboto font-normal text-base text-black opacity-60 text-center">
+              Do you have any inquiries on any of my requests, offers, or
+              business matters?
+              {/* <span className="opacity-100">Username</span> */}
             </div>
 
             <ProfileQuestionModal>

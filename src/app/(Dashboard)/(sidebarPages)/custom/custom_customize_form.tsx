@@ -182,8 +182,9 @@ export default function CustomCustomizeForm({
               </div>
 
               <p className="font-roboto font-normal text-xs text-black opacity-70 mt-5">
-                Choose requests made on what you do or sell and get notified on
-                people seeking for your offer in real time
+                Choose requests and locations matching your products or
+                services, and receive instant notifications for individuals
+                actively seeking what you have to offer
               </p>
             </CardContent>
           </Card>
