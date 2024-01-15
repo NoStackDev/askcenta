@@ -7,23 +7,24 @@ const ChevronRightIcon = React.forwardRef<
     width?: string | null;
     height?: string | null;
     pathFill?: string | null;
+    opacity?: string | null;
   }
->(({ className, width, height, pathFill, ...props }, forwardRef) => {
+>(({ className, width, height, pathFill, opacity, ...props }, forwardRef) => {
   return (
     <svg
       fill="none"
-      width={width ? width : "24"}
-      height={height ? height : "24"}
+      width={width || "24"}
+      height={height || "24"}
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
       ref={forwardRef}
       aria-label={props["aria-label"]}
       className={cn("", className)}
     >
-      <g opacity="0.4">
+      <g opacity={opacity || "0.4"}>
         <path
           d="M12.6 12L8 7.4L9.4 6L15.4 12L9.4 18L8 16.6L12.6 12Z"
-          fill={pathFill ? pathFill : "black"}
+          fill={pathFill || "black"}
         />
       </g>
     </svg>

@@ -45,7 +45,7 @@ export default function ContactUsForm({
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className={cn(
-          "py-6 sm:px-6 sm:flex sm:flex-col sm:items-center",
+          "py-6 sm:px-6 md:pb-0 sm:flex sm:flex-col sm:items-center md:rounded-[20px]",
           className
         )}
       >
@@ -132,12 +132,12 @@ export default function ContactUsForm({
         </Button>
       </form>
 
-      <div className="flex flex-col items-center mt-10">
+      <div className="flex flex-col md:flex-row items-center mt-10 md:mt-8 w-full md:justify-center md:gap-2">
         <p className="font-roboto font-medium text-sm text-black">Phone:</p>
-        <p className="font-roboto font-normal text-base text-black opacity-70 mt-3">
+        <p className="font-roboto font-normal text-base text-black opacity-70 mt-3 md:mt-0">
           +234 913 018 3343
         </p>
-        <p className="font-roboto font-normal text-base text-black opacity-70 mt-2">
+        <p className="font-roboto font-normal text-base text-black opacity-70 mt-2 md:mt-0">
           +234 704 242 3329
         </p>
       </div>

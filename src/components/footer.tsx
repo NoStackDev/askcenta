@@ -43,9 +43,9 @@ const Footer = React.forwardRef<HTMLElement, React.HTMLAttributes<"footer">>(
 
               <div className="mt-8 font-roboto font-normal text-xs min-[375px]:text-sm text-[#010E1E] underline underline-offset-2 flex justify-center sm:justify-start items-center gap-12">
                 <Link href="/contact_us">Contact us</Link>
-                <Link href="/">FAQ</Link>
-                <Link href="/">About</Link>
-                <Link href="/">Safety tips</Link>
+                <Link href="/faq">FAQ</Link>
+                <Link href="/about">About</Link>
+                <Link href="/safetytips">Safety tips</Link>
               </div>
             </div>
 
@@ -54,9 +54,12 @@ const Footer = React.forwardRef<HTMLElement, React.HTMLAttributes<"footer">>(
                 <div className="font-roboto font-normal text-xs text-[#4D4A4A]">
                   © 2023 Askcenta. All Rights Reserved.
                 </div>
-                <div className="font-roboto font-normal text-xs text-black underline underline-offset-2">
+                <Link
+                  href="/policy"
+                  className="font-roboto font-normal text-xs text-black underline underline-offset-2"
+                >
                   Privacy Policy
-                </div>
+                </Link>
               </div>
             </div>
           </footer>
