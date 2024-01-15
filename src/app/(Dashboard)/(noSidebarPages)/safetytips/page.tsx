@@ -8,7 +8,7 @@ export default function SafetyTipsPage({}: Props) {
   return (
     <main
       className={cn(
-        "bg-white sm:mx-[40px] lg:mx-[100px] 2xl:mx-auto max-w-7xl mt-2 sm:px-6 py-8 text-justify"
+        "bg-white sm:mx-[40px] lg:mx-[100px] 2xl:mx-auto max-w-7xl mt-2 sm:px-6 py-8"
       )}
     >
       <h1 className="font-poppins font-semibold text-xl sm:text-2xl md:text-[28px] sm:mt-4 md:mt-10 text-black uppercase text-center">

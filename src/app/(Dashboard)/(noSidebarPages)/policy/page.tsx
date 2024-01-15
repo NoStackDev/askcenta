@@ -14,7 +14,7 @@ export default function PolicyPage({}: Props) {
         Terms and Privacy Policy
       </h1>
 
-      <div className="font-roboto text-sm leading-[22px] text-black mt-8 text-justify">
+      <div className="font-roboto text-sm leading-[22px] text-black mt-8">
         <p>Last updated: June 4, 2023</p>
         <p className="mt-4 md:mt-8">
           AskCenter (&quot;us,&quot; &quot;we,&quot; or &quot;our&quot;) operates the AskCenter platform (the

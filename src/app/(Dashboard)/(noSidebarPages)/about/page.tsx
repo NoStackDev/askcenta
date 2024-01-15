@@ -8,14 +8,14 @@ export default function AboutPage({}: Props) {
   return (
     <main
       className={cn(
-        "bg-white sm:mx-[40px] lg:mx-[100px] 2xl:mx-auto max-w-7xl mt-2 sm:px-6 py-8 px-4 md:px-14 lg:px-[120px] text-justify"
+        "bg-white sm:mx-[40px] lg:mx-[100px] 2xl:mx-auto max-w-7xl mt-2 sm:px-6 py-8 px-4 md:px-14 lg:px-[120px]"
       )}
     >
       <h1 className="font-poppins font-semibold text-xl sm:text-2xl md:text-[28px] sm:mt-4 md:mt-10 text-black uppercase text-center">
         About askcenta
       </h1>
 
-      <p className="mt-2 sm:mt-4 md:mt-14 font-roboto text-lg leading-[29px] text-black text-justify">
+      <p className="mt-2 sm:mt-4 md:mt-14 font-roboto text-lg leading-[29px] text-black">
         Welcome to Askcenta, where needs meet solutions seamlessly. Our platform
         is more than just a space on the web; it&apos;s a dynamic community
         connecting individuals seeking specific products, accommodation,
@@ -28,7 +28,7 @@ export default function AboutPage({}: Props) {
           Our Mission
         </h2>
 
-        <p className="font-roboto text-2xl md:text-[28px] font-medium leading-[44px] text-black mt-4 md:mt-6 text-justify">
+        <p className="font-roboto text-2xl md:text-[28px] font-medium leading-[44px] text-black mt-4 md:mt-6">
           At Askcenta, our mission is to simplify the way people find what they
           need. We understand the frustration of endless web searches and the
           challenge of connecting with the right people. That&apos;s why we&apos;ve
@@ -108,14 +108,14 @@ export default function AboutPage({}: Props) {
             Join The Askcenta Community
           </h2>
 
-          <p className="mt-4 md:mt-6 text-justify">
+          <p className="mt-4 md:mt-6">
             Whether you&apos;re searching for something specific or eager to get
             those seeking your service, Askcenta is your go-to hub. Join our
             growing community and experience a new way of connecting, sharing,
             and fulfilling needs.
           </p>
 
-          <p className="mt-4 md:mt-6 text-justify">
+          <p className="mt-4 md:mt-6">
             We wish to receive feedback from you on how to make the platform
             more valuable for you.
           </p>
