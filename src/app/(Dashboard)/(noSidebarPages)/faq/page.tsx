@@ -111,7 +111,7 @@ export default function FaqPage({}: Props) {
                 Askcenta does not impose a strict limit on the number of
                 requests or responses you can make. However, we encourage users
                 to make requests and responses that are relevant, meaningful,
-                and in line with the platform's purpose. Excessive or spam-like
+                and in line with the platform&apos;s purpose. Excessive or spam-like
                 behavior may be subject to moderation.
               </p>
             </AccordionContent>
@@ -125,10 +125,10 @@ export default function FaqPage({}: Props) {
             </AccordionTrigger>
             <AccordionContent className="mt-4">
               <p className="font-roboto text-base font-normal leading-6 text-black px-4 sm:px-6 md:px-0">
-                If you have a relevant offer for a user's request, simply
+                If you have a relevant offer for a user&apos;s request, simply
                 respond to the request with details of your offer. You will be
                 required to provide your WhatsApp ID through which anyone
-                interested in your offer can contact you. If you don’t wish for
+                interested in your offer can contact you. If you don&apos;t wish for
                 the public to access your DM You can hide your response from the
                 public so only the owner of the request can get to see it and
                 contact.

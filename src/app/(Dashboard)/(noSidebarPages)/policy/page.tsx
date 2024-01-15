@@ -1,5 +1,4 @@
 import { cn } from "@/lib/utils";
-import Link from "next/link";
 import React from "react";
 
 type Props = {};
@@ -18,8 +17,8 @@ export default function PolicyPage({}: Props) {
       <div className="font-roboto text-sm leading-[22px] text-black mt-8 text-justify">
         <p>Last updated: June 4, 2023</p>
         <p className="mt-4 md:mt-8">
-          AskCenter ("us," "we," or "our") operates the AskCenter platform (the
-          "Platform"). This page informs you of our policies regarding the
+          AskCenter (&quot;us,&quot; &quot;we,&quot; or &quot;our&quot;) operates the AskCenter platform (the
+          &quot;Platform&quot;). This page informs you of our policies regarding the
           collection, use, and disclosure of personal data when you use our
           Platform and the choices you have associated with that data.
         </p>
@@ -181,7 +180,7 @@ export default function PolicyPage({}: Props) {
               HOURS. YOU ARE SOLELY RESPONSIBLE FOR CONDUCTING DUE DILIGENCE OF
               ANY INDIVIDUAL OR ORGANIZATION REQUESTING A MEETING TO CONDUCT A
               JOB INTERVIEW OR TO COMPLETE A TRANSACTION. ADMINISTRATOR
-              DISCLAIMS ANY RESPONSIBILITY FOR USER’S INTERACTION WITH ANY
+              DISCLAIMS ANY RESPONSIBILITY FOR USER&apos;S INTERACTION WITH ANY
               INDIVIDUAL OR ORGANIZATION.
             </li>
             <li>
@@ -195,7 +194,7 @@ export default function PolicyPage({}: Props) {
               GUARANTEES CONCERNING THAT MANUFACTURING, IMPORT, EXPORT, OFFER,
               DISPLAYING, PURCHASE, SALE, ADVERTISING AND/OR USE OF PRODUCTS OR
               SERVICES, WHICH ARE OFFERED OR DISPLAYED ON THE PLATFORM DO NOT
-              INFRINGE ANY THIRD PARTIES’ RIGHTS. THEREFORE, ADMINISTRATOR
+              INFRINGE ANY THIRD PARTIES&apos; RIGHTS. THEREFORE, ADMINISTRATOR
               EXPRESSLY DISCLAIMS ANY LIABILITY IN CONNECTION TO MATERIALS AND
               INFORMATION POSTED BY USERS ON THE PLATFORM.
             </li>
@@ -213,7 +212,7 @@ export default function PolicyPage({}: Props) {
           <ol type="1" className="list-decimal mt-4 md:mt-8 pl-4">
             <li>
               The Platform is an online service that allows users to create and
-              publish requests while other users respond with an offer  and to
+              publish requests while other users respond with an offer&apos; and to
               communicate with other users using the contact details provided in
               the user.
             </li>
@@ -221,7 +220,7 @@ export default function PolicyPage({}: Props) {
               The Administrator itself is not an importer, manufacturer,
               distributor, or seller of any item, as well as not a provider of
               any service posted by users on the Platform. In addition, the
-              Administrator is neither a marketer nor a person acting on user's
+              Administrator is neither a marketer nor a person acting on user&apos;s
               behalf with respect to the marketing of any goods or services
               posted on the Platform. The actual sale and purchase contracts or
               services contracts are entered into directly between the users,
@@ -255,7 +254,7 @@ export default function PolicyPage({}: Props) {
               The Administrator retains the right to implement any changes to
               the Service (whether to free or paid features) at any time, with
               or without notice. You acknowledge that a variety of
-              Administrator’s actions may impair or prevent you from accessing
+              Administrator&apos;s actions may impair or prevent you from accessing
               the Service at certain times and/or in the same way, for limited
               periods or permanently, and agree that the Administrator has no
               responsibility or liability as a result of any such actions or
@@ -277,8 +276,8 @@ export default function PolicyPage({}: Props) {
             </li>
             <li>
               The Service may contain links to third-party websites or resources
-              and advertisements for third parties (collectively, "Third Party
-              Ads"). Such Third-Party Ads are not under the control of the
+              and advertisements for third parties (collectively, &quot;Third Party
+              Ads&quot;). Such Third-Party Ads are not under the control of the
               Administrator and the Administrator is not responsible for any
               Third-Party Ads. The Administrator provides these Third-Party Ads
               only as a convenience and does not review, approve, monitor,
@@ -288,7 +287,7 @@ export default function PolicyPage({}: Props) {
               wholly accurate. You acknowledge sole responsibility for and
               assume all risk arising from your use of any such online
               properties. When you link to third party online properties, the
-              applicable service provider's terms and policies, including
+              applicable service provider&apos;s terms and policies, including
               privacy and data gathering practices, govern. You should make
               whatever investigation you feel necessary or appropriate before
               proceeding with any transaction with any third party. Your
@@ -315,7 +314,7 @@ export default function PolicyPage({}: Props) {
             subsidiaries, affiliates, related companies, its suppliers,
             licensors and partners, and the officers, directors, employees,
             agents, and representatives of each of them harmless from any claim
-            or demand, including costs and attorneys’ fees, made by any third
+            or demand, including costs and attorneys&apos; fees, made by any third
             party due to or arising out of: (i) your use of the Platform; (ii)
             your User Content; (iii) your violation of any representation,
             warranty, covenant, or obligation stipulated in these Terms; (iv)
@@ -349,7 +348,7 @@ export default function PolicyPage({}: Props) {
           <p className="mt-4 md:mt-8">
             We may update our Privacy Policy and Terms of Usage from time to
             time. We will notify you of any changes by posting the new Privacy
-            Policy on this page and updating the "Last updated" date at the top
+            Policy on this page and updating the &quot;Last updated&quot; date at the top
             of this Privacy Policy.
           </p>
         </div>

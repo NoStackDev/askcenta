@@ -78,7 +78,7 @@ export default function SafetyTipsPage({}: Props) {
           </p>
           <p className="font-roboto text-base font-normal leading-6 text-black px-4 sm:px-6 md:px-0 mt-4">
             If you encounter any inappropriate, fraudulent, or suspicious
-            activity on the platform, report it immediately to the platform's
+            activity on the platform, report it immediately to the platform&apos;s
             support team. This helps maintain a safe and reliable community for
             all users.
           </p>

@@ -17,7 +17,7 @@ export default function AboutPage({}: Props) {
 
       <p className="mt-2 sm:mt-4 md:mt-14 font-roboto text-lg leading-[29px] text-black text-justify">
         Welcome to Askcenta, where needs meet solutions seamlessly. Our platform
-        is more than just a space on the web; it's a dynamic community
+        is more than just a space on the web; it&apos;s a dynamic community
         connecting individuals seeking specific products, accommodation,
         services, jobs, and social connections with those ready to provide the
         perfect offer.
@@ -31,7 +31,7 @@ export default function AboutPage({}: Props) {
         <p className="font-roboto text-2xl md:text-[28px] font-medium leading-[44px] text-black mt-4 md:mt-6 text-justify">
           At Askcenta, our mission is to simplify the way people find what they
           need. We understand the frustration of endless web searches and the
-          challenge of connecting with the right people. That's why we've
+          challenge of connecting with the right people. That&apos;s why we&apos;ve
           created a platform that puts the power back in your hands
         </p>
 
@@ -45,7 +45,7 @@ export default function AboutPage({}: Props) {
               <p className="font-medium">1. Place a Request</p>
               <p className="text-justify">
                 Have a specific need in mind? Simply place a request on Askcenta
-                detailing what you're looking for. Whether it's a unique
+                detailing what you&apos;re looking for. Whether it&apos;s a unique
                 product, accommodation, service, job opportunity, or a new
                 social connection, let the community know.
               </p>
@@ -56,7 +56,7 @@ export default function AboutPage({}: Props) {
               <p className="text-justify">
                 Your request is instantly shared with our vibrant community.
                 Users with relevant offers can respond, providing you with the
-                offers you're seeking. This streamlined process eliminates the
+                offers you&apos;re seeking. This streamlined process eliminates the
                 need for aimless web searches.
               </p>
             </li>
@@ -109,7 +109,7 @@ export default function AboutPage({}: Props) {
           </h2>
 
           <p className="mt-4 md:mt-6 text-justify">
-            Whether you're searching for something specific or eager to get
+            Whether you&apos;re searching for something specific or eager to get
             those seeking your service, Askcenta is your go-to hub. Join our
             growing community and experience a new way of connecting, sharing,
             and fulfilling needs.
@@ -120,7 +120,7 @@ export default function AboutPage({}: Props) {
             more valuable for you.
           </p>
           <p className="">
-            Thank you for being a part of the Askcenta journey. Together, we're
+            Thank you for being a part of the Askcenta journey. Together, we&apos;re
             building a community where requests turn into solutions!
           </p>
 
