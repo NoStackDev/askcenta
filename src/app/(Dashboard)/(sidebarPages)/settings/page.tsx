@@ -1,12 +1,10 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import React, { use } from "react";
+import React from "react";
 import LogoutBtn from "./logout";
 import ResetPasswordBtn from "./reset_password";
-import EmailNotificationSwitch from "./email_notification_switch";
-import ChangeNotificationEmailBtn from "./change_notification_email";
+
 import ChangePreferedLocationBtn from "./change_prefered_location";
 import AnonymousSwitch from "./change_anonymous_switch";
-import ContactUsBtn from "./contact_us";
 import DeleteAccountBtn from "./delete_account";
 import Link from "next/link";
 import { getUserDetailsAction, getUserPreferenceAction } from "@/actions";
@@ -133,7 +131,12 @@ export default async function Page({}: Props) {
         <CardContent className="flex flex-col items-start font-roboto">
           <DeleteAccountBtn />
 
-          <ContactUsBtn className="mt-6" />
+          <Link
+            href="/contact_us"
+            className="mt-6 font-roboto font-normal text-base text-black"
+          >
+            Contact us
+          </Link>
 
           <Link
             href="/faq"

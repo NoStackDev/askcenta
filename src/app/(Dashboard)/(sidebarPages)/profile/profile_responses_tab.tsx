@@ -46,7 +46,7 @@ export default async function ProfileResponsesTab({
 
   return (
     <TabsContent className={cn("", className)} {...props}>
-      <RequestContainer requests={requestsWithBookmarks} />
+      <RequestContainer requests={requestsWithBookmarks.reverse()} />
       {requestsWithBookmarks.length === 0 && (
         <div className="w-full py-12 md:py-24 flex flex-col items-center justify-center">
           <Notebook_icon />
