@@ -11,7 +11,7 @@ type Props = {};
 
 export default function NotificationPage({}: Props) {
   return (
-    <main>
+    <main className="w-full">
       <h1 className="uppercase font-poppins font-semibold text-base text-black px-4 py-6">
         notification
       </h1>
