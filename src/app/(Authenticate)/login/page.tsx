@@ -1,7 +1,4 @@
-import {
-  LoginPageIllustrationOne,
-  LoginPageIllustrationTwo,
-} from "@/components/icons";
+import { LoginPageIllustrationTwo } from "@/components/icons";
 import Image from "next/image";
 import React from "react";
 import LoginForm from "./login_form";
@@ -31,7 +28,6 @@ export default function LoginPage({}: Props) {
               className="h-8 w-auto"
             />
           </Link>
-          {/* <LoginPageIllustrationOne /> */}
         </div>
 
         <LoginForm />

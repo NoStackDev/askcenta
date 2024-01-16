@@ -9,9 +9,6 @@ import { z } from "zod";
 import { Form } from "@/components/ui/form";
 import SignupForm from "./signup_form";
 import { useUserAuthContext } from "@/context/use_auth_context";
-import { registerUser, verifyUserNumber } from "@/api/user";
-import PhoneVerficationForm from "./phone_verification_form";
-import { UserRegisterResponseType } from "@/types";
 import SignupSuccessForm from "./signup_success";
 import {
   getUserDetailsAction,
@@ -23,7 +20,9 @@ const signupFormSchema = z.object({
   username: z
     .string({ required_error: "Whatsapp number is required" })
     .min(4, { message: "Username needs to be atleast 4 characters" }),
-  email: z.string({ required_error: "Email is required" }),
+  email: z
+    .string({ required_error: "Email is required" })
+    .refine((e) => e.includes("@"), "Email not valid"),
   password: z
     .string({ required_error: "Password is required" })
     .min(6, { message: "Password must be atleast 6 characters" }),
@@ -31,14 +30,12 @@ const signupFormSchema = z.object({
 
 export type SignupFormField = z.infer<typeof signupFormSchema>;
 
-// const phoneVerificationFormSchema = z.object({
-//   verificationCode: z
-//     .string()
-//     .length(4, { message: "Verification code is 4 digits" }),
-// });
-
 const successFormSchema = z.object({
-  whatsapp_num: z.string().optional(),
+  whatsapp_num: z
+    .string()
+    .length(10, { message: "Whatsapp number be 10 digits" })
+    .refine((e) => !isNaN(Number(e)), "Whatsapp number can only contain digits")
+    .optional(),
 });
 
 interface Props
@@ -63,35 +60,14 @@ export default function SignUpWrapper({ className, ...props }: Props) {
     setAuthState("signup");
   }, []);
 
-  // const verificationForm = useForm<z.infer<typeof phoneVerificationFormSchema>>(
-  //   {
-  //     resolver: zodResolver(phoneVerificationFormSchema),
-  //     defaultValues: {
-  //       verificationCode: "",
-  //     },
-  //   }
-  // );
-
   const onboardForm = useForm<z.infer<typeof successFormSchema>>({
     resolver: zodResolver(successFormSchema),
     defaultValues: {
-      whatsapp_num: "",
+      whatsapp_num: undefined,
     },
   });
 
-  const {
-    verificationCode,
-    inputStates,
-    verificationInputClassName,
-    handleChange: onInputChange,
-  } = useVerificationHook(4);
-
-  // React.useEffect(() => {
-  //   verificationForm.setValue(
-  //     "verificationCode",
-  //     verificationCode ? verificationCode : ""
-  //   );
-  // }, [verificationCode]);
+  const { handleChange: onInputChange } = useVerificationHook(4);
 
   function onSignupSubmit(values: z.infer<typeof signupFormSchema>) {
     if (authState === "signing up") return;
@@ -139,34 +115,6 @@ export default function SignUpWrapper({ className, ...props }: Props) {
     })();
   }
 
-  // function onVerificationSubmit(
-  //   values: z.infer<typeof phoneVerificationFormSchema>
-  // ) {
-  //   if (authState === "verifying") return;
-
-  //   setAuthState("verifying");
-
-  //   (async () => {
-  //     try {
-  //       const verifiedUser = await verifyUserNumber({
-  //         email: signupForm.getValues("email"),
-  //         otpCode: values.verificationCode,
-  //       });
-  //       console.log("verified use: ", verifiedUser);
-  //       if (verifiedUser) {
-  //         setAuthState("onboard");
-  //       }
-  //     } catch (err: any) {
-  //       console.log(err);
-  //       err.cause.errors.otp_code &&
-  //         verificationForm.setError("verificationCode", {
-  //           message: err.cause.errors.otp_code[0],
-  //         });
-  //       setAuthState("verify");
-  //     }
-  //   })();
-  // }
-
   async function onBoardSubmit(values: z.infer<typeof successFormSchema>) {
     if (authState === "onboarding") return;
     setAuthState("onboarding");
@@ -213,25 +161,6 @@ export default function SignUpWrapper({ className, ...props }: Props) {
           <SignupForm signupForm={signupForm} />
         </form>
       </Form>
-
-      {/* <Form {...verificationForm}>
-        <form
-          onSubmit={verificationForm.handleSubmit(onVerificationSubmit)}
-          className={cn(
-            "px-5 md:px-[75px] pb-8 w-full absolute left-full transition-all duration-150 ease-in-out",
-            // authState !== "verify" && authState !== "verifying" && "hidden",
-            (authState === "verify" || authState === "verifying") && "left-0",
-            (authState === "onboard" || authState === "onboarding") && "hidden",
-            className
-          )}
-          {...props}
-        >
-          <PhoneVerficationForm
-            verificationForm={verificationForm}
-            whatsappNum={signupForm.getValues("whatsappNum")}
-          />
-        </form>
-      </Form> */}
 
       <Form {...onboardForm}>
         <form

@@ -24,7 +24,11 @@ import { CancelIcon, WhatsappCircleIcon } from "@/components/icons";
 const WhatsappNumFormSchema = z.object({
   whatsapp_num: z
     .string()
-    .length(10, { message: "Whatsapp number number be 10 digits" }),
+    .length(10, { message: "Whatsapp number be 10 digits" })
+    .refine(
+      (e) => !isNaN(Number(e)),
+      "Whatsapp number can only contain digits"
+    ),
 });
 
 interface WhatsappNumFormProps extends React.HTMLAttributes<typeof Form> {
