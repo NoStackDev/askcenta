@@ -1,5 +1,6 @@
 "use client";
 
+import { VisibilityOnFillIcon } from "@/components/icons";
 import VisibilityOffFillIcon from "@/components/icons/visibility_off_fill_icon";
 import LoadingSpinner from "@/components/load_spinner";
 import { Button } from "@/components/ui/button";
@@ -120,7 +121,8 @@ export default function SignupForm({ className, signupForm, ...props }: Props) {
                   />
 
                   <span onClick={togglePasswordVisibility}>
-                    <VisibilityOffFillIcon />
+                    {passwordIsVisible && <VisibilityOffFillIcon />}
+                    {!passwordIsVisible && <VisibilityOnFillIcon />}
                   </span>
                 </div>
               </FormControl>
