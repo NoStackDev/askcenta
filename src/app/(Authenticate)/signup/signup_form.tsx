@@ -46,7 +46,7 @@ export default function SignupForm({ className, signupForm, ...props }: Props) {
         Please sign up to continue
       </p>
 
-      <div className="mt-10 flex flex-col overflow-y-auto">
+      <div className="mt-8 flex flex-col overflow-y-auto">
         {/* username  */}
         <FormField
           control={signupForm.control}
@@ -60,7 +60,7 @@ export default function SignupForm({ className, signupForm, ...props }: Props) {
               </div>
 
               <FormMessage />
-              <FormControl className="mt-2">
+              <FormControl className="mt-1">
                 <input
                   placeholder="Enter your names"
                   {...field}
@@ -84,7 +84,7 @@ export default function SignupForm({ className, signupForm, ...props }: Props) {
               </div>
 
               <FormMessage />
-              <FormControl className="mt-2">
+              <FormControl className="mt-1">
                 <div className="border border-[#D9D9D9] h-12 bg-[#F7F9FF] rounded-xl py-2 px-3 flex items-center">
                   <input
                     placeholder="Example@email.com"
@@ -110,7 +110,7 @@ export default function SignupForm({ className, signupForm, ...props }: Props) {
               </div>
 
               <FormMessage />
-              <FormControl className="mt-2">
+              <FormControl className="mt-1">
                 <div className="border border-[#D9D9D9] h-12 bg-[#F7F9FF] rounded-xl py-2 px-3 flex items-center gap-2">
                   <input
                     type={passwordIsVisible ? "text" : "password"}
@@ -133,7 +133,7 @@ export default function SignupForm({ className, signupForm, ...props }: Props) {
         <Button
           type="submit"
           className={cn(
-            "rounded-[24px] bg-request-gradient font-roboto font-medium text-base text-white py-3 px-12 mt-8 md:mt-14"
+            "rounded-[24px] bg-request-gradient font-roboto font-medium text-base text-white py-3 px-12 mt-6 md:mt-12"
           )}
         >
           {authState === "signing up" ? (

@@ -3,6 +3,7 @@ import Image from "next/image";
 import React from "react";
 
 import SignUpWrapper from "./signup_wrapper";
+import Link from "next/link";
 
 type Props = {};
 
@@ -18,15 +19,15 @@ export default function SignupPage({}: Props) {
       </div>
 
       <div className="h-screen overflow-y-auto">
-        <div className="grid place-content-center w-full">
+        <Link href="/" className="block w-fit h-fit mt-8 mx-auto">
           <Image
             src="/images/name.svg"
             height={32}
             width={142}
             alt="askcenta"
-            className="mt-8 h-8 w-auto"
+            className="h-8 w-auto"
           />
-        </div>
+        </Link>
 
         <SignUpWrapper />
       </div>
