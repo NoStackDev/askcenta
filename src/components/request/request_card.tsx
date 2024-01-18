@@ -11,7 +11,6 @@ import { cn, month } from "@/lib/utils";
 import { RequestType, UserDetailsType } from "@/types";
 import { RequestBookmark, RespondToRequestBtn } from ".";
 import { ResponseFormWrapper } from "../response";
-import CardTitleDynamic from "./card_title_dynamic";
 import Link from "next/link";
 import { Button } from "../ui/button";
 
@@ -27,6 +26,14 @@ export default function RequestCard({
   ...props
 }: RequestCardProps) {
   const date = new Date(requestData.created_at);
+
+  const cardBg: { [cateogry: string]: string } = {
+    social: "#5BE7C4",
+    jobs: "#4FC1E9",
+    products: "#EB89B5",
+    services: "#4FC1E9",
+    accomodation: "#DA77D0",
+  };
 
   return (
     <Card
@@ -65,17 +72,22 @@ export default function RequestCard({
 
         {!requestData.image_url && (
           <Link href={`/request/${requestData.id}`}>
-            <CardTitleDynamic
+            <CardTitle
               className={cn(
                 "px-3 pt-[9px] pb-4 text-center font-roboto font-semibold text-lg text-[#18212D] leading-[30px]",
-                `min-h-[223px] flex items-center justify-center py-6 text-[22px] leading-[35px] no-img-request-card`
+                `min-h-[223px] flex items-center justify-center py-6 text-[22px] leading-[35px]`,
+                `bg-[${
+                  cardBg[
+                    requestData.category
+                      .toLocaleLowerCase()
+                      .split(",")[0]
+                      .trim()
+                  ]
+                }]`
               )}
             >
-              {/* {requestData.title.length > 78
-                ? requestData.title.slice(0, 78).trim() + "..."
-                : requestData.title} */}
               {requestData.title}
-            </CardTitleDynamic>
+            </CardTitle>
           </Link>
         )}
 
