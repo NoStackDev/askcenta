@@ -161,6 +161,10 @@ export type ProfileQuestionResponseType = {
   message: string;
 };
 
+export type NotificationResponseType = {
+  data: { id: number; message: string; created_at: string }[];
+};
+
 export interface ShareData {
   text?: string;
   title?: string;

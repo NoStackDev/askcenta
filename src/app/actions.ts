@@ -337,9 +337,8 @@ export async function getRequestDetails(requestid: string) {
   });
 
   if (!res.ok) {
-
     if (res.status === 404) {
-      return undefined
+      return undefined;
     }
     const resJson = await res.json();
     console.log(`failed to fetch request id ${requestid} details`, resJson);
@@ -884,4 +883,43 @@ export async function postAnswer(formData: FormData) {
     resolve({ success: true, response: responseJson });
   });
   // return res.json();
+}
+
+/*
+ get notifications
+*/
+
+export async function getNotifications() {
+  const { token, userDetails } = getAuthCookieInfo();
+  const headers = new Headers();
+  headers.append("Accept", "application/json");
+  headers.append("Authorization", token);
+
+  const res = await fetch(
+    `http://askcenta.ng/api/notification/${userDetails.id}`,
+    {
+      method: "OPTIONS",
+      cache: "no-store",
+      headers: headers,
+    }
+  );
+
+  if (!res.ok) {
+    const errors = await res.json();
+
+    console.log(
+      `failed to fetch notifications for user with user id ${userDetails.id}`,
+
+      {
+        ...errors,
+      }
+    );
+
+    throw {
+      isError: true,
+      errorMessage: `failed to fetch notifications for user with user id ${userDetails.id}`,
+      message: errors.message,
+    };
+  }
+  return res.json();
 }
