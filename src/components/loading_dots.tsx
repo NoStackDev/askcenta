@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import React from "react";
 
 interface LoadingDotsProps extends React.HTMLAttributes<HTMLDivElement> {
-  dotDiameter?: number;
+  dotDiameter?: string;
 }
 
 export default function LoadingDots({
@@ -19,19 +19,19 @@ export default function LoadingDots({
       <div
         className={cn(
           "w-5 h-5 bg-gray-800 rounded-full animate-bounce duration-500 delay-100",
-          dotDiameter && `h-${dotDiameter} w-${dotDiameter}`
+          dotDiameter && `h-[${dotDiameter}] w-[${dotDiameter}]`
         )}
       ></div>
       <div
         className={cn(
           "w-5 h-5 bg-gray-800 rounded-full animate-bounce duration-500 delay-300",
-          dotDiameter && `h-${dotDiameter} w-${dotDiameter}`
+          dotDiameter && `h-[${dotDiameter}] w-[${dotDiameter}]`
         )}
       ></div>
       <div
         className={cn(
           "w-5 h-5 bg-gray-800 rounded-full animate-bounce duration-500 delay-600",
-          dotDiameter && `h-${dotDiameter} w-${dotDiameter}`
+          dotDiameter && `h-[${dotDiameter}] w-[${dotDiameter}]`
         )}
       ></div>
     </div>

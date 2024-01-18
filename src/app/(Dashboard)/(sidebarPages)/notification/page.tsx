@@ -7,8 +7,9 @@ import {
   SolventIcon,
   SpeakerSymbolIcon,
 } from "@/components/icons";
+import LoadingDots from "@/components/loading_dots";
 import { Card } from "@/components/ui/card";
-import { month } from "@/lib/utils";
+import { cn, month } from "@/lib/utils";
 import { NotificationResponseType } from "@/types";
 import React from "react";
 
@@ -18,11 +19,13 @@ export default function NotificationPage({}: Props) {
   const [notifications, setNotification] = React.useState<
     NotificationResponseType["data"]
   >([]);
+  const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
     async function fetchNotifications() {
       try {
         const res = await getNotifications();
+        if (loading) setLoading(false);
         setNotification(res.data.reverse());
       } catch (err) {
         console.log(err);
@@ -38,7 +41,7 @@ export default function NotificationPage({}: Props) {
   }, []);
 
   return (
-    <main className="w-full">
+    <main className="w-full min-h-screen">
       <h1 className="uppercase font-poppins font-semibold text-base text-black px-4 py-6">
         notification
       </h1>
@@ -80,6 +83,18 @@ export default function NotificationPage({}: Props) {
             </Card>
           );
         })}
+
+        {!loading && notifications.length === 0 && (
+          <p className="mx-auto mt-5 font-roboto text-base text-black">
+            You have no notification
+          </p>
+        )}
+
+        {loading && (
+          <LoadingDots
+            className={cn("absolute left-1/2 -translate-x-1/2 mt-5")}
+          />
+        )}
       </div>
     </main>
   );
