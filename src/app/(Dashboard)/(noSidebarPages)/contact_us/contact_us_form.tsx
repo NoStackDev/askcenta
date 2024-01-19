@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/form";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -146,7 +147,7 @@ export default function ContactUsForm({
         <p className="font-roboto font-medium text-sm text-black">
           Email:{" "}
           <span className="font-normal text-base opacity-70">
-            Support@Askcenta.com
+            <Link href="mailto:support@Askcenta.com">Support@Askcenta.com</Link>
           </span>
         </p>
       </div>
