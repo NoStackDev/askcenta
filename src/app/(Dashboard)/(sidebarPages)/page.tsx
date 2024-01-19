@@ -24,12 +24,14 @@ export default async function Home({ searchParams }: Props) {
 
   const feeds: FeedsResponse = await getFeedsActions(searchParams);
   const requests = feeds.data;
+  let bookmarkedRequests: RequestType[] = [];
   let requestsWithBookmarks: RequestType[] = [...requests];
 
   if (user) {
     try {
       const bookmarkedUserRequests: { data: RequestType[] } =
         await fetchBookmarksAction();
+      bookmarkedRequests = bookmarkedUserRequests.data;
       requestsWithBookmarks = requests.map((request) => {
         const matchedBookmark = bookmarkedUserRequests.data.find(
           (bookmarkedRequest) => bookmarkedRequest.id === request.id
@@ -59,6 +61,7 @@ export default async function Home({ searchParams }: Props) {
       <RequestContainer
         requests={requestsWithBookmarks}
         nextPageUrl={feeds.links.next}
+        bookmarkedRequests={bookmarkedRequests}
       />
 
       {requestsWithBookmarks.length === 0 && (

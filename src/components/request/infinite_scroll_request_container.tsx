@@ -4,6 +4,7 @@ import { getFeedsActions } from "@/actions";
 import { useIntersectionObserver, useMediaQuery } from "@/hooks";
 import {
   CityType,
+  FeedsResponse,
   RequestType,
   StateResponseType,
   UserDetailsType,
@@ -16,6 +17,7 @@ import LoadingDots from "../loading_dots";
 
 type Props = {
   preFetchedRequests: RequestType[];
+  bookmarkedRequests?: RequestType[];
   user: UserDetailsType["data"] | null;
   nextPageUrl?: string | null;
   cities: CityType[];
@@ -24,6 +26,7 @@ type Props = {
 
 export default function InfiniteScrollRequestContainer({
   preFetchedRequests,
+  bookmarkedRequests,
   user,
   nextPageUrl,
   cities,
@@ -51,8 +54,17 @@ export default function InfiniteScrollRequestContainer({
           setLoading(false);
           throw `failed to fetch next page ${nextPageUrl},`;
         }
-        const resData = await res.json();
-        setRequests([...requests, ...resData.data]);
+        const resData: FeedsResponse = await res.json();
+        const nextPageWithBookmarks = resData.data.map((request) => {
+          const matchedBookmark = bookmarkedRequests?.find(
+            (bookmarkedRequest) => bookmarkedRequest.id === request.id
+          );
+          if (matchedBookmark) {
+            return matchedBookmark;
+          }
+          return request;
+        });
+        setRequests([...requests, ...nextPageWithBookmarks]);
         setNextUrl(resData.links.next);
         setLoading(false);
       } catch (err) {

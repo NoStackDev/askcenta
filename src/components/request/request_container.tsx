@@ -1,4 +1,4 @@
-import { cn, shuffle } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import React from "react";
 import {
   CitiesResponseType,
@@ -20,6 +20,7 @@ interface RequestContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   requesttype?: "request" | "response" | "userBookmarkedRequest";
   nextPageUrl?: string | null;
   requests: RequestType[];
+  bookmarkedRequests?: RequestType[];
 }
 
 export default async function RequestContainer({
@@ -30,6 +31,7 @@ export default async function RequestContainer({
   pagetype,
   nextPageUrl,
   requests,
+  bookmarkedRequests,
   ...props
 }: RequestContainerProps) {
   const cookie = cookies();
@@ -40,8 +42,7 @@ export default async function RequestContainer({
   const statesRes: Promise<StateResponseType> = fetchStates();
 
   const [cities, states] = await Promise.all([citiesRes, statesRes]);
-  let shuffledRequests = shuffle<RequestType>(requests);
-  
+
   return (
     <>
       <div
@@ -66,6 +67,7 @@ export default async function RequestContainer({
           user={user}
           cities={cities.data}
           states={states.data}
+          bookmarkedRequests={bookmarkedRequests}
         />
       </div>
       <div
@@ -82,6 +84,7 @@ export default async function RequestContainer({
           user={user}
           cities={cities.data}
           states={states.data}
+          bookmarkedRequests={bookmarkedRequests}
         />
       </div>
     </>
