@@ -35,13 +35,19 @@ const Footer = React.forwardRef<HTMLElement, React.HTMLAttributes<"footer">>(
                 </Link>
 
                 <div className="flex justify-between items-center gap-6">
-                  <Link href="http://linkedin.com/company/askcenta">
+                  <Link
+                    href="http://linkedin.com/company/askcenta"
+                    target="_blank"
+                  >
                     <LinkedinIcon />
                   </Link>
-                  <Link href="https://www.facebook.com/Askcenta">
+                  <Link
+                    href="https://www.facebook.com/Askcenta"
+                    target="_blank"
+                  >
                     <FacebookIcon />
                   </Link>
-                  <Link href="http://twitter.com/Askcenta">
+                  <Link href="http://twitter.com/Askcenta" target="_blank">
                     <TwitterXIcon />
                   </Link>
                 </div>
