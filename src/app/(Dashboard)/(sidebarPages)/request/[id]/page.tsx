@@ -41,6 +41,12 @@ export default async function RequestPage({ params }: Props) {
           </ResponseFormWrapper>
         )}
 
+      {user &&
+        user.id.toString() !== requestDetailData.request.user_id.toString() &&
+        requestDetailData.responses.length >= 5 && (
+          <RespondToRequest disabled className="mt-4 md:mt-6" />
+        )}
+
       {!user && (
         <div
           className={cn(
