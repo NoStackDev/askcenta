@@ -13,7 +13,6 @@ import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 import LoadingSpinner from "../load_spinner";
 import { updateUserDetailsAction } from "@/actions";
-import { UserDetailsType } from "@/types";
 import { WhatsappCircleIcon } from "../icons";
 
 interface ResponseFormWhatsappProps
