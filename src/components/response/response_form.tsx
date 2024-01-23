@@ -144,7 +144,7 @@ export default function ResponseForm({
     <Dialog onOpenChange={(open) => !open && clearForm()}>
       <DialogTrigger>{children}</DialogTrigger>
       <DialogContent>
-        <div className="h-full flex flex-col px-4 py-10 pb-20 md:pb-10">
+        <div className="h-full flex flex-col px-4 py-10">
           <div className="flex justify-between items-center">
             {whatsappNum && (
               <h2 className="font-poppins font-semibold text-xl text-[#011B39] uppercase">

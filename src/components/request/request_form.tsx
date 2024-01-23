@@ -115,6 +115,13 @@ export default function RequestForm({
     }
   }, []);
 
+  function nextBtn() {
+    if (formStep < 1) {
+      setFormStep(formStep + 1);
+      return;
+    }
+  }
+
   async function onSubmit(values: z.infer<typeof requestFormSchema>) {
     if (formStep < 1) {
       setFormStep(formStep + 1);
@@ -188,7 +195,7 @@ export default function RequestForm({
     >
       <DialogTrigger>{children}</DialogTrigger>
       <DialogContent>
-        <div className="h-full flex flex-col px-4 py-10 pb-20 md:pb-10">
+        <div className="h-full flex flex-col px-4 py-10">
           <div className="flex justify-between items-center">
             <h2 className="font-poppins font-semibold text-base text-[#011B39]">
               PLACE A REQUEST
@@ -207,6 +214,19 @@ export default function RequestForm({
               className="space-y-8 mt-12 h-full flex flex-col justify-between"
             >
               <div className="relative overflow-x-clip overflow-y-auto h-full">
+                <RequestFormTwo
+                  form={form}
+                  imageUrl={prevRequestData?.request.image_url}
+                  setimage={setImage}
+                  // className={cn(
+                  //   "h-fit w-full absolute left-full transition-all duration-150 ease-in-out",
+                  //   formStep !== 0 && "left-0"
+                  // )}
+                  className={cn(
+                    "h-fit w-full absolute transition-all animate-dialogFirstContentShow",
+                    formStep !== 0 && "hidden"
+                  )}
+                />
                 <RequestFormOne
                   form={form}
                   subcategoriesdata={subCategoriesdata}
@@ -221,15 +241,10 @@ export default function RequestForm({
                   selectedstate={selectedState}
                   setselectedcity={setSelectedCity}
                   setselectedstate={setSelectedState}
-                  className={cn(
-                    "h-fit w-full absolute transition-all animate-dialogFirstContentShow",
-                    formStep !== 0 && "hidden"
-                  )}
-                />
-                <RequestFormTwo
-                  form={form}
-                  imageUrl={prevRequestData?.request.image_url}
-                  setimage={setImage}
+                  // className={cn(
+                  //   "h-fit w-full absolute transition-all animate-dialogFirstContentShow",
+                  //   formStep !== 0 && "hidden"
+                  // )}
                   className={cn(
                     "h-fit w-full absolute left-full transition-all duration-150 ease-in-out",
                     formStep !== 0 && "left-0"
@@ -240,8 +255,9 @@ export default function RequestForm({
               <div className="w-full flex items-center justify-center z-3">
                 {formStep === 0 && (
                   <Button
-                    type="submit"
+                    type="button"
                     className="w-full rounded-[24px] bg-request-gradient font-roboto font-medium text-base text-white py-3 max-w-[358px]"
+                    onClick={nextBtn}
                   >
                     Next
                   </Button>
