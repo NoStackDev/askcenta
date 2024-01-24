@@ -85,6 +85,7 @@ export default function RequestForm({
     },
   });
 
+  // prefill form fields if editing request
   React.useEffect(() => {
     async function handleCity() {
       const _citiesData: Promise<{ data: CityType[] }> = fetchCities();
@@ -114,13 +115,6 @@ export default function RequestForm({
       handleSubCategory();
     }
   }, []);
-
-  function nextBtn() {
-    if (formStep < 1) {
-      setFormStep(formStep + 1);
-      return;
-    }
-  }
 
   async function onSubmit(values: z.infer<typeof requestFormSchema>) {
     if (formStep < 1) {
@@ -163,12 +157,25 @@ export default function RequestForm({
     }
   }
 
+  function nextBtnClick() {
+    if (form.getValues("title").trim().length < 8) {
+      form.trigger("title");
+      return;
+    }
+
+    if (formStep < 1) {
+      setFormStep(formStep + 1);
+      return;
+    }
+  }
+
   function onBackClick() {
     setFormStep(formStep - 1);
   }
 
   function clearForm() {
     if (!prevRequestData) {
+      form.clearErrors();
       form.setValue("title", "");
       form.setValue("category", selectedSubCategory?.id.toString() || "");
       setSelectedSubCategory(null);
@@ -183,7 +190,10 @@ export default function RequestForm({
   React.useEffect(() => {
     form.setValue("category", selectedSubCategory?.id.toString() || "");
     form.setValue("location", selectedCity?.id.toString() || "");
-  }, [selectedSubCategory, selectedCity]);
+    if (selectedSubCategory) form.clearErrors("category");
+    if (selectedCity) form.clearErrors("location");
+    if (form.getValues("title").trim().length > 7) form.clearErrors("title");
+  }, [selectedSubCategory, selectedCity, form.getValues("title")]);
 
   return (
     <Dialog
@@ -195,7 +205,7 @@ export default function RequestForm({
     >
       <DialogTrigger>{children}</DialogTrigger>
       <DialogContent>
-        <div className="h-full flex flex-col px-4 py-10">
+        <div className="h-full flex flex-col px-4 py-10 md:py-4">
           <div className="flex justify-between items-center">
             <h2 className="font-poppins font-semibold text-base text-[#011B39]">
               PLACE A REQUEST
@@ -211,23 +221,19 @@ export default function RequestForm({
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="space-y-8 mt-12 h-full flex flex-col justify-between"
+              className="space-y-8 md:space-y-4 mt-12 md:mt-5 h-full flex flex-col justify-between"
             >
               <div className="relative overflow-x-clip overflow-y-auto h-full">
-                <RequestFormTwo
+                <RequestFormOne
                   form={form}
                   imageUrl={prevRequestData?.request.image_url}
                   setimage={setImage}
-                  // className={cn(
-                  //   "h-fit w-full absolute left-full transition-all duration-150 ease-in-out",
-                  //   formStep !== 0 && "left-0"
-                  // )}
                   className={cn(
-                    "h-fit w-full absolute transition-all animate-dialogFirstContentShow",
+                    "h-full w-full absolute transition-all animate-dialogFirstContentShow",
                     formStep !== 0 && "hidden"
                   )}
                 />
-                <RequestFormOne
+                <RequestFormTwo
                   form={form}
                   subcategoriesdata={subCategoriesdata}
                   categoriesdata={categoriesdata}
@@ -241,10 +247,6 @@ export default function RequestForm({
                   selectedstate={selectedState}
                   setselectedcity={setSelectedCity}
                   setselectedstate={setSelectedState}
-                  // className={cn(
-                  //   "h-fit w-full absolute transition-all animate-dialogFirstContentShow",
-                  //   formStep !== 0 && "hidden"
-                  // )}
                   className={cn(
                     "h-fit w-full absolute left-full transition-all duration-150 ease-in-out",
                     formStep !== 0 && "left-0"
@@ -257,7 +259,7 @@ export default function RequestForm({
                   <Button
                     type="button"
                     className="w-full rounded-[24px] bg-request-gradient font-roboto font-medium text-base text-white py-3 max-w-[358px]"
-                    onClick={nextBtn}
+                    onClick={nextBtnClick}
                   >
                     Next
                   </Button>
