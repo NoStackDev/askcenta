@@ -7,11 +7,10 @@ import {
   FormMessage,
 } from "../ui/form";
 import { UseFormReturn } from "react-hook-form";
-import CategoryModal from "../modal/category_modal";
-import { CategoryType, CityType, SubCategoryType } from "@/types";
-import LocationModal from "../modal/location_modal";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
+import { AddPhotoFillIcon } from "../icons";
 
 interface RequestFormOneProps extends React.HTMLAttributes<typeof FormField> {
   form: UseFormReturn<
@@ -24,49 +23,33 @@ interface RequestFormOneProps extends React.HTMLAttributes<typeof FormField> {
     any,
     undefined
   >;
-  selectedcategory: CategoryType | null;
-  setselectedcategory: React.Dispatch<
-    React.SetStateAction<CategoryType | null>
-  >;
-  selectedsubcategory: SubCategoryType | null;
-  setselectedsubcategory: React.Dispatch<
-    React.SetStateAction<SubCategoryType | null>
-  >;
-  subcategoriesdata: SubCategoryType[];
-  categoriesdata: CategoryType[];
-  selectedstate: {
-    id: number;
-    name: string;
-  } | null;
-  setselectedstate: React.Dispatch<
-    React.SetStateAction<{
-      id: number;
-      name: string;
-    } | null>
-  >;
-  selectedcity: CityType | null;
-  setselectedcity: React.Dispatch<React.SetStateAction<CityType | null>>;
-  citiesdata: CityType[];
-  statesdata: { id: number; name: string }[];
+  setimage: React.Dispatch<React.SetStateAction<File | null>>;
+  imageUrl?: string | null;
 }
 
 export default function RequestFormOne({
   className,
   form,
-  citiesdata,
-  statesdata,
-  categoriesdata,
-  subcategoriesdata,
-  selectedcategory,
-  selectedcity,
-  selectedstate,
-  selectedsubcategory,
-  setselectedcategory,
-  setselectedcity,
-  setselectedstate,
-  setselectedsubcategory,
+  setimage,
+  imageUrl,
   ...props
 }: RequestFormOneProps) {
+  const [imagePreview, setImagePreview] = React.useState<string | null>(null);
+  const imageInputRef = React.useRef<HTMLInputElement>(null);
+
+  const onChangePicture = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    if (imageInputRef.current) {
+      imageInputRef.current.files = e.target.files;
+    }
+
+    if (e.target.files) {
+      console.log("image file: ", e.target.files[0]);
+      setImagePreview(URL.createObjectURL(e.target.files[0]));
+      setimage(e.target.files[0]);
+      console.log(e.target.files[0]);
+    }
+  };
   return (
     <div className={cn("", className)}>
       <FormField
@@ -97,91 +80,61 @@ export default function RequestFormOne({
         )}
       />
 
-      {/* category  */}
-      <FormField
-        control={form.control}
-        name="category"
-        render={({ field }) => (
-          <FormItem className="mt-8">
-            <div className="flex justify-between items-center">
-              <FormLabel className="font-roboto font-medium text-base text-black">
-                Category
-              </FormLabel>
-            </div>
+      {/* image  */}
+      <FormItem className="mt-8 flex items-center gap-4">
+        <FormControl>
+          <input
+            type="file"
+            ref={imageInputRef}
+            className="hidden"
+            accept="image/png, image/jpeg, image/jpg"
+            onChange={(e) => onChangePicture(e)}
+          />
+        </FormControl>
 
-            <FormMessage />
-            <FormControl>
-              <input
-                type="text"
-                className="hidden"
-                {...field}
-                name="category"
-              />
-            </FormControl>
-            <CategoryModal
-              subcategoriesdata={subcategoriesdata}
-              categoriesdata={categoriesdata}
-              selectedSubCategory={selectedsubcategory}
-              selectedCategory={selectedcategory}
-              setSelectedSubCategory={setselectedsubcategory}
-              setSelectedCategory={setselectedcategory}
-            >
-              <Button
-                className={cn(
-                  "mt-2 p-3 font-roboto font-normal text-base text-black justify-start opacity-70 w-full border border-[#D9D9D9] rounded-xl bg-[#F7F9FF]",
-                  selectedsubcategory && "opacity-80"
-                )}
-              >
-                {selectedsubcategory
-                  ? selectedsubcategory.name
-                  : "Select Category"}
-              </Button>
-            </CategoryModal>
-          </FormItem>
-        )}
-      />
+        <Button
+          className={cn(
+            "border border-[#D9D9D9] bg-[#F1F1F2] rounded-xl p-9 w-[154px] h-[154px] overflow-clip",
+            imagePreview && "p-0",
+            imageUrl && "p-0"
+          )}
+          onClick={() => {
+            if (imageInputRef.current) {
+              imageInputRef.current.click();
+            }
+          }}
+          type="button"
+        >
+          {!imagePreview && imageUrl && (
+            <Image
+              width={154}
+              height={154}
+              src={"https://" + imageUrl}
+              alt={form.getValues()["title"]}
+              className="w-full h-auto bg-cover bg-center"
+            />
+          )}
+          {!imagePreview && !imageUrl && <AddPhotoFillIcon />}
+          {imagePreview && (
+            <Image
+              width={154}
+              height={154}
+              src={imagePreview}
+              alt={form.getValues()["title"]}
+              className="w-[154px] h-auto bg-cover bg-center"
+            />
+          )}
+        </Button>
 
-      {/* location  */}
-      <FormField
-        control={form.control}
-        name="location"
-        render={({ field }) => (
-          <FormItem className="mt-8">
-            <div className="flex justify-between items-center">
-              <FormLabel className="font-roboto font-medium text-base text-black">
-                Location
-              </FormLabel>
-            </div>
-
-            <FormMessage />
-            <FormControl>
-              <input
-                type="text"
-                className="hidden"
-                {...field}
-                name="location"
-              />
-            </FormControl>
-            <LocationModal
-              citiesdata={citiesdata}
-              statesdata={statesdata}
-              selectedCity={selectedcity}
-              selectedState={selectedstate}
-              setSelectedCity={setselectedcity}
-              setSelectedState={setselectedstate}
-            >
-              <Button
-                className={cn(
-                  "mt-2 p-3 font-roboto font-normal text-base text-black justify-start opacity-70 w-full border border-[#D9D9D9] rounded-xl bg-[#F7F9FF]",
-                  selectedcity && "opacity-80"
-                )}
-              >
-                {selectedcity ? selectedcity.city : "Select City"}
-              </Button>
-            </LocationModal>
-          </FormItem>
-        )}
-      />
+        <div className="flex justify-between items-center">
+          <FormLabel className="font-roboto font-medium text-base text-black">
+            Add Image{" "}
+            <span className="font-roboto font-normal text-base text-black opacity-70">
+              (Optional)
+            </span>
+          </FormLabel>
+        </div>
+      </FormItem>
     </div>
   );
 }
