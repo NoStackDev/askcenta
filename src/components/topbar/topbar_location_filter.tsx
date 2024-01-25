@@ -32,6 +32,8 @@ export default function TopbarLocationFilter({
   );
 
   const onLocationChange = () => {
+    if (!selectedCity) return;
+
     const url = new URL(window.location.href);
     url.searchParams.delete("city_id");
     selectedCity &&

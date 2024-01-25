@@ -31,7 +31,7 @@ export default async function SubCategoryModal({
     <Dialog>
       <DialogTrigger>{children}</DialogTrigger>
 
-      <DialogContent className="bg-white top-[72px] h-[calc(100vh_-_72px)] md:h-4/5 flex flex-col pb-4 md:pb-8 border-t-2 border-black/5 overflow-y-auto overflow-x-hidden">
+      <DialogContent className="bg-white md:h-4/5 flex flex-col pb-4 md:pb-8 border-t-2 border-black/5 overflow-y-auto overflow-x-hidden">
         <div className="bg-white w-full py-4 md:pt-8 md:p flex justify-between items-start sticky top-0 z-40">
           <h3 className="uppercase px-4 font-poppins font-semibold text-base md:text-xl text-[#4C4B60]">
             {categorygroup}
