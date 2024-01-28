@@ -14,7 +14,11 @@ export const routeAuthorization: MiddlewareFactory = (next) => {
         (ele) => request.nextUrl.pathname.split("/")[1] !== ele
       )
     ) {
-      const absoluteURL = new URL("/login", request.nextUrl.origin);
+      const url = new URL(request.url);
+      const absoluteURL = new URL(
+        `/login?redirect=${url.pathname}`,
+        request.nextUrl.origin
+      );
       return NextResponse.redirect(absoluteURL.toString());
     }
 

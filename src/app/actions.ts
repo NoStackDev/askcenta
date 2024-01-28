@@ -1,6 +1,6 @@
 "use server";
 
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 import {
   FeedsResponse,
@@ -10,8 +10,6 @@ import {
 } from "@/types";
 import { LoginFormFields } from "./(Authenticate)/login/login_form";
 import { SignupFormField } from "./(Authenticate)/signup/signup_wrapper";
-import { fetchCities } from "@/api/location";
-import { NextResponse } from "next/server";
 
 /*
   check and get user authorization cookie and user details
@@ -41,8 +39,8 @@ function getAuthCookieInfo() {
 */
 
 export async function signupUserAction(data: SignupFormField) {
-  const headers = new Headers();
-  headers.append("Accept", "application/json");
+  const _headers = new Headers();
+  _headers.append("Accept", "application/json");
 
   const formdata = new FormData();
   formdata.append("email", data.email);
@@ -51,7 +49,7 @@ export async function signupUserAction(data: SignupFormField) {
 
   const _signupRes = await fetch(`https://askcenta.ng/api/register`, {
     method: "POST",
-    headers: headers,
+    headers: _headers,
     body: formdata,
   });
 
@@ -76,7 +74,7 @@ export async function signupUserAction(data: SignupFormField) {
 
   const _loginRes = await fetch(`https://askcenta.ng/api/login`, {
     method: "POST",
-    headers: headers,
+    headers: _headers,
     body: formdata,
   });
 
@@ -99,10 +97,10 @@ export async function signupUserAction(data: SignupFormField) {
   });
 
   // get user details after successful login
-  headers.append("Authorization", `Bearer ${loginResJson.token}`);
+  _headers.append("Authorization", `Bearer ${loginResJson.token}`);
   const _resUserDetails = await fetch("https://askcenta.ng/api/user", {
     method: "OPTIONS",
-    headers: headers,
+    headers: _headers,
   });
 
   if (!_resUserDetails.ok) {
@@ -133,8 +131,11 @@ export async function signupUserAction(data: SignupFormField) {
 
 */
 export async function loginUserAction(data: LoginFormFields) {
-  const headers = new Headers();
-  headers.append("Accept", "application/json");
+  const _headers = new Headers();
+  _headers.append("Accept", "application/json");
+  const headersList = headers();
+  const urlPath = new URL(headersList.get("x-url") || "");
+  const redirectPath = urlPath.searchParams.get("redirect");
 
   const formdata = new FormData();
   formdata.append("email", data.email);
@@ -142,7 +143,7 @@ export async function loginUserAction(data: LoginFormFields) {
 
   const _res = await fetch(`https://askcenta.ng/api/login`, {
     method: "POST",
-    headers: headers,
+    headers: _headers,
     body: formdata,
   });
 
@@ -161,10 +162,10 @@ export async function loginUserAction(data: LoginFormFields) {
     sameSite: true,
   });
 
-  headers.append("Authorization", `Bearer ${resJson.token}`);
+  _headers.append("Authorization", `Bearer ${resJson.token}`);
   const _resUserDetails = await fetch("https://askcenta.ng/api/user", {
     method: "OPTIONS",
-    headers: headers,
+    headers: _headers,
   });
 
   if (!_resUserDetails.ok) {
@@ -183,7 +184,7 @@ export async function loginUserAction(data: LoginFormFields) {
     sameSite: true,
   });
 
-  return redirect("/");
+  return redirectPath ? redirect(redirectPath) : redirect("/");
 }
 
 /*
@@ -194,13 +195,13 @@ export async function logoutUserAction() {
 
   const { token, userDetails } = getAuthCookieInfo();
 
-  const headers = new Headers();
-  headers.append("Accept", "application/json");
-  headers.append("Authorization", token);
+  const _headers = new Headers();
+  _headers.append("Accept", "application/json");
+  _headers.append("Authorization", token);
 
   const _res = await fetch(`https://askcenta.ng/api/logout`, {
     method: "POST",
-    headers: headers,
+    headers: _headers,
   });
 
   if (!_res.ok) {
@@ -229,18 +230,18 @@ export async function getUserDetailsAction(
 ) {
   const { token, userDetails } = getAuthCookieInfo();
 
-  const headers = new Headers();
-  headers.append("Accept", "application/json");
-  headers.append("Authorization", token);
+  const _headers = new Headers();
+  _headers.append("Accept", "application/json");
+  _headers.append("Authorization", token);
 
   const res = userId
     ? await fetch(`https://askcenta.ng/api/users/${userId}`, {
         method: "OPTIONS",
-        headers: headers,
+        headers: _headers,
       })
     : await fetch(`https://askcenta.ng/api/user`, {
         method: "OPTIONS",
-        headers: headers,
+        headers: _headers,
       });
 
   if (!res.ok) {
@@ -263,9 +264,9 @@ export async function getUserDetailsAction(
 export async function updateUserDetailsAction(tempData: FormData) {
   const { token, userDetails } = getAuthCookieInfo();
 
-  const headers = new Headers();
-  headers.append("Accept", "application/json");
-  headers.append("Authorization", token);
+  const _headers = new Headers();
+  _headers.append("Accept", "application/json");
+  _headers.append("Authorization", token);
   const formData = new FormData();
 
   // // append other user data
@@ -296,7 +297,7 @@ export async function updateUserDetailsAction(tempData: FormData) {
 
   const res = await fetch(`https://askcenta.ng/api/update`, {
     method: "POST",
-    headers: headers,
+    headers: _headers,
     body: tempData,
   });
 
@@ -356,15 +357,15 @@ export async function getRequestDetails(requestid: string) {
 export async function placeRequestAction(formdata: FormData) {
   const { token, userDetails } = getAuthCookieInfo();
 
-  const headers = new Headers();
-  headers.append("Authorization", token);
-  headers.append("Accept", "application/json");
+  const _headers = new Headers();
+  _headers.append("Authorization", token);
+  _headers.append("Accept", "application/json");
 
   formdata.append("user_id", userDetails.id.toString());
 
   const _res = await fetch(`https://askcenta.ng/api/requests`, {
     method: "POST",
-    headers: headers,
+    headers: _headers,
     body: formdata,
   });
 
@@ -394,15 +395,15 @@ export async function updateRequestAction(
 ) {
   const { token, userDetails } = getAuthCookieInfo();
 
-  const headers = new Headers();
-  headers.append("Authorization", token);
-  headers.append("Accept", "application/json");
+  const _headers = new Headers();
+  _headers.append("Authorization", token);
+  _headers.append("Accept", "application/json");
 
   formdata.append("user_id", userDetails.id.toString());
 
   const _res = await fetch(`https://askcenta.ng/api/requests/${requestId}`, {
     method: "POST",
-    headers: headers,
+    headers: _headers,
     body: formdata,
   });
 
@@ -431,13 +432,13 @@ export async function updateRequestAction(
 export async function deleteRequestAction(requestId: number) {
   const { token, userDetails } = getAuthCookieInfo();
 
-  const headers = new Headers();
-  headers.append("Authorization", token);
-  headers.append("Accept", "application/json");
+  const _headers = new Headers();
+  _headers.append("Authorization", token);
+  _headers.append("Accept", "application/json");
 
   const _res = await fetch(`https://askcenta.ng/api/requests/${requestId}`, {
     method: "DELETE",
-    headers: headers,
+    headers: _headers,
   });
 
   if (!_res.ok) {
@@ -466,13 +467,13 @@ export async function deleteRequestAction(requestId: number) {
 export async function fetchBookmarksAction() {
   const { token, userDetails } = getAuthCookieInfo();
 
-  const headers = new Headers();
-  headers.append("Authorization", token);
-  headers.append("Accept", "application/json");
+  const _headers = new Headers();
+  _headers.append("Authorization", token);
+  _headers.append("Accept", "application/json");
 
   const _res = await fetch(`https://askcenta.ng/api/bookmarks`, {
     method: "OPTIONS",
-    headers: headers,
+    headers: _headers,
   });
 
   if (!_res.ok) {
@@ -502,9 +503,9 @@ export async function fetchBookmarksAction() {
 export async function addBookmarkAction(requestId: string) {
   const { token, userDetails } = getAuthCookieInfo();
 
-  const headers = new Headers();
-  headers.append("Authorization", token);
-  headers.append("Accept", "application/json");
+  const _headers = new Headers();
+  _headers.append("Authorization", token);
+  _headers.append("Accept", "application/json");
 
   const data = new FormData();
   data.append("user_id", userDetails.id.toString());
@@ -512,7 +513,7 @@ export async function addBookmarkAction(requestId: string) {
 
   const _res = await fetch(`https://askcenta.ng/api/bookmarks`, {
     method: "POST",
-    headers: headers,
+    headers: _headers,
     body: data,
   });
 
@@ -621,13 +622,13 @@ export async function getFeedsActions(searchParams?: {
 export async function getAllRequestsByUser() {
   const { token, userDetails } = getAuthCookieInfo();
 
-  const headers = new Headers();
-  headers.append("Accept", "application/json");
-  headers.append("Authorization", token);
+  const _headers = new Headers();
+  _headers.append("Accept", "application/json");
+  _headers.append("Authorization", token);
 
   const res = await fetch(`http://askcenta.ng/api/requests`, {
     method: "OPTIONS",
-    headers: headers,
+    headers: _headers,
   });
 
   if (!res.ok) {
@@ -650,9 +651,9 @@ export async function getAllRequestsByUser() {
 export async function postResponseAction(formdata: FormData) {
   const { token, userDetails } = getAuthCookieInfo();
 
-  const headers = new Headers();
-  headers.append("Authorization", token);
-  headers.append("Accept", "application/json");
+  const _headers = new Headers();
+  _headers.append("Authorization", token);
+  _headers.append("Accept", "application/json");
   formdata.append("user_id", userDetails.id.toString());
 
   userDetails.whatsapp_num &&
@@ -660,7 +661,7 @@ export async function postResponseAction(formdata: FormData) {
 
   const _res = await fetch(`https://askcenta.ng/api/responses`, {
     method: "POST",
-    headers: headers,
+    headers: _headers,
     body: formdata,
   });
 
@@ -694,13 +695,13 @@ export async function postResponseAction(formdata: FormData) {
 export async function getAllResponsesByUser() {
   const { token, userDetails } = getAuthCookieInfo();
 
-  const headers = new Headers();
-  headers.append("Accept", "application/json");
-  headers.append("Authorization", token);
+  const _headers = new Headers();
+  _headers.append("Accept", "application/json");
+  _headers.append("Authorization", token);
 
   const res = await fetch(`http://askcenta.ng/api/responses`, {
     method: "OPTIONS",
-    headers: headers,
+    headers: _headers,
   });
 
   if (!res.ok) {
@@ -725,15 +726,15 @@ export async function getAllResponsesByUser() {
 export async function getUserPreferenceAction() {
   const { token, userDetails } = getAuthCookieInfo();
 
-  const headers = new Headers();
-  headers.append("Accept", "application/json");
-  headers.append("Authorization", token);
+  const _headers = new Headers();
+  _headers.append("Accept", "application/json");
+  _headers.append("Authorization", token);
 
   const res = await fetch(
     `http://askcenta.ng/api/user_preferances/${userDetails.id}`,
     {
       method: "OPTIONS",
-      headers: headers,
+      headers: _headers,
     }
   );
 
@@ -762,10 +763,10 @@ export async function updateUserPreferenceAction(data: {
   const { token, userDetails } = getAuthCookieInfo();
 
   const userPreferences: UserPreferenceType = await getUserPreferenceAction();
-  const headers = new Headers();
-  headers.append("Accept", "application/json");
-  headers.append("Content-type", "application/json");
-  headers.append("Authorization", token);
+  const _headers = new Headers();
+  _headers.append("Accept", "application/json");
+  _headers.append("Content-type", "application/json");
+  _headers.append("Authorization", token);
   data.user_id = userDetails.id;
   let formData = {};
   formData = { ...userPreferences, ...data };
@@ -774,7 +775,7 @@ export async function updateUserPreferenceAction(data: {
     `http://askcenta.ng/api/user_preferances/${userPreferences.id}`,
     {
       method: "POST",
-      headers: headers,
+      headers: _headers,
       body: JSON.stringify(formData),
     }
   );
@@ -804,16 +805,16 @@ export async function postQuestion(formData: FormData) {
   const { token, userDetails } = getAuthCookieInfo();
 
   // const userPreferences: UserPreferenceType = await getUserPreferenceAction();
-  const headers = new Headers();
-  headers.append("Accept", "application/json");
-  // headers.append("Content-type", "application/json");
-  headers.append("Authorization", token);
+  const _headers = new Headers();
+  _headers.append("Accept", "application/json");
+  // _headers.append("Content-type", "application/json");
+  _headers.append("Authorization", token);
 
   formData.append("ask_user_id", userDetails.id.toString());
 
   const res = await fetch(`http://askcenta.ng/api/questions`, {
     method: "POST",
-    headers: headers,
+    headers: _headers,
     body: formData,
   });
 
@@ -845,16 +846,16 @@ export async function postAnswer(formData: FormData) {
   const { token, userDetails } = getAuthCookieInfo();
 
   // const userPreferences: UserPreferenceType = await getUserPreferenceAction();
-  const headers = new Headers();
-  headers.append("Accept", "application/json");
-  // headers.append("Content-type", "application/json");
-  headers.append("Authorization", token);
+  const _headers = new Headers();
+  _headers.append("Accept", "application/json");
+  // _headers.append("Content-type", "application/json");
+  _headers.append("Authorization", token);
 
   // formData.append("ask_user_id", userDetails.id.toString());
 
   const res = await fetch(`http://askcenta.ng/api/answers`, {
     method: "POST",
-    headers: headers,
+    headers: _headers,
     body: formData,
   });
 
@@ -891,16 +892,16 @@ export async function postAnswer(formData: FormData) {
 
 export async function getNotifications() {
   const { token, userDetails } = getAuthCookieInfo();
-  const headers = new Headers();
-  headers.append("Accept", "application/json");
-  headers.append("Authorization", token);
+  const _headers = new Headers();
+  _headers.append("Accept", "application/json");
+  _headers.append("Authorization", token);
 
   const res = await fetch(
     `http://askcenta.ng/api/notification/${userDetails.id}`,
     {
       method: "OPTIONS",
       cache: "no-store",
-      headers: headers,
+      headers: _headers,
     }
   );
 

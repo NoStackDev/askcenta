@@ -71,7 +71,7 @@ export default function RequestActions({
 
       {!user && (
         <Link
-          href={"/login"}
+          href={`/login?redirect=/request/${requestDetailData.request.id}`}
           className="flex items-center gap-1 hover:cursor-pointer"
         >
           <FlagIcon aria-label="report" />
@@ -99,7 +99,7 @@ export default function RequestActions({
 
       {!user && (
         <Link
-          href={"/login"}
+          href={`/login?redirect=/request/${requestDetailData.request.id}`}
           className="flex items-center gap-1 hover:cursor-pointer"
         >
           <StarFilledIcon width="24" height="24" aria-label="save" />

@@ -9,7 +9,7 @@ import {
 } from "../icons";
 import { cn, month } from "@/lib/utils";
 import { RequestType, UserDetailsType } from "@/types";
-import { RequestBookmark, RespondToRequestBtn } from ".";
+import { RequestBookmark } from ".";
 import { ResponseFormWrapper } from "../response";
 import Link from "next/link";
 import { Button } from "../ui/button";
@@ -139,12 +139,20 @@ export default function RequestCard({
                 requestid={requestData.id.toString()}
                 className="z-10"
               >
-                <RespondToRequestBtn className="" />
+                <Button
+                  variant="request_card_outlined"
+                  className={cn(
+                    "hover:cursor-pointer font-roboto font-normal text-sm",
+                    className
+                  )}
+                >
+                  Respond to Request
+                </Button>
               </ResponseFormWrapper>
             )}
 
           {!user && (
-            <Link href={"/login"}>
+            <Link href={`/login?redirect=/request/${requestData.id.toString()}`}>
               <Button
                 variant="request_card_outlined"
                 className={cn(

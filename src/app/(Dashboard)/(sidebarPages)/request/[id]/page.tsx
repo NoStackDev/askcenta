@@ -53,7 +53,10 @@ export default async function RequestPage({ params }: Props) {
             "bg-white py-6 flex flex-col justify-center items-center gap-4"
           )}
         >
-          <Link href={"/login"} className="mx-4 sm:mx-0 w-4/5 sm:w-fit h-fit">
+          <Link
+            href={`/login?redirect=/request/${requestDetailData.request.id}`}
+            className="mx-4 sm:mx-0 w-4/5 sm:w-fit h-fit"
+          >
             <Button className="w-full sm:px-[108px] py-[13px] font-roboto font-medium text-base text-white bg-request-gradient rounded-3xl">
               Respond to Request
             </Button>

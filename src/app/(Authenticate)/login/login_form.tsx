@@ -63,7 +63,6 @@ export default function LoginForm({
       });
 
       if (res.isError) {
-        console.log(res);
         res.error === "Invalid" &&
           form.setError("email", {
             message: "Invalid email or password",
