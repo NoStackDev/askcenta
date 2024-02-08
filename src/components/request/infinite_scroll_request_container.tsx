@@ -46,7 +46,7 @@ export default function InfiniteScrollRequestContainer({
   React.useEffect(() => {
     async function fetchNextPage() {
       try {
-        const res = await fetch(nextPageUrl!, {
+        const res = await fetch(nextUrl!, {
           method: "OPTIONS",
         });
 
