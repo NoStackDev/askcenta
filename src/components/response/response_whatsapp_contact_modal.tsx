@@ -39,7 +39,7 @@ export default function ResponseWhatsappContactModal({
 
           <DialogClose className="mt-4">
             <Link
-              href="/"
+              href="/safetytips"
               className="underline underline-offset-2 font-roboto font-medium text-sm text-black leading-6"
             >
               Safety Tips
