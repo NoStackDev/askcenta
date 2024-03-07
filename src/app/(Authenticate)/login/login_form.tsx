@@ -173,7 +173,7 @@ export default function LoginForm({
 
           <div className="flex items-center justify-center mt-10">
             <Link
-              href="/login"
+              href="/forgot"
               className="font-roboto font-medium text-base text-black"
             >
               Forgot Password?

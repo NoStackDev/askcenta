@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import React from "react";
 import LogoutBtn from "./logout";
-import ResetPasswordBtn from "./reset_password";
+import ResetPasswordBtn from "./reset_password_btn";
 
 import ChangePreferedLocationBtn from "./change_prefered_location";
 import AnonymousSwitch from "./change_anonymous_switch";

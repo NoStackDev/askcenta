@@ -924,3 +924,76 @@ export async function getNotifications() {
   }
   return res.json();
 }
+
+/*
+  forogt password email
+*/
+export async function forgotPasswordAction(formData: FormData) {
+  const _headers = new Headers();
+  _headers.append("Accept", "application/json");
+
+  const res = await fetch(`http://askcenta.ng/api/forgot`, {
+    method: "POST",
+    cache: "no-store",
+    headers: _headers,
+    body: formData,
+  });
+
+  if (!res.ok) {
+    const errors = await res.json();
+
+    console.log(
+      `failed to send password reset otp to email ${formData.get("email")}`,
+
+      {
+        ...errors,
+      }
+    );
+
+    throw {
+      isError: true,
+      errorMessage: `failed to send password reset otp to email ${formData.get(
+        "email"
+      )}`,
+      message: errors.message,
+    };
+  }
+  return res.json();
+}
+
+/*
+ reset password
+*/
+
+export async function resetPasswordAction(formData: FormData) {
+  const _headers = new Headers();
+  _headers.append("Accept", "application/json");
+
+  const res = await fetch(`http://askcenta.ng/api/reset`, {
+    method: "POST",
+    cache: "no-store",
+    headers: _headers,
+    body: formData,
+  });
+
+  if (!res.ok) {
+    const errors = await res.json();
+
+    console.log(
+      `failed to reset password for email ${formData.get("email")}`,
+
+      {
+        ...errors,
+      }
+    );
+
+    throw {
+      isError: true,
+      errorMessage: `failed to reset password for email ${formData.get(
+        "email"
+      )}`,
+      message: errors.message,
+    };
+  }
+  return res.json();
+}
