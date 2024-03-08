@@ -332,8 +332,7 @@ export async function updateUserDetailsAction(tempData: FormData) {
 export async function getRequestDetails(requestid: string) {
   const res = await fetch(`https://www.askcenta.ng/api/requests/${requestid}`, {
     method: "OPTIONS",
-    headers: {"Accept": "Application/json"}
-}),
+    headers: {"Accept": "Application/json"},
     next: {
       revalidate: 0,
     },
@@ -557,8 +556,7 @@ export async function getFeedsActions(searchParams?: {
       `https://www.askcenta.ng/api/feeds?${params.slice(0, params.length - 1)}`,
       {
         method: "OPTIONS",
-        headers: {"Accept": "Application/json"}
-}),
+        headers: {"Accept": "Application/json"},
         next: {
           revalidate: 0,
         },
@@ -593,8 +591,7 @@ export async function getFeedsActions(searchParams?: {
 
   const res = await fetch("https://www.askcenta.ng/api/feeds", {
     method: "OPTIONS",
-    headers: {"Accept": "Application/json"}
-}),
+    headers: {"Accept": "Application/json"},
     next: {
       revalidate: 0,
     },
