@@ -49,7 +49,6 @@ export default function InfiniteScrollRequestContainer({
         const res = await fetch(nextUrl!, {
           method: "OPTIONS",
           headers: {"Accept": "Application/json"}
-}),
         });
 
         if (!res.ok) {
